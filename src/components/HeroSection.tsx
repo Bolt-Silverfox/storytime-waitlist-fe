@@ -1,4 +1,8 @@
+import { useState } from "react";
+import WaitListForm from "./WaitListForm";
+
 const HeroSection = () => {
+  const [showWaitListForm, setShowWaitListForm] = useState(false);
   return (
     <div className="font-Qilka h-screen flex-col bg-[url('/hero-bg.png')] bg-cover bg-no-repeat">
       <section className="mx-auto mt-[63px] flex w-full max-w-[948px] flex-col items-center">
@@ -17,9 +21,13 @@ const HeroSection = () => {
             to learning adventures and so much more. We can't wait!
           </p>
         </div>
-        <button className="bg-primary self-center rounded-full px-[54px] py-[18px] text-center text-2xl text-white">
+        <button
+          className="bg-primary self-center rounded-full px-[54px] py-[18px] text-center text-2xl text-white"
+          onClick={() => setShowWaitListForm(true)}
+        >
           Join the waitlist
         </button>
+        <WaitListForm showWaitListForm={showWaitListForm} />
       </section>
     </div>
   );
