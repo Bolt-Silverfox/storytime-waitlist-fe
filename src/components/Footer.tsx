@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="relative border-2 border-red-200 flex h-[1000px] w-full flex-col overflow-hidden bg-secondary  px-4 pt-15 text-white sm:px-6 md:h-[1368px] md:px-10 lg:px-16
+    <div className="relative  flex h-[1000px] w-full flex-col overflow-hidden bg-secondary  px-4 pt-15 text-white sm:px-6 md:h-[1368px] md:px-10 lg:px-16
     -top-46 -mb-46
     " style={{zIndex:-3}}>
      
