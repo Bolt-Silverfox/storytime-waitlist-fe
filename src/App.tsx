@@ -1,4 +1,5 @@
 import Explore from "./components/Explore";
+import Footer from "./components/Footer";
 import HeroSection from "./components/HeroSection";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="flex flex-col">
       <HeroSection />
       <Explore />
+      <Footer />
     </div>
   );
 }
