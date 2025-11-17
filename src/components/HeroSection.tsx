@@ -3,7 +3,7 @@ import WaitListForm from "./WaitListForm";
 const HeroSection = () => {
   const [isWaitlistOverlayOpen, setIsWaitlistOverLayOpen] = useState(false);
   return (
-    <div className="font-Qilka min-h-[130vh] min-w-full flex-col bg-[url('/hero-bg.png')] bg-cover bg-center bg-no-repeat clip-top ">
+    <div className="font-Qilka min-h-[130vh] min-w-full flex-col bg-[url('/hero-bg.png')] bg-cover bg-center bg-no-repeat clip-bottom ">
       <section className="mx-auto mt-[63px] flex w-full max-w-[948px] flex-col items-center px-5">
         <img
           src="/logo.svg"
