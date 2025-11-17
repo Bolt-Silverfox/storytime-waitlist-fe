@@ -1,6 +1,9 @@
 export default function Explore() {
   return (
-    <section className="font-abezee bg-primary clip-bottom relative -z-100 px-6 py-50 text-white -top-60" style={{zIndex:-1}}>
+    <section
+      className="font-abezee bg-primary clip-bottom relative -top-40 px-6 py-50 text-white"
+      style={{ zIndex: -1 }}
+    >
       <div className="mx-auto mt-30 max-w-[1049px]">
         <div className="">
           <h1 className="font-Qilka text-center text-2xl md:text-[48px]">
