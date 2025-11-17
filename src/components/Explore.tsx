@@ -1,9 +1,10 @@
 export default function Explore() {
   return (
-    <section className="font-abezee bg-primary clip-bottom relative -z-100 px-6 py-50 text-white -top-60" style={{zIndex:-1}}>
-      <div className="mx-auto mt-30 max-w-[1049px]">
+
+    <section className="font-abezee bg-primary min-w-full clip-bottom relative px-6 text-white -mt-12">
+      <div className="mx-auto mt-30 max-w-5xl">
         <div className="">
-          <h1 className="font-Qilka text-center text-2xl md:text-[48px]">
+          <h1 className="font-Qilka text-center text-2xl md:text-5xl">
             Explore story telling like never before
           </h1>
           <p className="mx-auto mt-[30px] max-w-[843px] text-center text-[14px] text-[#FCC1AD]">
@@ -13,12 +14,12 @@ export default function Explore() {
           </p>
         </div>
 
-        <div className="my-20 flex items-center justify-center gap-8">
-          <div className="mx-auto flex flex-wrap justify-center gap-7">
+        <div className="mt-6 md:mt-12 mb-20 flex items-center justify-center gap-8">
+          <div className="mx-auto grid md:grid-cols-2 justify-center gap-7">
             {explore.map((item, i) => (
               <div
                 key={i}
-                className="flex max-w-[510px] flex-col gap-2.5 rounded-[50px] bg-white px-[21px] pt-7 pb-9 md:px-[35px]"
+                className="flex max-w-lg flex-col gap-2.5 rounded-4xl bg-white px-5 py-8 md:px-9 w-full"
               >
                 <img src={item.icon} alt="logo" className="h-[50px] w-[50px]" />
                 <h2 className="font-Qilka text-[20px] font-bold text-[#221D1D] md:text-2xl">

@@ -51,13 +51,13 @@ const WaitListForm = ({ onClose }: Props) => {
   return (
     <section
       onClick={onClose}
-      className="fixed inset-0 flex flex-col justify-center bg-[#221D1DB2]/70 backdrop-blur-xs"
+      className="fixed inset-0 flex flex-col justify-center bg-[#221D1DB2]/70 backdrop-blur-xs z-999"
     >
       {!isSignupSuccessful ? (
         <form
           onSubmit={handleSubmit}
           onClick={(e) => e.stopPropagation()}
-          className="font-abezee mx-auto flex flex-col gap-y-8 rounded-4xl bg-white p-8 max-md:m-6 max-md:max-w-[382px] md:w-[488px]"
+          className="font-abezee mx-auto flex flex-col gap-y-8 rounded-4xl bg-white p-8 max-w-sm md:max-w-md relative z-1000"
         >
           <header className="flex flex-row items-center justify-between">
             <p className="font-abezee text-sm md:text-base">

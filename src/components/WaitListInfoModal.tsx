@@ -35,8 +35,8 @@ export default function WaitListForm({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <section className="font-abezee fixed inset-0 flex h-screen items-center justify-center bg-[#221D1DB2]/70 px-4">
-      <div className="flex max-w-[488px] flex-col gap-8 rounded-4xl bg-[#FFFFFF] p-4 md:p-8">
+    <section className="font-abezee fixed inset-0 flex mx- items-center justify-center bg-[#221D1DB2]/70 px-4">
+      <div className="flex max-w-lg flex-col gap-8 rounded-4xl bg-white p-4 md:p-8">
         <header className="flex justify-between">
           <span className="">Join our Waitlist now 🚀🚀</span>
           <Icon

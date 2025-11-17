@@ -1,21 +1,16 @@
 export default function Footer() {
   return (
-    <div className="relative flex h-[850px] w-full flex-col overflow-hidden bg-[#7A07EC] px-4 py-6 text-white sm:px-6 md:h-[1368px] md:px-10 lg:px-16">
-      <svg
-        className="absolute top-0 left-0 h-[80px] w-full sm:h-[100px] md:h-[120px] lg:h-[150px]"
-        viewBox="0 0 1440 150"
-        preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path fill="#EC4007" d="M0,0 Q360,100 720,100 T1440,0 L1440,0 Z" />
-      </svg>
 
+    <div className="relative flex w-full flex-col overflow-hidden bg-secondary px-4 py-12 text-white sm:px-6 md:px-10 lg:px-16
+    -mt-16 -z-10
+    ">
+     
       {/* floating stars */}
       <div className="absolute top-[18%] left-[8%]">
         <img
           src="star.png"
           alt="stars"
-          className="h-[39px] w-[45px] sm:h-[40px] sm:w-[40px] md:h-[45px] md:w-[45px]"
+          className="h-[39px] w-[45px] sm:h-10 sm:w-10 md:h-[45px] md:w-[45px]"
         />
       </div>
 
@@ -23,7 +18,7 @@ export default function Footer() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[38px] w-[38px] sm:h-[32px] sm:w-[32px] md:h-[48px] md:w-[48px]"
+          className="h-[38px] w-[38px] sm:h-8 sm:w-8 md:h-12 md:w-12"
         />
       </div>
 
@@ -31,7 +26,7 @@ export default function Footer() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[28px] w-[28px] sm:h-[32px] sm:w-[32px] md:h-[38px] md:w-[38px]"
+          className="h-7 w-7 sm:h-8 sm:w-8 md:h-[38px] md:w-[38px]"
         />
       </div>
 
@@ -39,7 +34,7 @@ export default function Footer() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[32px] w-[32px] sm:h-[38px] sm:w-[38px] md:h-[42px] md:w-[42px]"
+          className="h-8 w-8 sm:h-[38px] sm:w-[38px] md:h-[42px] md:w-[42px]"
         />
       </div>
 
@@ -47,7 +42,7 @@ export default function Footer() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[42px] w-[42px] sm:h-[48px] sm:w-[48px] md:h-[52px] md:w-[52px]"
+          className="h-[42px] w-[42px] sm:h-12 sm:w-12 md:h-[52px] md:w-[52px]"
         />
       </div>
 
@@ -55,7 +50,7 @@ export default function Footer() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[38px] w-[38px] sm:h-[42px] sm:w-[42px] md:h-[48px] md:w-[48px]"
+          className="h-[38px] w-[38px] sm:h-[42px] sm:w-[42px] md:h-12 md:w-12"
         />
       </div>
 
@@ -71,7 +66,7 @@ export default function Footer() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[30px] w-[30px] sm:h-[35px] sm:w-[35px] md:h-[40px] md:w-[40px]"
+          className="h-[30px] w-[30px] sm:h-[35px] sm:w-[35px] md:h-10 md:w-10"
         />
       </div>
 
@@ -79,7 +74,7 @@ export default function Footer() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[36px] w-[36px] sm:h-[40px] sm:w-[40px] md:h-[46px] md:w-[46px]"
+          className="h-9 w-9 sm:h-10 sm:w-10 md:h-[46px] md:w-[46px]"
         />
       </div>
 
@@ -87,7 +82,7 @@ export default function Footer() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[40px] w-[40px] sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px]"
+          className="h-10 w-10 sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px]"
         />
       </div>
 
@@ -95,14 +90,15 @@ export default function Footer() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[48px] w-[48px] sm:h-[52px] sm:w-[52px] md:h-[58px] md:w-[58px]"
+          className="h-12 w-12 sm:h-[52px] sm:w-[52px] md:h-[58px] md:w-[58px]"
         />
       </div>
 
       {/* container */}
-      <div className="relative z-10 mx-auto mt-16 flex h-[480px] w-full max-w-[900px] flex-col justify-between md:mt-32 md:h-[696.53px] lg:mt-36">
+
+      <div className="relative z-10 mx-auto mt-30 flex h-[480px] w-full max-w-[900px] flex-col justify-between md:mt-32 md:h-[696.53px] lg:mt-36">
         {/* image */}
-        <div className="mx-auto mb-8 mb-10 md:mb-12">
+        <div className="mx-auto mb-10 md:mb-12">
           <img
             src="/shuttle.png"
             alt="Shuttle"
@@ -127,7 +123,7 @@ export default function Footer() {
             <img
               src="/facebook.png"
               alt="Facebook"
-              className="h-auto w-[32px] cursor-pointer transition-transform hover:scale-110 sm:w-[36px] md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
             />
           </a>
 
@@ -135,7 +131,7 @@ export default function Footer() {
             <img
               src="/instagram.png"
               alt="Instagram"
-              className="h-auto w-[32px] cursor-pointer transition-transform hover:scale-110 sm:w-[36px] md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
             />
           </a>
 
@@ -143,14 +139,15 @@ export default function Footer() {
             <img
               src="/tiktok.png"
               alt="Tiktok"
-              className="h-auto w-[32px] cursor-pointer transition-transform hover:scale-110 sm:w-[36px] md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
             />
           </a>
         </div>
       </div>
 
       {/* mobile image*/}
-      <div className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2">
+
+      <div className="hidden md:block absolute -bottom-4 left-1/2 z-20 -translate-x-1/2">
         <img
           src="/mobile.png"
           alt="Mobile"
