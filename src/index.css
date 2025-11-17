@@ -25,11 +25,7 @@
   clip-path: ellipse(190% 100% at 50% 0);
 }
 
-
-
 .clip-top {
-  clip-path: ellipse(140% 100% at 50% 100%);
+  clip-path: ellipse(190% 100% at 50% 100%);
+  /* clip-path: ellipse(190% 100% at 50% 100%); */
 }
-
-
-
