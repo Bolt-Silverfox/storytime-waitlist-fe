@@ -15,7 +15,7 @@ const HeroSection = () => {
             Your kids dream of adventures, Storytime makes them into interactive
             pages
           </h1>
-          <p className="font-abezee text-center text-sm md:text-2xl">
+          <p className="font-abezee textcenter text-sm md:text-2xl">
             Access over 10,000+ Magical stories for kids, from bedtime snuggles
             to learning adventures and so much more. We can't wait!
           </p>
@@ -39,8 +39,10 @@ export default HeroSection;
 type Props = {
   onClose: () => void;
 };
+
 const WaitListInfoModal = ({ onClose }: Props) => {
   const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
+  const [errors, setErrors] = useState<{ fullName?: string; email?: string }>({});
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -49,14 +51,31 @@ const WaitListInfoModal = ({ onClose }: Props) => {
     };
   }, []);
 
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.stopPropagation();
     e.preventDefault();
+    e.stopPropagation();
+
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData);
-    console.log("form data", data);
+    const data = Object.fromEntries(formData) as { fullName: string; email: string };
+
+    const newErrors: typeof errors = {};
+    if (!data.fullName.trim()) newErrors.fullName = "Full name is required.";
+    if (!data.email.trim()) newErrors.email = "Email is required.";
+    else if (!validateEmail(data.email)) newErrors.email = "Invalid email address.";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    console.log("Form data submitted:", data);
     setIsSignupSuccessful(true);
   };
+
   return (
     <section
       onClick={onClose}
@@ -78,53 +97,56 @@ const WaitListInfoModal = ({ onClose }: Props) => {
               onClick={onClose}
             />
           </header>
-          <section
-            aria-labelledby="form explanatory text setion"
-            className="flex flex-col gap-y-[17px]"
-          >
+
+          <section className="flex flex-col gap-y-[17px]">
             <h2 className="font-Qilka text-center text-[20px] md:text-[26px]">
               Join thousands of readers
             </h2>
             <p className="text-center text-sm md:text-base">
-              Fill the form below and be the first to know when we launch. Get
-              early access and exclusive updates
+              Fill the form below and be the first to know when we launch.
             </p>
           </section>
+
           <section className="flex flex-col gap-y-6">
-            <div
-              aria-labelledby="fullname-form-item-container"
-              className="relative flex flex-col gap-y-2.5 text-[12.84px] md:text-base"
-            >
+            <div className="relative flex flex-col gap-y-2.5 text-[12.84px] md:text-base">
               <label htmlFor="fullName">Full name</label>
               <input
                 name="fullName"
                 type="text"
                 placeholder="Enter your full name"
-                className="focus:border-primary h-[50px] w-[424px] cursor-pointer rounded-full border border-[#4A413F] pl-11 transition-all duration-200 outline-none"
+                className={`focus:border-primary h-[50px] w-[424px] rounded-full border pl-11 outline-none transition-all duration-200 ${
+                  errors.fullName ? "border-red-500" : "border-[#4A413F]"
+                }`}
               />
               <Icon
                 icon={"iconamoon:profile-thin"}
                 className="absolute top-12 left-4 size-6"
               />
+              {errors.fullName && (
+                <span className="text-red-500 text-sm mt-1">{errors.fullName}</span>
+              )}
             </div>
-            <div
-              aria-labelledby="email-address-form-item-container"
-              className="relative flex flex-col gap-y-2.5 text-[12.84px] md:text-base"
-            >
-              <label htmlFor="email">Email address</label>
 
+            <div className="relative flex flex-col gap-y-2.5 text-[12.84px] md:text-base">
+              <label htmlFor="email">Email address</label>
               <input
                 name="email"
-                type="text"
-                placeholder="Enter your full name"
-                className="focus:border-primary h-[50px] w-[424px] cursor-pointer rounded-full border border-[#4A413F] pl-11 transition-all duration-200 outline-none"
+                type="email"
+                placeholder="Enter your email"
+                className={`focus:border-primary h-[50px] w-[424px] rounded-full border pl-11 outline-none transition-all duration-200 ${
+                  errors.email ? "border-red-500" : "border-[#4A413F]"
+                }`}
               />
               <Icon
                 icon={"lets-icons:message-light"}
                 className="absolute top-12 left-4 size-6"
               />
+              {errors.email && (
+                <span className="text-red-500 text-sm mt-1">{errors.email}</span>
+              )}
             </div>
           </section>
+
           <button
             type="submit"
             className="mt-0.5 cursor-pointer self-center rounded-full bg-[#FEEAE6] px-[155px] py-2.5 text-center text-[#FB9583]"
