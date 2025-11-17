@@ -43,8 +43,8 @@ export default function WaitListForm({
     return null;
   }
   return (
-    <section className="font-abezee fixed inset-0 flex h-screen items-center justify-center bg-[#221D1DB2]/70">
-      <div className="flex max-w-[488px] flex-col gap-8 rounded-4xl bg-[#FFFFFF] p-8">
+    <section className="font-abezee fixed inset-0 flex h-screen items-center justify-center bg-[#221D1DB2]/70 px-4">
+      <div className="flex max-w-[488px] flex-col gap-8 rounded-4xl bg-[#FFFFFF] p-4 md:p-8">
         <header className="flex justify-between">
           <span className="">Join our Waitlist now 🚀🚀</span>
           <Icon
@@ -81,6 +81,7 @@ export default function WaitListForm({
                 type="text"
                 id="fullName"
                 name="fullName"
+                value={fullName}
                 className="h-[30px] flex-1 py-5 outline-0 placeholder:text-[#4A413F] focus:outline-0"
                 placeholder="Enter your full name"
                 onChange={(e) => {
@@ -104,6 +105,7 @@ export default function WaitListForm({
               />
               <input
                 type="text"
+                value={email}
                 id="email"
                 name="email"
                 className="h-[30px] flex-1 py-5 outline-0 placeholder:text-[#4A413F] focus:outline-0"
