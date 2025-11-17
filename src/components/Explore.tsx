@@ -6,7 +6,7 @@ export default function Explore() {
           <h1 className="font-Qilka text-center text-2xl md:text-[48px]">
             Explore story telling like never before
           </h1>
-          <p className="mx-auto mt-[30px] max-w-[843px] text-center text-[14px] text-[#FCC1AD]">
+          <p className="mx-auto mt-[30px] max-w-[843px] text-center text-[14px] md:text-2xl text-[#FCC1AD]">
             Designed especially for children. With handpicked stories, friendly
             voices, and smart filters, it's more than entertainment it's a safe
             space for growth, imagination, and learning.
@@ -43,18 +43,18 @@ const explore = [
     icon: "/mic.png",
   },
   {
-    title: "AI-powered voices with playful, natural tones",
-    text: "Calming, expressive voices tailored to each story.",
+    title: "Parent controls for safe content selection",
+    text: "You decide what your child see's and hears.",
     icon: "/msg.png",
   },
   {
-    title: "AI-powered voices with playful, natural tones",
-    text: "Calming, expressive voices tailored to each story.",
+    title: "Interactive story modes for learning and fun",
+    text: "Learn fun stories by making decisions you like.",
     icon: "/smile.png",
   },
   {
-    title: "AI-powered voices with playful, natural tones",
-    text: "Calming, expressive voices tailored to each story.",
+    title: "Safe & Curated Content for your kids",
+    text: "Every story is reviewed for age appropriateness.",
     icon: "/shield.png",
   },
 ];
