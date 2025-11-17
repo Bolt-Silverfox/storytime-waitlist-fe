@@ -22,12 +22,12 @@
 }
 
 .clip-bottom {
-clip-path: ellipse(100% 100% at 50% 5%);
+  clip-path: ellipse(140% 100% at 50% 0);
 
 }
 
 .clip-top{
-  clip-path: ellipse(70% 40% at 50% 0);
+  clip-path: ellipse(140% 100% at 50% 0);
 
 
 }
