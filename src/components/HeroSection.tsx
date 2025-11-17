@@ -15,7 +15,7 @@ const HeroSection = () => {
             Your kids dream of adventures, Storytime makes them into interactive
             pages
           </h1>
-          <p className="font-abezee textcenter text-sm md:text-2xl">
+          <p className="font-abezee text-center text-sm md:text-2xl">
             Access over 10,000+ Magical stories for kids, from bedtime snuggles
             to learning adventures and so much more. We can't wait!
           </p>
