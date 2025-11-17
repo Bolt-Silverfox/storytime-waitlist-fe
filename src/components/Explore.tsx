@@ -1,12 +1,12 @@
 export default function Explore() {
   return (
-    <section className="font-abezee bg-primary min-w-full clip-bottom relative  px-6 sm:py-16 md:py-24 lg:py-30 text-white -top-17 -mb-17" style={{zIndex:-1}}>
+    <section className="font-abezee bg-primary clip-bottom relative -z-100 px-6 py-50 text-white -top-60" style={{zIndex:-1}}>
       <div className="mx-auto mt-30 max-w-[1049px]">
         <div className="">
           <h1 className="font-Qilka text-center text-2xl md:text-[48px]">
             Explore story telling like never before
           </h1>
-          <p className="mx-auto mt-[30px] max-w-[843px] text-center text-[14px] md:text-2xl text-[#FCC1AD]">
+          <p className="mx-auto mt-[30px] max-w-[843px] text-center text-[14px] text-[#FCC1AD]">
             Designed especially for children. With handpicked stories, friendly
             voices, and smart filters, it's more than entertainment it's a safe
             space for growth, imagination, and learning.
@@ -43,18 +43,18 @@ const explore = [
     icon: "/mic.png",
   },
   {
-    title: "Parent controls for safe content selection",
-    text: "You decide what your child see's and hears.",
+    title: "AI-powered voices with playful, natural tones",
+    text: "Calming, expressive voices tailored to each story.",
     icon: "/msg.png",
   },
   {
-    title: "Interactive story modes for learning and fun",
-    text: "Learn fun stories by making decisions you like.",
+    title: "AI-powered voices with playful, natural tones",
+    text: "Calming, expressive voices tailored to each story.",
     icon: "/smile.png",
   },
   {
-    title: "Safe & Curated Content for your kids",
-    text: "Every story is reviewed for age appropriateness.",
+    title: "AI-powered voices with playful, natural tones",
+    text: "Calming, expressive voices tailored to each story.",
     icon: "/shield.png",
   },
 ];
