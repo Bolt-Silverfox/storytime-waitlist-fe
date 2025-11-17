@@ -3,12 +3,12 @@ import WaitListForm from "./WaitListForm";
 const HeroSection = () => {
   const [isWaitlistOverlayOpen, setIsWaitlistOverLayOpen] = useState(false);
   return (
-    <div className="font-Qilka min-h-screen min-w-full flex-col bg-[url('/hero-bg.png')] bg-cover bg-center bg-no-repeat">
+    <div className="font-Qilka min-h-[130vh] min-w-full flex-col bg-[url('/hero-bg.png')] bg-cover bg-center bg-no-repeat clip-top ">
       <section className="mx-auto mt-[63px] flex w-full max-w-[948px] flex-col items-center px-5">
         <img
           src="/logo.svg"
           alt="storytime 4 kids logo"
-          className="h-[35px] w-[244px]"
+          className="h-[35px] w-[244px] "
         />
         <div className="mt-[35.82px] mb-[19px] flex flex-col gap-y-[12.17px] text-white md:mt-[60px] md:mb-[50px] md:gap-y-8">
           <h1 className="text-center text-2xl md:text-5xl lg:text-[64px]">

@@ -20,3 +20,14 @@
   --color-primary: #ec4007;
   --color-secondary: #7a07ec;
 }
+
+.clip-bottom {
+  clip-path: ellipse(140% 100% at 50% 0);
+
+}
+
+.clip-top{
+  clip-path: ellipse(140% 100% at 50% 0);
+
+
+}
