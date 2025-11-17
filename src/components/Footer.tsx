@@ -1,9 +1,15 @@
 export default function Footer() {
   return (
-    <div className="relative  flex h-[1000px] w-full flex-col overflow-hidden bg-secondary  px-4 pt-15 text-white sm:px-6 md:h-[1368px] md:px-10 lg:px-16
-    -top-46 -mb-46
-    " style={{zIndex:-3}}>
-     
+    <div className="relative flex h-[850px] w-full flex-col overflow-hidden bg-[#7A07EC] px-4 py-6 text-white sm:px-6 md:h-[1368px] md:px-10 lg:px-16">
+      <svg
+        className="absolute top-0 left-0 h-[80px] w-full sm:h-[100px] md:h-[120px] lg:h-[150px]"
+        viewBox="0 0 1440 150"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path fill="#EC4007" d="M0,0 Q360,100 720,100 T1440,0 L1440,0 Z" />
+      </svg>
+
       {/* floating stars */}
       <div className="absolute top-[18%] left-[8%]">
         <img
@@ -94,7 +100,7 @@ export default function Footer() {
       </div>
 
       {/* container */}
-      <div className="relative  z-10 mx-auto mt-30 flex h-[480px] w-full max-w-[900px] flex-col justify-between md:mt-32 md:h-[696.53px] lg:mt-36">
+      <div className="relative z-10 mx-auto mt-16 flex h-[480px] w-full max-w-[900px] flex-col justify-between md:mt-32 md:h-[696.53px] lg:mt-36">
         {/* image */}
         <div className="mx-auto mb-8 mb-10 md:mb-12">
           <img
@@ -105,7 +111,7 @@ export default function Footer() {
         </div>
 
         {/* content */}
-        <div className="mb-8 flex flex-col  gap-4 text-center sm:mb-10 sm:gap-5 md:gap-6">
+        <div className="mb-8 flex flex-col gap-4 text-center sm:mb-10 sm:gap-5 md:gap-6">
           <h2 className="font-Qilka px-4 text-4xl leading-tight font-bold sm:text-5xl md:text-6xl lg:text-[64px]">
             30 days left to launch!
           </h2>
@@ -117,7 +123,7 @@ export default function Footer() {
 
         {/* icons */}
         <div className="mx-auto mb-12 flex items-center justify-center gap-4 sm:mb-16 sm:gap-5 md:gap-6">
-          <a href="www.facebook.com">
+          <a href="https://web.facebook.com/?_rdc=1&_rdr#" target="blank">
             <img
               src="/facebook.png"
               alt="Facebook"
@@ -125,7 +131,7 @@ export default function Footer() {
             />
           </a>
 
-          <a href="www.instagram.com">
+          <a href="https://www.instagram.com/" target="blank">
             <img
               src="/instagram.png"
               alt="Instagram"
@@ -133,7 +139,7 @@ export default function Footer() {
             />
           </a>
 
-          <a href="www.tiktok.com">
+          <a href="https://www.tiktok.com/en/" target="black">
             <img
               src="/tiktok.png"
               alt="Tiktok"
@@ -144,7 +150,7 @@ export default function Footer() {
       </div>
 
       {/* mobile image*/}
-      <div className="absolute -bottom-4 left-1/2 z-20 -translate-x-1/2">
+      <div className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2">
         <img
           src="/mobile.png"
           alt="Mobile"
