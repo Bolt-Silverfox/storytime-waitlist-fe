@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
 
-    <div className="relative flex w-full flex-col overflow-hidden bg-secondary px-4 py-12 text-white sm:px-6 md:px-10 lg:px-16
+    <div className="relative flex w-full flex-col overflow-hidden bg-secondary px-4 py-12 text-white sm:px-6 md:px-10 md:pb-0 lg:px-16
     -mt-16 -z-10
     ">
      
@@ -146,8 +146,7 @@ export default function Footer() {
       </div>
 
       {/* mobile image*/}
-
-      <div className="hidden md:block absolute -bottom-4 left-1/2 z-20 -translate-x-1/2">
+      <div className="hidden md:block mx-auto">
         <img
           src="/mobile.png"
           alt="Mobile"
