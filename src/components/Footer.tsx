@@ -1,15 +1,9 @@
 export default function Footer() {
   return (
-    <div className="relative flex h-[850px] w-full flex-col overflow-hidden bg-[#7A07EC] px-4 py-6 text-white sm:px-6 md:h-[1368px] md:px-10 lg:px-16">
-      <svg
-        className="absolute top-0 left-0 h-[80px] w-full sm:h-[100px] md:h-[120px] lg:h-[150px]"
-        viewBox="0 0 1440 150"
-        preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path fill="#EC4007" d="M0,0 Q360,100 720,100 T1440,0 L1440,0 Z" />
-      </svg>
-
+    <div
+      className="bg-secondary relative -top-56 -mb-56 flex h-[850px] w-full flex-col overflow-hidden px-4 py-6 text-white sm:px-6 md:h-[1368px] md:px-10 lg:px-16"
+      style={{ zIndex: -13 }}
+    >
       {/* floating stars */}
       <div className="absolute top-[18%] left-[8%]">
         <img
