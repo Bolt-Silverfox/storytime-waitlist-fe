@@ -29,9 +29,6 @@ const HeroSection = ({ openWaitlist }: { openWaitlist: () => void }) => {
         >
           Join the waitlist
         </button>
-        {isWaitlistOverlayOpen && (
-          <WaitListForm onClose={() => setIsWaitlistOverLayOpen(false)} />
-        )}
       </section>
     </div>
   );
