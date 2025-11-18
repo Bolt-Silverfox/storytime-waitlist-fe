@@ -51,8 +51,11 @@ const WaitListForm = ({ onClose }: Props) => {
       console.log("Form data submitted:", data);
 
       const response = await fetch(import.meta.env.VITE_API_URL, {
-        body: JSON.stringify(data),
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
