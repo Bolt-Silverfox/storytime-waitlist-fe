@@ -1,24 +1,25 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Qilkabold";
+  font-family: "quilka";
   src: url("/src/assets/fonts/Qilkabold-DO6BR.otf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Abeezee";
+  font-family: "abeezee";
   src: url("/src/assets/fonts/ABeeZee-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @theme {
-  --font-abezee: "Abeezee", sans-serif;
-  --font-Qilka: "Qilkabold", arial;
+  --font-abezee: "abeezee", sans-serif;
+  --font-quilka: "quilka", arial;
   --color-primary: #ec4007;
   --color-secondary: #7a07ec;
+  --color-dark: #190a02;
 }
 
 .clip-bottom {
