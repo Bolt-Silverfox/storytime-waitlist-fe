@@ -9,181 +9,229 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
-import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-import { Route as HowItWorksRouteImport } from './routes/how-it-works'
-import { Route as FrequentlyAskedQuestionsRouteImport } from './routes/frequently-asked-questions'
-import { Route as ContactUsRouteImport } from './routes/contact-us'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as WaitlistRouteImport } from './routes/waitlist'
+import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
+import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutTermsAndConditionsRouteImport } from './routes/_layout/terms-and-conditions'
+import { Route as LayoutPrivacyPolicyRouteImport } from './routes/_layout/privacy-policy'
+import { Route as LayoutHowItWorksRouteImport } from './routes/_layout/how-it-works'
+import { Route as LayoutFrequentlyAskedQuestionsRouteImport } from './routes/_layout/frequently-asked-questions'
+import { Route as LayoutContactUsRouteImport } from './routes/_layout/contact-us'
+import { Route as LayoutAboutRouteImport } from './routes/_layout/about'
 
-const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
-  id: '/terms-and-conditions',
-  path: '/terms-and-conditions',
+const WaitlistRoute = WaitlistRouteImport.update({
+  id: '/waitlist',
+  path: '/waitlist',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
-  id: '/privacy-policy',
-  path: '/privacy-policy',
+const LayoutRouteRoute = LayoutRouteRouteImport.update({
+  id: '/_layout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HowItWorksRoute = HowItWorksRouteImport.update({
-  id: '/how-it-works',
-  path: '/how-it-works',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FrequentlyAskedQuestionsRoute =
-  FrequentlyAskedQuestionsRouteImport.update({
-    id: '/frequently-asked-questions',
-    path: '/frequently-asked-questions',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ContactUsRoute = ContactUsRouteImport.update({
-  id: '/contact-us',
-  path: '/contact-us',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
+const LayoutIndexRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutTermsAndConditionsRoute =
+  LayoutTermsAndConditionsRouteImport.update({
+    id: '/terms-and-conditions',
+    path: '/terms-and-conditions',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutPrivacyPolicyRoute = LayoutPrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutHowItWorksRoute = LayoutHowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutFrequentlyAskedQuestionsRoute =
+  LayoutFrequentlyAskedQuestionsRouteImport.update({
+    id: '/frequently-asked-questions',
+    path: '/frequently-asked-questions',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutContactUsRoute = LayoutContactUsRouteImport.update({
+  id: '/contact-us',
+  path: '/contact-us',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutAboutRoute = LayoutAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact-us': typeof ContactUsRoute
-  '/frequently-asked-questions': typeof FrequentlyAskedQuestionsRoute
-  '/how-it-works': typeof HowItWorksRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
-  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/waitlist': typeof WaitlistRoute
+  '/about': typeof LayoutAboutRoute
+  '/contact-us': typeof LayoutContactUsRoute
+  '/frequently-asked-questions': typeof LayoutFrequentlyAskedQuestionsRoute
+  '/how-it-works': typeof LayoutHowItWorksRoute
+  '/privacy-policy': typeof LayoutPrivacyPolicyRoute
+  '/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
+  '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact-us': typeof ContactUsRoute
-  '/frequently-asked-questions': typeof FrequentlyAskedQuestionsRoute
-  '/how-it-works': typeof HowItWorksRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
-  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/waitlist': typeof WaitlistRoute
+  '/about': typeof LayoutAboutRoute
+  '/contact-us': typeof LayoutContactUsRoute
+  '/frequently-asked-questions': typeof LayoutFrequentlyAskedQuestionsRoute
+  '/how-it-works': typeof LayoutHowItWorksRoute
+  '/privacy-policy': typeof LayoutPrivacyPolicyRoute
+  '/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
+  '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact-us': typeof ContactUsRoute
-  '/frequently-asked-questions': typeof FrequentlyAskedQuestionsRoute
-  '/how-it-works': typeof HowItWorksRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
-  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/_layout': typeof LayoutRouteRouteWithChildren
+  '/waitlist': typeof WaitlistRoute
+  '/_layout/about': typeof LayoutAboutRoute
+  '/_layout/contact-us': typeof LayoutContactUsRoute
+  '/_layout/frequently-asked-questions': typeof LayoutFrequentlyAskedQuestionsRoute
+  '/_layout/how-it-works': typeof LayoutHowItWorksRoute
+  '/_layout/privacy-policy': typeof LayoutPrivacyPolicyRoute
+  '/_layout/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
+  '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
+    | '/waitlist'
     | '/about'
     | '/contact-us'
     | '/frequently-asked-questions'
     | '/how-it-works'
     | '/privacy-policy'
     | '/terms-and-conditions'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
+    | '/waitlist'
     | '/about'
     | '/contact-us'
     | '/frequently-asked-questions'
     | '/how-it-works'
     | '/privacy-policy'
     | '/terms-and-conditions'
+    | '/'
   id:
     | '__root__'
-    | '/'
-    | '/about'
-    | '/contact-us'
-    | '/frequently-asked-questions'
-    | '/how-it-works'
-    | '/privacy-policy'
-    | '/terms-and-conditions'
+    | '/_layout'
+    | '/waitlist'
+    | '/_layout/about'
+    | '/_layout/contact-us'
+    | '/_layout/frequently-asked-questions'
+    | '/_layout/how-it-works'
+    | '/_layout/privacy-policy'
+    | '/_layout/terms-and-conditions'
+    | '/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  ContactUsRoute: typeof ContactUsRoute
-  FrequentlyAskedQuestionsRoute: typeof FrequentlyAskedQuestionsRoute
-  HowItWorksRoute: typeof HowItWorksRoute
-  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
-  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
+  LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
+  WaitlistRoute: typeof WaitlistRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/terms-and-conditions': {
-      id: '/terms-and-conditions'
-      path: '/terms-and-conditions'
-      fullPath: '/terms-and-conditions'
-      preLoaderRoute: typeof TermsAndConditionsRouteImport
+    '/waitlist': {
+      id: '/waitlist'
+      path: '/waitlist'
+      fullPath: '/waitlist'
+      preLoaderRoute: typeof WaitlistRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/privacy-policy': {
-      id: '/privacy-policy'
-      path: '/privacy-policy'
-      fullPath: '/privacy-policy'
-      preLoaderRoute: typeof PrivacyPolicyRouteImport
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof LayoutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/how-it-works': {
-      id: '/how-it-works'
-      path: '/how-it-works'
-      fullPath: '/how-it-works'
-      preLoaderRoute: typeof HowItWorksRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/frequently-asked-questions': {
-      id: '/frequently-asked-questions'
-      path: '/frequently-asked-questions'
-      fullPath: '/frequently-asked-questions'
-      preLoaderRoute: typeof FrequentlyAskedQuestionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact-us': {
-      id: '/contact-us'
-      path: '/contact-us'
-      fullPath: '/contact-us'
-      preLoaderRoute: typeof ContactUsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/_layout/': {
+      id: '/_layout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof LayoutIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/terms-and-conditions': {
+      id: '/_layout/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof LayoutTermsAndConditionsRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/privacy-policy': {
+      id: '/_layout/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof LayoutPrivacyPolicyRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/how-it-works': {
+      id: '/_layout/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof LayoutHowItWorksRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/frequently-asked-questions': {
+      id: '/_layout/frequently-asked-questions'
+      path: '/frequently-asked-questions'
+      fullPath: '/frequently-asked-questions'
+      preLoaderRoute: typeof LayoutFrequentlyAskedQuestionsRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/contact-us': {
+      id: '/_layout/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
+      preLoaderRoute: typeof LayoutContactUsRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/about': {
+      id: '/_layout/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof LayoutAboutRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
   }
 }
 
+interface LayoutRouteRouteChildren {
+  LayoutAboutRoute: typeof LayoutAboutRoute
+  LayoutContactUsRoute: typeof LayoutContactUsRoute
+  LayoutFrequentlyAskedQuestionsRoute: typeof LayoutFrequentlyAskedQuestionsRoute
+  LayoutHowItWorksRoute: typeof LayoutHowItWorksRoute
+  LayoutPrivacyPolicyRoute: typeof LayoutPrivacyPolicyRoute
+  LayoutTermsAndConditionsRoute: typeof LayoutTermsAndConditionsRoute
+  LayoutIndexRoute: typeof LayoutIndexRoute
+}
+
+const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
+  LayoutAboutRoute: LayoutAboutRoute,
+  LayoutContactUsRoute: LayoutContactUsRoute,
+  LayoutFrequentlyAskedQuestionsRoute: LayoutFrequentlyAskedQuestionsRoute,
+  LayoutHowItWorksRoute: LayoutHowItWorksRoute,
+  LayoutPrivacyPolicyRoute: LayoutPrivacyPolicyRoute,
+  LayoutTermsAndConditionsRoute: LayoutTermsAndConditionsRoute,
+  LayoutIndexRoute: LayoutIndexRoute,
+}
+
+const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
+  LayoutRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  ContactUsRoute: ContactUsRoute,
-  FrequentlyAskedQuestionsRoute: FrequentlyAskedQuestionsRoute,
-  HowItWorksRoute: HowItWorksRoute,
-  PrivacyPolicyRoute: PrivacyPolicyRoute,
-  TermsAndConditionsRoute: TermsAndConditionsRoute,
+  LayoutRouteRoute: LayoutRouteRouteWithChildren,
+  WaitlistRoute: WaitlistRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import PageTitle from "../components/PageTitle";
+import PageTitle from "../../components/PageTitle";
 
-export const Route = createFileRoute("/terms-and-conditions")({
+export const Route = createFileRoute("/_layout/contact-us")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   return (
     <div className="flex-1">
-      <PageTitle title="Terms and conditions" />
+      <PageTitle title="Contact us" />
     </div>
   );
 }

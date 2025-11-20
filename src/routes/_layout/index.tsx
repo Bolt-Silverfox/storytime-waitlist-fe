@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import PageTitle from "../components/PageTitle";
+import PageTitle from "../../components/PageTitle";
 
-export const Route = createFileRoute("/")({
-  component: Index,
+export const Route = createFileRoute("/_layout/")({
+  component: RouteComponent,
 });
 
-function Index() {
+function RouteComponent() {
   return (
     <section>
       <PageTitle title="Storytime4kids - where magical stories grow smarter kids" />

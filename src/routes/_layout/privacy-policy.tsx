@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import PageTitle from "../components/PageTitle";
+import PageTitle from "../../components/PageTitle";
 
-export const Route = createFileRoute("/privacy-policy")({
+export const Route = createFileRoute("/_layout/privacy-policy")({
   component: RouteComponent,
 });
 
