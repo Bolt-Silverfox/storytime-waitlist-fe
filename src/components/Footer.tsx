@@ -22,10 +22,10 @@ const footerLinks = [
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-row items-center justify-between bg-[#363232] py-[63px]">
+    <footer className="flex flex-col items-center justify-between gap-y-10 bg-[#363232] py-[63px] md:flex-row">
       <img src="/public/logo.svg" alt="storytime logo image" />
-      <nav className="flex flex-row">
-        <ul className="flex flex-1 flex-row items-center gap-x-[27px]">
+      <nav className="flex">
+        <ul className="flex flex-1 flex-col items-center gap-x-[27px] gap-y-4 md:flex-row">
           {footerLinks.map((link) => (
             <li key={link.route}>
               <Link className="font-abeezee text-white" to={link.route}>

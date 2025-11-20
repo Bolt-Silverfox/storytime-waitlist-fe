@@ -8,9 +8,9 @@ export const Route = createFileRoute("/_layout")({
 
 function RouteComponent() {
   return (
-    <div className="flex min-h-dvh min-w-dvw flex-col gap-y-[61px]">
+    <div className="flex min-h-dvh max-w-dvw flex-col gap-y-[61px]">
       <Header />
-      <div className="flex flex-1 flex-col">
+      <div className="flex w-full flex-1 flex-col">
         <Outlet />
       </div>
       <Footer />

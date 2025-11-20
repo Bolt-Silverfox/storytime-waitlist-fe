@@ -1,10 +1,8 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 
 const RootLayout = () => (
-  <div className="flex min-h-dvh min-w-dvw flex-col gap-y-[61px]">
-    <div className="flex flex-1 flex-col">
-      <Outlet />
-    </div>
+  <div className="flex min-h-dvh max-w-dvw flex-col gap-y-[61px]">
+    <Outlet />
   </div>
 );
 
