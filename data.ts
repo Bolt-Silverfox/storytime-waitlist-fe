@@ -52,7 +52,7 @@ const termsAndConditionsData: {
   index: string;
 }[] = [
   {
-    heading: "Intrduction and Acceptance",
+    heading: "Introduction and Acceptance",
     paragraph:
       'This document ("Terms") constitutes a legally binding agreement between you (the "User," "Parent," or "Guardian") and StoryTime4Kids ("Company," "We," or "Us") regarding your access and use of our digital library and app service (the "Service"). By accessing, using, or subscribing to the Service, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you may not use the Service.',
     index: "I",
