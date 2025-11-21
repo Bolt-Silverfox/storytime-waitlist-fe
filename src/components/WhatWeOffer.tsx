@@ -25,46 +25,50 @@ export default function WhatWeOffer() {
 
   return (
     <div>
-      <section className=" md:max-w-[1239px] mx-auto mt-40">
-        <div className="container mx-auto px-4">
-          <h2 className="font-Qilka mb-15 text-center md:text-[56px] font-bold text-[#231F1E] ">
+      <section className="md:max-w-[1239px] mx-auto mt-20 md:mt-40 px-4">
+        <div className="container mx-auto">
+          <h2 className="font-Qilka mb-8 md:mb-15 text-center text-3xl md:text-[56px] font-bold text-[#231F1E]">
             What we offer your kids
           </h2>
 
-          <div className="mx-auto grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="flex h-[520px] w-[392px] flex-col justify-between rounded-[31.28px] p-8 shadow-lg"
+                className="flex h-auto md:h-[520px] flex-col justify-between rounded-[31.28px] p-6 md:p-8 shadow-lg"
                 style={{ background: feature.bgColor }}
               >
                 <div
                   style={{ background: feature.elipse }}
-                  className="relative mx-auto flex h-[262px] w-[262px] items-center justify-center rounded-full"
+                  className="relative mx-auto flex h-48 w-48 md:h-[262px] md:w-[262px] items-center justify-center rounded-full mb-6 md:mb-4"
                 >
                   <img
                     src="Vector.png"
-                    className="absolute top-[40px] left-[130px] h-[20px] w-[20px]"
+                    className="absolute h-4 w-4 md:h-[20px] md:w-[20px]"
+                    style={{ top: "40px", left: "130px" }}
                   />
 
                   <img
                     src="Vector.png"
-                    className="absolute top-[200px] left-[260px] h-[20px] w-[20px]"
+                    className="absolute h-4 w-4 md:h-[20px] md:w-[20px]"
+                    style={{ top: "200px", left: "260px" }}
                   />
 
                   <img
                     src="Vector.png"
-                    className="absolute top-[220px] left-[150px] h-[20px] w-[20px]"
+                    className="absolute h-4 w-4 md:h-[20px] md:w-[20px]"
+                    style={{ top: "220px", left: "150px" }}
                   />
 
                   <img
                     src="Vector.png"
-                    className="absolute top-[170px] left-[22px] h-[24px] w-[24px]"
+                    className="absolute h-5 w-5 md:h-[24px] md:w-[24px]"
+                    style={{ top: "170px", left: "22px" }}
                   />
 
-                  <div className="mb-4 text-center">
+                  <div className="text-center">
                     <img
-                      className="h-[191px] w-[246px]"
+                      className="h-32 w-40 md:h-[191px] md:w-[246px]"
                       src={feature.icon}
                       alt="card-icon"
                     />
@@ -73,7 +77,7 @@ export default function WhatWeOffer() {
 
                 <h3
                   style={{ color: feature.color }}
-                  className="font-abezee h-[126px] w-[313px] text-[32px] leading-[41.71px]"
+                  className="font-abezee text-xl md:text-[32px] md:leading-[41.71px] leading-snug"
                 >
                   {feature.title}
                 </h3>
