@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import FaqComponent from "../../components/faqComponent";
+import FaqComponent from "../../components/FaqComponent";
 export const Route = createFileRoute("/_layout/frequently-asked-questions")({
   component: RouteComponent,
 });
@@ -16,15 +16,10 @@ function RouteComponent() {
         <li className="min-w-[132px] h-10 bg-[#E8E4E4] rounded-[20px] px-[21px] py-1">Safety and privacy</li>
         <li className="min-w-[132px] h-10 bg-[#E8E4E4] rounded-[20px] px-[21px] py-1">Subscription and billing</li>
       </ul>
-      <div className="grid grid-cols-2 mt-[51px] gap-x-5 gap-y-[30px]">
-        <FaqComponent question={"How do I upgrade my subscription?"} />
-        <FaqComponent question={"How do I upgrade my subscription?"} />
-        <FaqComponent question={"Are the stories safe for kids?"} />
-        <FaqComponent question={"Are the stories safe for kids?"} />
-        <FaqComponent question={"Do I need internet to listen?"} />
-        <FaqComponent question={"Do I need internet to listen?"} />
-        <FaqComponent question={"Can parents track reading progress?"} />
-        <FaqComponent question={"Can parents track reading progress?"} />
+      <div className="mt-[61px] flex flex-col gap-8">
+        <FaqComponent question="How do I upgrade my subscription?" answer="To upgrade your Storytime subscription, open the app or website, log into your account, go to subscription settings, choose the premium plan, and follow the prompts, or if you subscribed through the App Store or Google Play, upgrade through your device settings, or contact support@storytimeapp.me for help." />
+        <FaqComponent question="How do I upgrade my subscription?" answer="To upgrade your Storytime subscription, open the app or website, log into your account, go to subscription settings, choose the premium plan, and follow the prompts, or if you subscribed through the App Store or Google Play, upgrade through your device settings, or contact support@storytimeapp.me for help." />
+        
       </div>
     </div>
   );
