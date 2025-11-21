@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import WhatWeOffer from "../../components/WhatWeOffer";
 import Categories from "../../components/Categories";
+import Details from "../../components/Details";
+import ParentalControls from "../../components/ParentalControl";
+import Features from "../../components/Features";
+import Testimonial from "../../components/Testimonial";
 
 export const Route = createFileRoute("/_layout/")({
   component: RouteComponent,
@@ -94,9 +98,13 @@ function RouteComponent() {
     </section>
 
     {/* multiple components to be rendered from here */}
-    <div className="md:w-[1280px] mx-auto md:h-[4078px] border-2 border-red-300 ">
+    <div className="md:w-[1280px] mx-auto  border-2 border-red-300 ">
         <WhatWeOffer />
         <Categories />
+        <Details />
+        <ParentalControls />
+        <Features />
+        <Testimonial />
     </div>
 
     </main>

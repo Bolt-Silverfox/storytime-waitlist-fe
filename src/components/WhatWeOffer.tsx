@@ -25,7 +25,7 @@ export default function WhatWeOffer() {
 
   return (
     <div>
-      <section className=" md:max-w-[1239px] py-12">
+      <section className=" md:max-w-[1239px] mx-auto mt-40">
         <div className="container mx-auto px-4">
           <h2 className="font-Qilka mb-15 text-center md:text-[56px] font-bold text-[#231F1E] ">
             What we offer your kids
