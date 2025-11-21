@@ -91,7 +91,7 @@ const termsAndConditionsData: {
     index: "VI",
   },
   {
-    heading: "Goverling Law and Disputes",
+    heading: "Governing Law and Disputes",
     paragraph:
       "These Terms shall be governed by the laws of [Your Jurisdiction, e.g., the State of California], without regard to its conflict of law provisions. Any disputes must first be attempted to be resolved through good faith negotiation or binding arbitration as set forth in the full policy document.",
     index: "VII",

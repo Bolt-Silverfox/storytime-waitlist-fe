@@ -96,7 +96,7 @@ export default function WaitListFooter() {
       {/* container */}
       <div className="relative z-10 mx-auto mt-16 flex h-[480px] w-full max-w-[900px] flex-col justify-between md:mt-32 md:h-[696.53px] lg:mt-36">
         {/* image */}
-        <div className="mx-auto mb-8 mb-10 md:mb-12">
+        <div className="mx-auto mb-10 md:mb-12">
           <img
             src="/shuttle.png"
             alt="Shuttle"
@@ -133,7 +133,7 @@ export default function WaitListFooter() {
             />
           </a>
 
-          <a href="https://www.tiktok.com/en/" target="black">
+          <a href="https://www.tiktok.com/en/" target="blank">
             <img
               src="/tiktok.png"
               alt="Tiktok"
