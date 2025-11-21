@@ -5,6 +5,7 @@ import Details from "../../components/Details";
 import ParentalControls from "../../components/ParentalControl";
 import Features from "../../components/Features";
 import Testimonial from "../../components/Testimonial";
+import Questions from "../../components/Questions";
 
 export const Route = createFileRoute("/_layout/")({
   component: RouteComponent,
@@ -105,6 +106,7 @@ function RouteComponent() {
         <ParentalControls />
         <Features />
         <Testimonial />
+        <Questions />
     </div>
 
     </main>
