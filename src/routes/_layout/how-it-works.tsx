@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_layout/how-it-works")({
 function RouteComponent() {
   return (
     <div className="flex-1">
-      <PageTitle title="Frequently asked questions" />
+      <PageTitle title="How it works" />
     </div>
   );
 }
