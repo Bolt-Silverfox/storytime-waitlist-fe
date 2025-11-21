@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import Icon from "./Icon";
+
 
 const footerLinks = [
   {
@@ -22,7 +22,7 @@ const footerLinks = [
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-col items-center justify-between gap-y-10 bg-[#363232] py-[63px] md:flex-row">
+    <footer className="flex flex-col items-center justify-between gap-y-10 bg-[#363232] px-20 py-[63px] md:flex-row">
       <img src="/logo.svg" alt="storytime logo image" />
       <nav className="flex">
         <ul className="flex flex-1 flex-col items-center gap-x-[27px] gap-y-4 md:flex-row">
@@ -37,13 +37,13 @@ const Footer: React.FC = () => {
       </nav>
       <ul className="flex flex-row gap-x-4">
         <li>
-          <Icon color="white" name="Facebook" />
+          <img src="/facebook.png" alt="Facebook" width={40} height={40} />
         </li>
         <li>
-          <Icon color="white" name="Instagram" />
+          <img src="/instagram.png" alt="Instagram" width={40} height={40} />
         </li>
         <li>
-          <Icon color="white" name="Twitter" />
+          <img src="/tiktok.png" alt="TikTok" width={40} height={40} />
         </li>
       </ul>
     </footer>
