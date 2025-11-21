@@ -17,7 +17,7 @@ const FaqComponent = ({
         {/* Question bubble */}
         <div
           onClick={() => setOpen(!open)}
-          className="relative w-full h-24 px-[34px] py-[18px] cursor-pointer rounded-[14px] flex"
+          className="relative w-full h-24 px-[34px] py-[18px] rounded-[14px] flex"
         >
           <svg
             className="absolute inset-0 w-full h-full rounded-[14px] -z-10"
@@ -38,7 +38,7 @@ const FaqComponent = ({
         {/* Icon button EXACTLY LIKE YOUR ORIGINAL */}
         <button
           onClick={() => setOpen(!open)}
-          className="bg-[#FFF2EC] p-5 rounded-[975px] -mt-4"
+          className="bg-[#FFF2EC] p-5 rounded-[975px] -mt-4 cursor-pointer"
         >
           {open ? (
             <Minus color="#EC4007" size={20} strokeWidth={4} />
