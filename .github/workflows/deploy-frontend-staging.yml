@@ -1,0 +1,84 @@
+name: Deploy Frontend to Staging
+
+on:
+    push:
+        branches:
+            - dev       # Trigger on dev branch
+    workflow_dispatch: # Allow manual trigger
+
+jobs:
+    deploy:
+        name: Build and Deploy Frontend (Staging)
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+
+            - name: Install dependencies
+              run: pnpm install --no-frozen-lockfile
+
+            - name: Build frontend
+              run: pnpm build
+              env:
+                  VITE_API_URL: https://api.staging.zhu-clan.emerj.net/api/v1/waitlist/subscribe
+                  VITE_APP_NAME: "Storytime Waitlist - Staging"
+                  VITE_APP_URL: https://staging.zhu-clan.emerj.net
+
+            - name: Deploy to server via SSH
+              uses: appleboy/ssh-action@v1.0.0
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  port: 22
+                  script: |
+                      sudo mkdir -p /var/www/storytime-waitlist/staging
+                      sudo rm -rf /var/www/storytime-waitlist/staging/*
+
+            - name: Copy files to server
+              uses: appleboy/scp-action@v0.1.4
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  port: 22
+                  source: "dist/*"
+                  target: "/tmp/frontend-deploy"
+                  strip_components: 1
+
+            - name: Move files and set permissions
+              uses: appleboy/ssh-action@v1.0.0
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  port: 22
+                  script: |
+                      sudo cp -r /tmp/frontend-deploy/* /var/www/storytime-waitlist/staging/
+                      sudo chown -R www-data:www-data /var/www/storytime-waitlist/staging
+                      sudo find /var/www/storytime-waitlist/staging -type d -exec chmod 755 {} \;
+                      sudo find /var/www/storytime-waitlist/staging -type f -exec chmod 644 {} \;
+                      rm -rf /tmp/frontend-deploy
+                      sudo systemctl reload nginx || true
+
+                      echo "✅ Frontend staging deployed successfully!"
+
+            - name: Notify deployment status
+              if: always()
+              run: |
+                  if [ "${{ job.status }}" == "success" ]; then
+                    echo "🎉 Staging deployment successful! Visit https://dev.zhu-clan.emerj.net"
+                  else
+                    echo "❌ Staging deployment failed!"
+                  fi
