@@ -21,8 +21,8 @@ const navLinks = [
 
 const Header: React.FC = () => {
   return (
-    <header className="hidden w-full flex-row items-center justify-between pt-[63px] md:flex">
-      <img src="/public/logo.svg" alt="storytime logo image" />
+    <header className="hidden w-full flex-row items-center justify-between pt-[63px] pl-[114px] md:flex">
+      <img src="/public/logo.svg" alt="storytime logo image" className="w-[164px] h-6" />
       <nav className="flex flex-row">
         <ul className="flex flex-1 flex-row items-center gap-x-[27px]">
           {navLinks.map((link) => (
