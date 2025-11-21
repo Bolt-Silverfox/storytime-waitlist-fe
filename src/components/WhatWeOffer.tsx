@@ -25,9 +25,9 @@ export default function WhatWeOffer() {
 
   return (
     <div>
-      <section className="border border-purple-400 py-12">
+      <section className=" md:max-w-[1239px] py-12">
         <div className="container mx-auto px-4">
-          <h2 className="font-Qilka mb-10 text-center text-[56px] font-bold text-gray-800 md:text-4xl">
+          <h2 className="font-Qilka mb-15 text-center md:text-[56px] font-bold text-[#231F1E] ">
             What we offer your kids
           </h2>
 
@@ -35,7 +35,7 @@ export default function WhatWeOffer() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="flex h-[520px] w-[392px] flex-col justify-between rounded-[31.28px] p-8 shadow-lg transition-transform hover:scale-105"
+                className="flex h-[520px] w-[392px] flex-col justify-between rounded-[31.28px] p-8 shadow-lg"
                 style={{ background: feature.bgColor }}
               >
                 <div
