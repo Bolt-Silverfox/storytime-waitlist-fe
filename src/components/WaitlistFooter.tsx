@@ -9,7 +9,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[39px] w-[45px] sm:h-[40px] sm:w-[40px] md:h-[45px] md:w-[45px]"
+          className="h-[39px] w-[45px] sm:h-10 sm:w-10 md:h-[45px] md:w-[45px]"
         />
       </div>
 
@@ -17,7 +17,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[38px] w-[38px] sm:h-[32px] sm:w-[32px] md:h-[48px] md:w-[48px]"
+          className="h-[38px] w-[38px] sm:h-8 sm:w-8 md:h-12 md:w-12"
         />
       </div>
 
@@ -25,7 +25,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[28px] w-[28px] sm:h-[32px] sm:w-[32px] md:h-[38px] md:w-[38px]"
+          className="h-7 w-7 sm:h-8 sm:w-8 md:h-[38px] md:w-[38px]"
         />
       </div>
 
@@ -33,7 +33,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[32px] w-[32px] sm:h-[38px] sm:w-[38px] md:h-[42px] md:w-[42px]"
+          className="h-8 w-8 sm:h-[38px] sm:w-[38px] md:h-[42px] md:w-[42px]"
         />
       </div>
 
@@ -41,7 +41,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[42px] w-[42px] sm:h-[48px] sm:w-[48px] md:h-[52px] md:w-[52px]"
+          className="h-[42px] w-[42px] sm:h-12 sm:w-12 md:h-[52px] md:w-[52px]"
         />
       </div>
 
@@ -49,7 +49,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[38px] w-[38px] sm:h-[42px] sm:w-[42px] md:h-[48px] md:w-[48px]"
+          className="h-[38px] w-[38px] sm:h-[42px] sm:w-[42px] md:h-12 md:w-12"
         />
       </div>
 
@@ -65,7 +65,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[30px] w-[30px] sm:h-[35px] sm:w-[35px] md:h-[40px] md:w-[40px]"
+          className="h-[30px] w-[30px] sm:h-[35px] sm:w-[35px] md:h-10 md:w-10"
         />
       </div>
 
@@ -73,7 +73,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[36px] w-[36px] sm:h-[40px] sm:w-[40px] md:h-[46px] md:w-[46px]"
+          className="h-9 w-9 sm:h-10 sm:w-10 md:h-[46px] md:w-[46px]"
         />
       </div>
 
@@ -81,7 +81,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[40px] w-[40px] sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px]"
+          className="h-10 w-10 sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px]"
         />
       </div>
 
@@ -89,7 +89,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[48px] w-[48px] sm:h-[52px] sm:w-[52px] md:h-[58px] md:w-[58px]"
+          className="h-12 w-12 sm:h-[52px] sm:w-[52px] md:h-[58px] md:w-[58px]"
         />
       </div>
 
@@ -121,7 +121,7 @@ export default function WaitListFooter() {
             <img
               src="/facebook.png"
               alt="Facebook"
-              className="h-auto w-[32px] cursor-pointer transition-transform hover:scale-110 sm:w-[36px] md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
             />
           </a>
 
@@ -129,7 +129,7 @@ export default function WaitListFooter() {
             <img
               src="/instagram.png"
               alt="Instagram"
-              className="h-auto w-[32px] cursor-pointer transition-transform hover:scale-110 sm:w-[36px] md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
             />
           </a>
 
@@ -137,7 +137,7 @@ export default function WaitListFooter() {
             <img
               src="/tiktok.png"
               alt="Tiktok"
-              className="h-auto w-[32px] cursor-pointer transition-transform hover:scale-110 sm:w-[36px] md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
             />
           </a>
         </div>
