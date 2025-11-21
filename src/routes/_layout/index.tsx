@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import WhatWeOffer from "../../components/WhatWeOffer";
 
 export const Route = createFileRoute("/_layout/")({
   component: RouteComponent,
@@ -6,7 +7,10 @@ export const Route = createFileRoute("/_layout/")({
 
 function RouteComponent() {
   return (
-    <section>
+    <main className="border border-green-300">
+
+   
+    <section className="border border-red-300">
       <div className="mx-auto flex max-w-[954px] flex-col gap-6">
         <h1 className="font-Qilka text-center text-[56px]">
           Storytime4kids - where magical stories grow smarter kids
@@ -87,6 +91,13 @@ function RouteComponent() {
         </div>
       </div>
     </section>
+
+    {/* multiple components to be rendered from here */}
+    <div className="md:w-[1280px] md:h-[4078px] border-2 border-red-300 ">
+        <WhatWeOffer />
+    </div>
+
+    </main>
   );
 }
 
