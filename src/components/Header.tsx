@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   {
@@ -20,28 +22,73 @@ const navLinks = [
 ];
 
 const Header: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <header className="hidden w-full flex-row items-center justify-between pt-[63px] pl-[114px] md:flex">
-      <img
-        src="/logo.svg"
-        alt="storytime logo image"
-        className="h-6 w-[164px]"
-      />
-      <nav className="flex flex-row">
-        <ul className="flex flex-1 flex-row items-center gap-x-[27px]">
-          {navLinks.map((link) => (
-            <li key={link.route}>
-              <Link className="font-abezee" to={link.route}>
-                {link.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <button className="bg-primary font-abezee rounded-full px-[40.45px] py-[13.48px] text-center text-white">
-        Sign Up
-      </button>
-    </header>
+    <>
+      {/* Mobile Header */}
+      <header className="md:hidden flex flex-row items-center justify-between px-4 py-4 bg-white shadow-sm">
+        <img
+          src="/logo-iii.png"
+          alt="storytime logo image"
+          className="h-12 w-auto"
+        />
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="text-[#231F1E] hover:text-[#EC4007] transition-colors"
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </header>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <nav className="md:hidden bg-white border-t border-gray-200 shadow-md">
+          <ul className="flex flex-col items-center gap-4 py-4">
+            {navLinks.map((link) => (
+              <li key={link.route}>
+                <Link
+                  className="font-abezee text-[#231F1E] hover:text-[#EC4007] transition-colors"
+                  to={link.route}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+            <button className="bg-[#EC4007] font-abezee rounded-full w-full max-w-[200px] h-12 text-center text-white hover:bg-orange-600 transition-colors">
+              Sign Up
+            </button>
+          </ul>
+        </nav>
+      )}
+
+      {/* Desktop Header */}
+      <header className="hidden md:flex w-full max-w-[1240px] h-16 flex-row items-center justify-between mx-auto px-6 lg:px-[100px] mt-6 lg:mt-[30px]">
+        <img
+          src="/logo-iii.png"
+          alt="storytime logo image"
+          className="h-16 w-auto"
+        />
+        <nav className="flex flex-row flex-1 justify-center">
+          <ul className="flex flex-row items-center gap-6 lg:gap-[27px]">
+            {navLinks.map((link) => (
+              <li key={link.route}>
+                <Link
+                  className="font-abezee text-[#231F1E] hover:text-[#EC4007] transition-colors duration-300"
+                  to={link.route}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <button className="bg-[#EC4007] font-abezee rounded-full w-[205px] h-12 lg:h-[48px] text-center text-white hover:bg-orange-600 transition-colors">
+          Sign Up
+        </button>
+      </header>
+    </>
   );
 };
 
