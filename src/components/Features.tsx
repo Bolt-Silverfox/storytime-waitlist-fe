@@ -50,7 +50,14 @@ export default function Features(){
               <p className="font-abezee mb-6 leading-[40px] text-[24px]">
                 Calming expressive voices tailored to their story
               </p>
-              <button className="bg-[#EC4007] font-abezee w-[280px]  hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
+              <button
+              onClick={() =>
+    window.open(
+      "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+      "_blank"
+    )
+  }
+               className="bg-[#EC4007] font-abezee w-[280px]  hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
                 Download now
               </button>
             </div>
