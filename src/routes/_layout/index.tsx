@@ -88,7 +88,7 @@ function RouteComponent() {
                 <img src={thumbSrc} alt="story video thumbnail" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-[60px] h-[60px] rounded-full bg-[#FF6A1A] flex items-center justify-center shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" className="w-8 h-8">
+                    <svg xmlns="https://res.cloudinary.com/dwatri50n/video/upload/v1763801270/New_Project_23_Copy_2_C9EFB8A_eqtzzo.mp4" fill="white" viewBox="0 0 24 24" className="w-8 h-8">
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </div>
