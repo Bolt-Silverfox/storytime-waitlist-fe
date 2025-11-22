@@ -23,7 +23,7 @@ function RouteComponent() {
   return (
     <main className="">
      
-      <section className="-mb-60 mx-auto relative">
+      <section className="-mb-10 mx-auto relative">
         
         <div className="mx-auto flex max-w-[954px] flex-col gap-6 overflow-x-hidden px-4 xl:px-0">
           <h1 className="font-Qilka text-center text-[40px] md:text-[48px] xl:text-[56px] leading-tight">
@@ -33,13 +33,25 @@ function RouteComponent() {
             Magical stories for kids, from bedtime snuggles to learning adventures.
           </p>
 
-          <button className="bg-primary justify-center items-center mx-auto flex gap-3 font-abezee rounded-full w-[211px] h-[69px] text-center text-white">
-            <img src="play-store.png" className="w-[29px] h-[32px]" alt="" />
-            <div className="pl-1">
-              <p className="text-[12px] text-center">Download on</p>
-              <p className="text-center">Google play</p>
-            </div>
-          </button>
+     <button
+  onClick={() =>
+    window.open(
+      "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+      "_blank"
+    )
+  }
+  className="relative z-[200] -mt-4 md:mt-0 hidden md:flex
+ bg-primary justify-center items-center mx-auto flex gap-3 font-abezee rounded-full w-[211px] h-[69px] text-center text-white"
+>
+  <img src="play-store.png" className="w-[29px] h-[32px]" alt="" />
+  <div className="pl-1">
+    <p className="text-[12px] text-center">Download on</p>
+    <p className="text-center">Google play</p>
+  </div>
+</button>
+
+
+
         </div>
 
      
