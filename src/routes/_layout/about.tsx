@@ -17,7 +17,14 @@ function RouteComponent() {
               We create meaningful digital story experiences that nurture
               curiosity, spark creativity, and support children’s growth.
             </p>
-            <button className="bg-primary font-abezee mx-auto flex items-center gap-4 rounded-full px-8 py-4 text-center text-white md:mx-0">
+            <button 
+            onClick={() =>
+    window.open(
+      "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+      "_blank"
+    )
+  }
+            className="bg-primary font-abezee mx-auto flex items-center gap-4 rounded-full px-8 py-4 text-center text-white md:mx-0">
               <img src="/aboutpage/play-store-icon.png" alt="Play store icon" />
               <div className="flex-col items-start text-left">
                 <p className="text-xs">Download on</p>
@@ -75,7 +82,14 @@ function RouteComponent() {
             a world full of noise, we imagined a space where children could
             enjoy calming, inspiring stories anytime, anywhere.
           </p>
-          <button className="bg-primary font-abezee rounded-full px-10 py-3 text-center text-white">
+          <button
+          onClick={() =>
+    window.open(
+      "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+      "_blank"
+    )
+  }
+           className="bg-primary font-abezee rounded-full px-10 py-3 text-center text-white">
             Download now
           </button>
         </div>
@@ -93,7 +107,14 @@ function RouteComponent() {
             Magical stories for kids, from bedtime snuggles to learning
             adventures.
           </p>
-          <button className="font-abezee text-primary flex items-center gap-4 rounded-full bg-white px-8 py-3 text-center">
+          <button
+          onClick={() =>
+    window.open(
+      "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+      "_blank"
+    )
+  }
+           className="font-abezee text-primary flex items-center gap-4 rounded-full bg-white px-8 py-3 text-center">
             <img src="/aboutpage/play-store-orange.png" alt="Play store icon" />
             <div className="flex-col items-start text-left">
               <p className="text-xs">Download on</p>

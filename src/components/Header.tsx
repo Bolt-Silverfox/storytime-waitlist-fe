@@ -84,8 +84,15 @@ const Header: React.FC = () => {
             ))}
           </ul>
         </nav>
-        <button className="bg-[#EC4007] font-abezee rounded-full w-[205px] h-12 lg:h-[48px] text-center text-white hover:bg-orange-600 transition-colors">
-          Sign Up
+        <button 
+        onClick={() =>
+    window.open(
+      "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+      "_blank"
+    )
+  }
+        className="bg-[#EC4007] font-abezee rounded-full w-[205px] h-12 lg:h-[48px] text-center text-white hover:bg-orange-600 transition-colors">
+          Download App
         </button>
       </header>
     </>

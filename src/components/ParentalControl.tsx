@@ -13,7 +13,14 @@ export default function ParentalControls(){
             Enjoy full parental control with age filters, category choices, story blocking, screen-time limits, and activity tracking to keep your child's story experience safe.
           </p>
 
-          <button className="bg-[#EC4007] font-abezee w-full md:w-[280px] h-14 md:h-[64px] hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
+          <button
+          onClick={() =>
+    window.open(
+      "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+      "_blank"
+    )
+  }
+           className="bg-[#EC4007] font-abezee w-full md:w-[280px] h-14 md:h-[64px] hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
             Download now
           </button>
         </div>
