@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const FaqComponent = ({
   question,
@@ -17,7 +18,7 @@ const FaqComponent = ({
         {/* Question bubble */}
         <div
           onClick={() => setOpen(!open)}
-          className="relative w-full min-h-[64px] md:min-h-[96px] px-4 md:px-[34px] py-4 md:py-[18px] rounded-[14px] flex items-center cursor-pointer"
+          className="relative w-full min-h-18 md:min-h-24 px-4 md:px-[34px] rounded-[14px] flex items-center cursor-pointer"
         >
           <svg
             className="absolute inset-0 w-full h-full rounded-[14px] -z-10"
@@ -32,14 +33,14 @@ const FaqComponent = ({
             />
           </svg>
 
-          <p className="pl-8 md:pl-12 text-[16px] md:text-2xl leading-normal">
+          <p className="pl-8 -mt-4 md:pl-12 text-[16px] md:text-2xl leading-normal">
             {question}
           </p>
         </div>
 
         <button
           onClick={() => setOpen(!open)}
-          className="bg-[#FFF2EC] p-4 md:p-5 rounded-full mt-2 md:mt-0 cursor-pointer flex items-center justify-center"
+          className="bg-[#FFF2EC] p-4 md:p-5 rounded-full mt-0.5 md:mt-2 cursor-pointer flex items-center justify-center"
         >
           {open ? (
             <Minus color="#EC4007" size={20} strokeWidth={4} />
@@ -50,8 +51,15 @@ const FaqComponent = ({
       </div>
 
       {/* ANSWER SECTION */}
-      {open && (
-        <div className="relative mt-2 w-full px-4 md:px-[34px] py-4 md:py-[22px] rounded-[14px]">
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative mt-2 w-full px-4 md:px-[34px] py-4 md:py-[22px] rounded-[14px] overflow-hidden"
+          >
           <svg
             className="absolute inset-0 w-full h-full rounded-[14px] -z-10"
             viewBox="0 0 622 347"
@@ -68,8 +76,9 @@ const FaqComponent = ({
           <p className="text-[16px] md:text-2xl leading-relaxed pr-2 md:pr-4">
             {answer}
           </p>
-        </div>
-      )}
+        </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
