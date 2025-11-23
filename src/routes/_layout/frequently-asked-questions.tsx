@@ -43,7 +43,7 @@ function RouteComponent() {
 
   return (
     <div className="flex-1 flex flex-col items-center p-3">
-      <h1 className="font-Qilka text-center text-3xl md:text-[56px] leading-[68px] text-[#3F1102]">Frequently asked questions</h1>
+      <h1 className="font-Qilka text-center text-3xl md:text-[56px] leading-10 text-[#3F1102]">Frequently asked questions</h1>
       <input
         type="text"
         placeholder="Search"
