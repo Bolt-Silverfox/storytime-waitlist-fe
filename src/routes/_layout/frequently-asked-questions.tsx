@@ -43,7 +43,7 @@ function RouteComponent() {
 
   return (
     <div className="flex-1 flex flex-col items-center p-3">
-      <h1 className="font-Qilka text-center text-3xl md:text-[56px] leading-10 text-[#3F1102]">Frequently asked questions</h1>
+      <h1 className="font-Qilka text-center text-4xl md:text-[56px] leading-10 text-[#3F1102]">Frequently asked questions</h1>
       <input
         type="text"
         placeholder="Search"
@@ -51,19 +51,19 @@ function RouteComponent() {
         onChange={(e) => setSearch(e.target.value)}
       />
       <ul className="mt-12 flex gap-4 w-full md:max-w-full max-w-[620px] overflow-x-auto whitespace-nowrap text-[15px] leading-9 font-abezee text-[#3F1102] px-2 scrollbar-hide lg:justify-center">
-  {categories.map((c) => (
-    <li
-      key={c}
-      onClick={() => setCategory(c)}
-      className={`
-        min-w-fit h-10 rounded-[20px] px-[21px] py-1 cursor-pointer
-        ${category === c ? "bg-[#EC4007] text-white" : "bg-[#E8E4E4] text-[#3F1102]"}
-      `}
-    >
-      {c}
-    </li>
-  ))}
-</ul>
+        {categories.map((c) => (
+          <li
+            key={c}
+            onClick={() => setCategory(c)}
+            className={`
+              min-w-fit h-10 rounded-[20px] px-[21px] py-1 cursor-pointer
+              ${category === c ? "bg-[#EC4007] text-white" : "bg-[#E8E4E4] text-[#3F1102]"}
+            `}
+          >
+            {c}
+          </li>
+        ))}
+      </ul>
       <div className="mt-[61px] flex flex-col gap-8 w-full max-w-[620px]">
         {filteredFaqs.map((faq, index) => (
           <FaqComponent
