@@ -77,6 +77,7 @@ export default function WhatWeOffer() {
 
                 <h3
                   style={{ color: feature.color }}
+                  
                   className="font-abezee text-base md:text-[32px] leading-tight md:leading-[41.71px] text-center"
                 >
                   {feature.title}
