@@ -21,23 +21,46 @@ export default function Testimonial() {
   ];
 
   return (
-    <section className="md:max-w-[1256px] mt-20 md:mt-40 mx-auto px-4">
-      <div className="container mx-auto">
-        <h2 className="font-Qilka mb-8 md:mb-15 text-center text-3xl md:text-[56px] font-bold text-[#231F1E]">
+    <section className="md:max-w-7xl mt-20 md:mt-40 mx-auto px-4">
+      <div className="container ">
+        <h2 className="font-Qilka mb-8 md:mb-15 text-center text-[32px] md:text-[56px] font-bold text-[#231F1E]">
           What people are saying
         </h2>
 
-        <div className="mx-auto grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        {/* mobile */}
+        <div className="block lg:hidden overflow-x-auto flex gap-4 scroll-smooth snap-x snap-mandatory pb-4">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="rounded-[20px] flex flex-col justify-between w-full md:w-[400px] h-auto md:h-[272px] bg-[#FFF2EC] p-4 md:p-6 shadow-lg"
+              className="snap-start min-w-[278px] h-[300px]  rounded-[20px] flex flex-col justify-between bg-[#FFF2EC] p-6 shadow-lg"
             >
-              <div className="font-abezee text-6xl md:text-[123.85px] leading-[130%] h-auto md:h-[70px] text-[#ED4F01]">“</div>
-              <p className="font-abezee text-base md:text-[18px] leading-relaxed">
+              <div className="font-abezee text-6xl text-[#ED4F01]">“</div>
+              <p className="font-abezee text-base leading-relaxed">
                 {testimonial.quote}
               </p>
-              <p className="font-bold mt-4 md:mb-3 font-Qilka text-gray-800 text-sm md:text-base">{testimonial.author}</p>
+              <p className="font-bold mt-4 font-Qilka text-gray-800 text-sm">
+                {testimonial.author}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* large screens */}
+        <div className="hidden lg:grid mx-auto w-full grid-cols-3 gap-6">
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.id}
+              className="rounded-[20px]  flex flex-col justify-between bg-[#FFF2EC] w-[400px] p-6 shadow-lg h-[288px]"
+            >
+              <div className="font-abezee text-[100px] leading-none  text-[#ED4F01]">
+                “
+              </div>
+              <p className="font-abezee text-[18px] leading-relaxed">
+                {testimonial.quote}
+              </p>
+              <p className="font-bold mt-4 font-Qilka text-gray-800 text-base">
+                {testimonial.author}
+              </p>
             </div>
           ))}
         </div>
