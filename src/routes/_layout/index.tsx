@@ -154,7 +154,7 @@ function RouteComponent() {
 
      
 
-      <div className="mx-auto md:w-[1280px]">
+      <div className="mx-auto ">
         <WhatWeOffer />
         <Categories />
         <Details />

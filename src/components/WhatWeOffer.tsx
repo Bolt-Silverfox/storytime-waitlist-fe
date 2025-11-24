@@ -24,67 +24,68 @@ export default function WhatWeOffer() {
   ];
 
   return (
-    <div>
-      <section className="w-full max-w-[1239px] mx-auto mt-20 md:mt-40 px-4">
-        <div className="container mx-auto">
-          <h2 className="font-Qilka mb-8 md:mb-15 text-center text-2xl md:text-[56px] font-bold text-[#231F1E]">
+    <div className="">
+      <section className="max-w-[100%] mx-auto mt-40 md:mt-40 px-4">
+        {/* covered */}
+        <div>
+          <h2 className="font-Qilka w-auto text-center mx-auto mb-8 md:mb-15 text-center text-[32px] md:text-[56px] font-bold text-[#231F1E]">
             What we offer your kids
           </h2>
+        </div>
 
-          <div className="mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[400px] md:max-w-none">
-            {features.map((feature, index) => (
+        {/* grid here */}
+        <div className="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[25px]">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="flex h-[455px] md:h-[520px] w-full flex-col justify-between rounded-[31.28px] p-6 md:p-8 shadow-lg mx-auto"
+              style={{ background: feature.bgColor }}
+            >
               <div
-                key={index}
-                className="flex h-auto md:h-[520px] flex-col justify-between rounded-[20px] md:rounded-[31.28px] p-6 md:p-8 shadow-lg mx-auto md:mx-0 w-full md:w-auto"
-                style={{ background: feature.bgColor }}
+                style={{ background: feature.elipse }}
+                className="relative mx-auto flex h-[262px] w-[262px] md:h-[262px] md:w-[262px] items-center justify-center rounded-full mb-4 md:mb-4"
               >
-                <div
-                  style={{ background: feature.elipse }}
-                  className="relative mx-auto flex h-40 w-40 md:h-[262px] md:w-[262px] items-center justify-center rounded-full mb-4 md:mb-4"
-                >
-                  <img
-                    src="Vector.png"
-                    className="absolute h-3 w-3 md:h-[20px] md:w-[20px]"
-                    style={{ top: "30px", left: "95px" }}
-                  />
+                <img
+                  src="Vector.png"
+                  className="absolute h-3 w-3 md:h-[20px] md:w-[20px]"
+                  style={{ top: '30px', left: '95px' }}
+                />
 
-                  <img
-                    src="Vector.png"
-                    className="absolute h-3 w-3 md:h-[20px] md:w-[20px]"
-                    style={{ top: "150px", left: "180px" }}
-                  />
+                <img
+                  src="Vector.png"
+                  className="absolute h-4 w-5 md:h-[25px] md:w-[23px]"
+                  style={{ top: '150px', left: '180px' }}
+                />
 
-                  <img
-                    src="Vector.png"
-                    className="absolute h-3 w-3 md:h-[20px] md:w-[20px]"
-                    style={{ top: "160px", left: "100px" }}
-                  />
+                <img
+                  src="Vector.png"
+                  className="absolute h-5 w-6 md:h-[24px] md:w-[30px]"
+                  style={{ top: '190px', left: '270px' }}
+                />
 
-                  <img
-                    src="Vector.png"
-                    className="absolute h-4 w-4 md:h-[24px] md:w-[24px]"
-                    style={{ top: "130px", left: "15px" }}
-                  />
+                <img
+                  src="Vector.png"
+                  className="absolute h-6 w-5 md:h-[24px] md:w-[29px]"
+                  style={{ top: '130px', left: '15px' }}
+                />
 
-                  <div className="text-center">
-                    <img
-                      className="h-24 w-32 md:h-[191px] md:w-[246px] object-contain"
-                      src={feature.icon}
-                      alt="card-icon"
-                    />
-                  </div>
+                <div className="text-center">
+                  <img
+                    className="w-[365px] h-[275px] md:h-[305px] md:w-[392px] object-contain"
+                    src={feature.icon}
+                    alt="card-icon"
+                  />
                 </div>
-
-                <h3
-                  style={{ color: feature.color }}
-                  
-                  className="font-abezee text-base md:text-[32px] leading-tight md:leading-[41.71px] text-center"
-                >
-                  {feature.title}
-                </h3>
               </div>
-            ))}
-          </div>
+
+              <h3
+                style={{ color: feature.color }}
+                className="font-abezee text-[24px] md:text-[32px] leading-[41.71px] md:leading-[41.71px]"
+              >
+                {feature.title}
+              </h3>
+            </div>
+          ))}
         </div>
       </section>
     </div>
