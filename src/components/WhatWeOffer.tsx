@@ -25,7 +25,7 @@ export default function WhatWeOffer() {
 
   return (
     <div className="">
-      <section className="max-w-[100%] mx-auto mt-40 md:mt-40 px-4">
+      <section className="max-w-7xl mx-auto mt-40 md:mt-40 px-4">
         {/* covered */}
         <div>
           <h2 className="font-Qilka w-auto text-center mx-auto mb-8 md:mb-15 text-center text-[32px] md:text-[56px] font-bold text-[#231F1E]">
