@@ -6,14 +6,14 @@ export const Route = createFileRoute("/_layout/about")({
 
 function RouteComponent() {
   return (
-    <div className="font-abezee -mb-16 flex-1 space-y-8 text-lg">
+    <div className="font-abezee -mb-16 flex-1 space-y-8 text-lg lg:text-xl">
       <div className="relative min-h-screen w-full">
         <section className="mx-auto mb-4 grid w-full max-w-6xl grid-cols-1 items-center gap-x-4 md:mb-8 md:grid-cols-2">
-          <div className="space-y-6 px-6 text-center md:text-left">
-            <h1 className="font-Qilka text-3xl leading-10 font-bold md:text-4xl md:leading-16 lg:text-5xl">
-              Bringing Stories for every child
+          <div className="space-y-6 px-8 text-center md:text-left relative z-20">
+            <h1 className="font-Qilka text-3xl leading-10 md:leading-12 lg:leading-16 font-bold md:text-4xl lg:text-5xl">
+              Bringing Stories to Life for Every Child
             </h1>
-            <p className="text-[#4F4C4B]">
+            <p className="text-[#4F4C4B] lg:leading-9">
               We create meaningful digital story experiences that nurture
               curiosity, spark creativity, and support children&apos;s growth.
             </p>
@@ -37,7 +37,7 @@ function RouteComponent() {
         <img
           src="/aboutpage/hero-image.png"
           alt="Storytime hero"
-          className="inset-0 -top-16 z-40 h-full min-h-screen w-full origin-right overflow-visible object-cover object-[85%_0%] md:absolute md:scale-100 md:object-cover md:object-center"
+          className="inset-0 -top-16 z-10 h-full min-h-[90vh] w-full origin-right overflow-visible object-cover object-[85%_0%] md:absolute md:scale-100 md:object-cover md:object-center"
         />
       </div>
 
@@ -78,10 +78,10 @@ function RouteComponent() {
 
       <section className="mx-auto mt-12 grid h-full max-w-6xl grid-cols-1 items-center gap-6 md:my-14 md:grid-cols-2 md:gap-0 lg:my-16">
         <div className="space-y-6 px-8">
-          <h1 className="font-Qilka text-3xl leading-12 font-bold md:text-4xl md:leading-10 lg:text-5xl">
+          <h1 className="font-Qilka text-3xl leading-12 lg:leading-16 md:text-4xl lg:text-5xl font-bold">
             Our Intention building story time
           </h1>
-          <p className="text-[#4F4C4B]">
+          <p className="text-[#4F4C4B] lg:leading-8">
             Storytime was created by parents, educators, and storytellers who
             saw the need for safe, meaningful, and screen-free entertainment. In
             a world full of noise, we imagined a space where children could
@@ -110,7 +110,7 @@ function RouteComponent() {
             <h1 className="font-Qilka text-3xl font-bold md:text-4xl lg:text-5xl">
               Keep the magic going!
             </h1>
-            <p>
+            <p className="lg:leading-8">
               Magical stories for kids, from bedtime snuggles to learning
               adventures.
             </p>
@@ -135,9 +135,9 @@ function RouteComponent() {
           </div>
           <div className="relative mx-auto w-full md:w-4/5 md:pb-10 lg:pb-0">
             {/* Screenshot */}
-            <div className="relative h-170 overflow-y-hidden md:h-120 lg:h-140 rounded-t-4xl shadow-[8.23px_-0.82px_13.66px_0_rgba(0,0,0,0.4)]">
+            <div className="relative h-160 overflow-y-hidden rounded-t-4xl shadow-[8.23px_-0.82px_13.66px_0_rgba(0,0,0,0.4)] md:h-120 lg:h-140">
               <img
-                src="/aboutpage/screenshot.jpg"
+                src="/aboutpage/app-screenshot.jpg"
                 alt="App screenshot"
                 className="mx-auto w-full rounded-4xl border-6 border-black object-cover"
               />
@@ -174,7 +174,7 @@ function RouteComponent() {
               src="/aboutpage/star.png"
               alt=""
               aria-hidden="true"
-              className="absolute top-1/10 -left-10 hidden w-4 md:block"
+              className="absolute top-1/10 -left-10 hidden w-5 md:block"
             />
             <img
               src="/aboutpage/star.png"
@@ -186,7 +186,7 @@ function RouteComponent() {
               src="/aboutpage/star.png"
               alt=""
               aria-hidden="true"
-              className="absolute bottom-6 -left-20 hidden w-9 md:block"
+              className="absolute bottom-8 -left-20 hidden w-9 md:block"
             />
             <img
               src="/aboutpage/star.png"
