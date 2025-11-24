@@ -8,9 +8,9 @@ function RouteComponent() {
   return (
     <div className="font-abezee -mb-16 flex-1 space-y-8 text-lg lg:text-xl">
       <div className="relative min-h-screen w-full">
-        <section className="mx-auto mb-4 grid w-full max-w-6xl grid-cols-1 items-center gap-x-4 md:mb-8 md:grid-cols-2">
-          <div className="space-y-6 px-8 text-center md:text-left relative z-20">
-            <h1 className="font-Qilka text-3xl leading-10 md:leading-12 lg:leading-16 font-bold md:text-4xl lg:text-5xl">
+        <section className="container mx-auto mb-4 grid w-full grid-cols-1 items-center gap-x-4 md:mb-8 md:grid-cols-2">
+          <div className="space-y-6 px-8 lg:px-12 text-center md:text-left relative z-20">
+            <h1 className="font-Qilka text-3xl leading-10 md:leading-12 lg:leading-16 font-bold md:text-4xl lg:text-5xl lg:mt-6 xl:mt-8">
               Bringing Stories to Life for Every Child
             </h1>
             <p className="text-[#4F4C4B] lg:leading-9">
@@ -41,8 +41,8 @@ function RouteComponent() {
         />
       </div>
 
-      <section className="mx-auto flex max-w-6xl flex-col items-center space-y-8 py-6 md:flex-row-reverse md:space-y-12">
-        <p className="px-8 text-2xl leading-10 md:w-3/5 lg:w-1/2 lg:leading-12">
+      <section className="container mx-auto flex flex-col items-center space-y-8 md:space-y-0 py-6 md:flex-row-reverse">
+        <p className="px-8 lg:px-12 text-2xl leading-10 md:w-3/5 lg:w-1/2 lg:leading-12">
           Storytime for Kids provides a safe and fun space where children can
           explore courage, kindness, curiosity, and creativity through
           imaginative and memorable stories.
@@ -53,7 +53,7 @@ function RouteComponent() {
           className="md:w-2/5 lg:max-h-100 lg:w-1/2"
         />
       </section>
-      <section className="mx-auto grid h-full max-w-6xl grid-cols-1 gap-6 px-8 md:my-14 md:grid-cols-2">
+      <section className="container mx-auto grid h-full grid-cols-1 gap-6 px-8 lg:px-12 md:my-14 md:grid-cols-2">
         {[
           {
             title: "Our Mission",
@@ -76,8 +76,8 @@ function RouteComponent() {
         ))}
       </section>
 
-      <section className="mx-auto mt-12 grid h-full max-w-6xl grid-cols-1 items-center gap-6 md:my-14 md:grid-cols-2 md:gap-0 lg:my-16">
-        <div className="space-y-6 px-8">
+      <section className="container mx-auto mt-12 grid h-full grid-cols-1 items-center gap-6 md:my-14 md:grid-cols-2 md:gap-0 lg:my-16">
+        <div className="space-y-6 px-8 lg:px-12">
           <h1 className="font-Qilka text-3xl leading-12 lg:leading-16 md:text-4xl lg:text-5xl font-bold">
             Our Intention building story time
           </h1>
@@ -105,7 +105,7 @@ function RouteComponent() {
         />
       </section>
       <div className="bg-[#ED4F01]">
-        <section className="mx-auto grid h-full max-w-6xl grid-cols-1 gap-6 space-y-6 px-8 py-12 pb-0 text-white md:my-14 md:-mb-9 md:grid-cols-2 md:items-start md:pt-12 lg:my-16 lg:mb-0">
+        <section className="container mx-auto grid h-full grid-cols-1 gap-6 space-y-6 px-8 lg:px-12 py-12 pb-0 text-white md:my-14 md:-mb-9 md:grid-cols-2 md:items-start md:pt-12 lg:my-16 lg:mb-0">
           <div className="space-y-6 md:mt-20">
             <h1 className="font-Qilka text-3xl font-bold md:text-4xl lg:text-5xl">
               Keep the magic going!
@@ -121,7 +121,7 @@ function RouteComponent() {
                   "_blank",
                 )
               }
-              className="font-abezee text-primary flex items-center gap-4 rounded-full bg-white px-8 py-3 text-center"
+              className="font-abezee text-primary flex items-center gap-4 rounded-full bg-white px-8 lg:px-12 py-3 text-center"
             >
               <img
                 src="/aboutpage/play-store-orange.png"
