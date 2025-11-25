@@ -18,14 +18,9 @@ const Header: React.FC = () => {
         <img
           src="/icons/new-logo-blue.svg"
           alt="storytime logo image"
-          className="h-16 w-53
-53
-53
-[178.9px]"
+          className="h-16 w-[178.9px]"
         />
-        <nav5353
-
-
+        <nav
           aria-labelledby="navigation links"
           className="hidden flex-row md:flex"
         >
@@ -35,12 +30,11 @@ const Header: React.FC = () => {
                 key={link.route}
                 className="hover:text-primary cursor-pointer transition-all duration-200 hover:scale-110 lg:text-xl"
               >
-                <Link53
+                <Link
 
                   className="font-abezee [&.active]:text-primary [&.active]:scale-110"
                   to={link.route}
-                >53
-
+                >
                   {link.name}
                 </Link>
               </li>
