@@ -37,8 +37,7 @@ export default function Questions() {
           Questions you may have
         </h2>
 
-        <div className="relative font-abezee text-[24px] tracking-[6%] mx-auto max-w-[720px]">
-          
+        <div className="font-abezee relative mx-auto max-w-[720px] text-[24px] tracking-[6%]">
           {/* detective */}
           <div className="absolute -bottom-20 -left-56 hidden w-64 xl:block">
             <img src="detective.png" className="w-[700px] h-[300px] " alt="detective" />
