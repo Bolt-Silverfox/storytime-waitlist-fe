@@ -65,7 +65,7 @@ function RouteComponent() {
           </div>
 
           {/* Stars */}
-          <div className="overflow-hidden">
+          <div className="overflow-hsetPlayingidden">
             <img
               src="/landingpage/star.png"
               className="absolute top-16 right-[20%] h-6 w-6 md:right-[25%] xl:right-72"
@@ -78,7 +78,7 @@ function RouteComponent() {
               src="/landingpage/star.png"
               className="absolute top-30 left-[20%] h-6 w-6 md:left-[25%] xl:left-72"
             />
-            <img
+            <imgsetPlaying
               src="/landingpage/star.png"
               className="absolute -top-1 left-[15%] h-6 w-6 md:left-[20%] xl:left-48"
             />
@@ -93,7 +93,9 @@ function RouteComponent() {
               <button
                 onClick={() => setPlaying(true)}
                 className="relative h-[140px] w-[100%] overflow-hidden rounded-[27px] md:h-[150px] md:w-[150px] xl:h-[163px] xl:w-[163px]   "
-              >
+              >        <ParentalControls />
+170
+
                 <img
                   src={thumbSrc}
                   alt="story video thumbnail"
@@ -107,7 +109,11 @@ function RouteComponent() {
                       viewBox="0 0 24 24"
                       className="h-8 w-8"
                     >
-                      <path d="M8 5v14l11-7z" />
+                      <path d="M8 5v14l11-7z" />        <        <ParentalControls />
+170
+ParentalControls />
+170
+
                     </svg>
                   </div>
                 </div>
@@ -148,7 +154,11 @@ function RouteComponent() {
                 </span>
               ))}
             </div>
-          </div>
+          </div>        <ParentalControls />        <ParentalControls />
+170
+
+170
+
         </div>
       </section>
 

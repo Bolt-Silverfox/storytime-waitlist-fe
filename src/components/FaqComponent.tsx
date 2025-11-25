@@ -12,15 +12,17 @@ const FaqComponent = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-full max-w-[622px] font-abezee text-[20px] leading-9">
+    <div className="font-abezee w-full max-w-[622px] text-[20px] leading-9">
       {/* QUESTION ROW */}
       <div className="flex items-start justify-between gap-4 md:gap-6">
         <div
           onClick={() => setOpen(!open)}
           className="relative w-full min-h-18 md:min-h-24 px-4 md:px-[34px] rounded-[14px] flex items-center cursor-pointer"
-        >
+        >* clicking on logo doesn't redirect to home
+* remove max-width, use padding
+
           <svg
-            className="absolute inset-0 w-full h-full rounded-[14px] -z-10"
+            className="absolute inset-0 -z-10 h-full w-full rounded-[14px]"
             viewBox="0 0 622 97"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +36,11 @@ const FaqComponent = ({
 
           <p className="pl-8 -mt-4 md:pl-12 text-[16px] md:text-2xl leading-5">
             {question}
-          </p>
+          </p>* clicking on logo d* clicking on logo doesn't redirect to home
+* remove max-width, use padding
+oesn't redirect to home
+* remove max-width, use padding
+
         </div>
 
         <button
