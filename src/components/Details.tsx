@@ -1,6 +1,6 @@
 export default function Details(){
   return(
-    <div className="md:max-w-[1231px] mt-20 md:mt-40 mx-auto px-4">  
+    <div className="md:max-w-7xl mt-20 md:mt-40 mx-auto px-4">  
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
 
         <div className="flex justify-center items-center overflow-hidden bg-[#D6E0FC] rounded-[40px] md:rounded-[60px] h-64 md:h-[466px] w-full">
@@ -34,7 +34,7 @@ export default function Details(){
       "_blank"
     )
   }
-          className="bg-[#EC4007] font-abezee w-full md:w-[280px] h-14 md:h-[64px] hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
+          className="bg-[#EC4007] font-abezee w-full w-[251px] h-[60px] md:w-[280px] h-14 md:h-[64px] hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
             Download now
           </button>
         </div>

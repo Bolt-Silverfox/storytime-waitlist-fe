@@ -1,6 +1,6 @@
 export default function ParentalControls(){
   return(
-    <div className="md:max-w-[1231px] mt-20 md:mt-40 mx-auto px-4">  
+    <div className="max-w-7xl mt-20 md:mt-40 mx-auto px-4">  
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
 
         <div className="flex flex-col justify-between gap-4 md:gap-8 order-2 md:order-1">

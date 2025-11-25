@@ -22,8 +22,8 @@ const footerLinks = [
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-col items-center justify-between gap-y-10 bg-[#363232] py-[63px] md:flex-row">
-      <img src="/logo.svg" alt="storytime logo image" />
+    <footer className="flex flex-col items-center justify-between px-20 gap-y-10 bg-[#363232] py-[63px] md:flex-row">
+      <img src="/footer-logo.png" alt="storytime logo image" />
       <nav className="flex">
         <ul className="flex flex-1 flex-col items-center gap-x-[27px] gap-y-4 md:flex-row">
           {footerLinks.map((link) => (
