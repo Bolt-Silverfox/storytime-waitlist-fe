@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Questions() {
   const [openIndex, setOpenIndex] = useState(0);
@@ -32,27 +33,42 @@ export default function Questions() {
 
   return (
     <section className="relative mt-20 bg-white md:mt-40">
-      <div className="container mx-auto px-4 md:px-8">
-        <h2 className="font-Qilka mb-15 text-center text-[32px] md:text-[56px] h-[65px] font-bold text-[#231F1E]">
+      <div className="container mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="font-Qilka mb-15 h-[65px] text-center text-[32px] font-bold text-[#231F1E] md:text-[56px]"
+        >
           Questions you may have
-        </h2>
+        </motion.h2>
 
         <div className="font-abezee relative mx-auto max-w-[720px] text-[24px] tracking-[6%]">
           {/* detective */}
-          <div className="absolute -bottom-20 -left-56 hidden w-64 xl:block">
-            <img src="detective.png" className="w-[700px] h-[300px] " alt="detective" />
+          <div className="absolute -bottom-20 -left-96 hidden max-w-[700px] xl:block">
+            <img
+              src="detective.png"
+              className="h-[517px] w-full"
+              alt="detective"
+            />
           </div>
 
           {/* doggie*/}
-          <div className="absolute -top-33 -right-66 hidden w-48 xl:block">
-              <img src="doggie.png" className="" alt="doggie" />
+          <div className="absolute -top-33 -right-[360px] hidden max-w-[700px] xl:block">
+            <img src="doggie.png" className="h-[676px] w-full" alt="doggie" />
           </div>
 
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="overflow-hidden rounded-3xl bg-[#FFF2EC] transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                whileHover={{ scale: 1.01 }}
+                className="z-10 overflow-hidden rounded-3xl bg-[#FFF2EC] transition-all"
               >
                 <button
                   onClick={() => toggleAccordion(index)}
@@ -87,7 +103,7 @@ export default function Questions() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

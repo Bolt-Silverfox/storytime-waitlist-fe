@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 export default function Features() {
   const features = [
     { id: 1, text: "Voice options", active: true },
@@ -9,30 +11,39 @@ export default function Features() {
   ];
 
   return (
-    <section className="max-w-7xl mt-20 md:mt-40 mx-auto px-4">
-      <h2 className="font-Qilka mb-15 text-center text-[32px] md:text-[56px] font-bold text-[#231F1E]">
+    <section className="mt-20 md:mt-40">
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="font-Qilka mb-15 text-center text-[32px] font-bold text-[#231F1E] md:text-[56px]"
+      >
         Check out our amazing features
-      </h2>
+      </motion.h2>
 
-     {/* mb */}
-      <div className="w-full mx-auto bg-white rounded-3xl p-6 md:p-8 lg:hidden">
-
+      {/* mb */}
+      <div className="mx-auto w-full rounded-3xl bg-white p-6 md:p-8 lg:hidden">
         {/* img */}
-        <div className="flex justify-center mb-10  bg-[#FFE9DF] rounded-[32px] ">
-          <div className="  p-4 flex justify-center overflow-hidden">
-            <img src="voice-mob.png" alt="image" className="h-[420px] object-contain -mb-10" />
+        <div className="mb-10 flex justify-center rounded-[32px] bg-[#FFE9DF]">
+          <div className="flex justify-center overflow-hidden p-4">
+            <img
+              src="voice-mob.png"
+              alt="image"
+              className="-mb-10 h-[420px] object-contain"
+            />
           </div>
         </div>
 
         {/* list */}
-        <div className="space-y-5 p-7 mb-10">
+        <div className="mb-10 space-y-5 p-7">
           {features.map((feature) => (
             <div
               key={feature.id}
-              className="flex items-center gap-3 font-abezee  "
+              className="font-abezee flex items-center gap-3"
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                className={`flex h-8 w-8 items-center justify-center rounded-full font-bold ${
                   feature.active
                     ? "bg-[#EC4007] text-white"
                     : "bg-[#EC400733] text-[#EC4007]"
@@ -40,20 +51,17 @@ export default function Features() {
               >
                 {feature.id}
               </div>
-              <span className="text-gray-700 text-[20px]">
-                {feature.text}
-              </span>
+              <span className="text-[20px] text-gray-700">{feature.text}</span>
             </div>
           ))}
         </div>
 
-        
         <div className="">
-          <h3 className="font-Qilka text-[32px] font-bold mb-4 text-[#231F1E]">
+          <h3 className="font-Qilka mb-4 text-[32px] font-bold text-[#231F1E]">
             Voice options
           </h3>
 
-          <p className="font-abezee text-[18px] mb-6 leading-[32px]">
+          <p className="font-abezee mb-6 text-[18px] leading-[32px]">
             Calming expressive voices tailored to their story
           </p>
 
@@ -61,10 +69,10 @@ export default function Features() {
             onClick={() =>
               window.open(
                 "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
-                "_blank"
+                "_blank",
               )
             }
-            className="bg-[#EC4007] font-abezee w-[280px] hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all"
+            className="font-abezee w-[280px] rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
           >
             Download now
           </button>
@@ -72,18 +80,17 @@ export default function Features() {
       </div>
 
       {/* dsktop */}
-      <div className="hidden lg:block w-full mx-auto bg-[#FFF2EC] rounded-3xl md:p-12">
-        <div className="grid grid-cols-3 gap-8 items-center">
-
+      <div className="mx-auto hidden w-full rounded-3xl bg-[#FFF2EC] md:p-12 lg:block">
+        <div className="grid grid-cols-3 items-center gap-8">
           {/* covered */}
           <div className="space-y-[24px]">
             {features.map((feature) => (
               <div
                 key={feature.id}
-                className="flex text-[24px] font-abezee items-center gap-3 p-3"
+                className="font-abezee flex items-center gap-3 p-3 text-[24px]"
               >
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                  className={`flex h-8 w-8 items-center justify-center rounded-full font-bold ${
                     feature.active
                       ? "bg-[#EC4007] text-white"
                       : "bg-[#EC400733] text-[#EC4007]"
@@ -91,7 +98,7 @@ export default function Features() {
                 >
                   {feature.id}
                 </div>
-                <span className="text-gray-700 font-medium">
+                <span className="font-medium text-gray-700">
                   {feature.text}
                 </span>
               </div>
@@ -99,17 +106,17 @@ export default function Features() {
           </div>
 
           {/* solved */}
-          <div className="flex justify-center items-center bg-[#FFF2EC] w-full ">
+          <div className="flex w-full items-center justify-center bg-[#FFF2EC]">
             <img src="voice-mob.png" className="-mb-12" alt="image" />
           </div>
 
           {/* solved */}
           <div className="text-left">
-            <h3 className="font-Qilka text-[48px] font-bold mb-4 text-[#231F1E]">
+            <h3 className="font-Qilka mb-4 text-[48px] font-bold text-[#231F1E]">
               Voice options
             </h3>
 
-            <p className="font-abezee mb-6 leading-[40px] text-[24px]">
+            <p className="font-abezee mb-6 text-[24px] leading-[40px]">
               Calming expressive voices tailored to their story
             </p>
 
@@ -117,18 +124,16 @@ export default function Features() {
               onClick={() =>
                 window.open(
                   "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
-                  "_blank"
+                  "_blank",
                 )
               }
-              className="bg-[#EC4007] font-abezee w-[280px] hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all"
+              className="font-abezee w-[280px] rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
             >
               Download now
             </button>
           </div>
-
         </div>
       </div>
-
     </section>
   );
 }

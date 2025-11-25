@@ -4,59 +4,52 @@ import envelop from "../assets/Envelop.png";
 
 const ContactUs: React.FC = () => {
   return (
-    <div className="w-full flex flex-col items-center mt-4 px-4">
-
-      
-      <div className="relative flex flex-col lg:flex-row items-start justify-center gap-10 w-full max-w-5xl">
-
-        
-        <div className="hidden lg:block w-[200px] absolute left-0 top-40">
-          <img src={postimage} alt="Mailbox" className="w-full h-auto" />
+    <div className="mt-5 flex w-full flex-col items-center px-4 py-6">
+      <div className="relative flex w-full max-w-5xl flex-col items-start justify-center gap-10 lg:flex-row">
+        <div className="absolute top-40 left-0 hidden w-[200px] lg:block">
+          <img src={postimage} alt="Mailbox" className="h-auto w-full" />
         </div>
 
-        <form className="w-full max-w-md mx-auto flex flex-col gap-4 z-10">
+        <form className="z-10 mx-auto flex w-full max-w-md flex-col gap-4">
           <input
             type="text"
             placeholder="Enter your full name"
-            className="w-full px-5 py-3 rounded-full border border-gray-300 text-sm focus:outline-orange-400"
+            className="w-full rounded-full border border-gray-300 px-5 py-3 text-sm focus:outline-orange-400"
           />
 
           <input
             type="email"
             placeholder="Enter your email address"
-            className="w-full px-5 py-3 rounded-full border border-gray-300 text-sm focus:outline-orange-400"
+            className="w-full rounded-full border border-gray-300 px-5 py-3 text-sm focus:outline-orange-400"
           />
 
           <textarea
             placeholder="Enter your message here...."
-            className="w-full px-5 py-3 h-36 rounded-xl border border-gray-300 text-sm resize-none focus:outline-orange-400"
+            className="h-36 w-full resize-none rounded-xl border border-gray-300 px-5 py-3 text-sm focus:outline-orange-400"
           />
 
-          <button
-            className="mx-auto w-full py-3 bg-[#EC4007] hover:bg-[#B53305] text-white rounded-full text-lg transition"
-          >
+          <button className="mx-auto w-full rounded-full bg-[#EC4007] py-3 text-lg text-white transition hover:bg-[#B53305]">
             Submit
           </button>
         </form>
 
-        <div className="hidden lg:block w-[280px] absolute right-0 top-0">
-          <img src={envelop} alt="Envelope" className="w-full h-auto" />
+        <div className="absolute top-0 right-0 hidden w-[280px] lg:block">
+          <img src={envelop} alt="Envelope" className="h-auto w-full" />
         </div>
       </div>
 
-       <div className="mt-8 mr-10 w-full max-w-[384px] flex flex-col lg:flex-row items-center justify-center gap-16 text-center">
-    <div>
-      <div className="text-lg font-medium mb-1">📧 Email</div>
-      <div className="text-gray-700">Storytime@mail.org</div>
-    </div>
+      <div className="mt-8 mr-10 flex w-full max-w-[384px] flex-col items-center justify-center gap-16 text-center lg:flex-row">
+        <div>
+          <div className="mb-1 text-lg font-medium">📧 Email</div>
+          <div className="text-gray-700">Storytime@mail.org</div>
+        </div>
 
-    <div>
-      <div className="text-lg font-medium mb-1">📞 Phone</div>
-      <div className="text-gray-700">+1 (765) 765 7656</div>
+        <div>
+          <div className="mb-1 text-lg font-medium">📞 Phone</div>
+          <div className="text-gray-700">+1 (765) 765 7656</div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-  
   );
 };
 

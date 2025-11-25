@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
-import SuccessDisplay from "./SuccessDisplay";
+import SuccessDisplay from "../SuccessDisplay";
 import { Icon } from "@iconify/react";
 
 type Props = {
