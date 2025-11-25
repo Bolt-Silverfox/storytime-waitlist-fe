@@ -4,7 +4,7 @@ import envelop from "../assets/Envelop.png";
 
 const ContactUs: React.FC = () => {
   return (
-    <div className="w-full flex flex-col items-center mt-10 px-4">
+    <div className="w-full flex flex-col items-center mt-4 px-4">
 
       
       <div className="relative flex flex-col lg:flex-row items-start justify-center gap-10 w-full max-w-5xl">
@@ -33,7 +33,7 @@ const ContactUs: React.FC = () => {
           />
 
           <button
-            className="mx-auto w-full sm:w-72 py-3 bg-[#EC4007] hover:bg-[#B53305] text-white rounded-full text-lg transition"
+            className="mx-auto w-full py-3 bg-[#EC4007] hover:bg-[#B53305] text-white rounded-full text-lg transition"
           >
             Submit
           </button>
@@ -44,18 +44,19 @@ const ContactUs: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-24 flex flex-col lg:flex-row items-center justify-center gap-16 text-center">
-        <div>
-          <div className="text-lg font-medium mb-1">📧 Email</div>
-          <div className="text-gray-700">Storytime@mail.org</div>
-        </div>
-
-        <div>
-          <div className="text-lg font-medium mb-1">📞 Phone</div>
-          <div className="text-gray-700">+1 (765) 765 7656</div>
-        </div>
-      </div>
+       <div className="mt-8 mr-10 w-full max-w-[384px] flex flex-col lg:flex-row items-center justify-center gap-16 text-center">
+    <div>
+      <div className="text-lg font-medium mb-1">📧 Email</div>
+      <div className="text-gray-700">Storytime@mail.org</div>
     </div>
+
+    <div>
+      <div className="text-lg font-medium mb-1">📞 Phone</div>
+      <div className="text-gray-700">+1 (765) 765 7656</div>
+    </div>
+  </div>
+</div>
+  
   );
 };
 

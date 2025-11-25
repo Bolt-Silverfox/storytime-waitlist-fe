@@ -31,21 +31,21 @@ export default function Questions() {
   };
 
   return (
-    <section className="relative min-h-screen bg-white py-16 md:mt-40">
+    <section className="relative mt-20 bg-white md:mt-40">
       <div className="container mx-auto px-4 md:px-8">
-        <h2 className="font-Qilka mb-15 h-[65px] text-center font-bold text-[#231F1E] md:text-[56px]">
+        <h2 className="font-Qilka mb-15 text-center text-[32px] md:text-[56px] h-[65px] font-bold text-[#231F1E]">
           Questions you may have
         </h2>
 
         <div className="font-abezee relative mx-auto max-w-[720px] text-[24px] tracking-[6%]">
           {/* detective */}
-          <div className="absolute -bottom-8 -left-56 hidden w-64 xl:block">
-            <img src="detective.png" className="-mb-8" alt="detective" />
+          <div className="absolute -bottom-20 -left-56 hidden w-64 xl:block">
+            <img src="detective.png" className="w-[700px] h-[300px] " alt="detective" />
           </div>
 
           {/* doggie*/}
           <div className="absolute -top-33 -right-66 hidden w-48 xl:block">
-            <img src="doggie.png" alt="doggie" />
+              <img src="doggie.png" className="" alt="doggie" />
           </div>
 
           <div className="space-y-4">

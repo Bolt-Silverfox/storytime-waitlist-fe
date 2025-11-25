@@ -21,13 +21,14 @@ function RouteComponent() {
     "https://res.cloudinary.com/dwatri50n/video/upload/v1763801270/New_Project_23_Copy_2_C9EFB8A_eqtzzo.mp4";
 
   return (
-    <main className="overflow-hidden">
-      <section className="relative mx-auto -mb-10">
-        <div className="mx-auto flex max-w-[954px] flex-col gap-6 overflow-x-hidden px-4 xl:px-0">
-          <h1 className="font-Qilka text-center text-[40px] leading-tight md:text-[48px] xl:text-[56px]">
+    <main className="">
+      <section className="relative md:-mt-10 -mt-20 -z-10 mx-auto -mb-70 ">
+        <div className="mx-auto  flex h-auto   md:max-w-[954px]  flex-col gap-[20px] overflow-x-hidden px-[20px] xl:px-0">
+
+          <h1 className="font-Qilka text-center  text-[30px] w-full  leading-[50px] md:text-[48px] xl:text-[56px]">
             Storytime4kids - where magical stories grow smarter kids
           </h1>
-          <p className="font-abezee mx-auto max-w-[616px] text-center text-[20px] text-[#231F1ECC] md:text-[22px] xl:text-[24px]">
+          <p className="font-abezee mx-auto max-w-[616px]   text-center text-[20px] text-[#231F1ECC] md:text-[22px] xl:text-[24px]">
             Magical stories for kids, from bedtime snuggles to learning
             adventures.
           </p>
@@ -39,7 +40,7 @@ function RouteComponent() {
                 "_blank",
               )
             }
-            className="bg-primary font-abezee relative z-10 mx-auto -mt-4 flex hidden h-[69px] w-[211px] items-center justify-center gap-3 rounded-full text-center text-white md:mt-0 md:flex"
+            className="bg-primary mt-3 font-abezee relative  mx-auto -mt-4 flex  h-[69px] w-[211px] items-center justify-center gap-3 rounded-full text-center text-white md:mt-0 md:flex"
           >
             <img src="play-store.png" className="h-[32px] w-[29px]" alt="" />
             <div className="pl-1">
@@ -49,7 +50,7 @@ function RouteComponent() {
           </button>
         </div>
 
-        <div className="relative -top-50 flex h-[600px] flex-col bg-[url('/landingpage/cloud.png')] bg-cover bg-center md:h-[700px] xl:h-[773px]">
+        <div className="relative -top-50 flex h-[845px] flex-col bg-[url('/landingpage/cloud.png')] bg-cover bg-center md:h-[700px] xl:h-[773px]">
           <div className="flex justify-between">
             <img
               src="/landingpage/fairy.png"
@@ -64,7 +65,7 @@ function RouteComponent() {
           </div>
 
           {/* Stars */}
-          <div className="">
+          <div className="overflow-hsetPlayingidden">
             <img
               src="/landingpage/star.png"
               className="absolute top-16 right-[20%] h-6 w-6 md:right-[25%] xl:right-72"
@@ -77,7 +78,7 @@ function RouteComponent() {
               src="/landingpage/star.png"
               className="absolute top-30 left-[20%] h-6 w-6 md:left-[25%] xl:left-72"
             />
-            <img
+            <imgsetPlaying
               src="/landingpage/star.png"
               className="absolute -top-1 left-[15%] h-6 w-6 md:left-[20%] xl:left-48"
             />
@@ -87,16 +88,18 @@ function RouteComponent() {
             />
           </div>
 
-          <section className="absolute top-32 left-1/2 z-10 flex h-auto w-[90%] -translate-x-1/2 transform cursor-pointer flex-col items-center justify-center gap-4 rounded-[40px] bg-white p-4 md:top-50 md:w-[70%] md:flex-row md:p-6 xl:top-65 xl:w-[500px] xl:p-8">
+          <section className="absolute top-80 md:top-32 left-1/2 z-10 flex h-auto w-[90%] -translate-x-1/2 transform cursor-pointer flex-col items-center justify-center gap-4 rounded-[40px] bg-white p-4 md:top-50 md:w-[70%] md:flex-row md:p-6 xl:top-65 xl:w-[500px] xl:p-8">
             {!playing ? (
               <button
                 onClick={() => setPlaying(true)}
-                className="relative h-[140px] w-[140px] overflow-hidden rounded-[27px] md:h-[150px] md:w-[150px] xl:h-[163px] xl:w-[163px]"
-              >
+                className="relative h-[140px] w-[100%] overflow-hidden rounded-[27px] md:h-[150px] md:w-[150px] xl:h-[163px] xl:w-[163px]   "
+              >        <ParentalControls />
+170
+
                 <img
                   src={thumbSrc}
                   alt="story video thumbnail"
-                  className="h-full w-full object-cover"
+                  className="h-full w-[95%] mx-auto "
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-[#FF6A1A] shadow-lg">
@@ -106,7 +109,11 @@ function RouteComponent() {
                       viewBox="0 0 24 24"
                       className="h-8 w-8"
                     >
-                      <path d="M8 5v14l11-7z" />
+                      <path d="M8 5v14l11-7z" />        <        <ParentalControls />
+170
+ParentalControls />
+170
+
                     </svg>
                   </div>
                 </div>
@@ -137,7 +144,7 @@ function RouteComponent() {
             <p className="font-Qilka mx-auto mb-8 h-auto max-w-[476px] text-center text-[24px] text-[#FFEDE2] md:mb-12 md:text-[28px] xl:mb-15 xl:h-[74px] xl:text-[32px]">
               Experience storytelling like never before in
             </p>
-            <div className="relative flex flex-wrap justify-center gap-2 md:flex-nowrap md:gap-3 xl:-left-20">
+            <div className="relative flex  justify-center gap-2 md:flex-nowrap md:gap-3 xl:-left-20">
               {lists.map((list, i) => (
                 <span
                   className="rounded-full bg-white/70 px-8 py-2.5 text-sm md:px-12 md:py-3 md:text-base xl:px-16 xl:py-3.5"
@@ -147,13 +154,17 @@ function RouteComponent() {
                 </span>
               ))}
             </div>
-          </div>
+          </div>        <ParentalControls />        <ParentalControls />
+170
+
+170
+
         </div>
       </section>
 
-      <div className="h-[50px] md:h-[50px] xl:h-[50px]" />
+     
 
-      <div className="mx-auto md:w-[1280px]">
+      <div className="mx-auto ">
         <WhatWeOffer />
         <Categories />
         <Details />
