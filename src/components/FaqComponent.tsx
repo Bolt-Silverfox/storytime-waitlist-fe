@@ -18,9 +18,7 @@ const FaqComponent = ({
         <div
           onClick={() => setOpen(!open)}
           className="relative w-full min-h-18 md:min-h-24 px-4 md:px-[34px] rounded-[14px] flex items-center cursor-pointer"
-        >* clicking on logo doesn't redirect to home
-* remove max-width, use padding
-
+        >
           <svg
             className="absolute inset-0 -z-10 h-full w-full rounded-[14px]"
             viewBox="0 0 622 97"
@@ -36,11 +34,7 @@ const FaqComponent = ({
 
           <p className="pl-8 -mt-4 md:pl-12 text-[16px] md:text-2xl leading-5">
             {question}
-          </p>* clicking on logo d* clicking on logo doesn't redirect to home
-* remove max-width, use padding
-oesn't redirect to home
-* remove max-width, use padding
-
+          </p>
         </div>
 
         <button
