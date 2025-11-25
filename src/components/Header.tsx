@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import Icon from "./Icon";
 
 const navLinks = [
   {
@@ -22,60 +22,28 @@ const navLinks = [
 ];
 
 const Header: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   return (
-    <>
-      {/* Mobile Header */}
-      <header className="md:hidden flex flex-row items-center justify-between px-4 py-4 bg-white shadow-sm">
+    <header className="border-b-primary/15 sticky top-0 z-50 w-full border-b bg-white">
+      <section className="relative mx-auto flex max-w-7xl flex-row items-center justify-between px-5 py-5 md:px-10 md:py-[30px]">
         <img
-          src="/logo-iii.png"
+          src="/icons/new-logo-blue.svg"
           alt="storytime logo image"
-          className="h-12 w-auto"
+          className="h-16 w-[178.9px]"
         />
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-[#231F1E] hover:text-[#EC4007] transition-colors"
+        <nav
+          aria-labelledby="navigation links"
+          className="hidden flex-row md:flex"
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </header>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <nav className="md:hidden bg-white border-t border-gray-200 shadow-md">
-          <ul className="flex flex-col items-center gap-4 py-4">
+          <ul className="flex flex-1 flex-row items-center gap-x-[27px]">
             {navLinks.map((link) => (
-              <li key={link.route}>
+              <li
+                key={link.route}
+                className="hover:text-primary cursor-pointer transition-all duration-200 hover:scale-110 lg:text-xl"
+              >
                 <Link
-                  className="font-abezee text-[#231F1E] hover:text-[#EC4007] transition-colors"
-                  to={link.route}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-            <button className="bg-[#EC4007] font-abezee rounded-full w-full max-w-[200px] h-12 text-center text-white hover:bg-orange-600 transition-colors">
-              Sign Up
-            </button>
-          </ul>
-        </nav>
-      )}
-
-      {/* Desktop Header */}
-      <header className="hidden md:flex w-full max-w-[1240px] h-16 flex-row items-center justify-between mx-auto px-6 lg:px-[100px] mt-6 lg:mt-[30px]">
-        <img
-          src="/logo-iii.png"
-          alt="storytime logo image"
-          className="h-16 w-auto"
-        />
-        <nav className="flex flex-row flex-1 justify-center">
-          <ul className="flex flex-row items-center gap-6 lg:gap-[27px]">
-            {navLinks.map((link) => (
-              <li key={link.route}>
-                <Link
-                  className="font-abezee text-[#231F1E] hover:text-[#EC4007] transition-colors duration-300"
+                  className="font-abezee [&.active]:text-primary [&.active]:scale-110"
                   to={link.route}
                 >
                   {link.name}
@@ -84,18 +52,42 @@ const Header: React.FC = () => {
             ))}
           </ul>
         </nav>
-        <button 
-        onClick={() =>
-    window.open(
-      "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
-      "_blank"
-    )
-  }
-        className="bg-[#EC4007] font-abezee rounded-full w-[205px] h-12 lg:h-[48px] text-center text-white hover:bg-orange-600 transition-colors">
-          Download App
+        <button className="bg-primary hover:bg-primary/70 font-abezee hidden rounded-full px-[40.45px] py-[13.48px] text-center text-white transition-all duration-300 md:flex">
+          Download
         </button>
-      </header>
-    </>
+        <button
+          aria-labelledby="Open mobile navigation dropdown button"
+          className="flex transition-all duration-300 hover:rotate-180 md:hidden"
+          onClick={() => {
+            setIsMobileNavOpen((cur) => !cur);
+          }}
+        >
+          <Icon name={!isMobileNavOpen ? "Menu" : "X"} color="black" />
+        </button>
+        <nav
+          aria-labelledby="Mobile navigation dropdown"
+          className={`border-r-primary/15 fixed inset-y-0 left-0 z-20 flex w-60 flex-col border-r bg-white px-4 py-10 transition-all duration-500 ease-out md:hidden ${isMobileNavOpen ? "translate-x-0 opacity-100" : "pointer-events-none -translate-x-full opacity-0"} `}
+        >
+          <ul className="flex flex-1 flex-col items-center gap-y-4">
+            {navLinks.map((link) => (
+              <li key={link.name}>
+                <Link
+                  key={link.route}
+                  to={link.route}
+                  className="font-abezee [&.active]:text-primary [&.active]:scale-110"
+                  onClick={() => setIsMobileNavOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <button className="bg-primary w-full rounded-full py-3 font-[abeezee] text-base text-white">
+            Download
+          </button>
+        </nav>
+      </section>
+    </header>
   );
 };
 
