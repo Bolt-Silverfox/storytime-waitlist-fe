@@ -17,7 +17,7 @@ const FaqComponent = ({
       <div className="flex items-start justify-between gap-4 md:gap-6">
         <div
           onClick={() => setOpen(!open)}
-          className="relative w-full min-h-18 md:min-h-24 px-4 md:px-[34px] rounded-[14px] flex items-center cursor-pointer"
+          className="relative flex min-h-18 w-full cursor-pointer items-center rounded-[14px] px-4 md:min-h-24 md:px-[34px]"
         >
           <svg
             className="absolute inset-0 -z-10 h-full w-full rounded-[14px]"
@@ -32,14 +32,14 @@ const FaqComponent = ({
             />
           </svg>
 
-          <p className="pl-8 -mt-4 md:pl-12 text-[16px] md:text-2xl leading-5">
+          <p className="-mt-4 pl-8 text-[16px] leading-5 md:pl-12 md:text-2xl">
             {question}
           </p>
         </div>
 
         <button
           onClick={() => setOpen(!open)}
-          className="bg-[#FFF2EC] p-4 md:p-5 rounded-full mt-0.5 md:mt-2 cursor-pointer flex items-center justify-center"
+          className="mt-0.5 flex cursor-pointer items-center justify-center rounded-full bg-[#FFF2EC] p-4 md:mt-2 md:p-5"
         >
           {open ? (
             <Minus color="#EC4007" size={20} strokeWidth={4} />
@@ -52,10 +52,10 @@ const FaqComponent = ({
       {/* ANSWER SECTION */}
       <AnimatePresence initial={false}>
         {open && (
-          <div className="relative mt-2 w-full px-4 md:px-[34px] rounded-[14px] overflow-hidden">
+          <div className="relative mt-2 w-full overflow-hidden rounded-[14px] px-4 md:px-[34px]">
             {/* STATIC SVG background */}
             <svg
-              className="absolute inset-0 w-full h-full rounded-[14px] -z-10"
+              className="absolute inset-0 -z-10 h-full w-full rounded-[14px]"
               viewBox="0 0 622 347"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ const FaqComponent = ({
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
             >
-              <p className="text-[16px] md:text-2xl leading-relaxed pr-2 md:pr-4 py-4 md:py-[22px]">
+              <p className="py-4 pr-2 text-[16px] leading-relaxed md:py-[22px] md:pr-4 md:text-2xl">
                 {answer}
               </p>
             </motion.div>
