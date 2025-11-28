@@ -18,6 +18,8 @@ import { Route as LayoutHowItWorksRouteImport } from './routes/_layout/how-it-wo
 import { Route as LayoutFrequentlyAskedQuestionsRouteImport } from './routes/_layout/frequently-asked-questions'
 import { Route as LayoutContactUsRouteImport } from './routes/_layout/contact-us'
 import { Route as LayoutAboutRouteImport } from './routes/_layout/about'
+import { Route as LayoutResourcesIndexRouteImport } from './routes/_layout/resources/index'
+import { Route as LayoutResourcesResource_idRouteImport } from './routes/_layout/resources/$resource_id'
 
 const WaitlistRoute = WaitlistRouteImport.update({
   id: '/waitlist',
@@ -65,6 +67,17 @@ const LayoutAboutRoute = LayoutAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const LayoutResourcesIndexRoute = LayoutResourcesIndexRouteImport.update({
+  id: '/resources/',
+  path: '/resources/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutResourcesResource_idRoute =
+  LayoutResourcesResource_idRouteImport.update({
+    id: '/resources/$resource_id',
+    path: '/resources/$resource_id',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/waitlist': typeof WaitlistRoute
@@ -75,6 +88,8 @@ export interface FileRoutesByFullPath {
   '/privacy-policy': typeof LayoutPrivacyPolicyRoute
   '/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
   '/': typeof LayoutIndexRoute
+  '/resources/$resource_id': typeof LayoutResourcesResource_idRoute
+  '/resources': typeof LayoutResourcesIndexRoute
 }
 export interface FileRoutesByTo {
   '/waitlist': typeof WaitlistRoute
@@ -85,6 +100,8 @@ export interface FileRoutesByTo {
   '/privacy-policy': typeof LayoutPrivacyPolicyRoute
   '/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
   '/': typeof LayoutIndexRoute
+  '/resources/$resource_id': typeof LayoutResourcesResource_idRoute
+  '/resources': typeof LayoutResourcesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -97,6 +114,8 @@ export interface FileRoutesById {
   '/_layout/privacy-policy': typeof LayoutPrivacyPolicyRoute
   '/_layout/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
   '/_layout/': typeof LayoutIndexRoute
+  '/_layout/resources/$resource_id': typeof LayoutResourcesResource_idRoute
+  '/_layout/resources/': typeof LayoutResourcesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,6 +128,8 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms-and-conditions'
     | '/'
+    | '/resources/$resource_id'
+    | '/resources'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/waitlist'
@@ -119,6 +140,8 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms-and-conditions'
     | '/'
+    | '/resources/$resource_id'
+    | '/resources'
   id:
     | '__root__'
     | '/_layout'
@@ -130,6 +153,8 @@ export interface FileRouteTypes {
     | '/_layout/privacy-policy'
     | '/_layout/terms-and-conditions'
     | '/_layout/'
+    | '/_layout/resources/$resource_id'
+    | '/_layout/resources/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -202,6 +227,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAboutRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/resources/': {
+      id: '/_layout/resources/'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof LayoutResourcesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/resources/$resource_id': {
+      id: '/_layout/resources/$resource_id'
+      path: '/resources/$resource_id'
+      fullPath: '/resources/$resource_id'
+      preLoaderRoute: typeof LayoutResourcesResource_idRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
   }
 }
 
@@ -213,6 +252,8 @@ interface LayoutRouteRouteChildren {
   LayoutPrivacyPolicyRoute: typeof LayoutPrivacyPolicyRoute
   LayoutTermsAndConditionsRoute: typeof LayoutTermsAndConditionsRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutResourcesResource_idRoute: typeof LayoutResourcesResource_idRoute
+  LayoutResourcesIndexRoute: typeof LayoutResourcesIndexRoute
 }
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
@@ -223,6 +264,8 @@ const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutPrivacyPolicyRoute: LayoutPrivacyPolicyRoute,
   LayoutTermsAndConditionsRoute: LayoutTermsAndConditionsRoute,
   LayoutIndexRoute: LayoutIndexRoute,
+  LayoutResourcesResource_idRoute: LayoutResourcesResource_idRoute,
+  LayoutResourcesIndexRoute: LayoutResourcesIndexRoute,
 }
 
 const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
