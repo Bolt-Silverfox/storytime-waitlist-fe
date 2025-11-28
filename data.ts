@@ -98,4 +98,52 @@ const termsAndConditionsData: {
   },
 ];
 
-export { privacyPolicyData, termsAndConditionsData };
+const howItWorksData = [
+  {
+    name: "children",
+    description:
+      "From learning new words to calming bedtime moments, Storytime makes it easy for your child to enjoy safe, delightful stories designed to spark imagination and help them grow.",
+    images: [
+      {
+        src: "../../../public/how-it-works/choose-a-story.png",
+        title: "Choose a Story",
+        description: "Browse bedtime tales, fairy tales, and fun adventures",
+      },
+      {
+        src: "../../../public/how-it-works/pick-how-to-read.png",
+        title: "Pick How to Read",
+        description:
+          "Read yourself, let the app narrate, or explore interactively.",
+      },
+      {
+        src: "../../../public/how-it-works/enjoy-the-magic.png",
+        title: "Enjoy the Magic",
+        description: "Kids learn, imagine, and have fun.",
+      },
+    ],
+  },
+  {
+    name: "parents",
+    description:
+      "From learning new words to calming bedtime moments, Storytime makes it easy for your child to enjoy safe, delightful stories designed to spark imagination and help them grow.",
+    images: [
+      {
+        src: "../../../public/how-it-works/sign-up-login.png",
+        title: "Sign-up login",
+        description: "Access the app",
+      },
+      {
+        src: "../../../public/how-it-works/manage-experience.png",
+        title: "Manage experience",
+        description: "Recommend stories, trackprogress, set control.",
+      },
+      {
+        src: "../../../public/how-it-works/monitor-progress.png",
+        title: "Monitor progress",
+        description: "Monitor their daily challenges check reports.",
+      },
+    ],
+  },
+];
+
+export { privacyPolicyData, termsAndConditionsData, howItWorksData };
