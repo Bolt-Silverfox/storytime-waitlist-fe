@@ -43,6 +43,8 @@ body {
   --color-secondary: #7a07ec;
   --color-dark: #190a02;
   --color-light-pink: #fff2ec;
+  --color-text-dark: #231f1e;
+  --color-text-light: #4f4c4b;
 }
 
 .clip-bottom {

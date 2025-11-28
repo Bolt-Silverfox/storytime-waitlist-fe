@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WaitlistRouteImport } from './routes/waitlist'
+import { Route as SqueezeRouteImport } from './routes/squeeze'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutTermsAndConditionsRouteImport } from './routes/_layout/terms-and-conditions'
@@ -24,6 +25,11 @@ import { Route as LayoutResourcesResource_idRouteImport } from './routes/_layout
 const WaitlistRoute = WaitlistRouteImport.update({
   id: '/waitlist',
   path: '/waitlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SqueezeRoute = SqueezeRouteImport.update({
+  id: '/squeeze',
+  path: '/squeeze',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutRouteRoute = LayoutRouteRouteImport.update({
@@ -80,6 +86,7 @@ const LayoutResourcesResource_idRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/squeeze': typeof SqueezeRoute
   '/waitlist': typeof WaitlistRoute
   '/about': typeof LayoutAboutRoute
   '/contact-us': typeof LayoutContactUsRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/resources': typeof LayoutResourcesIndexRoute
 }
 export interface FileRoutesByTo {
+  '/squeeze': typeof SqueezeRoute
   '/waitlist': typeof WaitlistRoute
   '/about': typeof LayoutAboutRoute
   '/contact-us': typeof LayoutContactUsRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteRouteWithChildren
+  '/squeeze': typeof SqueezeRoute
   '/waitlist': typeof WaitlistRoute
   '/_layout/about': typeof LayoutAboutRoute
   '/_layout/contact-us': typeof LayoutContactUsRoute
@@ -120,6 +129,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/squeeze'
     | '/waitlist'
     | '/about'
     | '/contact-us'
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/resources'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/squeeze'
     | '/waitlist'
     | '/about'
     | '/contact-us'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_layout'
+    | '/squeeze'
     | '/waitlist'
     | '/_layout/about'
     | '/_layout/contact-us'
@@ -159,6 +171,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
+  SqueezeRoute: typeof SqueezeRoute
   WaitlistRoute: typeof WaitlistRoute
 }
 
@@ -169,6 +182,13 @@ declare module '@tanstack/react-router' {
       path: '/waitlist'
       fullPath: '/waitlist'
       preLoaderRoute: typeof WaitlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/squeeze': {
+      id: '/squeeze'
+      path: '/squeeze'
+      fullPath: '/squeeze'
+      preLoaderRoute: typeof SqueezeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_layout': {
@@ -274,6 +294,7 @@ const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRouteRoute: LayoutRouteRouteWithChildren,
+  SqueezeRoute: SqueezeRoute,
   WaitlistRoute: WaitlistRoute,
 }
 export const routeTree = rootRouteImport

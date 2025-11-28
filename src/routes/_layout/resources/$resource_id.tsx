@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { resourcesData } from "../../../../data";
 import Icon from "../../../components/shared/Icon";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import useSqueezeInfo from "../../../contexts/SqueezeContext";
 
 export const Route = createFileRoute("/_layout/resources/$resource_id")({
   component: RouteComponent,
@@ -10,10 +11,22 @@ export const Route = createFileRoute("/_layout/resources/$resource_id")({
 function RouteComponent() {
   const { resource_id } = Route.useParams();
   const [showMore, setShowMore] = useState(false);
+  const { setUserInfo } = useSqueezeInfo();
+  const navigate = useNavigate();
   const resource = resourcesData.find(
     (resource) => String(resource.id) === resource_id,
   );
-
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData) as {
+      email: string;
+      fullName: string;
+    };
+    setUserInfo(data);
+    e.currentTarget.reset();
+    navigate({ to: "/squeeze" });
+  };
   if (!resource)
     return (
       <div className="flex h-dvh w-dvw flex-1 flex-col items-center justify-center gap-y-3">
@@ -87,7 +100,7 @@ function RouteComponent() {
             early access and exclusive updates
           </p>
         </div>
-        <form action="" className="mt-4 flex flex-col gap-y-6">
+        <form onSubmit={onSubmit} className="mt-4 flex flex-col gap-y-6">
           <div className="relative flex flex-col gap-y-2.5">
             <label
               htmlFor="fullName"
@@ -101,9 +114,9 @@ function RouteComponent() {
               className="font-abezee h-[50px] rounded-full border border-[#4A413F] bg-white px-10"
               placeholder="Enter your full name"
             />
-            <button className="absolute top-11.5 left-2">
+            <div className="absolute top-11.5 left-2">
               <Icon color="#4A413F" name="User" />
-            </button>
+            </div>
           </div>
           <div className="relative flex flex-col gap-y-2.5">
             <label
@@ -116,13 +129,16 @@ function RouteComponent() {
               type="text"
               name="email"
               className="font-abezee h-[50px] rounded-full border border-[#4A413F] bg-white px-10"
-              placeholder="Enter your full name"
+              placeholder="Enter your email"
             />
-            <button className="absolute top-11.5 left-2">
+            <div className="absolute top-11.5 left-2">
               <Icon color="#4A413F" name="Mail" />
-            </button>
+            </div>
           </div>
-          <button className="bg-primary hover:bg-primary/70 h-[50px] w-full rounded-full text-white transition-all duration-200 hover:cursor-pointer">
+          <button
+            type="submit"
+            className="bg-primary hover:bg-primary/70 h-[50px] w-full rounded-full text-white transition-all duration-200 hover:cursor-pointer"
+          >
             Get to know us
           </button>
         </form>
