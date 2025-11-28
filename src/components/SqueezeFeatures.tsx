@@ -45,7 +45,7 @@ const BigScreenFeatures = ({
       <ul className="flex flex-col gap-y-6 self-center">
         {featureTitles.map((title, index) => (
           <li
-            className="flex flex-row items-center gap-x-2"
+            className="flex flex-row items-center gap-x-2 transition-all duration-200 hover:scale-105"
             key={index}
             onClick={() => setCurrentlyDisplayed(index)}
           >
