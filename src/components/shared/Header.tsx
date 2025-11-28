@@ -8,6 +8,7 @@ const navLinks = [
   { name: "About", route: "/about" },
   { name: "Contact", route: "/contact-us" },
   { name: "Faq", route: "/frequently-asked-questions" },
+  { name: "Resources", route: "/resources" },
 ];
 
 const Header: React.FC = () => {
@@ -16,7 +17,7 @@ const Header: React.FC = () => {
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white">
-        <nav className="relative mx-auto flex max-w-[1300px] flex-row items-center justify-between px-5 py-5 md:px-10 md:py-[30px]">
+        <nav className="relative mx-auto flex max-w-[1300px] flex-row items-center justify-between px-5 py-5 md:py-[30px] lg:px-10">
           <Link to="/">
             <img
               src="/icons/mobile-logo.svg"
