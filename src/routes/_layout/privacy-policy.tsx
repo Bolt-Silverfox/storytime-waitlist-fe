@@ -22,7 +22,7 @@ function RouteComponent() {
           </li>
         ))}
       </ul>
-      <button className="bg-primary font-abezee mt-6 w-[312px] self-center rounded-full py-[17px] font-semibold text-white uppercase">
+      <button className="bg-primary font-abezee mt-6 mb-10 w-[312px] self-center rounded-full py-[17px] font-semibold text-white uppercase md:mb-28">
         i have read and accepted
       </button>
     </div>
