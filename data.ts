@@ -287,27 +287,27 @@ const featuresData = [
   {
     title: "Personalized Profiles",
     description: "Create multiple kids profiles and personalize them.",
-    imageUrl: "/squeeze/features/voice-options.png",
+    imageUrl: "/squeeze/features/personalized-features.png",
   },
   {
     title: "Read story along with AI",
     description: "Read story along with AI, get quick insight into words.",
-    imageUrl: "/squeeze/features/voice-options.png",
+    imageUrl: "/squeeze/features/read-along-with-ai.png",
   },
   {
     title: "Passive Mode",
     description: "Select between interactive and passive listening",
-    imageUrl: "/squeeze/features/voice-options.png",
+    imageUrl: "/squeeze/features/passive-mode.png",
   },
   {
     title: "Complete Daily Challenge",
     description: "Complete daily challenges and see how much you have learnt.",
-    imageUrl: "/squeeze/features/voice-options.png",
+    imageUrl: "/squeeze/features/daily-challenge.png",
   },
   {
     title: "Interactive mode",
     description: "Select between interactive and passive listening",
-    imageUrl: "/squeeze/features/voice-options.png",
+    imageUrl: "/squeeze/features/interactive-mode.png",
   },
 ];
 
