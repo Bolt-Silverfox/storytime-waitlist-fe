@@ -105,18 +105,18 @@ const howItWorksData = [
       "From learning new words to calming bedtime moments, Storytime makes it easy for your child to enjoy safe, delightful stories designed to spark imagination and help them grow.",
     images: [
       {
-        src: "../../../public/how-it-works/choose-a-story.png",
+        src: "./public/how-it-works/choose-a-story.png",
         title: "Choose a Story",
         description: "Browse bedtime tales, fairy tales, and fun adventures",
       },
       {
-        src: "../../../public/how-it-works/pick-how-to-read.png",
+        src: "./public/how-it-works/pick-how-it-works.png",
         title: "Pick How to Read",
         description:
           "Read yourself, let the app narrate, or explore interactively.",
       },
       {
-        src: "../../../public/how-it-works/enjoy-the-magic.png",
+        src: "./public/how-it-works/enjoy-the-magic.png",
         title: "Enjoy the Magic",
         description: "Kids learn, imagine, and have fun.",
       },
@@ -128,17 +128,17 @@ const howItWorksData = [
       "From learning new words to calming bedtime moments, Storytime makes it easy for your child to enjoy safe, delightful stories designed to spark imagination and help them grow.",
     images: [
       {
-        src: "../../../public/how-it-works/sign-up-login.png",
+        src: "./public/how-it-works/signup-login.png",
         title: "Sign-up login",
         description: "Access the app",
       },
       {
-        src: "../../../public/how-it-works/manage-experience.png",
+        src: "./public/how-it-works/manage-experience.png",
         title: "Manage experience",
         description: "Recommend stories, trackprogress, set control.",
       },
       {
-        src: "../../../public/how-it-works/monitor-progress.png",
+        src: "./public/how-it-works/monitor-progress.png",
         title: "Monitor progress",
         description: "Monitor their daily challenges check reports.",
       },
