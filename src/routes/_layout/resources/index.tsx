@@ -72,15 +72,12 @@ function RouteComponent() {
           {showMore ? "Show less" : "Show More"}
           {showMore ? (
             <img
-              src="../../../../public/icons/chevron-down.svg"
+              src="/icons/chevron-down.svg"
               alt="show less icon"
               className="rotate-180"
             />
           ) : (
-            <img
-              src="../../../../public/icons/chevron-down.svg"
-              alt="show more icon"
-            />
+            <img src="/icons/chevron-down.svg" alt="show more icon" />
           )}
         </button>
       </ul>
