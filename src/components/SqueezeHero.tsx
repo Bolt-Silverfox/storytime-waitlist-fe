@@ -56,7 +56,19 @@ const SqueezeHero = () => {
         </div>
         <div className="h-[445px] w-full rounded-xl bg-[url('/squeeze/squeeze-hero-image.png')] bg-cover bg-center md:h-[900px]"></div>
       </main>
-      <div className="mt-10 h-[300px] w-full rounded-xl bg-[url('/squeeze/hero-video-image.jpg')] bg-cover bg-center lg:h-[508px]"></div>
+      <div className="mt-10 h-[300px] w-full rounded-xl lg:h-[508px]">
+        <iframe
+          className="h-full w-full"
+          // width="560"
+          // height="315"
+          src="https://www.youtube.com/embed/Thic07ev7ug?si=bUQ4gvCG6HkCLkWE"
+          title="YouTube video player"
+          // frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          // referrerpolicy="strict-origin-when-cross-origin"
+          // allowfullscreen
+        ></iframe>
+      </div>
     </section>
   );
 };
