@@ -27,16 +27,14 @@ function RouteComponent() {
                 ))}
               </ul>
             ) : (
-              <p className="font-abezee text-sm leading-6 text-[#212121]">
+              <p className="font-abezee text-sm leading-6 text-[#212121] mb-12">
                 {condition.paragraph}
               </p>
             )}
           </li>
         ))}
       </ul>
-      <button className="bg-primary font-abezee mt-6 mb-10 w-[312px] self-center rounded-full py-[17px] font-semibold text-white uppercase md:mb-28">
-        i have read and accepted
-      </button>
+     
     </div>
   );
 }
