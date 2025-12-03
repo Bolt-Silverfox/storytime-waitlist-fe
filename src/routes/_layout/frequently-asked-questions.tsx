@@ -50,7 +50,6 @@ function RouteComponent() {
         className="hidden md:block w-[350px] h-[350px] absolute bottom-0 left-0 object-contain z-0"
       />
 
-      {/* RIGHT IMAGE — doggie at ~35% from top */}
       <img
         src="doggie.png"
         alt="doggie"
