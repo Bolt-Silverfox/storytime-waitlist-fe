@@ -12,15 +12,15 @@ const faqs = [
   },
   {
     question: "Are the stories safe for my kids?",
-    answer: "To upgrade your Storytime subscription, open the app or website, log into your account, go to subscription settings, choose the premium plan, and follow the prompts, or if you subscribed through the App Store or Google Play, upgrade through your device settings, or contact support@storytimeapp.me for help.",
+    answer: "Yes. All stories are carefully curated to be kid-friendly, age-appropriate, and supported by parental controls to ensure a safe listening experience.",
   },
   {
     question: "Do I need internet to listen?",
-    answer: "To upgrade your Storytime subscription, open the app or website, log into your account, go to subscription settings, choose the premium plan, and follow the prompts, or if you subscribed through the App Store or Google Play, upgrade through your device settings, or contact support@storytimeapp.me for help.",
+    answer: "Yes, you need an internet connection to stream stories.",
   },
   {
     question: "Can parents track reading progress?",
-    answer: "To upgrade your Storytime subscription, open the app or website, log into your account, go to subscription settings, choose the premium plan, and follow the prompts, or if you subscribed through the App Store or Google Play, upgrade through your device settings, or contact support@storytimeapp.me for help.",
+    answer: "Yes. Parents can view each child's activity and use profiles and controls to monitor what they're listening to.",
   },
 ];
 
@@ -50,7 +50,6 @@ function RouteComponent() {
         className="hidden md:block w-[350px] h-[350px] absolute bottom-0 left-0 object-contain z-0"
       />
 
-      {/* RIGHT IMAGE — doggie at ~35% from top */}
       <img
         src="doggie.png"
         alt="doggie"
