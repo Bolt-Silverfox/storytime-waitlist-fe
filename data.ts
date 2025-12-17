@@ -311,6 +311,48 @@ const featuresData = [
   },
 ];
 
+const dashboardNavLinks = [
+  {
+    name: "Overview",
+    route: "/admin/dashboard/overview",
+  },
+  {
+    name: "Customers",
+    route: "/admin/dashboard/customers",
+  },
+  {
+    name: "App Usage",
+    route: "/admin/dashboard/app-usage",
+  },
+];
+
+const dashboardRevenueData = [
+  {
+    title: "Revenue",
+    amount: 13204,
+    percentage: 12,
+    duration: "last month",
+  },
+  {
+    title: "New Users",
+    amount: 2420,
+    percentage: 12,
+    duration: "last month",
+  },
+  {
+    title: "Total Users",
+    amount: 52700,
+    percentage: 5,
+    duration: "last month",
+  },
+  {
+    title: "Active Users",
+    amount: 36750,
+    percentage: 5,
+    duration: "last month",
+  },
+];
+
 export type { Features };
 export {
   privacyPolicyData,
@@ -319,4 +361,6 @@ export {
   resourcesData,
   featuresData,
   featureTitles,
+  dashboardNavLinks,
+  dashboardRevenueData,
 };

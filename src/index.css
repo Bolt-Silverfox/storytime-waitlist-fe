@@ -38,6 +38,7 @@ body {
 
 @theme {
   --font-abezee: "abeezee", sans-serif;
+  --font-inter: "Inter", arial;
   --font-Qilka: "quilka", arial;
   --color-primary: #ec4007;
   --color-secondary: #7a07ec;
@@ -45,6 +46,10 @@ body {
   --color-light-pink: #fff2ec;
   --color-text-dark: #231f1e;
   --color-text-light: #4f4c4b;
+  --color-text: #71717a;
+  --color-border: #e4e4e7;
+  --color-brand: #6e65f4;
+  --color-success: #027a48;
 }
 
 .clip-bottom {
