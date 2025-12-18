@@ -17,9 +17,9 @@ export const Route = createFileRoute("/admin/dashboard")({
 
 function RouteComponent() {
   return (
-    <div className="flex min-h-dvh min-w-dvw flex-col gap-y-6 px-4">
+    <div className="flex min-h-dvh w-dvw flex-col gap-y-6 overflow-x-hidden px-4">
       <AdminHeader />
-      <main className="mx-auto flex w-full max-w-[1376px] flex-1">
+      <main className="mx-auto flex w-full max-w-[1376px] flex-1 overflow-x-hidden">
         <Outlet />
       </main>
     </div>

@@ -353,6 +353,21 @@ const dashboardRevenueData = [
   },
 ];
 
+const allMonths = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 export type { Features };
 export {
   privacyPolicyData,
@@ -363,4 +378,5 @@ export {
   featureTitles,
   dashboardNavLinks,
   dashboardRevenueData,
+  allMonths,
 };
