@@ -9,7 +9,7 @@ import {
   type ChartData,
   type ChartOptions,
 } from "chart.js";
-import { allMonths } from "../../../../data";
+import { allMonths } from "../../../data";
 import { Bar } from "react-chartjs-2";
 import { useState } from "react";
 

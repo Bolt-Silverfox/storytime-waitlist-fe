@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { dashboardNavLinks } from "../../../data";
+import { dashboardNavLinks } from "../../data";
 
 const AdminHeader: React.FC = () => {
   return (

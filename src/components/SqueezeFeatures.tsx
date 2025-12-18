@@ -1,5 +1,5 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
-import { featuresData, featureTitles, type Features } from "../../data";
+import { featuresData, featureTitles, type Features } from "../data";
 
 const SqueezeFeaturesSection = () => {
   const [currentlyDisplayed, setCurrentlyDisplayed] = useState(1);

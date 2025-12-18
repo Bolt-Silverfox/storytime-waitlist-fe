@@ -278,6 +278,7 @@ type Features = {
   description: string;
   imageUrl: string;
 };
+
 const featuresData = [
   {
     title: "Voice options",
@@ -353,6 +354,33 @@ const dashboardRevenueData = [
   },
 ];
 
+const customerDataCards = [
+  {
+    title: "New Users",
+    amount: 2420,
+    percentage: 12,
+    duration: "last month",
+  },
+  {
+    title: "Total Users",
+    amount: 52799,
+    percentage: 12,
+    duration: "last month",
+  },
+  {
+    title: "Active Users",
+    amount: 35750,
+    percentage: 5,
+    duration: "last month",
+  },
+  {
+    title: "Paying Users",
+    amount: 51830,
+    percentage: 5,
+    duration: "last month",
+  },
+];
+
 const allMonths = [
   "Jan",
   "Feb",
@@ -368,6 +396,232 @@ const allMonths = [
   "Dec",
 ];
 
+type TableUser = {
+  imageUrl: string;
+  name: string;
+  lastActive: string;
+  paymentStatus: "paid" | "free";
+  registrationDate: string;
+  activityLength: string;
+  creditUsed: number;
+  amountSpent: number;
+  id: string;
+};
+
+type CustomerTableUser = {
+  imageUrl: string;
+  name: string;
+  lastActive: string;
+  paymentStatus: "paid" | "free";
+  lastLogin: string;
+  activityLength: string;
+  creditUsed: number;
+  amountSpent: number;
+  referrals: number;
+  id: string;
+};
+
+const newUsersTableData: TableUser[] = [
+  {
+    imageUrl: "/images/avatars/olivia-rhye.svg",
+    name: "Catalog",
+    lastActive: "Yesterday, at 16:41",
+    paymentStatus: "paid",
+    registrationDate: "Dec 5, 2025",
+    activityLength: "2 hours",
+    creditUsed: 128,
+    amountSpent: 0.5,
+    id: "1",
+  },
+  {
+    imageUrl: "/images/avatars/ciroocles.svg",
+    name: "Ciroocles",
+    lastActive: "Today, at 9:15",
+    paymentStatus: "free",
+    registrationDate: "Dec 5, 2025",
+    activityLength: "2 hours",
+    creditUsed: 334,
+    amountSpent: 2,
+    id: "2",
+  },
+  {
+    imageUrl: "/images/avatars/command-r.svg",
+    name: "Command + R",
+    lastActive: "Online",
+    paymentStatus: "paid",
+    registrationDate: "Dec 5, 2025",
+    activityLength: "2 hours",
+    creditUsed: 126,
+    amountSpent: 1.2,
+    id: "3",
+  },
+  {
+    imageUrl: "/images/avatars/hourglass.svg",
+    name: "Hourglass",
+    lastActive: "Dec 5, 19:45",
+    paymentStatus: "paid",
+    registrationDate: "Dec 5, 2025",
+    activityLength: "2 hours",
+    creditUsed: 132,
+    amountSpent: 1.7,
+    id: "4",
+  },
+  {
+    imageUrl: "/images/avatars/layers.svg",
+    name: "Layers",
+    lastActive: "Dec 2, 19:45",
+    paymentStatus: "free",
+    registrationDate: "Dec 5, 2025",
+    activityLength: "1 hour",
+    creditUsed: 72,
+    amountSpent: 0,
+    id: "5",
+  },
+];
+const customersTableData: CustomerTableUser[] = [
+  {
+    imageUrl: "/images/avatars/olivia-rhye.svg",
+    name: "Catalog",
+    lastActive: "Yesterday, at 16:41",
+    paymentStatus: "paid",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "30 days and 5 hours",
+    creditUsed: 128,
+    amountSpent: 0.5,
+    id: "1",
+  },
+  {
+    imageUrl: "/images/avatars/ciroocles.svg",
+    name: "Ciroocles",
+    lastActive: "Today, at 9:15",
+    paymentStatus: "free",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "30 days and 5 hours",
+    creditUsed: 334,
+    amountSpent: 2,
+    id: "2",
+  },
+  {
+    imageUrl: "/images/avatars/command-r.svg",
+    name: "Command + R",
+    lastActive: "Online",
+    paymentStatus: "paid",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "30 days and 5 hours",
+    creditUsed: 126,
+    amountSpent: 1.2,
+    id: "3",
+  },
+  {
+    imageUrl: "/images/avatars/hourglass.svg",
+    name: "Hourglass",
+    lastActive: "Dec 5, 19:45",
+    paymentStatus: "paid",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "2 hours",
+    creditUsed: 132,
+    amountSpent: 1.7,
+    id: "4",
+  },
+  {
+    imageUrl: "/images/avatars/layers.svg",
+    name: "Layers",
+    lastActive: "Dec 2, 19:45",
+    paymentStatus: "free",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "1 hour",
+    creditUsed: 72,
+    amountSpent: 0,
+    id: "5",
+  },
+  {
+    imageUrl: "/images/avatars/olivia-rhye.svg",
+    name: "Catalog",
+    lastActive: "Yesterday, at 16:41",
+    paymentStatus: "paid",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "30 days and 5 hours",
+    creditUsed: 128,
+    amountSpent: 0.5,
+    id: "6",
+  },
+  {
+    imageUrl: "/images/avatars/ciroocles.svg",
+    name: "Ciroocles",
+    lastActive: "Today, at 9:15",
+    paymentStatus: "free",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "30 days and 5 hours",
+    creditUsed: 334,
+    amountSpent: 2,
+    id: "7",
+  },
+  {
+    imageUrl: "/images/avatars/command-r.svg",
+    name: "Command + R",
+    lastActive: "Online",
+    paymentStatus: "paid",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "30 days and 5 hours",
+    creditUsed: 126,
+    amountSpent: 1.2,
+    id: "8",
+  },
+  {
+    imageUrl: "/images/avatars/hourglass.svg",
+    name: "Hourglass",
+    lastActive: "Dec 5, 19:45",
+    paymentStatus: "paid",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "2 hours",
+    creditUsed: 132,
+    amountSpent: 1.7,
+    id: "9",
+  },
+  {
+    imageUrl: "/images/avatars/layers.svg",
+    name: "Layers",
+    lastActive: "Dec 2, 19:45",
+    paymentStatus: "free",
+    lastLogin: "Dec 5, 2025",
+    referrals: 2,
+    activityLength: "1 hour",
+    creditUsed: 72,
+    amountSpent: 0,
+    id: "10",
+  },
+];
+
+const durations = [
+  "All time",
+  "Last Month",
+  "Last 3 Months",
+  "Last 6 Months",
+  "Last Year",
+  "Custom",
+] as const;
+
+const customersTableHeaders = [
+  "Users",
+  "Payment Status",
+  "Last Log-in",
+  "Activity Length",
+  "Referrals",
+  "Credit Used",
+  "Amount Spent",
+];
+
+const subscriptions = ["All", "Free", "Paid"] as const;
+
 export type { Features };
 export {
   privacyPolicyData,
@@ -379,4 +633,10 @@ export {
   dashboardNavLinks,
   dashboardRevenueData,
   allMonths,
+  newUsersTableData,
+  customerDataCards,
+  customersTableData,
+  durations,
+  customersTableHeaders,
+  subscriptions,
 };

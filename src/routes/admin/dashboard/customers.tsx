@@ -1,3 +1,5 @@
+import CustomersDataCards from "@/components/admin/CustomersDataCards";
+import CustomersTable from "@/components/admin/tables/CustomersTable";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin/dashboard/customers")({
@@ -25,7 +27,17 @@ function RouteComponent() {
           </button>
         </div>
       </header>
-      <main className="flex w-full flex-col gap-y-4"></main>
+      <main className="flex flex-col gap-y-4">
+        <section aria-labelledby="revenue section">
+          <CustomersDataCards />
+        </section>
+        <section
+          aria-labelledby="New users table"
+          className="mt-4 flex flex-col gap-y-6"
+        >
+          <CustomersTable />
+        </section>
+      </main>{" "}
     </div>
   );
 }

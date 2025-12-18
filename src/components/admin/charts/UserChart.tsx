@@ -12,7 +12,7 @@ import {
   type ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { allMonths } from "../../../../data";
+import { allMonths } from "../../../data";
 import { useState } from "react";
 
 Chart.register(

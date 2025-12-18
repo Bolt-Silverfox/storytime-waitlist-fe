@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { newUsersTableData } from "@/data";
 
 const NewUsersTable: React.FC = () => {
   return (
@@ -34,7 +35,7 @@ const NewUsersTable: React.FC = () => {
                   {data.name}
                 </p>
                 <p className="text-sm text-wrap text-gray-600">
-                  Last Active, {data.lastActive}
+                  Last Active: {data.lastActive}
                 </p>
               </div>
             </TableCell>
@@ -77,74 +78,4 @@ const tableHeaders = [
   "Activity Length",
   "Credit Used",
   "Amount Spent",
-];
-
-type TableUser = {
-  imageUrl: string;
-  name: string;
-  lastActive: string;
-  paymentStatus: "paid" | "free";
-  registrationDate: string;
-  activityLength: string;
-  creditUsed: number;
-  amountSpent: number;
-  id: string;
-};
-
-const newUsersTableData: TableUser[] = [
-  {
-    imageUrl: "/images/avatars/olivia-rhye.svg",
-    name: "Catalog",
-    lastActive: "Yesterday, at 16:41",
-    paymentStatus: "paid",
-    registrationDate: "Dec 5, 2025",
-    activityLength: "2 hours",
-    creditUsed: 128,
-    amountSpent: 0.5,
-    id: "1",
-  },
-  {
-    imageUrl: "/images/avatars/ciroocles.svg",
-    name: "Ciroocles",
-    lastActive: "Today, at 9:15",
-    paymentStatus: "free",
-    registrationDate: "Dec 5, 2025",
-    activityLength: "2 hours",
-    creditUsed: 334,
-    amountSpent: 2,
-    id: "2",
-  },
-  {
-    imageUrl: "/images/avatars/command-r.svg",
-    name: "Command + R",
-    lastActive: "Online",
-    paymentStatus: "paid",
-    registrationDate: "Dec 5, 2025",
-    activityLength: "2 hours",
-    creditUsed: 126,
-    amountSpent: 1.2,
-    id: "3",
-  },
-  {
-    imageUrl: "/images/avatars/hourglass.svg",
-    name: "Hourglass",
-    lastActive: "Dec 5, 19:45",
-    paymentStatus: "paid",
-    registrationDate: "Dec 5, 2025",
-    activityLength: "2 hours",
-    creditUsed: 132,
-    amountSpent: 1.7,
-    id: "4",
-  },
-  {
-    imageUrl: "/images/avatars/layers.svg",
-    name: "Layers",
-    lastActive: "Dec 2, 19:45",
-    paymentStatus: "free",
-    registrationDate: "Dec 5, 2025",
-    activityLength: "1 hour",
-    creditUsed: 72,
-    amountSpent: 0,
-    id: "5",
-  },
 ];
