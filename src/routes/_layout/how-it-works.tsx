@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { howItWorksData } from "../../../data";
+import { howItWorksData } from "../../data";
 
 export const Route = createFileRoute("/_layout/how-it-works")({
   component: RouteComponent,

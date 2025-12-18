@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import PageTitle from "../../components/PageTitle";
-import { termsAndConditionsData } from "../../../data";
+import { termsAndConditionsData } from "../../data";
 
 export const Route = createFileRoute("/_layout/terms-and-conditions")({
   component: RouteComponent,
@@ -27,14 +27,13 @@ function RouteComponent() {
                 ))}
               </ul>
             ) : (
-              <p className="font-abezee text-sm leading-6 text-[#212121] mb-12">
+              <p className="font-abezee mb-12 text-sm leading-6 text-[#212121]">
                 {condition.paragraph}
               </p>
             )}
           </li>
         ))}
       </ul>
-     
     </div>
   );
 }

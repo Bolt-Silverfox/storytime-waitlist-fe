@@ -13,13 +13,18 @@ import { Route as WaitlistRouteImport } from './routes/waitlist'
 import { Route as SqueezeRouteImport } from './routes/squeeze'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as LayoutTermsAndConditionsRouteImport } from './routes/_layout/terms-and-conditions'
 import { Route as LayoutPrivacyPolicyRouteImport } from './routes/_layout/privacy-policy'
 import { Route as LayoutHowItWorksRouteImport } from './routes/_layout/how-it-works'
 import { Route as LayoutFrequentlyAskedQuestionsRouteImport } from './routes/_layout/frequently-asked-questions'
 import { Route as LayoutContactUsRouteImport } from './routes/_layout/contact-us'
 import { Route as LayoutAboutRouteImport } from './routes/_layout/about'
+import { Route as AdminDashboardRouteRouteImport } from './routes/admin/dashboard/route'
 import { Route as LayoutResourcesIndexRouteImport } from './routes/_layout/resources/index'
+import { Route as AdminDashboardOverviewRouteImport } from './routes/admin/dashboard/overview'
+import { Route as AdminDashboardCustomersRouteImport } from './routes/admin/dashboard/customers'
+import { Route as AdminDashboardAppUsageRouteImport } from './routes/admin/dashboard/app-usage'
 import { Route as LayoutResourcesResource_idRouteImport } from './routes/_layout/resources/$resource_id'
 
 const WaitlistRoute = WaitlistRouteImport.update({
@@ -40,6 +45,11 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => LayoutRouteRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutTermsAndConditionsRoute =
   LayoutTermsAndConditionsRouteImport.update({
@@ -73,10 +83,30 @@ const LayoutAboutRoute = LayoutAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const AdminDashboardRouteRoute = AdminDashboardRouteRouteImport.update({
+  id: '/admin/dashboard',
+  path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LayoutResourcesIndexRoute = LayoutResourcesIndexRouteImport.update({
   id: '/resources/',
   path: '/resources/',
   getParentRoute: () => LayoutRouteRoute,
+} as any)
+const AdminDashboardOverviewRoute = AdminDashboardOverviewRouteImport.update({
+  id: '/overview',
+  path: '/overview',
+  getParentRoute: () => AdminDashboardRouteRoute,
+} as any)
+const AdminDashboardCustomersRoute = AdminDashboardCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => AdminDashboardRouteRoute,
+} as any)
+const AdminDashboardAppUsageRoute = AdminDashboardAppUsageRouteImport.update({
+  id: '/app-usage',
+  path: '/app-usage',
+  getParentRoute: () => AdminDashboardRouteRoute,
 } as any)
 const LayoutResourcesResource_idRoute =
   LayoutResourcesResource_idRouteImport.update({
@@ -88,27 +118,37 @@ const LayoutResourcesResource_idRoute =
 export interface FileRoutesByFullPath {
   '/squeeze': typeof SqueezeRoute
   '/waitlist': typeof WaitlistRoute
+  '/admin/dashboard': typeof AdminDashboardRouteRouteWithChildren
   '/about': typeof LayoutAboutRoute
   '/contact-us': typeof LayoutContactUsRoute
   '/frequently-asked-questions': typeof LayoutFrequentlyAskedQuestionsRoute
   '/how-it-works': typeof LayoutHowItWorksRoute
   '/privacy-policy': typeof LayoutPrivacyPolicyRoute
   '/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/': typeof LayoutIndexRoute
   '/resources/$resource_id': typeof LayoutResourcesResource_idRoute
+  '/admin/dashboard/app-usage': typeof AdminDashboardAppUsageRoute
+  '/admin/dashboard/customers': typeof AdminDashboardCustomersRoute
+  '/admin/dashboard/overview': typeof AdminDashboardOverviewRoute
   '/resources': typeof LayoutResourcesIndexRoute
 }
 export interface FileRoutesByTo {
   '/squeeze': typeof SqueezeRoute
   '/waitlist': typeof WaitlistRoute
+  '/admin/dashboard': typeof AdminDashboardRouteRouteWithChildren
   '/about': typeof LayoutAboutRoute
   '/contact-us': typeof LayoutContactUsRoute
   '/frequently-asked-questions': typeof LayoutFrequentlyAskedQuestionsRoute
   '/how-it-works': typeof LayoutHowItWorksRoute
   '/privacy-policy': typeof LayoutPrivacyPolicyRoute
   '/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/': typeof LayoutIndexRoute
   '/resources/$resource_id': typeof LayoutResourcesResource_idRoute
+  '/admin/dashboard/app-usage': typeof AdminDashboardAppUsageRoute
+  '/admin/dashboard/customers': typeof AdminDashboardCustomersRoute
+  '/admin/dashboard/overview': typeof AdminDashboardOverviewRoute
   '/resources': typeof LayoutResourcesIndexRoute
 }
 export interface FileRoutesById {
@@ -116,14 +156,19 @@ export interface FileRoutesById {
   '/_layout': typeof LayoutRouteRouteWithChildren
   '/squeeze': typeof SqueezeRoute
   '/waitlist': typeof WaitlistRoute
+  '/admin/dashboard': typeof AdminDashboardRouteRouteWithChildren
   '/_layout/about': typeof LayoutAboutRoute
   '/_layout/contact-us': typeof LayoutContactUsRoute
   '/_layout/frequently-asked-questions': typeof LayoutFrequentlyAskedQuestionsRoute
   '/_layout/how-it-works': typeof LayoutHowItWorksRoute
   '/_layout/privacy-policy': typeof LayoutPrivacyPolicyRoute
   '/_layout/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/_layout/': typeof LayoutIndexRoute
   '/_layout/resources/$resource_id': typeof LayoutResourcesResource_idRoute
+  '/admin/dashboard/app-usage': typeof AdminDashboardAppUsageRoute
+  '/admin/dashboard/customers': typeof AdminDashboardCustomersRoute
+  '/admin/dashboard/overview': typeof AdminDashboardOverviewRoute
   '/_layout/resources/': typeof LayoutResourcesIndexRoute
 }
 export interface FileRouteTypes {
@@ -131,41 +176,56 @@ export interface FileRouteTypes {
   fullPaths:
     | '/squeeze'
     | '/waitlist'
+    | '/admin/dashboard'
     | '/about'
     | '/contact-us'
     | '/frequently-asked-questions'
     | '/how-it-works'
     | '/privacy-policy'
     | '/terms-and-conditions'
+    | '/admin/login'
     | '/'
     | '/resources/$resource_id'
+    | '/admin/dashboard/app-usage'
+    | '/admin/dashboard/customers'
+    | '/admin/dashboard/overview'
     | '/resources'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/squeeze'
     | '/waitlist'
+    | '/admin/dashboard'
     | '/about'
     | '/contact-us'
     | '/frequently-asked-questions'
     | '/how-it-works'
     | '/privacy-policy'
     | '/terms-and-conditions'
+    | '/admin/login'
     | '/'
     | '/resources/$resource_id'
+    | '/admin/dashboard/app-usage'
+    | '/admin/dashboard/customers'
+    | '/admin/dashboard/overview'
     | '/resources'
   id:
     | '__root__'
     | '/_layout'
     | '/squeeze'
     | '/waitlist'
+    | '/admin/dashboard'
     | '/_layout/about'
     | '/_layout/contact-us'
     | '/_layout/frequently-asked-questions'
     | '/_layout/how-it-works'
     | '/_layout/privacy-policy'
     | '/_layout/terms-and-conditions'
+    | '/admin/login'
     | '/_layout/'
     | '/_layout/resources/$resource_id'
+    | '/admin/dashboard/app-usage'
+    | '/admin/dashboard/customers'
+    | '/admin/dashboard/overview'
     | '/_layout/resources/'
   fileRoutesById: FileRoutesById
 }
@@ -173,6 +233,8 @@ export interface RootRouteChildren {
   LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
   SqueezeRoute: typeof SqueezeRoute
   WaitlistRoute: typeof WaitlistRoute
+  AdminDashboardRouteRoute: typeof AdminDashboardRouteRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -204,6 +266,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_layout/terms-and-conditions': {
       id: '/_layout/terms-and-conditions'
@@ -247,12 +316,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAboutRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_layout/resources/': {
       id: '/_layout/resources/'
       path: '/resources'
       fullPath: '/resources'
       preLoaderRoute: typeof LayoutResourcesIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
+    }
+    '/admin/dashboard/overview': {
+      id: '/admin/dashboard/overview'
+      path: '/overview'
+      fullPath: '/admin/dashboard/overview'
+      preLoaderRoute: typeof AdminDashboardOverviewRouteImport
+      parentRoute: typeof AdminDashboardRouteRoute
+    }
+    '/admin/dashboard/customers': {
+      id: '/admin/dashboard/customers'
+      path: '/customers'
+      fullPath: '/admin/dashboard/customers'
+      preLoaderRoute: typeof AdminDashboardCustomersRouteImport
+      parentRoute: typeof AdminDashboardRouteRoute
+    }
+    '/admin/dashboard/app-usage': {
+      id: '/admin/dashboard/app-usage'
+      path: '/app-usage'
+      fullPath: '/admin/dashboard/app-usage'
+      preLoaderRoute: typeof AdminDashboardAppUsageRouteImport
+      parentRoute: typeof AdminDashboardRouteRoute
     }
     '/_layout/resources/$resource_id': {
       id: '/_layout/resources/$resource_id'
@@ -292,10 +389,27 @@ const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
   LayoutRouteRouteChildren,
 )
 
+interface AdminDashboardRouteRouteChildren {
+  AdminDashboardAppUsageRoute: typeof AdminDashboardAppUsageRoute
+  AdminDashboardCustomersRoute: typeof AdminDashboardCustomersRoute
+  AdminDashboardOverviewRoute: typeof AdminDashboardOverviewRoute
+}
+
+const AdminDashboardRouteRouteChildren: AdminDashboardRouteRouteChildren = {
+  AdminDashboardAppUsageRoute: AdminDashboardAppUsageRoute,
+  AdminDashboardCustomersRoute: AdminDashboardCustomersRoute,
+  AdminDashboardOverviewRoute: AdminDashboardOverviewRoute,
+}
+
+const AdminDashboardRouteRouteWithChildren =
+  AdminDashboardRouteRoute._addFileChildren(AdminDashboardRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   LayoutRouteRoute: LayoutRouteRouteWithChildren,
   SqueezeRoute: SqueezeRoute,
   WaitlistRoute: WaitlistRoute,
+  AdminDashboardRouteRoute: AdminDashboardRouteRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { resourcesData } from "../../../../data";
+import { resourcesData } from "../../../data";
 import Icon from "../../../components/shared/Icon";
 import { useState, type FormEvent } from "react";
 import useSqueezeInfo from "../../../contexts/SqueezeContext";

@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import PageTitle from "../../../components/PageTitle";
-import { resourcesData } from "../../../../data";
+import { resourcesData } from "../../../data";
 import { useState } from "react";
 
 export const Route = createFileRoute("/_layout/resources/")({

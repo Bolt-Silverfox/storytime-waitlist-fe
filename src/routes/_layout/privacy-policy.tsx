@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import PageTitle from "../../components/PageTitle";
-import { privacyPolicyData } from "../../../data";
+import { privacyPolicyData } from "../../data";
 
 export const Route = createFileRoute("/_layout/privacy-policy")({
   component: RouteComponent,
@@ -16,13 +16,12 @@ function RouteComponent() {
             <h2 className="font-Qilka text-base font-bold">
               {policy.index}. {policy.heading}
             </h2>
-            <p className="font-abezee text-sm leading-6 text-[#212121] mb-12">
+            <p className="font-abezee mb-12 text-sm leading-6 text-[#212121]">
               {policy.paragraph}
             </p>
           </li>
         ))}
       </ul>
-      
     </div>
   );
 }
