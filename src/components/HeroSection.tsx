@@ -27,7 +27,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="font-Qilka text-center text-[32px] leading-[50px] md:text-[48px] xl:text-[56px]"
+          className="font-Qilka text-center text-[32px] leading-[50px] text-[#231F1E] md:text-[48px] xl:text-[56px]"
         >
           Storytime4kids - where magical stories grow smarter kids
         </motion.h1>
@@ -51,7 +51,7 @@ export default function HeroSection() {
         >
           <img src="play-store.png" className="h-[32px] w-[29px]" alt="" />
           <div className="pl-1">
-            <p className="text-center text-[12px]">Download on</p>
+            <p className="text-left text-[12px]">Download on</p>
             <p className="text-center">Google play</p>
           </div>
         </motion.button>
@@ -207,17 +207,21 @@ export default function HeroSection() {
             >
               Experience storytelling like never before in
             </motion.p>
-            <div className="scrollbar-hide w-full overflow-x-auto px-4">
-              <div className="flex justify-center gap-2 md:gap-3">
-                {lists.map((list, i) => (
+            <div className="relative mx-auto w-full overflow-hidden">
+              <motion.div
+                className="flex w-max gap-2 md:gap-3"
+                animate={{ x: ["0%", "-33.33%"] }}
+                transition={{
+                  x: {
+                    duration: 25,
+                    repeat: Infinity,
+                    ease: "linear",
+                    repeatType: "loop",
+                  },
+                }}
+              >
+                {[...lists, ...lists, ...lists].map((list, i) => (
                   <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      duration: 0.4,
-                      delay: 0.8 + i * 0.1,
-                      ease: "backOut",
-                    }}
                     whileHover={{ scale: 1.1, y: -3 }}
                     className="rounded-full bg-white/70 px-8 py-2.5 text-sm whitespace-nowrap md:px-12 md:py-3 md:text-base xl:px-16 xl:py-3.5"
                     key={i}
@@ -225,7 +229,7 @@ export default function HeroSection() {
                     {list}
                   </motion.span>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

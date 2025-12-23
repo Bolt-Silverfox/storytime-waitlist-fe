@@ -52,10 +52,10 @@ const FaqComponent = ({
       {/* ANSWER SECTION */}
       <AnimatePresence initial={false}>
         {open && (
-          <div className="relative mt-2 w-full overflow-hidden rounded-[14px] px-4 md:px-[34px]">
+          <div className="relative mt-2 w-full overflow-hidden rounded-[14px] px-4">
             {/* STATIC SVG background */}
             <svg
-              className="absolute inset-0 -z-10 h-full w-full rounded-[14px]"
+              className="absolute inset-0 -z-10 ml-auto h-full w-full max-w-[442px] rounded-[14px]"
               viewBox="0 0 622 347"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ const FaqComponent = ({
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
             >
-              <p className="py-4 pr-2 text-[16px] leading-relaxed md:py-[22px] md:pr-4 md:text-2xl">
+              <p className="ml-auto max-w-[502px] py-4 pl-26 text-[16px] leading-relaxed text-[#4F4C4B] md:py-[22px] md:text-lg">
                 {answer}
               </p>
             </motion.div>

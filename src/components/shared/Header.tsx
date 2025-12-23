@@ -27,7 +27,7 @@ const Header: React.FC = () => {
             <img
               src="/icons/new-logo-blue.svg"
               alt="storytime logo image"
-              className="hidden h-16 w-[178px] md:block"
+              className="hidden h-12 w-[108px] md:block"
             />
           </Link>
           <div
