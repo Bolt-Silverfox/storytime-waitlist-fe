@@ -1,6 +1,6 @@
 import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
-fix: use PortableTextBlock type for post body fieldfix: use PortableTextBlock type for post body fieldfix: use PortableTextBlock type for post body fieldimport type { PortableTextBlock } from "@portabletext/types";
+import type { PortableTextBlock } from "@portabletext/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SanityImageSource = any;
