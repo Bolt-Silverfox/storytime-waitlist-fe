@@ -1,5 +1,6 @@
 import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
+fix: use PortableTextBlock type for post body fieldfix: use PortableTextBlock type for post body fieldfix: use PortableTextBlock type for post body fieldimport type { PortableTextBlock } from "@portabletext/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SanityImageSource = any;
@@ -30,7 +31,7 @@ export interface SanityPost {
   excerpt: string | null;
   mainImage: SanityImageSource | null;
   previewImage: SanityImageSource | null;
-  body: unknown[];
+  body: PortableTextBlock[];
   author: {
     name: string;
   } | null;
