@@ -24,7 +24,10 @@ function CategorySkeleton() {
   return (
     <div className="flex gap-4 overflow-x-auto">
       {[1, 2, 3, 4, 5].map((i) => (
-        <div key={i} className="h-10 w-32 animate-pulse rounded-full bg-gray-200" />
+        <div
+          key={i}
+          className="h-10 w-32 animate-pulse rounded-full bg-gray-200"
+        />
       ))}
     </div>
   );
@@ -66,7 +69,9 @@ function RouteComponent() {
     return matchesSearch && matchesCategory;
   });
 
-  const selectedCategoryTitle = categories.find((c) => c._id === category)?.title;
+  const selectedCategoryTitle = categories.find(
+    (c) => c._id === category,
+  )?.title;
 
   return (
     <div className="relative z-0 w-full">
@@ -92,7 +97,7 @@ function RouteComponent() {
           className="md-py-11 font-abezee mt-6 h-[47px] w-full max-w-[620px] rounded-[100px] border py-4 pl-4 text-[16px] leading-9 md:mt-[29px] md:h-[61px] md:pl-11 md:text-[21px]"
           onChange={(e) => setSearch(e.target.value)}
         />
-        
+
         {/* Categories */}
         {loading ? (
           <div className="mt-12 w-full max-w-[620px] md:max-w-full lg:flex lg:justify-center">
