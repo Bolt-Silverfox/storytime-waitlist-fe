@@ -75,3 +75,50 @@ export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
     { slug },
   );
 }
+
+// FAQ Types and Functions
+export interface SanityFaqCategory {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  order: number;
+}
+
+export interface SanityFaq {
+  _id: string;
+  question: string;
+  answer: string;
+  order: number;
+  category: {
+    _id: string;
+    title: string;
+    slug: { current: string };
+  } | null;
+}
+
+export async function getFaqCategories(): Promise<SanityFaqCategory[]> {
+  return sanityClient.fetch(`
+    *[_type == "faqCategory"] | order(order asc) {
+      _id,
+      title,
+      slug,
+      order
+    }
+  `);
+}
+
+export async function getFaqs(): Promise<SanityFaq[]> {
+  return sanityClient.fetch(`
+    *[_type == "faq"] | order(order asc) {
+      _id,
+      question,
+      answer,
+      order,
+      category->{
+        _id,
+        title,
+        slug
+      }
+    }
+  `);
+}
