@@ -1,9 +1,14 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { Toaster } from "sonner";
+import { SqueezeProvider } from "../contexts/SqueezeContext";
 
 const RootLayout = () => (
-  <div className="overflow-x-hidden w-full min-h-dvh flex flex-col gap-y-[61px]">
-    <Outlet />
-  </div>
+  <SqueezeProvider>
+    <div className="flex min-h-dvh w-full max-w-dvw flex-col">
+      <Outlet />
+    </div>
+    <Toaster />
+  </SqueezeProvider>
 );
 
 export const Route = createRootRoute({ component: RootLayout });

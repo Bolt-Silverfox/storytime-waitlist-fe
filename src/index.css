@@ -14,13 +14,37 @@
   font-style: normal;
 }
 
+html {
+  overscroll-behavior: none;
+}
+
+body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
+}
+
+/* slider config */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
 @theme {
   --font-abezee: "abeezee", sans-serif;
   --font-Qilka: "quilka", arial;
   --color-primary: #ec4007;
   --color-secondary: #7a07ec;
   --color-dark: #190a02;
-  --color-light-pink: #FFF2EC;
+  --color-light-pink: #fff2ec;
+  --color-text-dark: #231f1e;
+  --color-text-light: #4f4c4b;
 }
 
 .clip-bottom {
