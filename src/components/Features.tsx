@@ -71,7 +71,7 @@ export default function Features() {
     lenis.on("scroll", ScrollTrigger.update);
 
     const rafCallback = (time: number) => {
-      lenis.raf(time * 1000);
+      lenis.raf(time * 10000);
     };
     gsap.ticker.add(rafCallback);
     gsap.ticker.lagSmoothing(0);
@@ -87,7 +87,7 @@ export default function Features() {
       pin: true,
       pinSpacing: true,
       anticipatePin: 1.5,
-      scrub: 4,
+      scrub: 1,
       fastScrollEnd: false,
       preventOverlaps: true,
       onUpdate: (self) => {
