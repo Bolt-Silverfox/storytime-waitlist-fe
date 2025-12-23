@@ -19,7 +19,11 @@ const ContactUs: React.FC = () => {
           <img src={postimage} alt="Mailbox" className="h-auto w-full" />
         </div>
 
-        <form ref={formRef} onSubmit={handleSubmit} className="z-10 mx-auto flex w-full max-w-md flex-col gap-4">
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          className="z-10 mx-auto flex w-full max-w-md flex-col gap-4"
+        >
           <input
             type="text"
             placeholder="Enter your full name"
@@ -37,7 +41,10 @@ const ContactUs: React.FC = () => {
             className="h-36 w-full resize-none rounded-xl border border-gray-300 px-5 py-3 text-sm focus:outline-orange-400"
           />
 
-          <button type="submit" className="mx-auto w-full rounded-full bg-[#EC4007] py-3 text-lg text-white transition hover:bg-[#B53305]">
+          <button
+            type="submit"
+            className="mx-auto w-full rounded-full bg-[#EC4007] py-3 text-lg text-white transition hover:bg-[#B53305]"
+          >
             Submit
           </button>
         </form>
