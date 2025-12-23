@@ -1,39 +1,79 @@
+import { motion } from "framer-motion";
+
 export default function Categories() {
   const categories = [
-    { name: "Adventure",  image: "/categ-1.png" },
+    { name: "Adventure", image: "/categ-1.png" },
     { name: "Mystery", image: "/categ-2.png" },
     { name: "Fantasy", image: "/categ-3.png" },
     { name: "Sci-fi", image: "/categ-4.png" },
   ];
 
   return (
-    <section className="md:max-w-[1239px] mx-auto h-auto md:h-[482px] mt-20 md:mt-40 px-4">
-      <div className="container mx-auto">
-        <h2 className="font-Qilka mb-8 md:mb-15 text-center text-3xl md:text-[56px] font-bold text-[#231F1E]">
-          Browse through our categories
-        </h2>
+    <section className="mt-20 md:mt-40">
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="font-Qilka mb-8 text-center text-[32px] font-bold text-[#231F1E] md:mb-15 md:text-[56px]"
+      >
+        Browse through our categories
+      </motion.h2>
 
-        <div className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {categories.map((category, index) => (
+      {/* carousel for mobile and tablet */}
+      <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4 lg:hidden">
+        {categories.map((category, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            whileTap={{ scale: 0.98 }}
+            className="font-abezee flex min-w-[287px] cursor-pointer snap-center flex-col items-center justify-center overflow-hidden rounded-[20px] shadow-xl"
+          >
             <div
-              key={index}
-              className="flex cursor-pointer font-abezee flex-col items-center justify-center shadow-xl transition-all hover:scale-105 hover:shadow-2xl"
+              className="flex h-[357px] w-[287px] items-end rounded-[20px] px-4 py-5"
+              style={{
+                backgroundImage: `url('${category.image}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
             >
-              <div
-                className="w-full md:w-[287px] h-40 md:h-[394px] rounded-[20px] flex px-4 md:px-[30px] items-end py-5"
-                style={{
-                  backgroundImage: `url('${category.image}')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <h3 className="text-white text-xl md:text-[32px] font-bold">
-                  {category.name}
-                </h3>
-              </div>
+              <h3 className="text-xl font-bold text-white">{category.name}</h3>
             </div>
-          ))}
-        </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* grids */}
+      <div className="mx-auto hidden max-w-7xl grid-cols-4 gap-6 lg:grid">
+        {categories.map((category, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.15, ease: "backOut" }}
+            whileHover={{ scale: 1.05, y: -10 }}
+            whileTap={{ scale: 0.98 }}
+            className="font-abezee flex cursor-pointer flex-col items-center justify-center rounded-[20px] shadow-xl"
+          >
+            <div
+              className="flex items-end rounded-[20px] px-[30px] py-5 md:h-[394px] md:w-[287px]"
+              style={{
+                backgroundImage: `url('${category.image}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <h3 className="text-[32px] font-bold text-white">
+                {category.name}
+              </h3>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

@@ -16,15 +16,13 @@ function RouteComponent() {
             <h2 className="font-Qilka text-base font-bold">
               {policy.index}. {policy.heading}
             </h2>
-            <p className="font-abezee text-sm leading-6 text-[#212121]">
+            <p className="font-abezee text-sm leading-6 text-[#212121] mb-12">
               {policy.paragraph}
             </p>
           </li>
         ))}
       </ul>
-      <button className="bg-primary font-abezee mt-6 w-[312px] self-center rounded-full py-[17px] font-semibold text-white uppercase">
-        i have read and accepted
-      </button>
+      
     </div>
   );
 }
