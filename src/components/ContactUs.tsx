@@ -37,18 +37,6 @@ const ContactUs: React.FC = () => {
           <img src={envelop} alt="Envelope" className="h-auto w-full" />
         </div>
       </div>
-
-      <div className="mt-8 mr-10 flex w-full max-w-[384px] flex-col items-center justify-center gap-16 text-center lg:flex-row">
-        <div>
-          <div className="mb-1 text-lg font-medium">📧 Email</div>
-          <div className="text-gray-700">Storytime@mail.org</div>
-        </div>
-
-        <div>
-          <div className="mb-1 text-lg font-medium">📞 Phone</div>
-          <div className="text-gray-700">+1 (765) 765 7656</div>
-        </div>
-      </div>
     </div>
   );
 };
