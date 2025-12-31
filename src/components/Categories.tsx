@@ -17,7 +17,7 @@ export default function Categories() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="font-Qilka mb-8 text-center text-[32px] font-bold text-[#231F1E] md:mb-15 md:text-[56px]"
       >
-        Browse through our categories
+        Categories on storytime and more...
       </motion.h2>
 
       {/* carousel for mobile and tablet */}
