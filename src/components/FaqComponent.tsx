@@ -32,7 +32,7 @@ const FaqComponent = ({
             />
           </svg>
 
-          <p className="-mt-4 pl-8 text-[16px] leading-5 md:pl-12 md:text-2xl">
+          <p className="-mt-4 pl-8 text-[16px] leading-[100%] md:pl-12 md:text-2xl">
             {question}
           </p>
         </div>
@@ -74,7 +74,7 @@ const FaqComponent = ({
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
             >
-              <p className="ml-auto max-w-[502px] py-4 pl-26 text-[16px] leading-relaxed text-[#4F4C4B] md:py-[22px] md:text-lg">
+              <p className="ml-auto max-w-[502px] py-4 pl-26 text-[16px] leading-9 text-[#4F4C4B] md:py-[22px] md:text-lg">
                 {answer}
               </p>
             </motion.div>
