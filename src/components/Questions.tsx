@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import FaqComponent from "./FaqComponent";
 
 export default function Questions() {
-  const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
     {

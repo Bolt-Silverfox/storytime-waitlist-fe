@@ -1,7 +1,6 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import Icon from "../../../components/shared/Icon";
-import { useState, useEffect, type FormEvent } from "react";
-import useSqueezeInfo from "../../../contexts/SqueezeContext";
+import { createFileRoute, Link } from "@tanstack/react-router";
+
+import { useState, useEffect } from "react";
 import {
   getPostBySlug,
   urlFor,
@@ -18,8 +17,6 @@ export const Route = createFileRoute("/_layout/resources/$resource_id")({
 function RouteComponent() {
   const { resource_id } = Route.useParams();
   const [showMore, setShowMore] = useState(false);
-  const { setUserInfo } = useSqueezeInfo();
-  const navigate = useNavigate();
   const [post, setPost] = useState<SanityPost | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,18 +25,6 @@ function RouteComponent() {
       .then((data) => setPost(data))
       .finally(() => setLoading(false));
   }, [resource_id]);
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData) as {
-      email: string;
-      fullName: string;
-    };
-    setUserInfo(data);
-    e.currentTarget.reset();
-    navigate({ to: "/squeeze" });
-  };
 
   if (loading) {
     return (
