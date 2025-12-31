@@ -55,8 +55,39 @@ export default function Features() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const mobileListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Mobile scroll animation for features list (vertical scroll, no UI change)
+    if (window.innerWidth < 1024 && mobileListRef.current) {
+      const mobileTrigger = ScrollTrigger.create({
+        trigger: mobileListRef.current,
+        start: "top top",
+        end: `+=${featuresData.length * 120}`, // 120px per item
+        pin: true,
+        pinSpacing: true,
+        scrub: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const newIndex = Math.min(
+            Math.floor(progress * featuresData.length),
+            featuresData.length - 1,
+          );
+          setActiveIndex(newIndex);
+        },
+        snap: {
+          snapTo: (value) => {
+            const step = 1 / featuresData.length;
+            return Math.round(value / step) * step;
+          },
+          duration: { min: 0.1, max: 0.2 },
+          ease: "power1.inOut",
+        },
+      });
+      return () => {
+        mobileTrigger.kill();
+      };
+    }
     // Initialize Lenis for ultra-smooth scrolling
     const lenis = new Lenis({
       duration: 2.4,
@@ -83,7 +114,7 @@ export default function Features() {
     const trigger = ScrollTrigger.create({
       trigger: triggerRef.current,
       start: "center center",
-      end: `+=${featuresData.length * 100}%`,
+      end: `+=${featuresData.length * 40}vh`, // Each item takes up 40vh of scroll (shorter)
       pin: true,
       pinSpacing: true,
       anticipatePin: 1.5,
@@ -97,6 +128,14 @@ export default function Features() {
           featuresData.length - 1,
         );
         setActiveIndex(newIndex);
+      },
+      snap: {
+        snapTo: (value) => {
+          const step = 1 / featuresData.length;
+          return Math.round(value / step) * step;
+        },
+        duration: { min: 0.1, max: 0.3 },
+        ease: "power1.inOut",
       },
     });
 
@@ -122,7 +161,10 @@ export default function Features() {
       </motion.h2>
 
       {/* Mobile View */}
-      <div className="mx-auto w-full rounded-3xl bg-white p-6 md:p-8 lg:hidden">
+      <div
+        ref={mobileListRef}
+        className="mx-auto w-full rounded-3xl bg-white p-6 md:p-8 lg:hidden"
+      >
         {/* img */}
         <div className="mb-10 flex justify-center rounded-4xl bg-[#FFE9DF]">
           <div className="flex justify-center overflow-hidden p-4">
@@ -167,7 +209,7 @@ export default function Features() {
           <button
             onClick={() =>
               window.open(
-                "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+                "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                 "_blank",
               )
             }
@@ -226,7 +268,7 @@ export default function Features() {
             <motion.img
               key={activeFeature.id}
               src={activeFeature.image}
-              className="-mb-12"
+              className="-mb-12 h-[500px] object-contain"
               alt="image"
               initial={{ opacity: 0, scale: 0.9, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -270,7 +312,7 @@ export default function Features() {
             <button
               onClick={() =>
                 window.open(
-                  "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+                  "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                   "_blank",
                 )
               }
