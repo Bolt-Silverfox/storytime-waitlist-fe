@@ -69,7 +69,7 @@ export default function Details() {
             whileTap={{ scale: 0.95 }}
             onClick={() =>
               window.open(
-                "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+                "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                 "_blank",
               )
             }
