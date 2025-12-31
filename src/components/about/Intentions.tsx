@@ -14,7 +14,7 @@ export default function Intentions() {
         <button
           onClick={() =>
             window.open(
-              "https://appetize.io/app/b_mut2mndbqlx7iw54fsz4sbh2by?device=pixel7&osVersion=13.0&toolbar=true",
+              "https://play.google.com/store/apps/details?id=net.emerj.storytime",
               "_blank",
             )
           }
