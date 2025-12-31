@@ -20,7 +20,7 @@ const FaqComponent = ({
           className="relative flex min-h-18 w-full cursor-pointer items-center rounded-[14px] px-4 md:min-h-24 md:px-[34px]"
         >
           <svg
-            className="absolute inset-0 -z-10 h-full w-full rounded-[14px]"
+            className="absolute inset-0 h-full w-full rounded-[14px]"
             viewBox="0 0 622 97"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ const FaqComponent = ({
             />
           </svg>
 
-          <p className="-mt-4 pl-8 text-[16px] leading-5 md:pl-12 md:text-2xl">
+          <p className="relative -mt-4 pl-8 text-[16px] leading-[100%] md:pl-12 md:text-2xl">
             {question}
           </p>
         </div>
@@ -52,10 +52,10 @@ const FaqComponent = ({
       {/* ANSWER SECTION */}
       <AnimatePresence initial={false}>
         {open && (
-          <div className="relative mt-2 w-full overflow-hidden rounded-[14px] px-4">
+          <div className="relative w-full overflow-hidden rounded-[14px] px-4">
             {/* STATIC SVG background */}
             <svg
-              className="absolute inset-0 -z-10 ml-auto h-full w-full max-w-[442px] rounded-[14px]"
+              className="absolute inset-0 ml-auto h-full w-full max-w-[442px] rounded-[14px]"
               viewBox="0 0 622 347"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -73,8 +73,9 @@ const FaqComponent = ({
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
+              className="relative"
             >
-              <p className="ml-auto max-w-[502px] py-4 pl-26 text-[16px] leading-relaxed text-[#4F4C4B] md:py-[22px] md:text-lg">
+              <p className="ml-auto max-w-[502px] py-4 pl-26 text-[16px] leading-9 text-[#4F4C4B] md:py-[22px] md:text-lg">
                 {answer}
               </p>
             </motion.div>

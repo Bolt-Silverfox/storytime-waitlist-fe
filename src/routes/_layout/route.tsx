@@ -6,6 +6,7 @@ import {
 import { useEffect } from "react";
 import Header from "../../components/shared/Header";
 import Footer from "../../components/shared/Footer";
+import BackToTopButton from "../../components/BackToTopButton";
 
 export const Route = createFileRoute("/_layout")({
   component: RouteComponent,
@@ -24,6 +25,7 @@ function RouteComponent() {
       <main className="flex-1 overflow-x-hidden">
         <Outlet />
       </main>
+      <BackToTopButton />
       <Footer />
     </div>
   );

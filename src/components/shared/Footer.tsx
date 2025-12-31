@@ -22,9 +22,18 @@ const footerLinks = [
 const Footer: React.FC = () => {
   return (
     <footer className="bg-[#363232]">
-      <section className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-y-10 bg-[#363232] py-[63px] md:px-10 lg:flex-row">
+      <section className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-y-10 bg-[#363232] py-5 md:px-10 lg:flex-row">
         <Link to="/">
-          <img src="/icons/new-logo.svg" alt="storytime logo image" />
+          <img
+            src="/icons/new-logo.svg"
+            alt="storytime logo image"
+            className="h-[38px] w-[106px] md:hidden"
+          />
+          <img
+            src="/icons/new-logo.svg"
+            alt="storytime logo image"
+            className="hidden h-12 w-[108px] md:block"
+          />
         </Link>
         <nav className="flex">
           <ul className="flex flex-1 flex-col items-center gap-x-[27px] gap-y-4 lg:flex-row">

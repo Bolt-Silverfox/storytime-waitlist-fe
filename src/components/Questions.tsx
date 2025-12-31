@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
+import FaqComponent from "./FaqComponent";
 
 export default function Questions() {
-  const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
     {
@@ -27,10 +26,6 @@ export default function Questions() {
     },
   ];
 
-  const toggleAccordion = (index: number) => {
-    setOpenIndex(openIndex === index ? -1 : index);
-  };
-
   return (
     <section className="relative mt-20 bg-white md:mt-40">
       <div className="container mx-auto">
@@ -44,7 +39,10 @@ export default function Questions() {
           Questions you may have
         </motion.h2>
 
-        <div className="font-abezee relative mx-auto max-w-[720px] text-[24px] tracking-[6%]">
+        <div
+          className="font-abezee relative mx-auto max-w-[720px] text-[24px] tracking-[6%]"
+          style={{ overflow: "visible" }}
+        >
           {/* detective */}
           <div className="absolute -bottom-20 -left-96 hidden max-w-[700px] xl:block">
             <img
@@ -61,49 +59,11 @@ export default function Questions() {
 
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
+              <FaqComponent
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ scale: 1.01 }}
-                className="z-10 overflow-hidden rounded-3xl bg-[#FFF2EC] transition-all"
-              >
-                <button
-                  onClick={() => toggleAccordion(index)}
-                  className="group flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-[#FFF2EC] md:p-8"
-                >
-                  <span className="flex-1 pr-4 text-lg font-normal text-gray-800 md:text-xl lg:text-2xl">
-                    {faq.question}
-                  </span>
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 transition-all group-hover:bg-orange-200 md:h-14 md:w-14">
-                    <span
-                      className={`text-3xl font-light text-orange-500 transition-transform duration-300 md:text-4xl ${
-                        openIndex === index ? "rotate-45" : ""
-                      }`}
-                    >
-                      +
-                    </span>
-                  </div>
-                </button>
-
-                <div
-                  className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                    openIndex === index
-                      ? "max-h-[500px] opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="px-6 pb-6 md:px-8 md:pb-8">
-                    <div className="border-t-2 border-dashed border-[#ED4F01] pt-4 md:pt-6">
-                      <p className="text-base leading-relaxed text-gray-600 md:text-lg">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+                question={faq.question}
+                answer={faq.answer}
+              />
             ))}
           </div>
         </div>
