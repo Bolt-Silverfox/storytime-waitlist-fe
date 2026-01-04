@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { trackCTAClick } from "../lib/analytics";
 
 export default function Details() {
   return (
@@ -67,12 +68,13 @@ export default function Details() {
             transition={{ duration: 0.5, delay: 0.6, ease: "backOut" }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() =>
+            onClick={() => {
+              trackCTAClick("Download", "Details");
               window.open(
                 "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                 "_blank",
-              )
-            }
+              );
+            }}
             className="font-abezee h-[60px] w-[251px] rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl md:h-[64px] md:w-[280px]"
           >
             Download now

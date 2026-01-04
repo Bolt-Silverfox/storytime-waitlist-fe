@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import Icon from "./Icon";
 import MobileNav from "./MobileNav";
+import { trackCTAClick } from '../../lib/analytics';
 
 const navLinks = [
   { name: "Home", route: "/" },
@@ -50,7 +51,16 @@ const Header: React.FC = () => {
               ))}
             </ul>
           </div>
-          <button className="bg-primary hover:bg-primary/70 font-abezee hidden rounded-full px-[40.45px] py-[13.48px] text-center text-white transition-all duration-300 md:flex">
+          <button
+            onClick={() => {
+              trackCTAClick("Download", "Header");
+              window.open(
+                "https://play.google.com/store/apps/details?id=net.emerj.storytime",
+                "_blank",
+              );
+            }}
+            className="bg-primary hover:bg-primary/70 font-abezee hidden rounded-full px-[40.45px] py-[13.48px] text-center text-white transition-all duration-300 md:flex"
+          >
             Download
           </button>
           <button
