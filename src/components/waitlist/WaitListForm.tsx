@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import SuccessDisplay from "../SuccessDisplay";
 import { Icon } from "@iconify/react";
+import { WAITLIST_API } from "../../constants";
 
 type Props = {
   onClose: () => void;
@@ -48,9 +49,7 @@ const WaitListForm = ({ onClose }: Props) => {
         setErrors(newErrors);
         return;
       }
-      console.log("Form data submitted:", data);
-
-      const response = await fetch(import.meta.env.VITE_API_URL, {
+      const request = await fetch(`${WAITLIST_API}/waitlist/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,16 +57,19 @@ const WaitListForm = ({ onClose }: Props) => {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error(response.statusText);
+      if (!request.ok) {
+        throw new Error(request.statusText);
       }
-
-      console.log(response);
+      const response: {
+        status: boolean;
+        messsage: string;
+        error: string | null;
+      } = await request.json();
+      if (!response.status) throw new Error(response.messsage);
       setIsSignupSuccessful(true);
     } catch (err: unknown) {
       const errMessage =
         err instanceof Error ? err.message : "Unexpected error, try again.";
-      console.log("messageerrr", errMessage);
       setErrors({ ...errors, general: errMessage });
     } finally {
       setIsLoading(false);
@@ -98,7 +100,7 @@ const WaitListForm = ({ onClose }: Props) => {
 
           <section className="flex flex-col gap-y-[17px]">
             <h2 className="font-Qilka text-center text-[20px] md:text-[26px]">
-              Join thousands of readers
+              Join thousands of readers s
             </h2>
             <p className="text-center text-sm md:text-base">
               Fill the form below and be the first to know when we launch.
@@ -151,7 +153,7 @@ const WaitListForm = ({ onClose }: Props) => {
 
           <button
             type="submit"
-            className="mt-0.5 w-full cursor-pointer self-center rounded-full bg-[#FEEAE6] py-2.5 text-center text-[#FB9583]"
+            className="bg-primary mt-0.5 w-full cursor-pointer self-center rounded-full py-2.5 text-center text-white"
           >
             {isLoading ? "Loading..." : "Join the waitlist"}
           </button>
