@@ -1,6 +1,11 @@
 import { useEffect, useState, type FormEvent } from "react";
 import SuccessDisplay from "../SuccessDisplay";
 import { Icon } from "@iconify/react";
+import {
+  trackWaitlistFormViewed,
+  trackWaitlistSignup,
+  trackWaitlistSignupError,
+} from "../../lib/analytics";
 
 type Props = {
   onClose: () => void;
@@ -17,6 +22,10 @@ const WaitListForm = ({ onClose }: Props) => {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+
+    // Track that the waitlist form was viewed
+    trackWaitlistFormViewed();
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -63,11 +72,19 @@ const WaitListForm = ({ onClose }: Props) => {
       }
 
       console.log(response);
+
+      // Track successful signup
+      trackWaitlistSignup(data.name, data.email);
+
       setIsSignupSuccessful(true);
     } catch (err: unknown) {
       const errMessage =
         err instanceof Error ? err.message : "Unexpected error, try again.";
       console.log("messageerrr", errMessage);
+
+      // Track signup error
+      trackWaitlistSignupError(errMessage);
+
       setErrors({ ...errors, general: errMessage });
     } finally {
       setIsLoading(false);

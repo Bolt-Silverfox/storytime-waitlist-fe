@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { trackCTAClick } from "../lib/analytics";
 
 export default function ParentalControls() {
   return (
@@ -22,12 +23,13 @@ export default function ParentalControls() {
           </p>
 
           <button
-            onClick={() =>
+            onClick={() => {
+              trackCTAClick("Download", "ParentalControl");
               window.open(
                 "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                 "_blank",
-              )
-            }
+              );
+            }}
             className="font-abezee h-14 w-full rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl md:h-[64px] md:w-[280px]"
           >
             Download now

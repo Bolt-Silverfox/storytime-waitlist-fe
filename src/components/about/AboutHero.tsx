@@ -1,3 +1,5 @@
+import { trackCTAClick } from '../../lib/analytics';
+
 export default function AboutHero() {
   return (
     <section className="overflow-x-hidden bg-white">
@@ -14,12 +16,13 @@ export default function AboutHero() {
               curiosity, spark creativity, and support children&apos;s growth.
             </p>
             <button
-              onClick={() =>
+              onClick={() => {
+                trackCTAClick("Download", "AboutHero");
                 window.open(
                   "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                   "_blank",
-                )
-              }
+                );
+              }}
               className="bg-primary font-abezee mx-auto flex items-center gap-4 rounded-full px-6 py-3 text-center text-white"
             >
               <img src="/aboutpage/play-store-icon.png" alt="Play store icon" />
@@ -56,12 +59,13 @@ export default function AboutHero() {
               curiosity, spark creativity, and support children&apos;s growth.
             </p>
             <button
-              onClick={() =>
+              onClick={() => {
+                trackCTAClick("Download", "AboutHero");
                 window.open(
                   "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                   "_blank",
                 )
-              }
+              }}
               className="bg-primary font-abezee flex items-center gap-4 rounded-full px-6 py-3 text-center text-white"
             >
               <img src="/aboutpage/play-store-icon.png" alt="Play store icon" />

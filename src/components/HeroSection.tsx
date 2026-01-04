@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import thumbSrc from "../assets/video-thumbnail.png";
+import { trackCTAClick } from "../lib/analytics";
 
 export default function HeroSection() {
   const [playing, setPlaying] = useState(false);
@@ -47,6 +48,13 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.4, ease: "backOut" }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => {
+            trackCTAClick("Download", "HeroSection");
+            window.open(
+              "https://play.google.com/store/apps/details?id=net.emerj.storytime",
+              "_blank",
+            );
+          }}
           className="bg-primary font-abezee mx-auto flex h-[69px] w-[211px] items-center justify-center gap-3 rounded-full text-center text-white"
         >
           <img src="play-store.png" className="h-[32px] w-[29px]" alt="" />
