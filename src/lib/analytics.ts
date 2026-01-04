@@ -2,7 +2,7 @@ import * as amplitude from "@amplitude/analytics-browser";
 
 // Initialize Amplitude
 export const initializeAnalytics = () => {
-  const apiKey = import.meta.env.VITE_AMPLITUDE_API_KEY;
+  const apiKey = "e48a8fa48803c43c9e5e3888517e897c";
 
   if (!apiKey) {
     console.warn("Amplitude API key not found. Analytics will not be tracked.");
