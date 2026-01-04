@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { trackCTAClick } from "../lib/analytics";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -207,12 +208,13 @@ export default function Features() {
           </p>
 
           <button
-            onClick={() =>
+            onClick={() => {
+              trackCTAClick("Download", "Features");
               window.open(
                 "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                 "_blank",
-              )
-            }
+              );
+            }}
             className="font-abezee w-[280px] rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
           >
             Download now
@@ -310,12 +312,13 @@ export default function Features() {
             </motion.p>
 
             <button
-              onClick={() =>
+              onClick={() => {
+                trackCTAClick("Download", "Features");
                 window.open(
                   "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                   "_blank",
-                )
-              }
+                );
+              }}
               className="font-abezee w-[280px] rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
             >
               Download now

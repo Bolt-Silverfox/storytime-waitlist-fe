@@ -1,3 +1,5 @@
+import { trackCTAClick } from "../lib/analytics";
+
 export default function CTASection() {
   return (
     <section className="relative mt-20 w-full overflow-hidden bg-[#ED4F01] py-16 md:py-30">
@@ -59,12 +61,13 @@ export default function CTASection() {
             </p>
 
             <button
-              onClick={() =>
+              onClick={() => {
+                trackCTAClick("Download", "CTASection");
                 window.open(
                   "https://play.google.com/store/apps/details?id=net.emerj.storytime",
                   "_blank",
-                )
-              }
+                );
+              }}
               className="font-abezee flex h-[61px] w-[211px] items-center justify-center gap-3 rounded-full bg-white px-6 py-3 text-orange-600 shadow-lg transition-all hover:scale-105 hover:shadow-xl md:h-[69px] md:w-[221px] md:px-8 md:py-4"
             >
               <svg
