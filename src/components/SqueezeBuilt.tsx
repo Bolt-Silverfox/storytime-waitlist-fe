@@ -4,9 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import SqueezeCardOne from "./squueze-cards/squeeze-card-one";
 import SqueezeCardThree from "./squueze-cards/squeeze-card-three";
-import SqueezeCardTwo from "./squueze-cards/squeeze-card-two";
 import SqueezeCardFour from "./squueze-cards/squeeze-card-four";
-import SqueezeCardFive from "./squueze-cards/squeeze-card-five";
 import SqueezeCardSix from "./squueze-cards/squeeze-card-six";
 import JoinEarlyModal from "./JoinEarlyModal";
 
@@ -16,7 +14,7 @@ const SqueezeBuilt = () => {
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(0);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const triggerRef = useRef<HTMLDivElement>(null);
-  const totalCards = 6;
+  const totalCards = 4;
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -76,29 +74,21 @@ const SqueezeBuilt = () => {
           <br />
           Designed for parents.
         </h2>
-        <div className="flex w-full flex-col items-center gap-4 md:h-143 md:flex-row md:items-start">
+        <div className="flex w-full flex-col items-center gap-4 md:h-143 md:flex-row md:items-start md:justify-center md:gap-6">
           <SqueezeCardOne
             isExpanded={expandedCardIndex === 0}
             onToggle={() => {}}
           />
-          <SqueezeCardTwo
+          <SqueezeCardThree
             isExpanded={expandedCardIndex === 1}
             onToggle={() => {}}
           />
-          <SqueezeCardThree
+          <SqueezeCardFour
             isExpanded={expandedCardIndex === 2}
             onToggle={() => {}}
           />
-          <SqueezeCardFour
-            isExpanded={expandedCardIndex === 3}
-            onToggle={() => {}}
-          />
-          <SqueezeCardFive
-            isExpanded={expandedCardIndex === 4}
-            onToggle={() => {}}
-          />
           <SqueezeCardSix
-            isExpanded={expandedCardIndex === 5}
+            isExpanded={expandedCardIndex === 3}
             onToggle={() => {}}
           />
         </div>

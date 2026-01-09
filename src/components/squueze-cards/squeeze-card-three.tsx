@@ -24,7 +24,7 @@ const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
     <motion.div
       className="relative h-full cursor-pointer overflow-hidden rounded-[24px] bg-[#e2ffcb] p-8 transition-all duration-500"
       style={{
-        width: isExpanded ? "30.75rem" : "8.5rem",
+        width: isExpanded ? "38rem" : "9.5rem",
         border: `4px solid ${isExpanded ? "rgba(65,139,4,0.2)" : "rgba(65,139,4,0.2)"}`,
       }}
       onClick={() => !isEditingName && onToggle()}

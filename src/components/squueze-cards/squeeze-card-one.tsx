@@ -40,7 +40,7 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
     <motion.div
       className="relative h-full cursor-pointer overflow-hidden rounded-[24px] bg-[#ffd5d5] p-8 transition-all duration-500"
       style={{
-        width: isExpanded ? "30.75rem" : "8.5rem",
+        width: isExpanded ? "38rem" : "9.5rem",
         border: `4px solid ${isExpanded ? "rgba(241,0,0,0.2)" : "rgba(255,211,0,0.2)"}`,
       }}
       onClick={onToggle}
