@@ -71,7 +71,10 @@ const SqueezeGrow = () => {
           <p className="text-center text-base leading-8 font-normal text-[#EC4007] italic">
             And many more stories waiting to be discovered…
           </p>
-          <button className="font-abezee cursor-pointer rounded-[6.25rem] bg-[#EC4007] px-8 py-2.5 text-center text-xl leading-[2.26325rem] font-normal text-white not-italic">
+          <button
+            onClick={() => setIsJoinModalOpen(true)}
+            className="font-abezee cursor-pointer rounded-[6.25rem] bg-[#EC4007] px-8 py-2.5 text-center text-xl leading-[2.26325rem] font-normal text-white not-italic"
+          >
             Join Early Access
           </button>{" "}
         </div>
