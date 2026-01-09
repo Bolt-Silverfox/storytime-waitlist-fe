@@ -41,23 +41,23 @@ export default function Explore() {
 
 const explore = [
   {
-    title: "AI-powered voices with playful, natural tones",
+    title: "Unique voices with playful, natural tones",
     text: "Calming, expressive voices tailored to each story.",
     icon: "/mic.png",
   },
   {
-    title: "AI-powered voices with playful, natural tones",
-    text: "Calming, expressive voices tailored to each story.",
+    title: "Easily Filter Stories for all kids  Age 1-12",
+    text: "Tailor the stories to your kids age.",
     icon: "/msg.png",
   },
   {
-    title: "AI-powered voices with playful, natural tones",
-    text: "Calming, expressive voices tailored to each story.",
+    title: "Interactive story modes for learning and fun",
+    text: "Learn fun stories by making decisions you like.",
     icon: "/smile.png",
   },
   {
-    title: "AI-powered voices with playful, natural tones",
-    text: "Calming, expressive voices tailored to each story.",
+    title: "Safe & Curated Content for your kids",
+    text: "Every story is reviewed for age appropriateness.",
     icon: "/shield.png",
   },
 ];
