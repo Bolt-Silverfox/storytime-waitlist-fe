@@ -2,11 +2,10 @@ module.exports = {
   apps: [
     {
       name: `storytime-waitlist-${process.env.NODE_ENV || "development"}`,
-      script: "serve",
+      script: "npx",
+      args: "serve -s . -l 3300",
       env: {
-        PM2_SERVE_PATH: ".",
-        PM2_SERVE_PORT: process.env.PORT || 3300,
-        PM2_SERVE_SPA: "true",
+        NODE_ENV: process.env.NODE_ENV || "development",
       },
     },
   ],
