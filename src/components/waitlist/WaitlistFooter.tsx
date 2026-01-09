@@ -107,17 +107,19 @@ export default function WaitListFooter() {
         {/* content */}
         <div className="mb-8 flex flex-col gap-4 text-center sm:mb-10 sm:gap-5 md:gap-6">
           <h2 className="font-Qilka px-4 text-4xl leading-tight font-bold sm:text-5xl md:text-6xl lg:text-[64px]">
-            30 days left to launch!
+            Become a Part of the Storytime Community{" "}
           </h2>
-          <p className="font-Abezee mx-auto max-w-[627px] px-4 text-base leading-relaxed sm:text-lg md:text-xl lg:text-[24px]">
-            Magical stories for kids, from bedtime snuggles to learning
-            adventures.
+          <p className="font-Abezee mx-auto max-w-[627px] px-4 text-[0.875rem] leading-relaxed sm:text-lg md:text-xl lg:text-[24px]">
+            Follow us on social media to learn more
           </p>
         </div>
 
         {/* icons */}
-        <div className="mx-auto mb-12 flex items-center justify-center gap-4 sm:mb-16 sm:gap-5 md:gap-6">
-          <a href="https://web.facebook.com/?_rdc=1&_rdr#" target="blank">
+        <div className="mx-auto mb-20 flex items-center justify-center gap-4 sm:mb-16 sm:gap-5 md:gap-6">
+          <a
+            href="https://www.facebook.com/profile.php?id=61585584201713"
+            target="blank"
+          >
             <img
               src="/facebook.png"
               alt="Facebook"
@@ -125,7 +127,7 @@ export default function WaitListFooter() {
             />
           </a>
 
-          <a href="https://www.instagram.com/" target="blank">
+          <a href="https://www.instagram.com/teamstorytimehq/" target="blank">
             <img
               src="/instagram.png"
               alt="Instagram"
@@ -133,10 +135,17 @@ export default function WaitListFooter() {
             />
           </a>
 
-          <a href="https://www.tiktok.com/en/" target="blank">
+          <a href="https://www.tiktok.com/@teamstorytimehq" target="blank">
             <img
               src="/tiktok.png"
               alt="Tiktok"
+              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+            />
+          </a>
+          <a href="https://x.com/storytimehq" target="blank">
+            <img
+              src="/twitter.png"
+              alt="Twitter"
               className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
             />
           </a>
@@ -144,12 +153,8 @@ export default function WaitListFooter() {
       </div>
 
       {/* mobile image*/}
-      <div className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2">
-        <img
-          src="/mobile.png"
-          alt="Mobile"
-          className="h-auto w-[280px] sm:w-[350px] md:w-[400px] lg:w-[451px]"
-        />
+      <div className="absolute -bottom-20 left-1/2 z-20 -translate-x-1/2">
+        <img src="/community.png" alt="Community" className="h-auto w-full" />
       </div>
     </div>
   );
