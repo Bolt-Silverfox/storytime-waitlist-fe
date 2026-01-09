@@ -112,7 +112,7 @@ jobs:
             --exclude='.git' \
             --exclude='.github' \
             -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
-            dist/ ecosystem.config.js \
+            dist/ ecosystem.config.js serve.json \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/storytime/development/waitlist/
 
       - name: Restart app with pm2
