@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import SqueezeFeaturesSection from "../components/SqueezeFeatures";
 import SqueezeHero from "../components/SqueezeHero";
 import SqueezeBed from "../components/SqueezeBed";
 import SqueezeBuilt from "../components/SqueezeBuilt";
