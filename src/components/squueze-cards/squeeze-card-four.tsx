@@ -23,7 +23,7 @@ Bobo loved the forest. He loved the...`;
     <motion.div
       className="relative h-full cursor-pointer overflow-hidden rounded-[24px] bg-[#ffcbf7] p-8 transition-all duration-500"
       style={{
-        width: isExpanded ? "30.75rem" : "8.5rem",
+        width: isExpanded ? "38rem" : "9.5rem",
         border: `4px solid ${isExpanded ? "rgba(139,4,118,0.2)" : "rgba(139,4,118,0.2)"}`,
       }}
       onClick={() => !isEditingName && onToggle()}
