@@ -112,14 +112,14 @@ jobs:
             --exclude='.git' \
             --exclude='.github' \
             -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
-            dist/ ecosystem.config.js \
+            dist/ ecosystem.config.js serve.json \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/storytime/development/waitlist/
 
       - name: Restart app with pm2
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "cd /home/${{ secrets.SERVER_USER }}/storytime/development/waitlist && (pm2 restart ecosystem.config.js --update-env || pm2 start ecosystem.config.js) && pm2 save"
+            "cd /home/${{ secrets.SERVER_USER }}/storytime/development/waitlist && (npx pm2 restart ecosystem.config.js --update-env || npx pm2 start ecosystem.config.js) && npx pm2 save"
 
       - name: Notify deployment status
         if: always()
