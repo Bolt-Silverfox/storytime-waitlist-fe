@@ -4,12 +4,12 @@ export default function Explore() {
       className="font-abezee bg-primary clip-bottom relative -top-40 px-6 py-50 text-white"
       style={{ zIndex: -1 }}
     >
-      <div className="mx-auto mt-30 max-w-[1049px]">
+      <div className="mx-auto mt-10 max-w-[1049px]">
         <div className="">
-          <h1 className="font-Qilka text-center text-2xl md:text-[48px]">
+          <h1 className="font-Qilka text-center text-4xl md:text-[48px]">
             Explore story telling like never before
           </h1>
-          <p className="mx-auto mt-[30px] max-w-[843px] text-center text-[14px] text-[#FCC1AD]">
+          <p className="mx-auto mt-[30px] max-w-[843px] text-center text-base text-[#FCC1AD] md:text-xl">
             Designed especially for children. With handpicked stories, friendly
             voices, and smart filters, it's more than entertainment it's a safe
             space for growth, imagination, and learning.

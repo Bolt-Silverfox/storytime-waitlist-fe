@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import lady from "/squeeze/lady.svg";
 import speaker from "/squeeze/speaker.svg";
@@ -14,7 +14,18 @@ interface SqueezeCardSixProps {
 }
 
 const SqueezeCardSix = ({ isExpanded, onToggle }: SqueezeCardSixProps) => {
+  const [isMobile, setIsMobile] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<string>("Elephant");
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // On mobile, always show expanded state
+  const shouldBeExpanded = isMobile ? true : isExpanded;
 
   const answerOptions: AnswerOption[] = [
     { id: "frog", text: "Frog" },
@@ -24,17 +35,20 @@ const SqueezeCardSix = ({ isExpanded, onToggle }: SqueezeCardSixProps) => {
 
   return (
     <motion.div
-      className="relative h-full cursor-pointer overflow-hidden rounded-[24px] bg-[#cbffe0] p-8 transition-all duration-500"
+      className={`relative cursor-pointer overflow-hidden rounded-[24px] bg-[#cbffe0] p-8 transition-all duration-500 ${
+        shouldBeExpanded 
+          ? "h-[600px] w-[95vw] md:h-full md:w-[38rem]" 
+          : "h-[500px] w-[95vw] md:h-full md:w-[9.5rem]"
+      }`}
       style={{
-        width: isExpanded ? "38rem" : "9.5rem",
-        border: `4px solid ${isExpanded ? "rgba(4,139,58,0.2)" : "rgba(4,139,58,0.2)"}`,
+        border: `4px solid ${shouldBeExpanded ? "rgba(4,139,58,0.2)" : "rgba(4,139,58,0.2)"}`,
       }}
       onClick={onToggle}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
       <AnimatePresence mode="wait">
-        {!isExpanded ? (
+        {!shouldBeExpanded ? (
           // Collapsed State
           <motion.div
             key="collapsed"

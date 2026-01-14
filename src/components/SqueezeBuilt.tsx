@@ -13,10 +13,21 @@ gsap.registerPlugin(ScrollTrigger);
 const SqueezeBuilt = () => {
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(0);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const triggerRef = useRef<HTMLDivElement>(null);
   const totalCards = 4;
 
   useEffect(() => {
+    // Check if mobile on mount and resize
+    const checkIsMobile = () => window.innerWidth < 768;
+    setIsMobile(checkIsMobile());
+
+    // If mobile, set all cards to expanded
+    if (checkIsMobile()) {
+      // All cards are expanded on mobile, so we don't need to track index
+      // But we'll keep the state for desktop
+    }
+
     const lenis = new Lenis({
       duration: 2.4,
       easing: (t) => 1 - Math.pow(1 - t, 4),
@@ -36,28 +47,54 @@ const SqueezeBuilt = () => {
 
     gsap.defaults({ ease: "power2.out" });
 
-    const trigger = ScrollTrigger.create({
-      trigger: triggerRef.current,
-      start: "top top",
-      end: `+=${totalCards * 600}vh`,
-      pin: true,
-      pinSpacing: true,
-      anticipatePin: 1.5,
-      scrub: 1,
-      fastScrollEnd: false,
-      preventOverlaps: true,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        const cardIndex = Math.min(
-          Math.floor(progress * totalCards),
-          totalCards - 1,
-        );
-        setExpandedCardIndex(cardIndex);
-      },
-    });
+    // Only create ScrollTrigger on desktop
+    let trigger: ScrollTrigger | null = null;
+
+    if (!checkIsMobile()) {
+      trigger = ScrollTrigger.create({
+        trigger: triggerRef.current,
+        start: "top top",
+        end: `+=${totalCards * 600}vh`,
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1.5,
+        scrub: 1,
+        fastScrollEnd: false,
+        preventOverlaps: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const cardIndex = Math.min(
+            Math.floor(progress * totalCards),
+            totalCards - 1,
+          );
+          setExpandedCardIndex(cardIndex);
+        },
+      });
+    }
+
+    // Handle window resize
+    const handleResize = () => {
+      const newIsMobile = checkIsMobile();
+      setIsMobile(newIsMobile);
+
+      if (newIsMobile) {
+        // On mobile, all cards should be expanded
+        // We'll handle this in the render
+      } else {
+        // On desktop, refresh ScrollTrigger if it exists
+        if (trigger) {
+          ScrollTrigger.refresh();
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      trigger.kill();
+      window.removeEventListener("resize", handleResize);
+      if (trigger) {
+        trigger.kill();
+      }
       lenis.destroy();
       gsap.ticker.remove(rafCallback);
     };
@@ -76,19 +113,19 @@ const SqueezeBuilt = () => {
         </h2>
         <div className="flex w-full flex-col items-center gap-4 md:h-143 md:flex-row md:items-start md:justify-center md:gap-6">
           <SqueezeCardOne
-            isExpanded={expandedCardIndex === 0}
+            isExpanded={isMobile ? true : expandedCardIndex === 0}
             onToggle={() => {}}
           />
           <SqueezeCardThree
-            isExpanded={expandedCardIndex === 1}
+            isExpanded={isMobile ? true : expandedCardIndex === 1}
             onToggle={() => {}}
           />
           <SqueezeCardFour
-            isExpanded={expandedCardIndex === 2}
+            isExpanded={isMobile ? true : expandedCardIndex === 2}
             onToggle={() => {}}
           />
           <SqueezeCardSix
-            isExpanded={expandedCardIndex === 3}
+            isExpanded={isMobile ? true : expandedCardIndex === 3}
             onToggle={() => {}}
           />
         </div>
