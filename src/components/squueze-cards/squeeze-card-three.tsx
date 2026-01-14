@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import activeSwitch from "/squeeze/active-switch.svg";
 import inactiveSwitch from "/squeeze/inactive-switch.svg";
@@ -13,26 +13,40 @@ interface SqueezeCardThreeProps {
 }
 
 const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
+  const [isMobile, setIsMobile] = useState(false);
   const [characterActive, setCharacterActive] = useState(true);
   const [characterName, setCharacterName] = useState("Cosmos");
   const [isEditingName, setIsEditingName] = useState(false);
 
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Audio visualization bar heights (animated)
   const barHeights = [5.381, 8.969, 23.918, 8.969, 5.381];
 
+  // On mobile, always show expanded state
+  const shouldBeExpanded = isMobile ? true : isExpanded;
+
   return (
     <motion.div
-      className="relative h-full cursor-pointer overflow-hidden rounded-[24px] bg-[#e2ffcb] p-8 transition-all duration-500"
+      className={`relative cursor-pointer overflow-hidden rounded-[24px] bg-[#e2ffcb] p-8 transition-all duration-500 ${
+        shouldBeExpanded
+          ? "h-[600px] w-[95vw] md:h-full md:w-152"
+          : "h-[500px] w-[95vw] md:h-full md:w-38"
+      }`}
       style={{
-        width: isExpanded ? "38rem" : "9.5rem",
-        border: `4px solid ${isExpanded ? "rgba(65,139,4,0.2)" : "rgba(65,139,4,0.2)"}`,
+        border: `4px solid ${shouldBeExpanded ? "rgba(65,139,4,0.2)" : "rgba(65,139,4,0.2)"}`,
       }}
       onClick={() => !isEditingName && onToggle()}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
       <AnimatePresence mode="wait">
-        {!isExpanded ? (
+        {!shouldBeExpanded ? (
           // Collapsed State
           <motion.div
             key="collapsed"
@@ -146,7 +160,7 @@ const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
               {/* Audio Visualization and Name Input */}
               <div className="flex w-full flex-col gap-[25px]">
                 {/* Audio Visualization and Name Input Row */}
-                <div className="flex h-[58px] w-full items-center gap-[193px]">
+                <div className="flex h-[58px] w-full items-center gap-32 md:gap-[193px]">
                   {/* Audio Visualization */}
                   <div className="relative size-[58px] shrink-0 rounded-[76.686px] bg-[rgba(134,110,255,0.3)]">
                     <div className="absolute top-1/2 left-1/2 size-[46.639px] -translate-x-1/2 -translate-y-1/2 rounded-[76.686px] bg-[rgba(134,110,255,0.5)]">

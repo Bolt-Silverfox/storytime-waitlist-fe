@@ -142,6 +142,16 @@ export default function WaitListFooter() {
               className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
             />
           </a>
+          <a
+            href="https://www.linkedin.com/company/storytimehq/"
+            target="blank"
+          >
+            <img
+              src="/linkedIn.svg"
+              alt="Linkedin"
+              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+            />
+          </a>
           <a href="https://x.com/storytimehq" target="blank">
             <img
               src="/twitter.png"
@@ -153,8 +163,12 @@ export default function WaitListFooter() {
       </div>
 
       {/* mobile image*/}
-      <div className="absolute -bottom-20 left-1/2 z-20 -translate-x-1/2">
-        <img src="/community.png" alt="Community" className="h-auto w-full" />
+      <div className="absolute -bottom-12 left-1/2 z-20 w-[90%] -translate-x-1/2 sm:-bottom-16 sm:w-[85%] md:-bottom-20 md:w-[50%] md:max-w-none lg:-bottom-20">
+        <img
+          src="/community.png"
+          alt="Community"
+          className="h-auto w-full object-contain"
+        />
       </div>
     </div>
   );

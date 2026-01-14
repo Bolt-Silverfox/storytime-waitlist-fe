@@ -122,7 +122,7 @@ const WaitListForm = ({ onClose }: Props) => {
               />
               <Icon
                 icon={"iconamoon:profile-thin"}
-                className="absolute top-12 left-4 size-6"
+                className="absolute top-10 left-4 size-6 md:top-12 md:left-4"
               />
               {errors.name && (
                 <span className="mt-1 text-sm text-red-500">{errors.name}</span>
@@ -141,7 +141,7 @@ const WaitListForm = ({ onClose }: Props) => {
               />
               <Icon
                 icon={"lets-icons:message-light"}
-                className="absolute top-12 left-4 size-6"
+                className="absolute top-10 left-4 size-6 md:top-12 md:left-4"
               />
               {errors.email && (
                 <span className="mt-1 text-sm text-red-500">
