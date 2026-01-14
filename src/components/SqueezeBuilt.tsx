@@ -20,6 +20,7 @@ const SqueezeBuilt = () => {
     return false;
   });
   const triggerRef = useRef<HTMLDivElement>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const totalCards = 4;
 
   useEffect(() => {
@@ -45,11 +46,9 @@ const SqueezeBuilt = () => {
 
     gsap.defaults({ ease: "power2.out" });
 
-    // Only create ScrollTrigger on desktop
-    let trigger: ScrollTrigger | null = null;
-
+    // Create ScrollTrigger on desktop
     if (!isMobile) {
-      trigger = ScrollTrigger.create({
+      scrollTriggerRef.current = ScrollTrigger.create({
         trigger: triggerRef.current,
         start: "top top",
         end: `+=${totalCards * 600}vh`,
@@ -76,12 +75,35 @@ const SqueezeBuilt = () => {
       setIsMobile(newIsMobile);
 
       if (newIsMobile) {
-        // On mobile, all cards should be expanded
-        // We'll handle this in the render
+        // On mobile, kill ScrollTrigger if it exists
+        if (scrollTriggerRef.current) {
+          scrollTriggerRef.current.kill();
+          scrollTriggerRef.current = null;
+        }
       } else {
-        // On desktop, refresh ScrollTrigger if it exists
-        if (trigger) {
-          ScrollTrigger.refresh();
+        // On desktop, create ScrollTrigger if it doesn't exist, otherwise refresh
+        if (!scrollTriggerRef.current) {
+          scrollTriggerRef.current = ScrollTrigger.create({
+            trigger: triggerRef.current,
+            start: "top top",
+            end: `+=${totalCards * 600}vh`,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1.5,
+            scrub: 1,
+            fastScrollEnd: false,
+            preventOverlaps: true,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              const cardIndex = Math.min(
+                Math.floor(progress * totalCards),
+                totalCards - 1,
+              );
+              setExpandedCardIndex(cardIndex);
+            },
+          });
+        } else {
+          scrollTriggerRef.current.refresh();
         }
       }
     };
@@ -90,8 +112,9 @@ const SqueezeBuilt = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (trigger) {
-        trigger.kill();
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
       }
       lenis.destroy();
       gsap.ticker.remove(rafCallback);
