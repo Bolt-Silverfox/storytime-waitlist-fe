@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import lady from "/squeeze/lady.svg";
 import speaker from "/squeeze/speaker.svg";
@@ -9,11 +9,22 @@ interface SqueezeCardFourProps {
 }
 
 const SqueezeCardFour = ({ isExpanded, onToggle }: SqueezeCardFourProps) => {
+  const [isMobile, setIsMobile] = useState(false);
   const [characterName, setCharacterName] = useState("Fanice");
   const [isEditingName, setIsEditingName] = useState(false);
 
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Audio visualization bar heights (animated) - orange themed
   const barHeights = [5.381, 8.969, 23.918, 8.969, 5.381];
+
+  // On mobile, always show expanded state
+  const shouldBeExpanded = isMobile ? true : isExpanded;
 
   const storyText = `Once upon a time, in a bright green forest full of tall trees and singing birds, there lived a kind, fluffy bear named Bobo.
 
@@ -21,17 +32,20 @@ Bobo loved the forest. He loved the...`;
 
   return (
     <motion.div
-      className="relative h-full cursor-pointer overflow-hidden rounded-[24px] bg-[#ffcbf7] p-8 transition-all duration-500"
+      className={`relative cursor-pointer overflow-hidden rounded-[24px] bg-[#ffcbf7] p-8 transition-all duration-500 ${
+        shouldBeExpanded 
+          ? "h-[600px] w-[95vw] md:h-full md:w-[38rem]" 
+          : "h-[500px] w-[95vw] md:h-full md:w-[9.5rem]"
+      }`}
       style={{
-        width: isExpanded ? "38rem" : "9.5rem",
-        border: `4px solid ${isExpanded ? "rgba(139,4,118,0.2)" : "rgba(139,4,118,0.2)"}`,
+        border: `4px solid ${shouldBeExpanded ? "rgba(139,4,118,0.2)" : "rgba(139,4,118,0.2)"}`,
       }}
       onClick={() => !isEditingName && onToggle()}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
       <AnimatePresence mode="wait">
-        {!isExpanded ? (
+        {!shouldBeExpanded ? (
           // Collapsed State
           <motion.div
             key="collapsed"
