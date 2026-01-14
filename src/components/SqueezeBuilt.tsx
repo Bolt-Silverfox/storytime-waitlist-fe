@@ -13,20 +13,18 @@ gsap.registerPlugin(ScrollTrigger);
 const SqueezeBuilt = () => {
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(0);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
   const triggerRef = useRef<HTMLDivElement>(null);
   const totalCards = 4;
 
   useEffect(() => {
-    // Check if mobile on mount and resize
+    // Check if mobile helper function
     const checkIsMobile = () => window.innerWidth < 768;
-    setIsMobile(checkIsMobile());
-
-    // If mobile, set all cards to expanded
-    if (checkIsMobile()) {
-      // All cards are expanded on mobile, so we don't need to track index
-      // But we'll keep the state for desktop
-    }
 
     const lenis = new Lenis({
       duration: 2.4,
@@ -50,7 +48,7 @@ const SqueezeBuilt = () => {
     // Only create ScrollTrigger on desktop
     let trigger: ScrollTrigger | null = null;
 
-    if (!checkIsMobile()) {
+    if (!isMobile) {
       trigger = ScrollTrigger.create({
         trigger: triggerRef.current,
         start: "top top",
