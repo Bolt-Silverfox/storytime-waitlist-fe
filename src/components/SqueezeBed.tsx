@@ -17,15 +17,11 @@ const SqueezeBed = () => {
       }}
       aria-labelledby="Bed section"
     >
-      {/* Purple Overlay */}
       <div className="absolute inset-0 z-10 bg-[rgba(84,61,147,0.85)]" />
 
-      {/* Content Container */}
       <div className="relative z-20 mx-auto flex min-h-[800px] max-w-[1048px] flex-col items-center gap-8 px-5 pt-16 pb-10 md:min-h-[1237px] md:gap-[60px] md:pt-[106px]">
-        {/* Logo and Heading Section */}
-        <div className="flex w-full max-w-[475px] flex-col items-center gap-6">
-          {/* Logo/Illustration */}
-          <div className="relative h-[120px] w-[165px] shrink-0 md:h-[181px] md:w-[248px]">
+        <div className="flex w-full max-w-[575px] flex-col items-center gap-6">
+          <div className="relative h-[120px] w-full shrink-0 md:h-[181px] md:w-[248px]">
             <img
               src={bedImage}
               alt="Bedtime story illustration"
@@ -35,8 +31,7 @@ const SqueezeBed = () => {
 
           {/* Heading */}
           <h2 className="font-Qilka text-center text-[32px] leading-[40px] font-bold text-[#ffd609] not-italic md:text-[48px] md:leading-[55px]">
-            <p className="mb-0">Turn bedtime into a</p>
-            <p>story adventure</p>
+            Turn every moment into memorable adventures
           </h2>
         </div>
 

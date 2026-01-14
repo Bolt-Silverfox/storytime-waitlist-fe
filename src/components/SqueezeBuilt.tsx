@@ -13,10 +13,20 @@ gsap.registerPlugin(ScrollTrigger);
 const SqueezeBuilt = () => {
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(0);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
   const triggerRef = useRef<HTMLDivElement>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const totalCards = 4;
 
   useEffect(() => {
+    // Check if mobile helper function
+    const checkIsMobile = () => window.innerWidth < 768;
+
     const lenis = new Lenis({
       duration: 2.4,
       easing: (t) => 1 - Math.pow(1 - t, 4),
@@ -36,28 +46,76 @@ const SqueezeBuilt = () => {
 
     gsap.defaults({ ease: "power2.out" });
 
-    const trigger = ScrollTrigger.create({
-      trigger: triggerRef.current,
-      start: "top top",
-      end: `+=${totalCards * 600}vh`,
-      pin: true,
-      pinSpacing: true,
-      anticipatePin: 1.5,
-      scrub: 1,
-      fastScrollEnd: false,
-      preventOverlaps: true,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        const cardIndex = Math.min(
-          Math.floor(progress * totalCards),
-          totalCards - 1,
-        );
-        setExpandedCardIndex(cardIndex);
-      },
-    });
+    // Create ScrollTrigger on desktop
+    if (!isMobile) {
+      scrollTriggerRef.current = ScrollTrigger.create({
+        trigger: triggerRef.current,
+        start: "top top",
+        end: `+=${totalCards * 600}vh`,
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1.5,
+        scrub: 1,
+        fastScrollEnd: false,
+        preventOverlaps: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const cardIndex = Math.min(
+            Math.floor(progress * totalCards),
+            totalCards - 1,
+          );
+          setExpandedCardIndex(cardIndex);
+        },
+      });
+    }
+
+    // Handle window resize
+    const handleResize = () => {
+      const newIsMobile = checkIsMobile();
+      setIsMobile(newIsMobile);
+
+      if (newIsMobile) {
+        // On mobile, kill ScrollTrigger if it exists
+        if (scrollTriggerRef.current) {
+          scrollTriggerRef.current.kill();
+          scrollTriggerRef.current = null;
+        }
+      } else {
+        // On desktop, create ScrollTrigger if it doesn't exist, otherwise refresh
+        if (!scrollTriggerRef.current) {
+          scrollTriggerRef.current = ScrollTrigger.create({
+            trigger: triggerRef.current,
+            start: "top top",
+            end: `+=${totalCards * 600}vh`,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1.5,
+            scrub: 1,
+            fastScrollEnd: false,
+            preventOverlaps: true,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              const cardIndex = Math.min(
+                Math.floor(progress * totalCards),
+                totalCards - 1,
+              );
+              setExpandedCardIndex(cardIndex);
+            },
+          });
+        } else {
+          scrollTriggerRef.current.refresh();
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      trigger.kill();
+      window.removeEventListener("resize", handleResize);
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
       lenis.destroy();
       gsap.ticker.remove(rafCallback);
     };
@@ -76,19 +134,19 @@ const SqueezeBuilt = () => {
         </h2>
         <div className="flex w-full flex-col items-center gap-4 md:h-143 md:flex-row md:items-start md:justify-center md:gap-6">
           <SqueezeCardOne
-            isExpanded={expandedCardIndex === 0}
+            isExpanded={isMobile ? true : expandedCardIndex === 0}
             onToggle={() => {}}
           />
           <SqueezeCardThree
-            isExpanded={expandedCardIndex === 1}
+            isExpanded={isMobile ? true : expandedCardIndex === 1}
             onToggle={() => {}}
           />
           <SqueezeCardFour
-            isExpanded={expandedCardIndex === 2}
+            isExpanded={isMobile ? true : expandedCardIndex === 2}
             onToggle={() => {}}
           />
           <SqueezeCardSix
-            isExpanded={expandedCardIndex === 3}
+            isExpanded={isMobile ? true : expandedCardIndex === 3}
             onToggle={() => {}}
           />
         </div>

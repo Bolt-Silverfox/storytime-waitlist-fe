@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import lady from "/squeeze/lady.svg";
 import speaker from "/squeeze/speaker.svg";
@@ -21,11 +21,19 @@ interface SqueezeCardOneProps {
 }
 
 const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
+  const [isMobile, setIsMobile] = useState(false);
   const [characters, setCharacters] = useState<VoiceCharacter[]>([
     { name: "Cosmo", avatar: cosmo, bgColor: "#fbbf24", active: true }, // yellow-400
     { name: "Fanice", avatar: fanice, bgColor: "#0d9488", active: false }, // teal-600
     { name: "Nimbus", avatar: nimbus, bgColor: "#d1d5db", active: false }, // gray-300
   ]);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const toggleCharacter = (index: number) => {
     setCharacters((prev) =>
@@ -36,19 +44,25 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
     );
   };
 
+  // On mobile, always show expanded state
+  const shouldBeExpanded = isMobile ? true : isExpanded;
+
   return (
     <motion.div
-      className="relative h-full cursor-pointer overflow-hidden rounded-[24px] bg-[#ffd5d5] p-8 transition-all duration-500"
+      className={`relative cursor-pointer overflow-hidden rounded-[24px] bg-[#ffd5d5] p-8 transition-all duration-500 ${
+        shouldBeExpanded
+          ? "h-[600px] w-[95vw] md:h-full md:w-152"
+          : "h-[500px] w-[95vw] md:h-full md:w-38"
+      }`}
       style={{
-        width: isExpanded ? "38rem" : "9.5rem",
-        border: `4px solid ${isExpanded ? "rgba(241,0,0,0.2)" : "rgba(255,211,0,0.2)"}`,
+        border: `4px solid ${shouldBeExpanded ? "rgba(241,0,0,0.2)" : "rgba(255,211,0,0.2)"}`,
       }}
       onClick={onToggle}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
       <AnimatePresence mode="wait">
-        {!isExpanded ? (
+        {!shouldBeExpanded ? (
           // Collapsed State
           <motion.div
             key="collapsed"
@@ -168,7 +182,7 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="absolute top-[163px] left-[43px] flex flex-col items-center"
+                className="absolute top-[163px] left-0 flex flex-col items-center md:left-[43px]"
               >
                 <div className="relative mb-[-24px] size-[116px] shrink-0">
                   <div
@@ -208,7 +222,7 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="absolute top-[163px] right-[43px] flex flex-col items-center"
+                className="absolute top-[163px] right-0 flex flex-col items-center md:right-[43px]"
               >
                 <div className="relative mb-[-24px] size-[116px] shrink-0">
                   <div
