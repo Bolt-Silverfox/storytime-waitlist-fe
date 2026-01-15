@@ -1,8 +1,7 @@
 import { type MouseEvent } from "react";
 import { Icon } from "@iconify/react";
-import googlePlayIcon from "/squeeze/google.svg";
-import iosIcon from "/squeeze/ios.svg";
 import qrCode from "/squeeze/qr-code.svg";
+import DownloadButtons from "./DownloadButtons";
 
 interface DownloadModalProps {
   onClose: () => void;
@@ -50,44 +49,7 @@ const DownloadModal = ({ onClose }: DownloadModalProps) => {
           <div className="absolute inset-0 border-t border-[rgba(250,244,242,1)]" />
         </div>
 
-        <div className="relative flex w-full shrink-0 flex-col items-stretch gap-4 md:flex-row md:items-start md:gap-6">
-          <a
-            href="#"
-            className="relative flex shrink-0 items-center justify-center gap-3 overflow-clip rounded-[100px] bg-[#EC4007] px-5 py-3 transition-colors hover:bg-[#d13706] md:gap-4 md:px-[25px] md:py-[15px]"
-          >
-            <div className="relative size-7 shrink-0 md:size-8">
-              <img
-                src={googlePlayIcon}
-                alt="Google Play"
-                className="h-full w-full"
-              />
-            </div>
-            <div className="relative flex shrink-0 flex-col items-start gap-px text-white">
-              <p className="font-abezee relative shrink-0 text-xs leading-normal not-italic">
-                Download on
-              </p>
-              <p className="font-abezee relative shrink-0 text-lg leading-normal not-italic md:text-xl">
-                Google play
-              </p>
-            </div>
-          </a>
-          <a
-            href="#"
-            className="relative flex shrink-0 items-center justify-center gap-3 overflow-clip rounded-[100px] bg-[#EC4007] px-5 py-3 transition-colors hover:bg-[#d13706] md:gap-4 md:px-[25px] md:py-[15px]"
-          >
-            <div className="relative size-7 shrink-0 md:size-8">
-              <img src={iosIcon} alt="App Store" className="h-full w-full" />
-            </div>
-            <div className="relative flex shrink-0 flex-col items-start gap-px text-white">
-              <p className="font-abezee relative shrink-0 text-xs leading-normal not-italic">
-                Download on
-              </p>
-              <p className="font-abezee relative shrink-0 text-lg leading-normal not-italic md:text-xl">
-                App store
-              </p>
-            </div>
-          </a>
-        </div>
+        <DownloadButtons color="dark" />
       </div>
     </section>
   );
