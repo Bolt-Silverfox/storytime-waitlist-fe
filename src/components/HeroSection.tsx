@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import thumbSrc from "../assets/video-thumbnail.png";
+import DownloadButtons from "./DownloadButtons";
 
 export default function HeroSection() {
   const [playing, setPlaying] = useState(false);
@@ -41,20 +42,7 @@ export default function HeroSection() {
           adventures.
         </motion.p>
 
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.4, ease: "backOut" }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-primary font-abezee mx-auto flex h-[69px] w-[211px] items-center justify-center gap-3 rounded-full text-center text-white"
-        >
-          <img src="play-store.png" className="h-[32px] w-[29px]" alt="" />
-          <div className="pl-1">
-            <p className="text-left text-[12px]">Download on</p>
-            <p className="text-center">Google play</p>
-          </div>
-        </motion.button>
+        <DownloadButtons color="dark" />
       </div>
 
       <div className="relative -top-50 -mb-50 flex h-[750px] flex-col border-black bg-[url('/landingpage/cloud.png')] bg-cover bg-center md:h-[700px] xl:h-[773px]">
