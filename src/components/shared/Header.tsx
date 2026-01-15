@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import DownloadModal from "../DownloadModal";
 import Icon from "./Icon";
 import MobileNav from "./MobileNav";
 
@@ -13,6 +14,7 @@ const navLinks = [
 
 const Header: React.FC = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
 
   return (
     <>
@@ -50,8 +52,11 @@ const Header: React.FC = () => {
               ))}
             </ul>
           </div>
-          <button className="bg-primary hover:bg-primary/70 font-abezee hidden rounded-full px-[40.45px] py-[13.48px] text-center text-white transition-all duration-300 md:flex">
-            Download
+          <button
+            className="bg-primary hover:bg-primary/70 font-abezee hidden rounded-full px-[40.45px] py-[13.48px] text-center text-white transition-all duration-300 md:flex"
+            onClick={() => setIsDownloadModalOpen(true)}
+          >
+            Download app
           </button>
           <button
             aria-label="Open mobile navigation"
@@ -67,7 +72,11 @@ const Header: React.FC = () => {
         isOpen={isMobileNavOpen}
         onClose={() => setIsMobileNavOpen(false)}
         navLinks={navLinks}
+        onDownloadClick={() => setIsDownloadModalOpen(true)}
       />
+      {isDownloadModalOpen && (
+        <DownloadModal onClose={() => setIsDownloadModalOpen(false)} />
+      )}
     </>
   );
 };
