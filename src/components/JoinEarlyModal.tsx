@@ -2,6 +2,8 @@ import { useState, type FormEvent, type MouseEvent } from "react";
 import { Icon } from "@iconify/react";
 import useSqueezeInfo from "../contexts/SqueezeContext";
 import confetti from "/squeeze/confetti.svg";
+import { WAITLIST_API } from "../constants";
+import { toast } from "sonner";
 
 interface JoinEarlyModalProps {
   onClose: () => void;
@@ -10,19 +12,58 @@ interface JoinEarlyModalProps {
 const JoinEarlyModal = ({ onClose }: JoinEarlyModalProps) => {
   const { setUserInfo } = useSqueezeInfo();
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     parentName: "",
     email: "",
     phone: "",
   });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setUserInfo({
-      fullName: formData.parentName,
-      email: formData.email,
-    });
-    setIsSuccess(true);
+    setIsLoading(true);
+
+    try {
+      const payload = {
+        name: formData.parentName,
+        email: formData.email,
+        phone: formData.phone, // Sending phone as well in case the API accepts it or ignores extra fields
+      };
+
+      const request = await fetch(`${WAITLIST_API}/waitlist/subscribe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const response = await request.json();
+
+      if (!request.ok) {
+        throw new Error(
+          response.message || response.error || request.statusText,
+        );
+      }
+
+      if (!response.status)
+        throw new Error(
+          response.message || response.messsage || "Something went wrong",
+        );
+
+      setUserInfo({
+        fullName: formData.parentName,
+        email: formData.email,
+      });
+      setIsSuccess(true);
+      toast.success("Joined early access successfully!");
+    } catch (err: unknown) {
+      const errMessage =
+        err instanceof Error ? err.message : "Unexpected error, try again.";
+      toast.error(errMessage);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {
@@ -48,7 +89,7 @@ const JoinEarlyModal = ({ onClose }: JoinEarlyModalProps) => {
           <>
             <div className="relative flex w-full flex-col items-start gap-1">
               <div className="relative flex w-full items-center justify-between">
-                <h2 className="font-Qilka text-lg font-bold leading-tight text-[#212121] not-italic md:text-xl md:leading-[36.212px]">
+                <h2 className="font-Qilka text-lg leading-tight font-bold text-[#212121] not-italic md:text-xl md:leading-[36.212px]">
                   Join Early Access
                 </h2>
                 <button
@@ -76,7 +117,7 @@ const JoinEarlyModal = ({ onClose }: JoinEarlyModalProps) => {
                   value={formData.parentName}
                   onChange={(e) => handleChange("parentName", e.target.value)}
                   required
-                  className="font-abezee relative flex w-full items-center overflow-clip rounded-[100px] border border-solid border-[#bdbdbd] px-4 py-2.5 text-base font-normal leading-normal text-[#616161] transition-colors placeholder:text-[#616161] focus:border-[#EC4007] focus:outline-none md:py-[10px] md:text-xl md:leading-[36.212px]"
+                  className="font-abezee relative flex w-full items-center overflow-clip rounded-[100px] border border-solid border-[#bdbdbd] px-4 py-2.5 text-base leading-normal font-normal text-[#616161] transition-colors placeholder:text-[#616161] focus:border-[#EC4007] focus:outline-none md:py-[10px] md:text-xl md:leading-[36.212px]"
                 />
                 <input
                   type="email"
@@ -84,21 +125,22 @@ const JoinEarlyModal = ({ onClose }: JoinEarlyModalProps) => {
                   value={formData.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                   required
-                  className="font-abezee relative flex w-full items-center overflow-clip rounded-[100px] border border-solid border-[#bdbdbd] px-4 py-2.5 text-base font-normal leading-normal text-[#616161] transition-colors placeholder:text-[#616161] focus:border-[#EC4007] focus:outline-none md:py-[10px] md:text-xl md:leading-[36.212px]"
+                  className="font-abezee relative flex w-full items-center overflow-clip rounded-[100px] border border-solid border-[#bdbdbd] px-4 py-2.5 text-base leading-normal font-normal text-[#616161] transition-colors placeholder:text-[#616161] focus:border-[#EC4007] focus:outline-none md:py-[10px] md:text-xl md:leading-[36.212px]"
                 />
                 <input
                   type="tel"
                   placeholder="Phone number (optional)"
                   value={formData.phone}
                   onChange={(e) => handleChange("phone", e.target.value)}
-                  className="font-abezee relative flex w-full items-center overflow-clip rounded-[100px] border border-solid border-[#bdbdbd] px-4 py-2.5 text-base font-normal leading-normal text-[#616161] transition-colors placeholder:text-[#616161] focus:border-[#EC4007] focus:outline-none md:py-[10px] md:text-xl md:leading-[36.212px]"
+                  className="font-abezee relative flex w-full items-center overflow-clip rounded-[100px] border border-solid border-[#bdbdbd] px-4 py-2.5 text-base leading-normal font-normal text-[#616161] transition-colors placeholder:text-[#616161] focus:border-[#EC4007] focus:outline-none md:py-[10px] md:text-xl md:leading-[36.212px]"
                 />
               </div>
               <button
                 type="submit"
-                className="font-abezee relative flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[100px] bg-[#EC4007] px-6 py-2.5 text-base font-normal leading-normal text-white not-italic transition-colors hover:bg-[#d13706] md:px-8 md:py-[10px] md:text-xl md:leading-[36.212px]"
+                disabled={isLoading}
+                className="font-abezee relative flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[100px] bg-[#EC4007] px-6 py-2.5 text-base leading-normal font-normal text-white not-italic transition-colors hover:bg-[#d13706] disabled:opacity-70 md:px-8 md:py-[10px] md:text-xl md:leading-[36.212px]"
               >
-                Join Early Access
+                {isLoading ? "Loading..." : "Join Early Access"}
               </button>
             </form>
           </>

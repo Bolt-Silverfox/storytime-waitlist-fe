@@ -182,7 +182,7 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="absolute top-[163px] left-0 flex flex-col items-center md:left-[43px]"
+                className="absolute top-[163px] -left-5 flex flex-col items-center md:left-[43px]"
               >
                 <div className="relative mb-[-24px] size-[116px] shrink-0">
                   <div
@@ -222,7 +222,7 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="absolute top-[163px] right-0 flex flex-col items-center md:right-[43px]"
+                className="absolute top-[163px] -right-5 flex flex-col items-center md:right-[43px]"
               >
                 <div className="relative mb-[-24px] size-[116px] shrink-0">
                   <div
