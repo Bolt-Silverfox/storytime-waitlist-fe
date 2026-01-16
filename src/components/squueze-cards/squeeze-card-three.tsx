@@ -137,7 +137,7 @@ const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <div className="relative z-20 flex w-[133.865px] items-center justify-center gap-[7.096px] rounded-[59.135px] bg-white px-[11.827px] py-[7.096px]">
+                <div className="relative z-20 flex w-[133.865px] items-center justify-center gap-[5.096px] rounded-[59.135px] bg-white px-[11.827px] py-[7.096px]">
                   <p className="font-Qilka text-[18.923px] leading-[14.192px] font-bold whitespace-nowrap text-[#212121] not-italic">
                     Cosmo
                   </p>
@@ -160,7 +160,7 @@ const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
               {/* Audio Visualization and Name Input */}
               <div className="flex w-full flex-col gap-[25px]">
                 {/* Audio Visualization and Name Input Row */}
-                <div className="flex h-[58px] w-full items-center gap-32 md:gap-[193px]">
+                <div className="flex h-[58px] w-full items-center gap-24 md:gap-[303px]">
                   {/* Audio Visualization */}
                   <div className="relative size-[58px] shrink-0 rounded-[76.686px] bg-[rgba(134,110,255,0.3)]">
                     <div className="absolute top-1/2 left-1/2 size-[46.639px] -translate-x-1/2 -translate-y-1/2 rounded-[76.686px] bg-[rgba(134,110,255,0.5)]">
