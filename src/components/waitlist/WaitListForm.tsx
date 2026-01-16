@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import SuccessDisplay from "../SuccessDisplay";
 import { Icon } from "@iconify/react";
 import { WAITLIST_API } from "../../constants";
+import { toast } from "sonner";
 
 type Props = {
   onClose: () => void;
@@ -57,20 +58,26 @@ const WaitListForm = ({ onClose }: Props) => {
         body: JSON.stringify(data),
       });
 
+      const response = await request.json();
+
       if (!request.ok) {
-        throw new Error(request.statusText);
+        throw new Error(
+          response.message || response.error || request.statusText,
+        );
       }
-      const response: {
-        status: boolean;
-        messsage: string;
-        error: string | null;
-      } = await request.json();
-      if (!response.status) throw new Error(response.messsage);
+
+      if (!response.status)
+        throw new Error(
+          response.message || response.messsage || "Something went wrong",
+        );
+
       setIsSignupSuccessful(true);
+      toast.success("Joined waitlist successfully!");
     } catch (err: unknown) {
       const errMessage =
         err instanceof Error ? err.message : "Unexpected error, try again.";
       setErrors({ ...errors, general: errMessage });
+      toast.error(errMessage);
     } finally {
       setIsLoading(false);
     }
