@@ -39,7 +39,7 @@ const HeroSection = ({ openModal }: Props) => {
         style={{ top: "2rem", left: 0 }}
       />
       <motion.div
-        className="absolute top-[261px] left-[75px] hidden md:block"
+        className="absolute top-[261px] left-[75px] hidden lg:block"
         animate={{
           y: [0, -15, 0],
           rotate: [0, 2, -2, 0],
