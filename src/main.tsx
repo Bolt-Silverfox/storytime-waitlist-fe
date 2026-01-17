@@ -3,6 +3,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { routeTree } from "./routeTree.gen.ts";
+import { initializeAnalytics } from "./lib/analytics.ts";
+
+// Initialize analytics
+initializeAnalytics();
 
 const router = createRouter({
   routeTree,
