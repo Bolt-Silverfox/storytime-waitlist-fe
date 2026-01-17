@@ -27,6 +27,7 @@ export const initializeAnalytics = () => {
 // Track custom events
 export const trackEvent = (
   eventName: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   eventProperties?: Record<string, any>,
 ) => {
   try {
@@ -50,6 +51,7 @@ export const trackPageView = (pagePath: string, pageTitle?: string) => {
 };
 
 // Set user properties
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setUserProperties = (properties: Record<string, any>) => {
   try {
     const identifyEvent = new amplitude.Identify();
@@ -65,6 +67,7 @@ export const setUserProperties = (properties: Record<string, any>) => {
 // Identify user by email or ID
 export const identifyUser = (
   userId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   userProperties?: Record<string, any>,
 ) => {
   try {
