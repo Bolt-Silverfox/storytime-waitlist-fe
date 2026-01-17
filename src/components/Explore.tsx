@@ -4,12 +4,12 @@ export default function Explore() {
       className="font-abezee bg-primary clip-bottom relative -top-40 px-6 py-50 text-white"
       style={{ zIndex: -1 }}
     >
-      <div className="mx-auto mt-30 max-w-[1049px]">
+      <div className="mx-auto mt-10 max-w-[1049px]">
         <div className="">
-          <h1 className="font-Qilka text-center text-2xl md:text-[48px]">
+          <h1 className="font-Qilka text-center text-4xl md:text-[48px]">
             Explore story telling like never before
           </h1>
-          <p className="mx-auto mt-[30px] max-w-[843px] text-center text-[14px] text-[#FCC1AD]">
+          <p className="mx-auto mt-[30px] max-w-[843px] text-center text-base text-[#FCC1AD] md:text-xl">
             Designed especially for children. With handpicked stories, friendly
             voices, and smart filters, it's more than entertainment it's a safe
             space for growth, imagination, and learning.
@@ -41,23 +41,23 @@ export default function Explore() {
 
 const explore = [
   {
-    title: "AI-powered voices with playful, natural tones",
+    title: "Unique voices with playful, natural tones",
     text: "Calming, expressive voices tailored to each story.",
     icon: "/mic.png",
   },
   {
-    title: "AI-powered voices with playful, natural tones",
-    text: "Calming, expressive voices tailored to each story.",
+    title: "Easily Filter Stories for all kids  Age 1-12",
+    text: "Tailor the stories to your kids age.",
     icon: "/msg.png",
   },
   {
-    title: "AI-powered voices with playful, natural tones",
-    text: "Calming, expressive voices tailored to each story.",
+    title: "Interactive story modes for learning and fun",
+    text: "Learn fun stories by making decisions you like.",
     icon: "/smile.png",
   },
   {
-    title: "AI-powered voices with playful, natural tones",
-    text: "Calming, expressive voices tailored to each story.",
+    title: "Safe & Curated Content for your kids",
+    text: "Every story is reviewed for age appropriateness.",
     icon: "/shield.png",
   },
 ];

@@ -1,15 +1,21 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect } from "react";
 import Icon from "./Icon";
-import { trackCTAClick } from '../../lib/analytics';
+import { trackCTAClick } from "../../lib/analytics";
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
   navLinks: Array<{ name: string; route: string }>;
+  onDownloadClick: () => void;
 }
 
-const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose, navLinks }) => {
+const MobileNav: React.FC<MobileNavProps> = ({
+  isOpen,
+  onClose,
+  navLinks,
+  onDownloadClick,
+}) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -68,14 +74,12 @@ const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose, navLinks }) => {
 
         <div className="border-t border-gray-100 p-4">
           <button
+            className="bg-primary hover:bg-primary/90 font-abezee w-full rounded-full py-4 text-base font-semibold text-white shadow-lg transition-all active:scale-95"
             onClick={() => {
               trackCTAClick("Download", "MobileNav");
-              window.open(
-                "https://play.google.com/store/apps/details?id=net.emerj.storytime",
-                "_blank",
-              );
+              onDownloadClick();
+              onClose();
             }}
-            className="bg-primary hover:bg-primary/90 font-abezee w-full rounded-full py-4 text-base font-semibold text-white shadow-lg transition-all active:scale-95"
           >
             Download App
           </button>
