@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { trackCTAClick } from "../lib/analytics";
 
 type ParentalControlsProps = {
   openDownloadModal: () => void;
@@ -8,7 +7,6 @@ type ParentalControlsProps = {
 export default function ParentalControls({
   openDownloadModal,
 }: ParentalControlsProps) {
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -24,7 +22,9 @@ export default function ParentalControls({
           </h2>
 
           <p className="font-abezee text-base leading-relaxed text-[#4F4C4B] md:text-[24px] md:leading-[32px]">
-            Don’t just read and listen to stories, interact and see how well you comprehend the stories. This helps your child with their attentive and cognitive skill.
+            Don’t just read and listen to stories, interact and see how well you
+            comprehend the stories. This helps your child with their attentive
+            and cognitive skill.
           </p>
 
           <button
@@ -35,7 +35,7 @@ export default function ParentalControls({
           </button>
         </div>
 
-        <div className="order-1 flex w-full items-center justify-center md:justify-end overflow-hidden">
+        <div className="order-1 flex w-full items-center justify-center overflow-hidden md:justify-end">
           <img
             src="landingpage/interactive-story.png"
             className="object-contain"
