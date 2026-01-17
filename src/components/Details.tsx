@@ -1,14 +1,17 @@
 import { motion } from "framer-motion";
-import { trackCTAClick } from "../lib/analytics";
 
-export default function Details() {
+type DetailsProps = {
+  openDownloadModal: () => void;
+};
+
+export default function Details({ openDownloadModal }: DetailsProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="mt-20 md:mt-40"
+      className="mt-8 md:mt-10"
     >
       <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8">
         <motion.div
@@ -17,25 +20,13 @@ export default function Details() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           whileHover={{ scale: 1.02 }}
-          className="flex h-64 w-full items-center justify-center overflow-hidden rounded-[40px] bg-[#D6E0FC] md:h-[466px] md:rounded-[60px]"
+          className="flex w-full items-center justify-center md:justify-start overflow-hidden"
         >
-          <div className="flex items-center gap-2 md:gap-4">
-            <div className="relative -mb-16 md:-mb-25">
-              <img
-                src="mobile-2.png"
-                className="h-48 object-contain md:h-[507px]"
-                alt="mobile"
-              />
-            </div>
-
-            <div className="relative mb-30 md:mb-47">
-              <img
-                src="mobile-1.png"
-                className="h-36 object-contain md:h-[386px]"
-                alt="mobile"
-              />
-            </div>
-          </div>
+          <img
+            src="landingpage/story-reading.png"
+            className="object-contain"
+            alt="mobile"
+          />
         </motion.div>
 
         <div className="flex flex-col justify-between gap-4 md:gap-8">
@@ -68,14 +59,8 @@ export default function Details() {
             transition={{ duration: 0.5, delay: 0.6, ease: "backOut" }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              trackCTAClick("Download", "Details");
-              window.open(
-                "https://play.google.com/store/apps/details?id=net.emerj.storytime",
-                "_blank",
-              );
-            }}
-            className="font-abezee h-[60px] w-[251px] rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl md:h-[64px] md:w-[280px]"
+            onClick={openDownloadModal}
+            className="font-abezee h-[60px] w-full rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl md:h-[64px] md:w-[280px]"
           >
             Download now
           </motion.button>

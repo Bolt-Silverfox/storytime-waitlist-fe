@@ -1,4 +1,8 @@
-export default function Intentions() {
+type IntentionsProps = {
+  openDownloadModal: () => void;
+};
+
+export default function Intentions({ openDownloadModal }: IntentionsProps) {
   return (
     <section className="mt-20 grid h-full grid-cols-1 items-center gap-6 md:my-14 md:mt-40 md:grid-cols-2">
       <div className="space-y-6">
@@ -12,12 +16,7 @@ export default function Intentions() {
           calming, inspiring stories anytime, anywhere.
         </p>
         <button
-          onClick={() =>
-            window.open(
-              "https://play.google.com/store/apps/details?id=net.emerj.storytime",
-              "_blank",
-            )
-          }
+          onClick={openDownloadModal}
           className="bg-primary font-abezee rounded-full px-10 py-3 text-center text-white"
         >
           Download now

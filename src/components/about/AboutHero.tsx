@@ -1,4 +1,4 @@
-import { trackCTAClick } from '../../lib/analytics';
+import DownloadButtons from "../DownloadButtons";
 
 export default function AboutHero() {
   return (
@@ -15,22 +15,7 @@ export default function AboutHero() {
               We create meaningful digital story experiences that nurture
               curiosity, spark creativity, and support children&apos;s growth.
             </p>
-            <button
-              onClick={() => {
-                trackCTAClick("Download", "AboutHero");
-                window.open(
-                  "https://play.google.com/store/apps/details?id=net.emerj.storytime",
-                  "_blank",
-                );
-              }}
-              className="bg-primary font-abezee mx-auto flex items-center gap-4 rounded-full px-6 py-3 text-center text-white"
-            >
-              <img src="/aboutpage/play-store-icon.png" alt="Play store icon" />
-              <div className="flex-col items-start text-left">
-                <p className="text-xs">Download on</p>
-                <span className="leading-none">Google play</span>
-              </div>
-            </button>
+            <DownloadButtons color="dark" />
           </div>
         </div>
         {/* Full Image */}
@@ -58,22 +43,7 @@ export default function AboutHero() {
               We create meaningful digital story experiences that nurture
               curiosity, spark creativity, and support children&apos;s growth.
             </p>
-            <button
-              onClick={() => {
-                trackCTAClick("Download", "AboutHero");
-                window.open(
-                  "https://play.google.com/store/apps/details?id=net.emerj.storytime",
-                  "_blank",
-                )
-              }}
-              className="bg-primary font-abezee flex items-center gap-4 rounded-full px-6 py-3 text-center text-white"
-            >
-              <img src="/aboutpage/play-store-icon.png" alt="Play store icon" />
-              <div className="flex-col items-start text-left">
-                <p className="text-xs">Download on</p>
-                <span className="leading-none">Google play</span>
-              </div>
-            </button>
+            <DownloadButtons color="dark" />
           </div>
         </div>
       </div>
