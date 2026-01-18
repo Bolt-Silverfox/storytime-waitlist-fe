@@ -1,6 +1,13 @@
 import { useEffect, useState, type FormEvent } from "react";
 import SuccessDisplay from "../SuccessDisplay";
 import { Icon } from "@iconify/react";
+import {
+  trackWaitlistFormViewed,
+  trackWaitlistSignup,
+  trackWaitlistSignupError,
+} from "../../lib/analytics";
+import { WAITLIST_API } from "../../constants";
+import { toast } from "sonner";
 
 type Props = {
   onClose: () => void;
@@ -17,6 +24,10 @@ const WaitListForm = ({ onClose }: Props) => {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+
+    // Track that the waitlist form was viewed
+    trackWaitlistFormViewed();
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -48,9 +59,7 @@ const WaitListForm = ({ onClose }: Props) => {
         setErrors(newErrors);
         return;
       }
-      console.log("Form data submitted:", data);
-
-      const response = await fetch(import.meta.env.VITE_API_URL, {
+      const request = await fetch(`${WAITLIST_API}/waitlist/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,17 +67,35 @@ const WaitListForm = ({ onClose }: Props) => {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error(response.statusText);
+      const response = await request.json();
+
+      if (!request.ok) {
+        throw new Error(
+          response.message || response.error || request.statusText,
+        );
       }
 
       console.log(response);
+
+      // Track successful signup
+      trackWaitlistSignup(data.name, data.email);
+      if (!response.status)
+        throw new Error(
+          response.message || response.messsage || "Something went wrong",
+        );
+
       setIsSignupSuccessful(true);
+      toast.success("Joined waitlist successfully!");
     } catch (err: unknown) {
       const errMessage =
         err instanceof Error ? err.message : "Unexpected error, try again.";
       console.log("messageerrr", errMessage);
+
+      // Track signup error
+      trackWaitlistSignupError(errMessage);
+
       setErrors({ ...errors, general: errMessage });
+      toast.error(errMessage);
     } finally {
       setIsLoading(false);
     }
@@ -98,7 +125,7 @@ const WaitListForm = ({ onClose }: Props) => {
 
           <section className="flex flex-col gap-y-[17px]">
             <h2 className="font-Qilka text-center text-[20px] md:text-[26px]">
-              Join thousands of readers
+              Join thousands of readers s
             </h2>
             <p className="text-center text-sm md:text-base">
               Fill the form below and be the first to know when we launch.
@@ -120,7 +147,7 @@ const WaitListForm = ({ onClose }: Props) => {
               />
               <Icon
                 icon={"iconamoon:profile-thin"}
-                className="absolute top-12 left-4 size-6"
+                className="absolute top-10 left-4 size-6 md:top-12 md:left-4"
               />
               {errors.name && (
                 <span className="mt-1 text-sm text-red-500">{errors.name}</span>
@@ -139,7 +166,7 @@ const WaitListForm = ({ onClose }: Props) => {
               />
               <Icon
                 icon={"lets-icons:message-light"}
-                className="absolute top-12 left-4 size-6"
+                className="absolute top-10 left-4 size-6 md:top-12 md:left-4"
               />
               {errors.email && (
                 <span className="mt-1 text-sm text-red-500">
@@ -151,7 +178,7 @@ const WaitListForm = ({ onClose }: Props) => {
 
           <button
             type="submit"
-            className="mt-0.5 w-full cursor-pointer self-center rounded-full bg-[#FEEAE6] py-2.5 text-center text-[#FB9583]"
+            className="bg-primary mt-0.5 w-full cursor-pointer self-center rounded-full py-2.5 text-center text-white"
           >
             {isLoading ? "Loading..." : "Join the waitlist"}
           </button>
