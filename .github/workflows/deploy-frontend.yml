@@ -119,7 +119,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "cd /home/${{ secrets.SERVER_USER }}/storytime/production/waitlist && (npx pm2 restart ecosystem.config.js --update-env || npx pm2 start ecosystem.config.js) && npx pm2 save"
+            "cd /home/${{ secrets.SERVER_USER }}/storytime/production/waitlist && (pnpx pm2 restart ecosystem.config.js --update-env || pnpx pm2 start ecosystem.config.js) && pnpx pm2 save"
 
       - name: Notify deployment status
         if: always()
