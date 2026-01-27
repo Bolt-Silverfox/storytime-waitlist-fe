@@ -1,9 +1,6 @@
 export default function WaitListFooter() {
   return (
-    <div
-      className="bg-secondary relative -top-56 -mb-56 flex h-[850px] w-full flex-col overflow-hidden px-4 py-6 text-white sm:px-6 md:h-[1368px] md:px-10 lg:px-16"
-      style={{ zIndex: -13 }}
-    >
+    <div className="bg-secondary relative -top-56 z-10 -mb-56 flex h-[850px] w-full flex-col overflow-hidden px-4 py-6 text-white sm:px-6 md:h-[1368px] md:px-10 lg:px-16">
       {/* floating stars */}
       <div className="absolute top-[18%] left-[8%]">
         <img
@@ -115,7 +112,7 @@ export default function WaitListFooter() {
         </div>
 
         {/* icons */}
-        <div className="mx-auto mb-20 flex items-center justify-center gap-4 sm:mb-16 sm:gap-5 md:gap-6">
+        <div className="relative z-30 mx-auto mb-20 flex items-center justify-center gap-4 sm:mb-16 sm:gap-5 md:gap-6">
           <a
             href="https://www.facebook.com/profile.php?id=61585584201713"
             target="blank"
