@@ -7,7 +7,7 @@ type Props = {
 
 const HeroSection = ({ openModal }: Props) => {
   return (
-    <div className="clip-bottom relative w-full overflow-hidden bg-white">
+    <div className="clip-bottom relative z-30 w-full overflow-hidden bg-white">
       {/* Logo */}
       <div className="absolute top-8 left-1/2 z-10 -translate-x-1/2 sm:top-6 md:top-8 lg:top-[77px]">
         <img
