@@ -8,9 +8,9 @@ export const Route = createFileRoute("/_layout/terms-and-conditions")({
 
 function RouteComponent() {
   return (
-    <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 md:gap-y-14 md:px-10">
+    <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 md:gap-y-14 md:px-10 pb-12">
       <PageTitle title="Terms and conditions" />
-      <ul className="flex flex-1 flex-col gap-y-[47px]">
+      <ul className="flex flex-1 flex-col gap-y-6">
         {termsAndConditionsData.map((condition) => (
           <li key={condition.index} className="flex flex-col gap-y-[18px]">
             <h2 className="font-Qilka text-base font-bold">
@@ -27,14 +27,14 @@ function RouteComponent() {
                 ))}
               </ul>
             ) : (
-              <p className="font-abezee text-sm leading-6 text-[#212121] mb-12">
+              <p className="font-abezee text-sm leading-6 text-[#212121]">
                 {condition.paragraph}
               </p>
             )}
           </li>
         ))}
       </ul>
-     
+
     </div>
   );
 }
