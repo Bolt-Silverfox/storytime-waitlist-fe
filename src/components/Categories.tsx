@@ -21,7 +21,7 @@ export default function Categories() {
       </motion.h2>
 
       {/* carousel for mobile and tablet */}
-      <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4 lg:hidden">
+      <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4 xl:hidden">
         {categories.map((category, index) => (
           <motion.div
             key={index}
@@ -48,7 +48,7 @@ export default function Categories() {
       </div>
 
       {/* grids */}
-      <div className="mx-auto hidden max-w-7xl grid-cols-4 gap-6 lg:grid">
+      <div className="mx-auto hidden max-w-7xl grid-cols-4 gap-6 xl:grid">
         {categories.map((category, index) => (
           <motion.div
             key={index}

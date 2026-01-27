@@ -65,7 +65,7 @@ export default function CTASection() {
 
           <div className="relative order-2 flex justify-center lg:order-2">
             <img
-              src="/landingpage/cta.png.png"
+              src="/landingpage/cta.png"
               className="-mb-16 w-64 object-contain md:-mb-40 md:w-80"
               alt="sage is tired!"
             />

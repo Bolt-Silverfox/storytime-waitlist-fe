@@ -41,7 +41,7 @@ const privacyPolicyData: {
     },
     {
       heading: "Contact US",
-      paragraph: "mail: support@storytimekids.com",
+      paragraph: "mail: team@storytimekids.com",
       index: "VII",
     },
   ];
