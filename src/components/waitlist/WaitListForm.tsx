@@ -1,7 +1,13 @@
 import { useEffect, useState, type FormEvent } from "react";
 import SuccessDisplay from "../SuccessDisplay";
 import { Icon } from "@iconify/react";
+import {
+  trackWaitlistFormViewed,
+  trackWaitlistSignup,
+  trackWaitlistSignupError,
+} from "../../lib/analytics";
 import { WAITLIST_API } from "../../constants";
+import { toast } from "sonner";
 
 type Props = {
   onClose: () => void;
@@ -18,6 +24,10 @@ const WaitListForm = ({ onClose }: Props) => {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+
+    // Track that the waitlist form was viewed
+    trackWaitlistFormViewed();
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -57,20 +67,35 @@ const WaitListForm = ({ onClose }: Props) => {
         body: JSON.stringify(data),
       });
 
+      const response = await request.json();
+
       if (!request.ok) {
-        throw new Error(request.statusText);
+        throw new Error(
+          response.message || response.error || request.statusText,
+        );
       }
-      const response: {
-        status: boolean;
-        messsage: string;
-        error: string | null;
-      } = await request.json();
-      if (!response.status) throw new Error(response.messsage);
+
+      console.log(response);
+
+      // Track successful signup
+      trackWaitlistSignup(data.name, data.email);
+      if (!response.status)
+        throw new Error(
+          response.message || response.messsage || "Something went wrong",
+        );
+
       setIsSignupSuccessful(true);
+      toast.success("Joined waitlist successfully!");
     } catch (err: unknown) {
       const errMessage =
         err instanceof Error ? err.message : "Unexpected error, try again.";
+      console.log("messageerrr", errMessage);
+
+      // Track signup error
+      trackWaitlistSignupError(errMessage);
+
       setErrors({ ...errors, general: errMessage });
+      toast.error(errMessage);
     } finally {
       setIsLoading(false);
     }

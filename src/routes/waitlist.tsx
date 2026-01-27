@@ -12,7 +12,7 @@ export const Route = createFileRoute("/waitlist")({
 function RouteComponent() {
   const [isWaitlistOverlayOpen, setIsWaitlistOverLayOpen] = useState(false);
   return (
-    <div className="flex flex-col">
+    <div className="">
       <WaitlistHeroSection openModal={() => setIsWaitlistOverLayOpen(true)} />
       <Explore />
       <WaitListFooter />

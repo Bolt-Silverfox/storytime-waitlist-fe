@@ -119,7 +119,7 @@ const SqueezeBuilt = () => {
       lenis.destroy();
       gsap.ticker.remove(rafCallback);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <section aria-labelledby="Built section">
