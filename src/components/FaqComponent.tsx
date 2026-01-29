@@ -55,7 +55,7 @@ const FaqComponent = ({
           <div className="relative w-full overflow-hidden rounded-[14px] px-4">
             {/* STATIC SVG background */}
             <svg
-              className="absolute inset-0 ml-auto h-full w-full max-w-[442px] rounded-[14px]"
+              className="absolute inset-0 ml-auto h-full w-full max-w-[340px] lg:max-w-[442px] rounded-[14px]"
               viewBox="0 0 622 347"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
