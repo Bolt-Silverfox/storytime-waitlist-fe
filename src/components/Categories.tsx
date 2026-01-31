@@ -21,7 +21,7 @@ export default function Categories() {
       </motion.h2>
 
       {/* carousel for mobile and tablet */}
-      <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4 xl:hidden">
+      <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-4 md:justify-center md:gap-6 lg:gap-8 xl:hidden">
         {categories.map((category, index) => (
           <motion.div
             key={index}
@@ -31,10 +31,10 @@ export default function Categories() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             whileHover={{ scale: 1.05, y: -5 }}
             whileTap={{ scale: 0.98 }}
-            className="font-abezee flex min-w-[287px] cursor-pointer snap-center flex-col items-center justify-center overflow-hidden rounded-[20px] shadow-xl"
+            className="font-abezee flex min-w-[250px] shrink-0 cursor-pointer snap-center flex-col items-center justify-center overflow-hidden rounded-[20px] shadow-xl md:min-w-[220px] lg:min-w-[240px]"
           >
             <div
-              className="flex h-[357px] w-[287px] items-end rounded-[20px] px-4 py-5"
+              className="flex h-[320px] w-[250px] items-end rounded-[20px] px-4 py-5 md:h-[300px] md:w-[220px] lg:h-[320px] lg:w-[240px]"
               style={{
                 backgroundImage: `url('${category.image}')`,
                 backgroundSize: "cover",
