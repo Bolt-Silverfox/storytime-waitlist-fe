@@ -12,16 +12,19 @@ function RouteComponent() {
       <PageTitle title="Terms and conditions" />
       <ul className="flex flex-1 flex-col gap-y-6">
         {termsAndConditionsData.map((condition) => (
-          <li key={condition.index} className="flex flex-col gap-y-[18px]">
+          <li key={condition.index} className="flex flex-col gap-y-2">
             <h2 className="font-Qilka text-base font-bold">
               {condition.index}. {condition.heading}
             </h2>
             {Array.isArray(condition.paragraph) ? (
-              <ul className="ml-2">
+              <ul className="space-y-2">
                 {condition.paragraph.map((point, idx) => (
-                  <li key={idx}>
+                  <li key={idx} className="flex gap-2">
+                    <span className="font-abezee shrink-0 text-sm leading-6 text-[#212121]">
+                      {idx + 1}.
+                    </span>
                     <p className="font-abezee text-sm leading-6 text-[#212121]">
-                      {idx + 1}. {point}
+                      {point}
                     </p>
                   </li>
                 ))}
