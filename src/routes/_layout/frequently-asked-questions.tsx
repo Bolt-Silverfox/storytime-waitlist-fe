@@ -94,7 +94,7 @@ function RouteComponent() {
         <input
           type="text"
           placeholder="Search"
-          className="md-py-11 font-abezee mt-6 h-[47px] w-full max-w-[620px] rounded-[100px] border py-4 pl-4 text-[16px] leading-9 md:mt-[29px] md:h-[61px] md:pl-11 md:text-[21px]"
+          className="font-abezee mt-6 h-[47px] w-full max-w-[620px] rounded-[100px] border px-4 py-3 text-[16px] leading-normal md:mt-[29px] md:h-[61px] md:px-11 md:py-4 md:text-[21px]"
           onChange={(e) => setSearch(e.target.value)}
         />
 
@@ -104,14 +104,14 @@ function RouteComponent() {
             <CategorySkeleton />
           </div>
         ) : (
-          <ul className="font-abezee scrollbar-hide mt-12 flex w-full max-w-[620px] items-center gap-4 overflow-x-auto px-2 text-[15px] leading-9 whitespace-nowrap text-[#3F1102] md:max-w-full lg:justify-center">
+          <ul className="font-abezee scrollbar-hide mt-12 flex w-full max-w-[620px] items-center gap-3 overflow-x-auto px-2 text-[14px] leading-normal text-[#3F1102] md:max-w-full md:gap-4 md:text-[15px] lg:justify-center">
             {categories.map((c) => (
               <li
                 key={c._id}
                 onClick={() => setCategory(c._id)}
-                className={`h-auto min-w-fit cursor-pointer rounded-full px-[21px] py-1 ${category === c._id ? "bg-[#EC4007] text-white" : "border border-[#4F4C4B] text-[#4F4C4B]"} `}
+                className={`h-auto shrink-0 cursor-pointer rounded-full px-4 py-2 md:px-[21px] ${category === c._id ? "bg-[#EC4007] text-white" : "border border-[#4F4C4B] text-[#4F4C4B]"} `}
               >
-                <span>{c.title}</span>
+                <span className="whitespace-nowrap">{c.title}</span>
               </li>
             ))}
           </ul>

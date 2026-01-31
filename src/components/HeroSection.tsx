@@ -30,7 +30,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="font-Qilka text-center text-[32px] leading-[50px] text-[#231F1E] md:text-[48px] xl:text-[56px]"
         >
-          Storytime4kids - where magical stories grow smarter kids
+          Storytime4Kids - Magical stories that help children grow
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -38,8 +38,8 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           className="font-abezee mx-auto max-w-[616px] text-center text-[20px] text-[#231F1ECC] md:text-[22px] xl:text-[24px]"
         >
-          Magical stories for kids, from bedtime snuggles to learning
-          adventures.
+          From cozy bedtime tales to learning adventures, stories children
+          love and parents trust.
         </motion.p>
 
         <DownloadButtons color="dark" />
