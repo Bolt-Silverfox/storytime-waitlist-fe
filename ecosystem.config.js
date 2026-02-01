@@ -1,11 +1,23 @@
 module.exports = {
   apps: [
     {
-      name: `storytime-waitlist-${process.env.NODE_ENV || "development"}`,
-      script: "npx",
-      args: "serve -s -l 4500 .",
+      name: "storytime-waitlist-production",
+      script: "serve",
+      interpreter: "npx",
+      args: "-s -l 4500 .",
+      cwd: "~/storytime/production/waitlist",
       env: {
-        NODE_ENV: process.env.NODE_ENV || "development",
+        NODE_ENV: "production",
+      },
+    },
+    {
+      name: "storytime-waitlist-development",
+      script: "serve",
+      interpreter: "npx",
+      args: "-s -l 4501 .",
+      cwd: "~/storytime/development/waitlist",
+      env: {
+        NODE_ENV: "development",
       },
     },
   ],
