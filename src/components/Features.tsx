@@ -45,7 +45,6 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
-  const mobileListRef = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -66,27 +65,6 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
       requestAnimationFrame(raf);
     }
 
-    // Mobile scroll animation
-    if (window.innerWidth < 1024 && mobileListRef.current) {
-      const mobileTrigger = ScrollTrigger.create({
-        trigger: mobileListRef.current,
-        start: "top center",
-        end: `+=${featuresData.length * 100}`,
-        scrub: 1,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const newIndex = Math.min(
-            Math.floor(progress * featuresData.length),
-            featuresData.length - 1,
-          );
-          setActiveIndex(newIndex);
-        },
-      });
-
-      return () => {
-        mobileTrigger.kill();
-      };
-    }
 
     // Desktop scroll trigger
     if (window.innerWidth >= 1024 && triggerRef.current) {
@@ -149,10 +127,7 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
       </motion.h2>
 
       {/* Mobile View */}
-      <div
-        ref={mobileListRef}
-        className="mx-auto w-full rounded-3xl bg-white p-6 md:p-8 lg:hidden"
-      >
+      <div className="mx-auto w-full rounded-3xl bg-white p-6 md:p-8 lg:hidden">
         {/* img */}
         <div className="mb-10 flex justify-center rounded-4xl bg-[#FFE9DF]">
           <div className="flex justify-center overflow-hidden p-4">
@@ -169,7 +144,8 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
           {featuresData.map((feature, index) => (
             <div
               key={feature.id}
-              className="font-abezee flex items-center gap-3"
+              className="font-abezee flex cursor-pointer items-center gap-3"
+              onClick={() => setActiveIndex(index)}
             >
               <div
                 className={`flex h-8 w-8 items-center justify-center rounded-full font-bold transition-colors duration-300 ${index === activeIndex
@@ -179,7 +155,7 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
               >
                 {feature.id}
               </div>
-              <span className="text-[20px] text-gray-700">{feature.text}</span>
+              <span className={`text-[20px] transition-colors duration-300 ${index === activeIndex ? "text-[#EC4007]" : "text-gray-700"}`}>{feature.text}</span>
             </div>
           ))}
         </div>
