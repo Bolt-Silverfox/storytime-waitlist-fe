@@ -82,7 +82,11 @@ const ContactUs: React.FC = () => {
           className="z-10 mx-auto flex w-full max-w-md flex-col gap-4"
         >
           <div className="flex flex-col gap-1">
+            <label htmlFor="name" className="px-2 text-sm font-medium text-gray-700">
+              Full Name
+            </label>
             <input
+              id="name"
               name="name"
               type="text"
               placeholder="Enter your full name"
@@ -97,7 +101,11 @@ const ContactUs: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1">
+            <label htmlFor="email" className="px-2 text-sm font-medium text-gray-700">
+              Email Address
+            </label>
             <input
+              id="email"
               name="email"
               type="email"
               placeholder="Enter your email address"
@@ -112,7 +120,11 @@ const ContactUs: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1">
+            <label htmlFor="message" className="px-2 text-sm font-medium text-gray-700">
+              Message
+            </label>
             <textarea
+              id="message"
               name="message"
               placeholder="Enter your message here...."
               disabled={isLoading}
