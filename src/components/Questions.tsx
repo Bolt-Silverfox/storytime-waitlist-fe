@@ -5,7 +5,7 @@ export default function Questions() {
 
   const faqs = [
     {
-      question: "How do I upgrade my subscription??",
+      question: "How do I upgrade my subscription?",
       answer:
         "To upgrade your Storytime subscription, open the app or website, log into your account, go to subscription settings, choose the premium plan, and follow the prompts, or if you subscribed through the App Store or Google Play, upgrade through your device settings, or contact support@storytimeapp.me for help.",
     },
