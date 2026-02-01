@@ -8,7 +8,7 @@ export default function DownloadButtons({
   color: "light" | "dark";
 }) {
   return (
-    <div className="relative flex shrink-0 flex-col items-stretch gap-8 self-center md:flex-row md:items-start md:gap-6">
+    <div className="relative z-20 flex shrink-0 flex-col items-stretch gap-8 self-center md:flex-row md:items-start md:gap-6">
       <a
         href="https://play.google.com/store/apps/details?id=net.emerj.storytime"
         target="_blank"
