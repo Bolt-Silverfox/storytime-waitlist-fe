@@ -104,8 +104,8 @@ function RouteComponent() {
             <CategorySkeleton />
           </div>
         ) : (
-          <div className="-mx-4 mt-12 w-[calc(100%+2rem)] overflow-x-auto">
-            <ul className="font-abezee flex w-max items-center gap-3 px-4 text-[14px] leading-normal text-[#3F1102] md:w-full md:justify-center md:gap-4 md:px-2 md:text-[15px]">
+          <div className="mt-12 w-full overflow-x-auto pb-2">
+            <ul className="font-abezee flex w-max min-w-full items-center justify-start gap-3 px-4 text-[14px] leading-normal text-[#3F1102] md:justify-center md:gap-4 md:text-[15px]">
               {categories.map((c) => (
                 <li
                   key={c._id}
