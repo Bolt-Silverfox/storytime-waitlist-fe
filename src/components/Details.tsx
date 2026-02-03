@@ -60,7 +60,7 @@ export default function Details({ openDownloadModal }: DetailsProps) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={openDownloadModal}
-            className="font-abezee h-[60px] w-full rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl md:h-[64px] md:w-[280px]"
+            className="font-abezee h-[60px] w-full cursor-pointer rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl md:h-[64px] md:w-[280px]"
           >
             Download now
           </motion.button>
