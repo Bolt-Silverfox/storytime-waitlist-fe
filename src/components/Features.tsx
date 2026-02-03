@@ -171,7 +171,7 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
 
           <button
             onClick={openDownloadModal}
-            className="font-abezee w-[280px] rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
+            className="font-abezee w-[280px] cursor-pointer rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
           >
             Download now
           </button>
@@ -267,7 +267,7 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
 
             <button
               onClick={openDownloadModal}
-              className="font-abezee w-[280px] rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
+              className="font-abezee w-[280px] cursor-pointer rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
             >
               Download now
             </button>

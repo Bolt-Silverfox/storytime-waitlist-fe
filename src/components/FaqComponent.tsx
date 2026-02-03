@@ -55,7 +55,7 @@ const FaqComponent = ({
           <div className="relative w-full overflow-hidden rounded-[14px] px-4">
             {/* STATIC SVG background */}
             <svg
-              className="absolute inset-0 ml-auto h-full w-full max-w-full md:max-w-[340px] lg:max-w-[442px] rounded-[14px]"
+              className="absolute inset-0 ml-auto h-full w-full max-w-full md:max-w-[440px] lg:max-w-[502px] rounded-[14px]"
               viewBox="0 0 622 347"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@ const FaqComponent = ({
               transition={{ duration: 0.25, ease: "easeOut" }}
               className="relative"
             >
-              <p className="ml-auto max-w-full py-4 px-4 text-[14px] leading-7 text-[#4F4C4B] md:max-w-[502px] md:py-[22px] md:pl-26 md:pr-4 md:text-lg md:leading-9">
+              <p className="ml-auto max-w-full py-4 px-4 text-[14px] leading-7 text-[#4F4C4B] md:max-w-[400px] md:py-[22px] md:pl-10 md:pr-4 md:text-lg md:leading-9 lg:max-w-[460px] lg:pl-14">
                 {answer}
               </p>
             </motion.div>
