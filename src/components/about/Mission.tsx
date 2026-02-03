@@ -4,11 +4,11 @@ export default function Mission() {
       {[
         {
           title: "Our Mission",
-          text: "To help children grow into confident, kind, creative individuals through the power of story.",
+          text: "To help children grow into confident, kind, and creative individuals by connecting them with thoughtful, age-appropriate stories that inspire imagination and emotional growth.",
         },
         {
           title: "Our Vision",
-          text: "To become the most trusted storytelling platform for children worldwide.",
+          text: "To become the most trusted storytelling platform for children, where meaningful stories are easy to access and enjoyable to experience.",
         },
       ].map((item, index) => (
         <div
