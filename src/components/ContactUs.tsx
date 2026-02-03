@@ -1,8 +1,21 @@
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
 import postimage from "../assets/postImg.png";
 import envelop from "../assets/Envelop.png";
 import { WAITLIST_API } from "../constants";
+
+const contactSchema = z.object({
+  name: z.string().min(1, "Full name is required.").trim(),
+  email: z
+    .string()
+    .min(1, "Email is required.")
+    .email({ message: "Invalid email address." })
+    .trim(),
+  message: z.string().min(1, "Message is required.").trim(),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactUs: React.FC = () => {
   const formRef = React.useRef<HTMLFormElement>(null);
@@ -13,32 +26,28 @@ const ContactUs: React.FC = () => {
     message?: string;
   }>({});
 
-  const validateEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors({});
 
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData) as {
-      name: string;
-      email: string;
-      message: string;
-    };
+    const rawData = Object.fromEntries(formData);
 
-    const newErrors: typeof errors = {};
-    if (!data.name.trim()) newErrors.name = "Full name is required.";
-    if (!data.email.trim()) newErrors.email = "Email is required.";
-    else if (!validateEmail(data.email))
-      newErrors.email = "Invalid email address.";
-    if (!data.message.trim()) newErrors.message = "Message is required.";
+    const result = contactSchema.safeParse(rawData);
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    if (!result.success) {
+      const fieldErrors: typeof errors = {};
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0] as keyof typeof errors;
+        if (!fieldErrors[field]) {
+          fieldErrors[field] = issue.message;
+        }
+      });
+      setErrors(fieldErrors);
       return;
     }
+
+    const data: ContactFormData = result.data;
 
     try {
       setIsLoading(true);
@@ -58,7 +67,7 @@ const ContactUs: React.FC = () => {
         );
       }
 
-      toast.success("Message sent successfully!");
+      toast.success(response.data?.message || response.message || "Message sent successfully!");
       formRef.current?.reset();
     } catch (err: unknown) {
       const errMessage =
