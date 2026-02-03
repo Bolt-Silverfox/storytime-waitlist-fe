@@ -104,17 +104,19 @@ function RouteComponent() {
             <CategorySkeleton />
           </div>
         ) : (
-          <ul className="font-abezee scrollbar-hide mt-12 flex w-full max-w-[620px] items-center gap-3 overflow-x-auto px-2 text-[14px] leading-normal text-[#3F1102] md:max-w-full md:gap-4 md:text-[15px] lg:justify-center">
-            {categories.map((c) => (
-              <li
-                key={c._id}
-                onClick={() => setCategory(c._id)}
-                className={`h-auto shrink-0 cursor-pointer rounded-full px-4 py-2 md:px-[21px] ${category === c._id ? "bg-[#EC4007] text-white" : "border border-[#4F4C4B] text-[#4F4C4B]"} `}
-              >
-                <span className="whitespace-nowrap">{c.title}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-12 w-full overflow-x-auto pb-2">
+            <ul className="font-abezee flex w-max min-w-full items-center justify-start gap-3 px-4 text-[14px] leading-normal text-[#3F1102] md:justify-center md:gap-4 md:text-[15px]">
+              {categories.map((c) => (
+                <li
+                  key={c._id}
+                  onClick={() => setCategory(c._id)}
+                  className={`h-auto shrink-0 cursor-pointer rounded-full px-4 py-2 md:px-[21px] ${category === c._id ? "bg-[#EC4007] text-white" : "border border-[#4F4C4B] text-[#4F4C4B]"} `}
+                >
+                  <span className="whitespace-nowrap">{c.title}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
 
         {/* FAQs */}
