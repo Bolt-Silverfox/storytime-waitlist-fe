@@ -38,7 +38,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-[42px] w-[42px] sm:h-12 sm:w-12 md:h-[52px] md:w-[52px]"
+          className="h-8 w-8 sm:h-[38px] sm:w-[38px] md:h-[46px] md:w-[46px]"
         />
       </div>
 
@@ -86,7 +86,7 @@ export default function WaitListFooter() {
         <img
           src="star.png"
           alt="stars"
-          className="h-12 w-12 sm:h-[52px] sm:w-[52px] md:h-[58px] md:w-[58px]"
+          className="h-10 w-10 sm:h-[42px] sm:w-[42px] md:h-[48px] md:w-[48px]"
         />
       </div>
 
@@ -120,7 +120,7 @@ export default function WaitListFooter() {
             <img
               src="/facebook.png"
               alt="Facebook"
-              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-all duration-300 hover:scale-110 hover:opacity-70 sm:w-9 md:w-[38px]"
             />
           </a>
 
@@ -128,7 +128,7 @@ export default function WaitListFooter() {
             <img
               src="/instagram.png"
               alt="Instagram"
-              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-all duration-300 hover:scale-110 hover:opacity-70 sm:w-9 md:w-[38px]"
             />
           </a>
 
@@ -136,7 +136,7 @@ export default function WaitListFooter() {
             <img
               src="/tiktok.png"
               alt="Tiktok"
-              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-all duration-300 hover:scale-110 hover:opacity-70 sm:w-9 md:w-[38px]"
             />
           </a>
           <a
@@ -146,14 +146,14 @@ export default function WaitListFooter() {
             <img
               src="/linkedIn.svg"
               alt="Linkedin"
-              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-all duration-300 hover:scale-110 hover:opacity-70 sm:w-9 md:w-[38px]"
             />
           </a>
           <a href="https://x.com/storytimehq" target="blank">
             <img
               src="/twitter.png"
               alt="Twitter"
-              className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+              className="h-auto w-8 cursor-pointer transition-all duration-300 hover:scale-110 hover:opacity-70 sm:w-9 md:w-[38px]"
             />
           </a>
         </div>
