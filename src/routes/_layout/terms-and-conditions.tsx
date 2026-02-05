@@ -15,6 +15,7 @@ function RouteComponent() {
     SanityTermsAndConditions[]
   >([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchTerms() {
@@ -22,7 +23,9 @@ function RouteComponent() {
         const data = await getTermsAndConditions();
         setTermsAndConditions(data);
       } catch (error) {
-        console.error("Failed to fetch terms and conditions:", error);
+        setError(
+          "Failed to load terms and conditions. Please try again later.",
+        );
       } finally {
         setIsLoading(false);
       }
@@ -32,7 +35,7 @@ function RouteComponent() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 md:gap-y-14 md:px-10 pb-12">
+      <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 pb-12 md:gap-y-14 md:px-10">
         <PageTitle title="Terms and conditions" />
         <div className="flex justify-center py-10">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-[#F97316]"></div>
@@ -41,8 +44,19 @@ function RouteComponent() {
     );
   }
 
+  if (error) {
+    return (
+      <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 pb-12 md:gap-y-14 md:px-10">
+        <PageTitle title="Terms and conditions" />
+        <div className="flex flex-col items-center justify-center gap-4 py-10">
+          <p className="font-abezee text-center text-red-600">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 md:gap-y-14 md:px-10 pb-12">
+    <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 pb-12 md:gap-y-14 md:px-10">
       <PageTitle title="Terms and conditions" />
       <ul className="flex flex-1 flex-col gap-y-6">
         {termsAndConditions.map((condition) => (
