@@ -23,6 +23,7 @@ function RouteComponent() {
         const data = await getTermsAndConditions();
         setTermsAndConditions(data);
       } catch (error) {
+        console.error("Error fetching terms and conditions:", error);
         setError(
           "Failed to load terms and conditions. Please try again later.",
         );
