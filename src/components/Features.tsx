@@ -43,10 +43,37 @@ type FeaturesProps = {
 
 export default function Features({ openDownloadModal }: FeaturesProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
+  useEffect(() => {
+    // Mobile Auto-Scroll logic
+    const carousel = carouselRef.current;
+    if (!carousel || window.innerWidth >= 1024) return;
+
+    const interval = setInterval(() => {
+      if (!isPaused && carousel) {
+        const { scrollLeft, scrollWidth, clientWidth } = carousel;
+        const scrollEnd = scrollWidth - clientWidth;
+
+        // If we're near the end (within 10px), loop back to start
+        if (scrollLeft >= scrollEnd - 10) {
+          carousel.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          // Scroll by one card width approx (320px + 16px gap)
+          const scrollAmount = 336;
+          carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  // Desktop Lenis logic...
   useEffect(() => {
     // Initialize Lenis for ultra-smooth scrolling (only on desktop)
     if (window.innerWidth >= 1024) {
@@ -65,11 +92,10 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
       requestAnimationFrame(raf);
     }
 
-
     // Desktop scroll trigger
     if (window.innerWidth >= 1024 && triggerRef.current) {
       // Kill any existing ScrollTriggers on this element
-      ScrollTrigger.getAll().forEach(trigger => {
+      ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.trigger === triggerRef.current) {
           trigger.kill();
         }
@@ -115,67 +141,66 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
   const activeFeature = featuresData[activeIndex];
 
   return (
-    <section ref={sectionRef} className="mt-8 md:mt-10">
+    <section ref={sectionRef} className="mt-20 md:mt-40">
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6 }}
         className="font-Qilka mb-4 text-center text-[32px] font-bold text-[#231F1E] md:text-[56px]"
       >
         Check out our amazing features
       </motion.h2>
 
-      {/* Mobile View */}
-      <div className="mx-auto w-full rounded-3xl bg-white p-6 md:p-8 lg:hidden">
-        {/* img */}
-        <div className="mb-10 flex justify-center rounded-4xl bg-[#FFE9DF]">
-          <div className="flex justify-center overflow-hidden p-4">
-            <img
-              src={activeFeature.image}
-              alt="image"
-              className="-mb-10 h-[420px] object-contain"
-            />
-          </div>
-        </div>
-
-        {/* list */}
-        <div className="mb-10 space-y-5 p-7">
-          {featuresData.map((feature, index) => (
-            <div
-              key={feature.id}
-              className="font-abezee flex cursor-pointer items-center gap-3"
-              onClick={() => setActiveIndex(index)}
-            >
-              <div
-                className={`flex h-8 w-8 items-center justify-center rounded-full font-bold transition-colors duration-300 ${index === activeIndex
-                  ? "bg-[#EC4007] text-white"
-                  : "bg-[#EC400733] text-[#EC4007]"
-                  }`}
-              >
+      {/* Mobile View - Carousel */}
+      <div
+        ref={carouselRef}
+        className="no-scrollbar flex w-full snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-8 lg:hidden"
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setIsPaused(false)}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {featuresData.map((feature) => (
+          <div
+            key={feature.id}
+            className="flex min-w-[320px] flex-none snap-center flex-col justify-between rounded-[32px] bg-[#FFF8F5] p-6 shadow-sm min-[370px]:min-w-[340px] md:min-w-[400px]"
+          >
+            {/* Top Section: Number & Title */}
+            <div className="mb-6 flex items-center gap-3">
+              <div className="font-abezee flex h-8 w-8 items-center justify-center rounded-full bg-[#EC4007] font-bold text-white">
                 {feature.id}
               </div>
-              <span className={`text-[20px] transition-colors duration-300 ${index === activeIndex ? "text-[#EC4007]" : "text-gray-700"}`}>{feature.text}</span>
+              <h3 className="font-abezee text-[20px] text-[#231F1E]">
+                {feature.title}
+              </h3>
             </div>
-          ))}
-        </div>
 
-        <div className="">
-          <h3 className="font-Qilka mb-4 text-[32px] font-bold text-[#231F1E]">
-            {activeFeature.title}
-          </h3>
+            {/* Image */}
+            <div className="mb-6 flex flex-1 items-center justify-center overflow-hidden rounded-2xl">
+              <img
+                src={feature.image}
+                alt={feature.title}
+                className="h-[350px] w-full object-contain md:h-[400px]"
+              />
+            </div>
 
-          <p className="font-abezee mb-6 text-[18px] leading-[32px]">
-            {activeFeature.description}
-          </p>
-
-          <button
-            onClick={openDownloadModal}
-            className="font-abezee w-[280px] cursor-pointer rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
-          >
-            Download now
-          </button>
-        </div>
+            {/* Bottom Section: Text & Button */}
+            <div className="mt-auto">
+              <h3 className="font-Qilka mb-2 text-[24px] font-bold text-[#231F1E] md:text-[28px]">
+                {feature.title}
+              </h3>
+              <p className="font-abezee mb-6 text-[16px] leading-[26px] text-[#4F4C4B] md:text-[18px]">
+                {feature.description}
+              </p>
+              <button
+                onClick={openDownloadModal}
+                className="font-abezee w-full cursor-pointer rounded-full bg-[#EC4007] py-4 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl"
+              >
+                Download now
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Desktop View - Scroll Locked */}
@@ -202,16 +227,18 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
                 onClick={() => setActiveIndex(index)}
               >
                 <div
-                  className={`flex h-8 w-8 items-center justify-center rounded-full font-bold transition-all duration-300 ${index === activeIndex
-                    ? "bg-[#EC4007] text-white shadow-lg shadow-orange-300"
-                    : "bg-[#EC400733] text-[#EC4007]"
-                    }`}
+                  className={`flex h-8 w-8 items-center justify-center rounded-full font-bold transition-all duration-300 ${
+                    index === activeIndex
+                      ? "bg-[#EC4007] text-white shadow-lg shadow-orange-300"
+                      : "bg-[#EC400733] text-[#EC4007]"
+                  }`}
                 >
                   {feature.id}
                 </div>
                 <span
-                  className={`font-medium transition-all duration-300 ${index === activeIndex ? "text-[#EC4007]" : "text-gray-700"
-                    }`}
+                  className={`font-medium transition-all duration-300 ${
+                    index === activeIndex ? "text-[#EC4007]" : "text-gray-700"
+                  }`}
                 >
                   {feature.text}
                 </span>
