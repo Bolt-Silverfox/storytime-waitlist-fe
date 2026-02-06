@@ -50,7 +50,6 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Mobile Auto-Scroll logic
     const carousel = carouselRef.current;
     if (!carousel || window.innerWidth >= 1024) return;
 
@@ -59,11 +58,9 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
         const { scrollLeft, scrollWidth, clientWidth } = carousel;
         const scrollEnd = scrollWidth - clientWidth;
 
-        // If we're near the end (within 10px), loop back to start
         if (scrollLeft >= scrollEnd - 10) {
           carousel.scrollTo({ left: 0, behavior: "smooth" });
         } else {
-          // Scroll by one card width approx (320px + 16px gap)
           const scrollAmount = 336;
           carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
         }
@@ -73,9 +70,9 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
     return () => clearInterval(interval);
   }, [isPaused]);
 
-  // Desktop Lenis logic...
   useEffect(() => {
-    // Initialize Lenis for ultra-smooth scrolling (only on desktop)
+    let rafId: number | null = null;
+
     if (window.innerWidth >= 1024) {
       lenisRef.current = new Lenis({
         duration: 1.2,
@@ -86,15 +83,13 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
 
       function raf(time: number) {
         lenisRef.current?.raf(time);
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
       }
 
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    // Desktop scroll trigger
     if (window.innerWidth >= 1024 && triggerRef.current) {
-      // Kill any existing ScrollTriggers on this element
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.trigger === triggerRef.current) {
           trigger.kill();
@@ -107,7 +102,7 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
         end: `+=${featuresData.length * 100}vh`,
         pin: true,
         pinSpacing: true,
-        scrub: 2, // Increased for smoother transition
+        scrub: 2,
         anticipatePin: 1,
         onUpdate: (self) => {
           const progress = self.progress;
@@ -115,9 +110,12 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
             Math.floor(progress * featuresData.length),
             featuresData.length - 1,
           );
-          if (newIndex !== activeIndex) {
-            setActiveIndex(newIndex);
-          }
+          setActiveIndex((prevIndex) => {
+            if (newIndex !== prevIndex) {
+              return newIndex;
+            }
+            return prevIndex;
+          });
         },
         snap: {
           snapTo: 1 / (featuresData.length - 1),
@@ -130,13 +128,19 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
       return () => {
         trigger.kill();
         lenisRef.current?.destroy();
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+        }
       };
     }
 
     return () => {
       lenisRef.current?.destroy();
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
     };
-  }, [activeIndex]);
+  }, []);
 
   const activeFeature = featuresData[activeIndex];
 

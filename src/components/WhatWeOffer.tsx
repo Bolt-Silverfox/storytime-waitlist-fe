@@ -62,27 +62,31 @@ export default function WhatWeOffer() {
                 src="Vector.png"
                 className="absolute h-3 w-3 md:h-5 md:w-[20px]"
                 style={{ top: "30px", left: "95px" }}
+                aria-hidden="true"
               />
               <img
                 src="Vector.png"
                 className="absolute h-4 w-5 md:h-[25px] md:w-[23px]"
                 style={{ top: "150px", left: "180px" }}
+                aria-hidden="true"
               />
               <img
                 src="Vector.png"
                 className="absolute h-5 w-6 md:h-[24px] md:w-[30px]"
                 style={{ top: "190px", left: "270px" }}
+                aria-hidden="true"
               />
               <img
                 src="Vector.png"
                 className="absolute h-6 w-5 md:h-[24px] md:w-[29px]"
                 style={{ top: "130px", left: "15px" }}
+                aria-hidden="true"
               />
               <div className="text-center">
                 <img
                   className="h-[275px] w-[365px] object-contain md:h-[305px] md:w-[392px]"
                   src={feature.icon}
-                  alt="card-icon"
+                  alt={feature.title}
                 />
               </div>
             </div>
