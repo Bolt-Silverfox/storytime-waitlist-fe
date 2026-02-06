@@ -86,6 +86,7 @@ const LayoutResourcesResource_idRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof LayoutIndexRoute
   '/squeeze': typeof SqueezeRoute
   '/waitlist': typeof WaitlistRoute
   '/about': typeof LayoutAboutRoute
@@ -94,9 +95,8 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof LayoutHowItWorksRoute
   '/privacy-policy': typeof LayoutPrivacyPolicyRoute
   '/terms-and-conditions': typeof LayoutTermsAndConditionsRoute
-  '/': typeof LayoutIndexRoute
   '/resources/$resource_id': typeof LayoutResourcesResource_idRoute
-  '/resources': typeof LayoutResourcesIndexRoute
+  '/resources/': typeof LayoutResourcesIndexRoute
 }
 export interface FileRoutesByTo {
   '/squeeze': typeof SqueezeRoute
@@ -129,6 +129,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/squeeze'
     | '/waitlist'
     | '/about'
@@ -137,9 +138,8 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/privacy-policy'
     | '/terms-and-conditions'
-    | '/'
     | '/resources/$resource_id'
-    | '/resources'
+    | '/resources/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/squeeze'
@@ -194,7 +194,7 @@ declare module '@tanstack/react-router' {
     '/_layout': {
       id: '/_layout'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof LayoutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -250,7 +250,7 @@ declare module '@tanstack/react-router' {
     '/_layout/resources/': {
       id: '/_layout/resources/'
       path: '/resources'
-      fullPath: '/resources'
+      fullPath: '/resources/'
       preLoaderRoute: typeof LayoutResourcesIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
