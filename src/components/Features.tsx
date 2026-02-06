@@ -51,10 +51,12 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
 
   useEffect(() => {
     const carousel = carouselRef.current;
-    if (!carousel || window.innerWidth >= 1024) return;
+    const isDesktop = () => window.innerWidth >= 1024;
+
+    if (!carousel || isDesktop()) return;
 
     const interval = setInterval(() => {
-      if (!isPaused && carousel) {
+      if (!isPaused && carousel && !isDesktop()) {
         const { scrollLeft, scrollWidth, clientWidth } = carousel;
         const scrollEnd = scrollWidth - clientWidth;
 
@@ -67,7 +69,18 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
       }
     }, 3000);
 
-    return () => clearInterval(interval);
+    const handleResize = () => {
+      if (isDesktop()) {
+        clearInterval(interval);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("resize", handleResize);
+    };
   }, [isPaused]);
 
   useEffect(() => {
@@ -256,7 +269,7 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
               key={activeFeature.id}
               src={activeFeature.image}
               className="-mb-12 h-[500px] object-contain"
-              alt="image"
+              alt={activeFeature.title}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
