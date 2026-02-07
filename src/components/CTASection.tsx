@@ -56,8 +56,8 @@ export default function CTASection() {
               Keep the magic going!
             </h2>
             <p className="font-abezee mb-6 text-base leading-relaxed md:mb-8 md:text-xl lg:text-2xl">
-              Magical stories for kids, from bedtime snuggles to learning
-              adventures.
+              From cozy bedtime tales to learning adventures, stories children
+              love and parents trust.
             </p>
 
             <DownloadButtons color="light" />
@@ -65,9 +65,9 @@ export default function CTASection() {
 
           <div className="relative order-2 flex justify-center lg:order-2">
             <img
-              src="/landingpage/cta.png.png"
+              src="/landingpage/cta.png"
               className="-mb-16 w-64 object-contain md:-mb-40 md:w-80"
-              alt="sage is tired!"
+              alt="Storytime character illustration"
             />
           </div>
         </div>

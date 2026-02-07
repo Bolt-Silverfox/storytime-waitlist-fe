@@ -11,16 +11,16 @@ export default function Details({ openDownloadModal }: DetailsProps) {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="mt-8 md:mt-10"
+      className="mt-20 md:mt-40"
     >
-      <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8">
+      <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           whileHover={{ scale: 1.02 }}
-          className="flex w-full items-center justify-center md:justify-start overflow-hidden"
+          className="flex w-full items-center justify-center overflow-hidden md:justify-start lg:justify-start"
         >
           <img
             src="landingpage/story-reading.png"
@@ -35,7 +35,7 @@ export default function Details({ openDownloadModal }: DetailsProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-Qilka text-2xl leading-tight font-bold text-[#231F1E] md:text-[48px]"
+            className="font-Qilka text-2xl leading-tight font-bold text-[#231F1E] md:text-3xl lg:text-[48px]"
           >
             Built with kids in mind + AI integration
           </motion.h2>
@@ -45,7 +45,7 @@ export default function Details({ openDownloadModal }: DetailsProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="font-abezee text-base leading-relaxed text-[#4F4C4B] md:text-[24px] md:leading-[32px]"
+            className="font-abezee text-base leading-relaxed text-[#4F4C4B] md:text-lg md:leading-normal lg:text-[24px] lg:leading-[32px]"
           >
             A combination of intentionality, AI integration and simplicity, we
             have created an amazing digital storybook to aid your kids all the
@@ -60,7 +60,7 @@ export default function Details({ openDownloadModal }: DetailsProps) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={openDownloadModal}
-            className="font-abezee h-[60px] w-full rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl md:h-[64px] md:w-[280px]"
+            className="font-abezee h-[60px] w-full cursor-pointer rounded-full bg-[#EC4007] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600 hover:shadow-xl md:h-[64px] md:w-[280px]"
           >
             Download now
           </motion.button>

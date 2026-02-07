@@ -51,7 +51,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
           />
           <button
             aria-label="Close mobile navigation"
-            className="flex items-center justify-center rounded-full p-2 transition-all hover:bg-gray-100"
+            className="flex cursor-pointer items-center justify-center rounded-full p-2 transition-all hover:bg-gray-100"
             onClick={onClose}
           >
             <Icon name="X" color="#3A3A3A" size={24} />

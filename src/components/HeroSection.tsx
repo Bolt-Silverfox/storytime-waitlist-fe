@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import thumbSrc from "../assets/video-thumbnail.png";
 import DownloadButtons from "./DownloadButtons";
+import { X } from "lucide-react";
+
+const videoSrc = "https://player.cloudinary.com/embed/?cloud_name=billmal&public_id=storytime%2Fhomepage"
 
 export default function HeroSection() {
-  const [playing, setPlaying] = useState(false);
-
-  const videoSrc =
-    "https://res.cloudinary.com/dwatri50n/video/upload/v1763801270/New_Project_23_Copy_2_C9EFB8A_eqtzzo.mp4";
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const lists = [
     "Adventure",
@@ -30,7 +30,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="font-Qilka text-center text-[32px] leading-[50px] text-[#231F1E] md:text-[48px] xl:text-[56px]"
         >
-          Storytime4kids - where magical stories grow smarter kids
+          Storytime4Kids - Magical stories that help children grow
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -38,8 +38,8 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           className="font-abezee mx-auto max-w-[616px] text-center text-[20px] text-[#231F1ECC] md:text-[22px] xl:text-[24px]"
         >
-          Magical stories for kids, from bedtime snuggles to learning
-          adventures.
+          From cozy bedtime tales to learning adventures, stories children
+          love and parents trust.
         </motion.p>
 
         <DownloadButtons color="dark" />
@@ -130,48 +130,37 @@ export default function HeroSection() {
             }}
             className="absolute top-56 left-1/2 mb-10 flex h-auto w-[90%] max-w-[499px] -translate-x-1/2 cursor-pointer flex-col items-center justify-between rounded-[40px] bg-white p-6 shadow-xl md:top-52 md:w-[70%] md:flex-row md:p-5 xl:top-64 xl:h-[211px] xl:p-6"
           >
-            {!playing ? (
-              <button
-                onClick={() => setPlaying(true)}
-                className="relative mb-4 h-[140px] w-full overflow-hidden rounded-[27px] md:mb-0 md:h-[150px] md:w-[150px] xl:h-[163px] xl:w-[163px]"
-              >
-                <img
-                  src={thumbSrc}
-                  alt="story video thumbnail"
-                  className="h-full w-full object-cover object-top"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.div
-                    className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-[#FF6A1A] shadow-lg"
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    whileHover={{ scale: 1.2 }}
+            <button
+              onClick={() => setIsVideoModalOpen(true)}
+              className="relative mb-4 h-[140px] w-full shrink-0 overflow-hidden rounded-[27px] md:mb-0 md:h-[150px] md:w-[150px] xl:h-[163px] xl:w-[163px]"
+            >
+              <img
+                src={thumbSrc}
+                alt="story video thumbnail"
+                className="h-full w-full object-cover object-top"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-[#FF6A1A] shadow-lg"
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  whileHover={{ scale: 1.2 }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="white"
+                    viewBox="0 0 24 24"
+                    className="h-8 w-8"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="white"
-                      viewBox="0 0 24 24"
-                      className="h-8 w-8"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </motion.div>
-                </div>
-              </button>
-            ) : (
-              <video
-                className="mb-4 h-[140px] w-full rounded-[27px] object-cover object-center md:mb-0 md:h-[150px] md:w-[150px] xl:h-[163px] xl:w-[163px]"
-                controls
-                autoPlay
-                playsInline
-              >
-                <source src={videoSrc} type="video/mp4" />
-              </video>
-            )}
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </motion.div>
+              </div>
+            </button>
 
             <div className="container flex h-auto w-full flex-col rounded-[27px] md:w-[60%] xl:h-[163px] xl:w-[264px]">
               <div className="h-auto w-full xl:h-28">
@@ -222,6 +211,42 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {isVideoModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            onClick={() => setIsVideoModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full max-w-4xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsVideoModalOpen(false)}
+                className="absolute -top-12 right-0 cursor-pointer text-white transition-opacity hover:opacity-70"
+              >
+                <X size={32} />
+              </button>
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black">
+                <iframe
+                  src={`${videoSrc}&autoplay=true`}
+                  className="absolute inset-0 h-full w-full"
+                  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
