@@ -1,15 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
 import postimage from "../assets/postImg.png";
 import envelop from "../assets/Envelop.png";
+import { WAITLIST_API } from "../constants";
+
+const contactSchema = z.object({
+  name: z.string().min(1, "Full name is required.").trim(),
+  email: z
+    .string()
+    .min(1, "Email is required.")
+    .email({ message: "Invalid email address." })
+    .trim(),
+  message: z.string().min(1, "Message is required.").trim(),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactUs: React.FC = () => {
   const formRef = React.useRef<HTMLFormElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    message?: string;
+  }>({});
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Message sent successfully!");
-    formRef.current?.reset();
+    setErrors({});
+
+    const formData = new FormData(e.currentTarget);
+    const rawData = Object.fromEntries(formData);
+
+    const result = contactSchema.safeParse(rawData);
+
+    if (!result.success) {
+      const fieldErrors: typeof errors = {};
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0] as keyof typeof errors;
+        if (!fieldErrors[field]) {
+          fieldErrors[field] = issue.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    const data: ContactFormData = result.data;
+
+    try {
+      setIsLoading(true);
+      const request = await fetch(`${WAITLIST_API}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const response = await request.json();
+
+      if (!request.ok) {
+        throw new Error(
+          response.message || response.error || request.statusText
+        );
+      }
+
+      toast.success(response.data?.message || response.message || "Message sent successfully!");
+      formRef.current?.reset();
+    } catch (err: unknown) {
+      const errMessage =
+        err instanceof Error ? err.message : "Unexpected error, try again.";
+      toast.error(errMessage);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -24,28 +90,68 @@ const ContactUs: React.FC = () => {
           onSubmit={handleSubmit}
           className="z-10 mx-auto flex w-full max-w-md flex-col gap-4"
         >
-          <input
-            type="text"
-            placeholder="Enter your full name"
-            className="w-full rounded-full border border-gray-300 px-5 py-3 text-sm focus:outline-orange-400"
-          />
+          <div className="flex flex-col gap-1">
+            <label htmlFor="name" className="px-2 text-sm font-medium text-gray-700">
+              Full Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Enter your full name"
+              disabled={isLoading}
+              className={`w-full rounded-full border px-5 py-3 text-sm focus:outline-orange-400 disabled:cursor-not-allowed disabled:opacity-70 ${
+                errors.name ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+            {errors.name && (
+              <span className="px-2 text-sm text-red-500">{errors.name}</span>
+            )}
+          </div>
 
-          <input
-            type="email"
-            placeholder="Enter your email address"
-            className="w-full rounded-full border border-gray-300 px-5 py-3 text-sm focus:outline-orange-400"
-          />
+          <div className="flex flex-col gap-1">
+            <label htmlFor="email" className="px-2 text-sm font-medium text-gray-700">
+              Email Address
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Enter your email address"
+              disabled={isLoading}
+              className={`w-full rounded-full border px-5 py-3 text-sm focus:outline-orange-400 disabled:cursor-not-allowed disabled:opacity-70 ${
+                errors.email ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+            {errors.email && (
+              <span className="px-2 text-sm text-red-500">{errors.email}</span>
+            )}
+          </div>
 
-          <textarea
-            placeholder="Enter your message here...."
-            className="h-36 w-full resize-none rounded-xl border border-gray-300 px-5 py-3 text-sm focus:outline-orange-400"
-          />
+          <div className="flex flex-col gap-1">
+            <label htmlFor="message" className="px-2 text-sm font-medium text-gray-700">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Enter your message here...."
+              disabled={isLoading}
+              className={`h-36 w-full resize-none rounded-xl border px-5 py-3 text-sm focus:outline-orange-400 disabled:cursor-not-allowed disabled:opacity-70 ${
+                errors.message ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+            {errors.message && (
+              <span className="px-2 text-sm text-red-500">{errors.message}</span>
+            )}
+          </div>
 
           <button
             type="submit"
-            className="mx-auto w-full rounded-full bg-[#EC4007] py-3 text-lg text-white transition hover:bg-[#B53305]"
+            disabled={isLoading}
+            className="mx-auto w-full rounded-full bg-[#EC4007] py-3 text-lg text-white transition hover:bg-[#B53305] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            Submit
+            {isLoading ? "Sending..." : "Submit"}
           </button>
         </form>
 

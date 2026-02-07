@@ -8,14 +8,14 @@ export default function DownloadButtons({
   color: "light" | "dark";
 }) {
   return (
-    <div className="relative flex shrink-0 flex-col items-stretch gap-8 self-center md:flex-row md:items-start md:gap-6">
+    <div className="relative z-20 flex shrink-0 flex-col items-stretch gap-8 self-center md:flex-row md:items-start md:gap-6">
       <a
         href="https://play.google.com/store/apps/details?id=net.emerj.storytime"
         target="_blank"
         rel="noopener noreferrer"
-        className={`relative flex shrink-0 items-center justify-center gap-3 overflow-clip rounded-[100px] px-5 py-3 transition-colors hover:bg-[#d13706] md:gap-4 md:px-[25px] md:py-[15px] ${
+        className={`group relative flex shrink-0 cursor-pointer items-center justify-center gap-3 overflow-clip rounded-[100px] px-5 py-3 transition-colors md:gap-4 md:px-[25px] md:py-[15px] ${
           color === "light"
-            ? "bg-white text-[#ec4007]"
+            ? "bg-white text-[#ec4007] hover:bg-[#d13706] hover:text-white"
             : "bg-[#ec4007] text-white hover:bg-[#d13706]"
         }`}
         onClick={() => {
@@ -28,7 +28,7 @@ export default function DownloadButtons({
               color == "light" ? "/icons/playstore_primary.png" : googlePlayIcon
             }
             alt="Google Play"
-            className="h-full w-full"
+            className={`h-full w-full transition-all ${color === "light" ? "group-hover:brightness-0 group-hover:invert" : ""}`}
           />
         </div>
         <div className="relative flex shrink-0 flex-col items-start gap-px">
@@ -44,9 +44,9 @@ export default function DownloadButtons({
         href="https://testflight.apple.com/join/NEfq19wH"
         target="_blank"
         rel="noopener noreferrer"
-        className={`relative flex shrink-0 items-center justify-center gap-3 overflow-clip rounded-[100px] px-5 py-3 transition-colors hover:bg-[#d13706] md:gap-4 md:px-[25px] md:py-[15px] ${
+        className={`group relative flex shrink-0 cursor-pointer items-center justify-center gap-3 overflow-clip rounded-[100px] px-5 py-3 transition-colors md:gap-4 md:px-[25px] md:py-[15px] ${
           color === "light"
-            ? "bg-white text-[#ec4007]"
+            ? "bg-white text-[#ec4007] hover:bg-[#d13706] hover:text-white"
             : "bg-[#ec4007] text-white hover:bg-[#d13706]"
         }`}
         onClick={() => {
@@ -57,7 +57,7 @@ export default function DownloadButtons({
           <img
             src={color == "light" ? "/icons/appstore_primary.png" : iosIcon}
             alt="App Store"
-            className="h-full w-full"
+            className={`h-full w-full transition-all ${color === "light" ? "group-hover:brightness-0 group-hover:invert" : ""}`}
           />
         </div>
         <div className="relative flex shrink-0 flex-col items-start gap-px">

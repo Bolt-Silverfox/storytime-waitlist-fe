@@ -24,5 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
-.env.prod.local
+.claude
+.claude-memory.md
 

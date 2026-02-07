@@ -41,59 +41,7 @@ const privacyPolicyData: {
     },
     {
       heading: "Contact US",
-      paragraph: "mail: support@storytimekids.com",
-      index: "VII",
-    },
-  ];
-
-const termsAndConditionsData: {
-  heading: string;
-  paragraph: string | string[];
-  index: string;
-}[] = [
-    {
-      heading: "Introduction and Acceptance",
-      paragraph:
-        'This document ("Terms") constitutes a legally binding agreement between you (the "User," "Parent," or "Guardian") and StoryTime4Kids ("Company," "We," or "Us") regarding your access and use of our digital library and app service (the "Service"). By accessing, using, or subscribing to the Service, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you may not use the Service.',
-      index: "I",
-    },
-    {
-      heading: "The Service & Age Restrictions",
-      paragraph:
-        "StoryTime4Kids provides access to a curated digital library of audio and video Content designed to enhance children's literacy and imagination. The Service is intended for use by adults for children under 18. Users must be 18 years of age or older to create an account, make payments, and agree to these Terms.",
-      index: "II",
-    },
-    {
-      heading: "Subscription, Payments, and Free Trials",
-      index: "III",
-      paragraph: [
-        "Subscription: We offer various subscription models (e.g., Monthly, Annual, Family Legacy).",
-        "Automatic Renewal: All paid subscriptions automatically renew at the then-current rate unless you cancel the subscription prior to the end of the current billing period.",
-        "Free Trial: We may offer a Free Trial (e.g., 7 or 14 days). CRITICAL NOTICE: Your payment method will be charged automatically immediately following the end of your free trial period unless you cancel before the trial expires.",
-      ],
-    },
-    {
-      heading: "Intellectual Property (IP)",
-      paragraph:
-        "All content, including stories, narration, illustrations, trademarks, and software, is the property of StoryTime4Kids or its licensors and is protected by copyright and intellectual property laws. Content is licensed to you for personal, non-commercial use only. You may not copy, modify, transmit, or publicly display any Content without express written permission.",
-      index: "IV",
-    },
-    {
-      heading: "User Conduct & Security",
-      paragraph:
-        "You are responsible for safeguarding your account login information and for all activity under your account. You agree not to use the Service for any unlawful purpose, including sharing your account credentials with non-subscribers beyond the limits of your plan.",
-      index: "V",
-    },
-    {
-      heading: "Termination",
-      paragraph:
-        "We reserve the right to immediately terminate or suspend your access to the Service, without prior notice or liability, if you breach any part of these Terms, including but not limited to non-payment or unauthorized sharing of Content.",
-      index: "VI",
-    },
-    {
-      heading: "Governing Law and Disputes",
-      paragraph:
-        "These Terms shall be governed by the laws of [Your Jurisdiction, e.g., the State of California], without regard to its conflict of law provisions. Any disputes must first be attempted to be resolved through good faith negotiation or binding arbitration as set forth in the full policy document.",
+      paragraph: "mail: team@storytimeapp.me",
       index: "VII",
     },
   ];
@@ -285,7 +233,6 @@ const featuresData = [
 export type { Features };
 export {
   privacyPolicyData,
-  termsAndConditionsData,
   howItWorksData,
   resourcesData,
   featuresData,
