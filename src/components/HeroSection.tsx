@@ -23,7 +23,7 @@ export default function HeroSection() {
 
   return (
     <section className="mx-auto pt-10 pb-0 md:pt-20">
-      <div className="mx-auto flex max-w-[954px] flex-col gap-6 overflow-x-hidden px-4 xl:px-0">
+      <div className="relative z-10 mx-auto flex max-w-[954px] flex-col gap-6 overflow-x-hidden px-4 xl:px-0">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
