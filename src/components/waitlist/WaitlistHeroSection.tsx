@@ -27,7 +27,7 @@ const HeroSection = ({ openModal }: Props) => {
         </p>
         <button
           onClick={openModal}
-          className="bg-primary font-abezee mt-6 w-full cursor-pointer rounded-full px-6 py-2.5 text-center text-base text-white transition-all hover:scale-105 active:scale-95 sm:mt-7 sm:px-7 sm:py-3 sm:text-base md:mt-8 md:px-8 md:py-3 md:text-lg lg:mt-10 lg:w-auto lg:text-[24px]"
+          className="bg-primary font-abezee relative z-10 mt-6 w-full cursor-pointer rounded-full px-6 py-2.5 text-center text-base text-white transition-all hover:scale-105 active:scale-95 sm:mt-7 sm:px-7 sm:py-3 sm:text-base md:mt-8 md:px-8 md:py-3 md:text-lg lg:mt-10 lg:w-auto lg:text-[24px]"
         >
           Join the waitlist
         </button>
@@ -35,7 +35,7 @@ const HeroSection = ({ openModal }: Props) => {
       <img
         src={waitlistImage}
         alt="Book cover"
-        className="relative mt-8 w-full object-cover object-center"
+        className="relative z-0 mt-8 w-full object-cover object-center"
         style={{ top: "2rem", left: 0 }}
       />
       <motion.div
