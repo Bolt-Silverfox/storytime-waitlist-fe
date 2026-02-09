@@ -12,7 +12,7 @@ const FaqComponent = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="font-abezee w-full max-w-[622px] text-[20px] leading-9">
+    <div className="font-abezee mx-auto w-full max-w-[622px] text-[20px] leading-9">
       {/* QUESTION ROW */}
       <div className="flex items-start justify-between gap-4 md:gap-6">
         <div
@@ -55,7 +55,7 @@ const FaqComponent = ({
           <div className="relative w-full overflow-hidden rounded-[14px] px-4">
             {/* STATIC SVG background */}
             <svg
-              className="absolute inset-0 ml-auto h-full w-full max-w-full md:max-w-[440px] lg:max-w-[502px] rounded-[14px]"
+              className="absolute inset-0 ml-auto h-full w-full max-w-full rounded-[14px] md:max-w-[440px] lg:max-w-[502px]"
               viewBox="0 0 622 347"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@ const FaqComponent = ({
               transition={{ duration: 0.25, ease: "easeOut" }}
               className="relative"
             >
-              <p className="ml-auto max-w-full py-4 px-4 text-[14px] leading-7 text-[#4F4C4B] md:max-w-[400px] md:py-[22px] md:pl-10 md:pr-4 md:text-lg md:leading-9 lg:max-w-[460px] lg:pl-14">
+              <p className="ml-auto max-w-full px-4 py-4 text-[14px] leading-7 text-[#4F4C4B] md:max-w-[400px] md:py-[22px] md:pr-4 md:pl-10 md:text-lg md:leading-9 lg:max-w-[460px] lg:pl-14">
                 {answer}
               </p>
             </motion.div>
