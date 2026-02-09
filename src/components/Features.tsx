@@ -63,7 +63,7 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
         if (scrollLeft >= scrollEnd - 10) {
           carousel.scrollTo({ left: 0, behavior: "smooth" });
         } else {
-          const scrollAmount = 336;
+          const scrollAmount = carousel.clientWidth + 16;
           carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
         }
       }
@@ -180,7 +180,7 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
         {featuresData.map((feature) => (
           <div
             key={feature.id}
-            className="flex min-w-[320px] flex-none snap-center flex-col justify-between rounded-[32px] bg-[#FFF8F5] p-6 shadow-sm min-[370px]:min-w-[340px] md:min-w-[400px]"
+            className="flex w-full min-w-full flex-none snap-center flex-col justify-between rounded-[32px] bg-[#FFF8F5] p-6 shadow-sm"
           >
             {/* Top Section: Number & Title */}
             <div className="mb-6 flex items-center gap-3">
