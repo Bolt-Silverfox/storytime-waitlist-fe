@@ -2,27 +2,26 @@ import { motion } from "framer-motion";
 import FaqComponent from "./FaqComponent";
 
 export default function Questions() {
-
   const faqs = [
     {
-      question: "How do I upgrade my subscription?",
+      question: "What is Storytime?",
       answer:
-        "To upgrade your Storytime subscription, open the app or website, log into your account, go to subscription settings, choose the premium plan, and follow the prompts, or if you subscribed through the App Store or Google Play, upgrade through your device settings, or contact support@storytimeapp.me for help.",
+        "Storytime is a kids’ storytelling app with a library of narrated and read-along stories designed for learning, fun, and bedtime routines. Parents can pick stories by age, theme, or length and play them anytime the device is online.",
     },
     {
       question: "Are the stories safe for my kids?",
       answer:
-        "Yes, all our stories are carefully curated and age-appropriate for children. We have strict content guidelines and parental controls to ensure a safe experience.",
+        "Yes. Storytime is built for kids. Our stories are selected and organized for age-appropriate listening/reading. If you ever find something you don’t like, you can report it and we’ll review it.",
     },
     {
-      question: "Do I need internet to listen?",
+      question: "Do I need the internet to read and listen to stories?",
       answer:
-        "You can download stories for offline listening. However, browsing new content and syncing progress requires an internet connection.",
+        "Yes. You need an internet connection to read or listen to stories on Storytime.",
     },
     {
-      question: "Can parents track reading progress?",
+      question: "Can I download stories to use offline?",
       answer:
-        "Yes, parents have access to a comprehensive dashboard that shows reading history, time spent, favorite stories, and learning milestones.",
+        "No — Storytime doesn’t support offline downloads right now. To access stories, you’ll need an internet connection.",
     },
   ];
 
