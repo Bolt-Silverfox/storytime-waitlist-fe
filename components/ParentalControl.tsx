@@ -40,7 +40,7 @@ export default function ParentalControls({
 
         <div className="order-1 flex w-full items-center justify-center overflow-hidden md:justify-end">
           <Image
-            src="landingpage/interactive-story.png"
+            src="/landingpage/interactive-story.png"
             className="object-contain"
             alt="mobile"
             width={600}

@@ -15,28 +15,28 @@ const featuresData = [
     text: "Voice options",
     title: "Voice options",
     description: "Calming expressive voices tailored to their story",
-    image: "voice-mob.png",
+    image: "/voice-mob.png",
   },
   {
     id: 2,
     text: "Read story along with AI",
     title: "Read story along with AI",
     description: "Read story along with AI, get quick insight into words.",
-    image: "landingpage/read-along.png",
+    image: "/landingpage/read-along.png",
   },
   {
     id: 3,
     text: "Passive Mode",
     title: "Passive Mode",
     description: "Select between interactive and passive listening.",
-    image: "landingpage/passive-mode.png",
+    image: "/landingpage/passive-mode.png",
   },
   {
     id: 4,
     text: "Interactive mode",
     title: "Interactive mode",
     description: "Select between interactive and passive listening.",
-    image: "landingpage/interactive-mode.png",
+    image: "/landingpage/interactive-mode.png",
   },
 ];
 

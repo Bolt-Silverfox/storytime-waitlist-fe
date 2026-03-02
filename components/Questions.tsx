@@ -48,7 +48,7 @@ export default function Questions() {
           {/* detective */}
           <div className="absolute -bottom-20 -left-96 hidden max-w-[700px] xl:block">
             <Image
-              src="detective.png"
+              src="/detective.png"
               className="h-[517px] w-full"
               alt="detective"
               width={600}
@@ -59,7 +59,7 @@ export default function Questions() {
           {/* doggie*/}
           <div className="absolute -top-33 -right-[360px] hidden max-w-[700px] xl:block">
             <Image
-              src="doggie.png"
+              src="/doggie.png"
               className="h-[676px] w-full"
               alt="doggie"
               width={800}

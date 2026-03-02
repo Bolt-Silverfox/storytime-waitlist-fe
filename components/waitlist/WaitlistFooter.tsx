@@ -4,7 +4,7 @@ export default function WaitListFooter() {
       {/* floating stars */}
       <div className="absolute top-[18%] left-[8%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-[39px] w-[45px] sm:h-10 sm:w-10 md:h-[45px] md:w-[45px]"
         />
@@ -12,7 +12,7 @@ export default function WaitListFooter() {
 
       <div className="absolute top-[25%] left-[25%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-[38px] w-[38px] sm:h-8 sm:w-8 md:h-12 md:w-12"
         />
@@ -20,7 +20,7 @@ export default function WaitListFooter() {
 
       <div className="absolute top-[35%] left-[20%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-7 w-7 sm:h-8 sm:w-8 md:h-[38px] md:w-[38px]"
         />
@@ -28,7 +28,7 @@ export default function WaitListFooter() {
 
       <div className="absolute top-[15%] right-[12%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-8 w-8 sm:h-[38px] sm:w-[38px] md:h-[42px] md:w-[42px]"
         />
@@ -36,7 +36,7 @@ export default function WaitListFooter() {
 
       <div className="absolute top-[28%] right-[22%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-8 w-8 sm:h-[38px] sm:w-[38px] md:h-[46px] md:w-[46px]"
         />
@@ -44,7 +44,7 @@ export default function WaitListFooter() {
 
       <div className="absolute top-[52%] left-[6%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-[38px] w-[38px] sm:h-[42px] sm:w-[42px] md:h-12 md:w-12"
         />
@@ -52,7 +52,7 @@ export default function WaitListFooter() {
 
       <div className="absolute top-[62%] left-[18%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-[45px] w-[45px] sm:h-[50px] sm:w-[50px] md:h-[55px] md:w-[55px]"
         />
@@ -60,7 +60,7 @@ export default function WaitListFooter() {
 
       <div className="absolute top-[48%] right-[8%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-[30px] w-[30px] sm:h-[35px] sm:w-[35px] md:h-10 md:w-10"
         />
@@ -68,7 +68,7 @@ export default function WaitListFooter() {
 
       <div className="absolute top-[68%] right-[20%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-9 w-9 sm:h-10 sm:w-10 md:h-[46px] md:w-[46px]"
         />
@@ -76,7 +76,7 @@ export default function WaitListFooter() {
 
       <div className="absolute bottom-[28%] left-[12%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-10 w-10 sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px]"
         />
@@ -84,7 +84,7 @@ export default function WaitListFooter() {
 
       <div className="absolute right-[15%] bottom-[38%]">
         <img
-          src="star.png"
+          src="/star.png"
           alt="stars"
           className="h-10 w-10 sm:h-[42px] sm:w-[42px] md:h-[48px] md:w-[48px]"
         />

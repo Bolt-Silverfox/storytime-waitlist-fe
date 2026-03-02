@@ -28,7 +28,7 @@ export default function Details({ openDownloadModal }: DetailsProps) {
           className="flex w-full items-center justify-center overflow-hidden md:justify-start lg:justify-start"
         >
           <MotionImage
-            src="landingpage/story-reading.png"
+            src="/landingpage/story-reading.png"
             className="object-contain"
             alt="mobile"
             width={400}
