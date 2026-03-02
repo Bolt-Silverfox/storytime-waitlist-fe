@@ -1,0 +1,68 @@
+import Image from "next/image";
+
+export default function Explore() {
+  return (
+    <section className="font-abezee bg-primary clip-bottom relative -top-40 z-20 px-6 py-50 text-white">
+      <div className="mx-auto mt-10 max-w-[1049px]">
+        <div className="">
+          <h1 className="font-Qilka text-center text-4xl md:text-[48px]">
+            Explore story telling like never before
+          </h1>
+          <p className="mx-auto mt-[30px] max-w-[843px] text-center text-base text-[#FCC1AD] md:text-xl">
+            Designed especially for children. With handpicked stories, friendly
+            voices, and smart filters, it's more than entertainment it's a safe
+            space for growth, imagination, and learning.
+          </p>
+        </div>
+
+        <div className="my-20 flex items-center justify-center gap-8">
+          <div className="mx-auto flex flex-wrap justify-center gap-7">
+            {explore.map((item, i) => (
+              <div
+                key={i}
+                className="flex max-w-[510px] flex-col gap-2.5 rounded-[50px] bg-white px-[21px] pt-7 pb-9 md:px-[35px]"
+              >
+                <Image
+                  src={item.icon}
+                  alt="logo"
+                  className="h-[50px] w-[50px]"
+                  width={50}
+                  height={50}
+                />
+                <h2 className="font-Qilka text-[20px] font-bold text-[#221D1D] md:text-2xl">
+                  {item.title}
+                </h2>
+                <p className="text-[16px] text-[#4A413F] md:text-[20px]">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const explore = [
+  {
+    title: "Unique voices with playful, natural tones",
+    text: "Calming, expressive voices tailored to each story.",
+    icon: "/mic.png",
+  },
+  {
+    title: "Easily Filter Stories for all kids  Age 1-12",
+    text: "Tailor the stories to your kids age.",
+    icon: "/msg.png",
+  },
+  {
+    title: "Interactive story modes for learning and fun",
+    text: "Learn fun stories by making decisions you like.",
+    icon: "/smile.png",
+  },
+  {
+    title: "Safe & Curated Content for your kids",
+    text: "Every story is reviewed for age appropriateness.",
+    icon: "/shield.png",
+  },
+];
