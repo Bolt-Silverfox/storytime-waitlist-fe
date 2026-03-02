@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import bedBg from "../public/squeeze/bed-bg.png";
 import bedImage from "../public/squeeze/bed-image.png";
+import Image from "next/image";
 
 const SqueezeBed = () => {
   const [playing, setPlaying] = useState(false);
@@ -24,10 +25,12 @@ const SqueezeBed = () => {
       <div className="relative z-20 mx-auto flex min-h-[800px] max-w-[1048px] flex-col items-center gap-8 px-5 pt-16 pb-10 md:min-h-[1237px] md:gap-[60px] md:pt-[106px]">
         <div className="flex w-full max-w-[575px] flex-col items-center gap-6">
           <div className="relative h-[120px] w-full shrink-0 md:h-[181px] md:w-[248px]">
-            <img
+            <Image
               src={bedImage}
               alt="Bedtime story illustration"
               className="h-full w-full object-contain"
+              width={600}
+              height={400}
             />
           </div>
 

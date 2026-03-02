@@ -1,5 +1,8 @@
+"use client";
+
 import { type MouseEvent } from "react";
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 // adjust path after relocating components to root
 import qrCode from "../public/squeeze/qr-code.svg";
 import DownloadButtons from "./DownloadButtons";
@@ -43,7 +46,13 @@ const DownloadModal = ({ onClose }: DownloadModalProps) => {
         </div>
 
         <div className="relative size-[120px] shrink-0 overflow-clip rounded-lg bg-white p-2 md:size-[140px]">
-          <img src={qrCode} alt="QR Code" className="h-full w-full" />
+          <Image
+            src={qrCode}
+            alt="QR Code"
+            className="h-full w-full"
+            width={140}
+            height={140}
+          />
         </div>
 
         <div className="relative h-px w-full shrink-0">

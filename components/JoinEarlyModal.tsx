@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent, type MouseEvent } from "react";
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 import useSqueezeInfo from "../contexts/SqueezeContext";
 import confetti from "../public/squeeze/confetti.svg";
 import { WAITLIST_API } from "../constants";
@@ -156,10 +157,12 @@ const JoinEarlyModal = ({ onClose }: JoinEarlyModalProps) => {
               <Icon icon="formkit:close" className="size-full text-black" />
             </button>
             <div className="relative h-[195.768px] w-[197.998px] shrink-0">
-              <img
+              <Image
                 src={confetti}
                 alt="Confetti celebration"
                 className="h-full w-full"
+                width={198}
+                height={196}
               />
             </div>
             <div className="relative flex w-full flex-col items-center justify-center gap-6 text-[#3a3a3a]">

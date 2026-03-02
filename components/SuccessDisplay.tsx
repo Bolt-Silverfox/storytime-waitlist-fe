@@ -1,12 +1,17 @@
+"use client";
+
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 
 const SuccessDisplay = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="relative mx-auto mt-5 flex flex-col items-center justify-center gap-y-[15px] rounded-4xl bg-white p-[51px] text-center max-md:m-6 max-md:max-w-[382px] md:w-[488px]">
-      <img
+      <Image
         src="/success-illustration.png"
         alt="happy little kid illustration"
         className="h-60 w-[229.11px] md:h-[291px] md:w-[278px]"
+        width={278}
+        height={291}
       />
       <button className="font-abezee absolute top-[23px] right-[13px] flex flex-row items-center gap-x-1.5 rounded-full border px-3 py-1.5 text-sm md:hidden">
         <Icon

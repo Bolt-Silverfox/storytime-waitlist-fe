@@ -1,6 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-// video thumbnail is served from public/assets; use a URL constant instead of importing
+import Image from "next/image";
+// thumbnail is in public assets
 const thumbSrc = "/assets/video-thumbnail.png";
 import DownloadButtons from "./DownloadButtons";
 import { X } from "lucide-react";
@@ -136,10 +139,12 @@ export default function HeroSection() {
               onClick={() => setIsVideoModalOpen(true)}
               className="relative mb-4 h-[140px] w-full shrink-0 overflow-hidden rounded-[27px] md:mb-0 md:h-[150px] md:w-[150px] xl:h-[163px] xl:w-[163px]"
             >
-              <img
+              <Image
                 src={thumbSrc}
                 alt="story video thumbnail"
                 className="h-full w-full object-cover object-top"
+                width={163}
+                height={163}
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div

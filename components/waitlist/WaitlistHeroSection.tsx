@@ -1,5 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
-import waitlistImage from "../../public/wait-list.png";
+import Image from "next/image";
+// use public url directly instead of importing image object
+const waitlistImage = "/wait-list.png";
 
 type Props = {
   openModal: () => void;
@@ -32,11 +36,13 @@ const HeroSection = ({ openModal }: Props) => {
           Join the waitlist
         </button>
       </section>
-      <img
+      <Image
         src={waitlistImage}
         alt="Book cover"
         className="relative z-0 mt-8 w-full object-cover object-center"
         style={{ top: "2rem", left: 0 }}
+        width={948}
+        height={600}
       />
       <motion.div
         className="absolute top-[261px] left-[75px] hidden lg:block"

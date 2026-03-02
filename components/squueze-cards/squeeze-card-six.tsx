@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import lady from "../../public/squeeze/lady.svg";
 import speaker from "../../public/squeeze/speaker.svg";
 
@@ -67,10 +68,12 @@ const SqueezeCardSix = ({ isExpanded, onToggle }: SqueezeCardSixProps) => {
               transition={{ delay: 0.1 }}
               className="relative size-[60px] shrink-0"
             >
-              <img
+              <Image
                 src={lady}
                 alt="lady icon"
                 className="h-full w-full object-contain"
+                width={60}
+                height={60}
               />
             </motion.div>
 
@@ -106,10 +109,12 @@ const SqueezeCardSix = ({ isExpanded, onToggle }: SqueezeCardSixProps) => {
             >
               {/* Icon */}
               <div className="relative size-[60px] shrink-0">
-                <img
+                <Image
                   src={speaker}
                   alt="Interactive mode icon"
                   className="h-full w-full object-contain"
+                  width={60}
+                  height={60}
                 />
               </div>
 

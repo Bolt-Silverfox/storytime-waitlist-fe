@@ -1,7 +1,9 @@
+"use client";
 import Link from "next/link";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Icon from "./Icon";
+import Image from "next/image";
 import { trackCTAClick } from "../../lib/analytics";
 
 interface MobileNavProps {
@@ -46,10 +48,12 @@ const MobileNav: React.FC<MobileNavProps> = ({
         }`}
       >
         <div className="flex items-center justify-between border-b border-gray-100 px-6 py-5">
-          <img
+          <Image
             src="/icons/mobile-logo.svg"
             alt="Storytime logo"
             className="h-[38px] w-[106px]"
+            width={106}
+            height={38}
           />
           <button
             aria-label="Close mobile navigation"

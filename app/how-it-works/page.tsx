@@ -21,9 +21,9 @@ export default function HowItWorksPage() {
           imagination and help them grow.
         </h4>
         <ul className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
-          {howItWorksData.map((item: any, index: number) => (
+          {howItWorksData.map((item) => (
             <li
-              key={index}
+              key={item.title}
               className="flex flex-col items-center rounded-[40px] bg-[#FFF2EC] p-[49px] xl:p-16"
             >
               <img
@@ -32,7 +32,8 @@ export default function HowItWorksPage() {
                 className="h-full w-full object-contain"
               />
               <p className="bg-primary font-Qilka -mt-6 mb-4 flex size-14 flex-row items-center justify-center self-center rounded-full text-center text-2xl text-white">
-                {index + 1}
+                {/* fallback numbering could be added, but not using index as key */}
+                {howItWorksData.indexOf(item) + 1}
               </p>
               <div className="space-y-2">
                 <h3 className="font-Qilka text-center text-xl leading-[130%] md:text-3xl">

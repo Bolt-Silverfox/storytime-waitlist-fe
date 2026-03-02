@@ -1,4 +1,7 @@
+"use client";
+
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -194,10 +197,12 @@ export default function Features({ openDownloadModal }: FeaturesProps) {
 
             {/* Image */}
             <div className="mb-6 flex flex-1 items-center justify-center overflow-hidden rounded-2xl">
-              <img
+              <Image
                 src={feature.image}
                 alt={feature.title}
                 className="h-[350px] w-full object-contain md:h-[400px]"
+                width={400}
+                height={350}
               />
             </div>
 

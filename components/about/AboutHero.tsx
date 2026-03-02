@@ -1,4 +1,7 @@
+"use client";
+
 import DownloadButtons from "../DownloadButtons";
+import Image from "next/image";
 
 export default function AboutHero() {
   return (
@@ -20,10 +23,12 @@ export default function AboutHero() {
         </div>
         {/* Full Image */}
         <div className="w-full">
-          <img
+          <Image
             src="/aboutpage/aboutHero.svg"
             alt="Storytime hero"
             className="h-auto w-full object-contain"
+            width={1200}
+            height={800}
           />
         </div>
       </div>

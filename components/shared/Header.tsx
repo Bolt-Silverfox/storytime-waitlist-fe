@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import DownloadModal from "../DownloadModal";
@@ -23,15 +26,19 @@ const Header: React.FC = () => {
       <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white">
         <nav className="relative mx-auto flex max-w-[1300px] flex-row items-center justify-between px-5 py-5 lg:px-10">
           <Link href="/">
-            <img
+            <Image
               src="/icons/mobile-logo.svg"
               alt="storytime logo image"
               className="h-[38px] w-[106px] md:hidden"
+              width={106}
+              height={38}
             />
-            <img
+            <Image
               src="/icons/new-logo-blue.svg"
               alt="storytime logo image"
               className="hidden h-12 w-[108px] md:block"
+              width={108}
+              height={48}
             />
           </Link>
           <div

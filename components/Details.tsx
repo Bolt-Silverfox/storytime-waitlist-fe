@@ -1,4 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
+import Image from "next/image";
+
+const MotionImage = motion(Image);
 
 type DetailsProps = {
   openDownloadModal: () => void;
@@ -22,10 +27,12 @@ export default function Details({ openDownloadModal }: DetailsProps) {
           whileHover={{ scale: 1.02 }}
           className="flex w-full items-center justify-center overflow-hidden md:justify-start lg:justify-start"
         >
-          <img
+          <MotionImage
             src="landingpage/story-reading.png"
             className="object-contain"
             alt="mobile"
+            width={400}
+            height={400}
           />
         </motion.div>
 

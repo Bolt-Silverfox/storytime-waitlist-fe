@@ -1,5 +1,8 @@
+"use client";
+
 import { motion } from "framer-motion";
 import FaqComponent from "./FaqComponent";
+import Image from "next/image";
 
 export default function Questions() {
   const faqs = [
@@ -44,16 +47,24 @@ export default function Questions() {
         >
           {/* detective */}
           <div className="absolute -bottom-20 -left-96 hidden max-w-[700px] xl:block">
-            <img
+            <Image
               src="detective.png"
               className="h-[517px] w-full"
               alt="detective"
+              width={600}
+              height={517}
             />
           </div>
 
           {/* doggie*/}
           <div className="absolute -top-33 -right-[360px] hidden max-w-[700px] xl:block">
-            <img src="doggie.png" className="h-[676px] w-full" alt="doggie" />
+            <Image
+              src="doggie.png"
+              className="h-[676px] w-full"
+              alt="doggie"
+              width={800}
+              height={676}
+            />
           </div>
 
           <div className="space-y-4">

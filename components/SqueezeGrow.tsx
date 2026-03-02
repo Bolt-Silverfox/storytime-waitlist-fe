@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import growBg from "../public/squeeze/grow-bg.png";
 import lilaBig from "../public/squeeze/lila-big.png";
 import milaBig from "../public/squeeze/mila-big.png";
@@ -84,43 +85,53 @@ const SqueezeGrow = () => {
               href="https://www.facebook.com/profile.php?id=61585584201713"
               target="blank"
             >
-              <img
+              <Image
                 src="/baseline-facebook.svg"
                 alt="Facebook"
                 className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+                width={32}
+                height={32}
               />
             </a>
 
             <a href="https://www.instagram.com/teamstorytimehq/" target="blank">
-              <img
+              <Image
                 src="/baseline-instagram.svg"
                 alt="Instagram"
                 className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+                width={32}
+                height={32}
               />
             </a>
 
             <a href="https://www.tiktok.com/@teamstorytimehq" target="blank">
-              <img
+              <Image
                 src="/baseline-tiktok.svg"
                 alt="Tiktok"
                 className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+                width={32}
+                height={32}
               />
             </a>
             <a
               href="https://www.linkedin.com/company/storytimehq/"
               target="blank"
             >
-              <img
+              <Image
                 src="/baseline-linkedin.svg"
                 alt="Linkedin"
                 className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+                width={32}
+                height={32}
               />
             </a>
             <a href="https://x.com/storytimehq" target="blank">
-              <img
+              <Image
                 src="/baseline-twitter.svg"
                 alt="Twitter"
                 className="h-auto w-8 cursor-pointer transition-transform hover:scale-110 sm:w-9 md:w-[38px]"
+                width={32}
+                height={32}
               />
             </a>
           </div>

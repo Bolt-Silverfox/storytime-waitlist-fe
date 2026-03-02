@@ -1,4 +1,7 @@
+"use client";
+
 import { useState, type Dispatch, type SetStateAction } from "react";
+import Image from "next/image";
 import { featuresData, featureTitles, type Features } from "../../data";
 
 const SqueezeFeaturesSection = () => {
@@ -62,9 +65,11 @@ const BigScreenFeatures = ({
           </li>
         ))}
       </ul>
-      <img
+      <Image
         src={currentFeature.imageUrl}
         alt={`${currentFeature.title} image`}
+        width={600}
+        height={400}
       />
       <div className="flex flex-col gap-y-4 self-center">
         <h3 className="font-Qilka text-text-dark text-[48px] leading-[100%]">
@@ -95,7 +100,7 @@ const SmallScreenFeatures = ({
       className="flex flex-col items-center gap-y-8 lg:hidden"
     >
       <div className="bg-light-pink rounded-3xl px-15 pt-30">
-        <img src={currentFeature.imageUrl} alt="" />
+        <Image src={currentFeature.imageUrl} alt="" width={600} height={400} />
       </div>
       <ul className="flex flex-col gap-y-6 self-center">
         {featureTitles.map((title, index) => (

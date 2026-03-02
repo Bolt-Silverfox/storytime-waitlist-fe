@@ -3,6 +3,10 @@
 import { useState } from "react";
 import type { MouseEvent } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
+// create a motion-enabled Image component
+const MotionImage = motion(Image);
 // public assets are now imported from project root via one level up
 import heroImage from "../public/squeeze/hero-image.png";
 // import useSqueezeInfo from "../contexts/SqueezeContext";
@@ -44,7 +48,7 @@ const SqueezeHero = () => {
           <h1 className="font-Qilka text-[2.5rem] leading-[normal] font-bold text-[#212121] not-italic md:text-5xl lg:text-[4rem] lg:leading-none">
             <span className="inline-flex items-center gap-2">
               Better{" "}
-              <motion.img
+              <MotionImage
                 src={mila}
                 alt="MILA book cover"
                 className="inline-block h-12 w-auto drop-shadow-lg md:h-auto"
@@ -52,6 +56,8 @@ const SqueezeHero = () => {
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
                 whileHover={{ scale: 1.1, rotate: 5 }}
+                width={48}
+                height={60}
               />{" "}
               screen
             </span>
@@ -60,7 +66,7 @@ const SqueezeHero = () => {
             <br />
             <span className="inline-flex items-center gap-2">
               better stories
-              <motion.img
+              <MotionImage
                 src={tales}
                 alt="Fairy Meadow book cover"
                 className="hidden h-auto w-auto drop-shadow-lg md:inline-block"
@@ -68,6 +74,8 @@ const SqueezeHero = () => {
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
                 whileHover={{ scale: 1.1, rotate: -5 }}
+                width={48}
+                height={60}
               />
             </span>
           </h1>
@@ -92,7 +100,7 @@ const SqueezeHero = () => {
           </div>
         </div>
         <div className="w-full flex-1 md:w-auto">
-          <motion.img
+          <MotionImage
             src={heroImage}
             alt="Squeeze Hero"
             className="h-auto w-full"
@@ -100,13 +108,17 @@ const SqueezeHero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             whileHover={{ scale: 1.05 }}
+            width={800}
+            height={600}
           />
         </div>
       </div>
-      <img
+      <Image
         src={heroBg}
         alt="Hero background"
         className="absolute bottom-0 left-0 z-0 w-full"
+        width={1200}
+        height={400}
       />
       {isJoinModalOpen && (
         <JoinEarlyModal onClose={() => setIsJoinModalOpen(false)} />

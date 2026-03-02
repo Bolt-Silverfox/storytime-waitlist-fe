@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import lady from "../../public/squeeze/lady.svg";
 import speaker from "../../public/squeeze/speaker.svg";
 import cosmo from "../../public/squeeze/cosmo.png";
@@ -81,10 +82,12 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
               transition={{ delay: 0.1 }}
               className="relative size-[60px] shrink-0"
             >
-              <img
+              <Image
                 src={lady}
                 alt="Lady character"
                 className="h-full w-full object-contain"
+                width={60}
+                height={60}
               />
             </motion.div>
 
@@ -119,10 +122,12 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
             >
               {/* Icon */}
               <div className="relative size-[60px] shrink-0">
-                <img
+                <Image
                   src={speaker}
                   alt="Voice options icon"
                   className="h-full w-full object-contain"
+                  width={60}
+                  height={60}
                 />
               </div>
 
@@ -152,10 +157,12 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                     // style={{ backgroundColor: characters[0].bgColor }}
                   />
                   {characters[0].avatar && (
-                    <img
+                    <Image
                       src={characters[0].avatar}
                       alt={characters[0].name}
                       className="relative z-10 h-full w-full rounded-full object-cover"
+                      width={116}
+                      height={116}
                     />
                   )}
                 </div>
@@ -170,10 +177,12 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                     }}
                     className="flex size-[27.467px] items-center justify-center transition-all"
                   >
-                    <img
+                    <Image
                       src={characters[0].active ? activeSwitch : inactiveSwitch}
                       alt={characters[0].active ? "Active" : "Inactive"}
                       className="h-full w-full"
+                      width={27}
+                      height={27}
                     />
                   </button>
                 </div>
@@ -192,10 +201,12 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                     style={{ backgroundColor: characters[1].bgColor }}
                   />
                   {characters[1].avatar && (
-                    <img
+                    <Image
                       src={characters[1].avatar}
                       alt={characters[1].name}
                       className="relative z-10 h-full w-full rounded-full object-cover"
+                      width={116}
+                      height={116}
                     />
                   )}
                 </div>
@@ -210,10 +221,12 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                     }}
                     className="flex size-[27.467px] items-center justify-center transition-all"
                   >
-                    <img
+                    <Image
                       src={characters[1].active ? activeSwitch : inactiveSwitch}
                       alt={characters[1].active ? "Active" : "Inactive"}
                       className="h-full w-full"
+                      width={27}
+                      height={27}
                     />
                   </button>
                 </div>
@@ -232,10 +245,12 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                     style={{ backgroundColor: characters[2].bgColor }}
                   />
                   {characters[2].avatar && (
-                    <img
+                    <Image
                       src={characters[2].avatar}
                       alt={characters[2].name}
                       className="relative z-10 h-full w-full rounded-full object-cover"
+                      width={116}
+                      height={116}
                     />
                   )}
                 </div>
@@ -250,10 +265,12 @@ const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
                     }}
                     className="flex size-[27.467px] items-center justify-center transition-all"
                   >
-                    <img
+                    <Image
                       src={characters[2].active ? activeSwitch : inactiveSwitch}
                       alt={characters[2].active ? "Active" : "Inactive"}
                       className="h-full w-full"
+                      width={27}
+                      height={27}
                     />
                   </button>
                 </div>

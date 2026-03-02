@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 // after moving to root, two ups gets us to project level
 import lady from "../../public/squeeze/lady.svg";
 import speaker from "../../public/squeeze/speaker.svg";
@@ -65,10 +66,12 @@ Bobo loved the forest. He loved the...`;
               transition={{ delay: 0.1 }}
               className="relative size-[60px] shrink-0"
             >
-              <img
+              <Image
                 src={lady}
                 alt="lady icon"
                 className="h-full w-full object-contain"
+                width={60}
+                height={60}
               />
             </motion.div>
 
@@ -104,10 +107,12 @@ Bobo loved the forest. He loved the...`;
             >
               {/* Icon */}
               <div className="relative size-[60px] shrink-0">
-                <img
+                <Image
                   src={speaker}
                   alt="Plain mode icon"
                   className="h-full w-full object-contain"
+                  width={60}
+                  height={60}
                 />
               </div>
 

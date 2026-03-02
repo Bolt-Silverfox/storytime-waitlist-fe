@@ -1,4 +1,7 @@
+"use client";
+
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 type ParentalControlsProps = {
   openDownloadModal: () => void;
@@ -36,10 +39,12 @@ export default function ParentalControls({
         </div>
 
         <div className="order-1 flex w-full items-center justify-center overflow-hidden md:justify-end">
-          <img
+          <Image
             src="landingpage/interactive-story.png"
             className="object-contain"
             alt="mobile"
+            width={600}
+            height={400}
           />
         </div>
       </div>

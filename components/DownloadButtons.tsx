@@ -1,4 +1,8 @@
+"use client";
+
 import { trackCTAClick } from "../lib/analytics";
+import Image from "next/image";
+
 const googlePlayIcon = "/squeeze/google.svg";
 const iosIcon = "/squeeze/ios.svg";
 
@@ -23,12 +27,14 @@ export default function DownloadButtons({
         }}
       >
         <div className="relative size-7 shrink-0 md:size-8">
-          <img
+          <Image
             src={
               color == "light" ? "/icons/playstore_primary.png" : googlePlayIcon
             }
             alt="Google Play"
             className={`h-full w-full transition-all ${color === "light" ? "group-hover:brightness-0 group-hover:invert" : ""}`}
+            width={48}
+            height={48}
           />
         </div>
         <div className="relative flex shrink-0 flex-col items-start gap-px">
@@ -54,10 +60,12 @@ export default function DownloadButtons({
         }}
       >
         <div className="relative size-7 shrink-0 md:size-8">
-          <img
+          <Image
             src={color == "light" ? "/icons/appstore_primary.png" : iosIcon}
             alt="App Store"
             className={`h-full w-full transition-all ${color === "light" ? "group-hover:brightness-0 group-hover:invert" : ""}`}
+            width={48}
+            height={48}
           />
         </div>
         <div className="relative flex shrink-0 flex-col items-start gap-px">
