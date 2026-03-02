@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .ts,.tsx",
     "pm2:start:prod": "npx pm2 start ecosystem.config.js --only storytime-waitlist-production",
     "pm2:start:dev": "npx pm2 start ecosystem.config.js --only storytime-waitlist-development",
     "pm2:restart:prod": "npx pm2 restart storytime-waitlist-production --update-env || npm run pm2:start:prod",
