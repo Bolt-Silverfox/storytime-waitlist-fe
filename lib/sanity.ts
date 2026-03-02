@@ -122,3 +122,30 @@ export async function getFaqs(): Promise<SanityFaq[]> {
     }
   `);
 }
+
+// Terms and Conditions Types and Functions
+export interface SanityTermsAndConditions {
+  _id: string;
+  heading: string;
+  index: string;
+  contentType: "paragraph" | "list";
+  paragraph: string | null;
+  listItems: string[] | null;
+  order: number;
+}
+
+export async function getTermsAndConditions(): Promise<
+  SanityTermsAndConditions[]
+> {
+  return sanityClient.fetch(`
+    *[_type == "termsAndConditions"] | order(order asc) {
+      _id,
+      heading,
+      index,
+      contentType,
+      paragraph,
+      listItems,
+      order
+    }
+  `);
+}

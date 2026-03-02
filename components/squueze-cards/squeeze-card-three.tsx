@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import activeSwitch from "../../public/squeeze/active-switch.svg";
-import inactiveSwitch from "../../public/squeeze/inactive-switch.svg";
-import lady from "../../public/squeeze/lady.svg";
-import cosmo from "../../public/squeeze/cosmo.png";
-import speaker from "../../public/squeeze/speaker.svg";
-// fix path since components now live at root; two levels up reaches project root
-import switchIcon from "../../public/squeeze/purple-switch.svg";
+const activeSwitch = "/squeeze/active-switch.svg";
+const inactiveSwitch = "/squeeze/inactive-switch.svg";
+const lady = "/squeeze/lady.svg";
+const cosmo = "/squeeze/cosmo.png";
+const speaker = "/squeeze/speaker.svg";
+const switchIcon = "/squeeze/purple-switch.svg";
 
 interface SqueezeCardThreeProps {
   isExpanded: boolean;
