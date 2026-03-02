@@ -15,7 +15,7 @@ const SqueezeGrow = () => {
     <section
       className="relative min-h-screen w-full overflow-hidden bg-cover bg-center bg-no-repeat pb-12 sm:pb-24 md:min-h-[800px] md:pb-48"
       style={{
-        backgroundImage: `url(${growBg})`,
+        backgroundImage: `url(${growBg.src})`,
       }}
       aria-labelledby="Grow section"
     >
@@ -40,7 +40,7 @@ const SqueezeGrow = () => {
 
         <div className="relative mt-6 flex w-full items-center justify-center overflow-hidden pt-20 md:mt-[0.38rem]">
           <motion.img
-            src={milaBig}
+            src={milaBig.src}
             alt="MILA"
             initial={{ opacity: 0, x: -50, scale: 0.9 }}
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
@@ -50,7 +50,7 @@ const SqueezeGrow = () => {
             className="h-auto w-[220px] max-w-[50%] cursor-pointer transition-all sm:w-[240px] md:w-auto md:max-w-none"
           />
           <motion.img
-            src={talesBig}
+            src={talesBig.src}
             alt="Tales from Whispering Woods"
             initial={{ opacity: 0, y: -50, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -60,7 +60,7 @@ const SqueezeGrow = () => {
             className="absolute top-[50%] left-1/2 h-auto w-[260px] max-w-[60%] -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all sm:w-[280px] md:w-auto md:max-w-none"
           />
           <motion.img
-            src={lilaBig}
+            src={lilaBig.src}
             alt="Lila and the Magic Seed"
             initial={{ opacity: 0, x: 50, scale: 0.9 }}
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
@@ -83,7 +83,8 @@ const SqueezeGrow = () => {
           <div className="mx-auto mt-10 mb-20 flex items-center justify-center gap-4 sm:mb-16 sm:gap-5 md:gap-6">
             <a
               href="https://www.facebook.com/profile.php?id=61585584201713"
-              target="blank"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Image
                 src="/baseline-facebook.svg"
@@ -94,7 +95,7 @@ const SqueezeGrow = () => {
               />
             </a>
 
-            <a href="https://www.instagram.com/teamstorytimehq/" target="blank">
+            <a href="https://www.instagram.com/teamstorytimehq/" target="_blank" rel="noopener noreferrer">
               <Image
                 src="/baseline-instagram.svg"
                 alt="Instagram"
@@ -104,7 +105,7 @@ const SqueezeGrow = () => {
               />
             </a>
 
-            <a href="https://www.tiktok.com/@teamstorytimehq" target="blank">
+            <a href="https://www.tiktok.com/@teamstorytimehq" target="_blank" rel="noopener noreferrer">
               <Image
                 src="/baseline-tiktok.svg"
                 alt="Tiktok"
@@ -115,7 +116,8 @@ const SqueezeGrow = () => {
             </a>
             <a
               href="https://www.linkedin.com/company/storytimehq/"
-              target="blank"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Image
                 src="/baseline-linkedin.svg"
@@ -125,7 +127,7 @@ const SqueezeGrow = () => {
                 height={32}
               />
             </a>
-            <a href="https://x.com/storytimehq" target="blank">
+            <a href="https://x.com/storytimehq" target="_blank" rel="noopener noreferrer">
               <Image
                 src="/baseline-twitter.svg"
                 alt="Twitter"
