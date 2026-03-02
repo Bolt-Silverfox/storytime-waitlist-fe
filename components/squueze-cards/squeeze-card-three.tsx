@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 const activeSwitch = "/squeeze/active-switch.svg";
 const inactiveSwitch = "/squeeze/inactive-switch.svg";
 const lady = "/squeeze/lady.svg";
@@ -65,10 +66,12 @@ const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
               transition={{ delay: 0.1 }}
               className="relative size-[60px] shrink-0"
             >
-              <img
+              <Image
                 src={lady}
                 alt="lady icon"
                 className="h-full w-full object-contain"
+                width={60}
+                height={60}
               />
             </motion.div>
 
@@ -104,10 +107,12 @@ const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
             >
               {/* Icon */}
               <div className="relative size-[60px] shrink-0">
-                <img
+                <Image
                   src={speaker}
                   alt="AI read-along icon"
                   className="h-full w-full object-contain"
+                  width={60}
+                  height={60}
                 />
               </div>
 
@@ -133,10 +138,12 @@ const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
               <div className="flex flex-col items-center pt-10 pb-6">
                 <div className="relative mb-[-24px] size-[96px] shrink-0">
                   <div className="absolute inset-0 rounded-full" />
-                  <img
+                  <Image
                     src={cosmo}
                     alt="cosmo avatar"
                     className="h-full w-full object-cover"
+                    width={96}
+                    height={96}
                   />
                 </div>
                 <div className="relative z-20 flex w-[133.865px] items-center justify-center gap-[5.096px] rounded-[59.135px] bg-white px-[11.827px] py-[7.096px]">
@@ -150,10 +157,12 @@ const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
                     }}
                     className="flex size-[27.467px] items-center justify-center transition-all"
                   >
-                    <img
+                    <Image
                       src={characterActive ? activeSwitch : inactiveSwitch}
                       alt={characterActive ? "Active" : "Inactive"}
                       className="h-full w-full"
+                      width={27}
+                      height={27}
                     />
                   </button>
                 </div>
@@ -242,10 +251,12 @@ const SqueezeCardThree = ({ isExpanded, onToggle }: SqueezeCardThreeProps) => {
                   <p className="font-abezee text-[16px] leading-[22px] font-normal text-[#212121] not-italic">
                     Read along with {characterName}
                   </p>
-                  <img
+                  <Image
                     src={switchIcon}
                     alt="switch icon"
                     className="size-[27.467px]"
+                    width={27}
+                    height={27}
                   />
                   {/* <button
                     onClick={(e) => {

@@ -1,3 +1,7 @@
+"use client";
+
+import Image from "next/image";
+
 type IntentionsProps = {
   openDownloadModal: () => void;
 };
@@ -23,9 +27,11 @@ export default function Intentions({ openDownloadModal }: IntentionsProps) {
           Download now
         </button>
       </div>
-      <img
+      <Image
         src="/aboutpage/kid-on-clouds.png"
         alt="Kid on clouds illustration"
+        width={600}
+        height={400}
       />
     </section>
   );

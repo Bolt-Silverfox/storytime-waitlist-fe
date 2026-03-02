@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Explore() {
   return (
     <section className="font-abezee bg-primary clip-bottom relative -top-40 z-20 px-6 py-50 text-white">
@@ -20,7 +22,13 @@ export default function Explore() {
                 key={i}
                 className="flex max-w-[510px] flex-col gap-2.5 rounded-[50px] bg-white px-[21px] pt-7 pb-9 md:px-[35px]"
               >
-                <img src={item.icon} alt="logo" className="h-[50px] w-[50px]" />
+                <Image
+                  src={item.icon}
+                  alt="logo"
+                  className="h-[50px] w-[50px]"
+                  width={50}
+                  height={50}
+                />
                 <h2 className="font-Qilka text-[20px] font-bold text-[#221D1D] md:text-2xl">
                   {item.title}
                 </h2>

@@ -2,6 +2,7 @@
 
 // After moving directories to the project root, the relative paths changed
 import FaqComponent from "./FaqComponent";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import {
   getFaqCategories,
@@ -74,18 +75,22 @@ export default function FAQClient() {
   return (
     <div className="relative z-0 w-full">
       {/* LEFT IMAGE — detective at bottom */}
-      <img
+      <Image
         src="/detective.png"
         alt=""
         aria-hidden="true"
         className="absolute bottom-0 left-0 z-0 hidden h-[350px] w-[350px] object-contain md:block"
+        width={350}
+        height={350}
       />
 
-      <img
+      <Image
         src="/doggie.png"
         alt=""
         aria-hidden="true"
         className="absolute top-[300px] right-0 z-0 hidden h-[250px] w-[250px] object-cover md:block"
+        width={250}
+        height={250}
       />
       <div className="relative z-10 mt-8 flex flex-1 flex-col items-center px-4 py-10">
         <h1 className="font-Qilka text-center text-4xl leading-10 text-[#231F1E] md:text-[56px]">

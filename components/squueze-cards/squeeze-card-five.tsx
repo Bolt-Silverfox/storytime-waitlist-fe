@@ -1,7 +1,11 @@
+"use client";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import lady from "@/../public/squeeze/lady.svg";
-import speaker from "@/../public/squeeze/speaker.svg";
+import Image from "next/image";
+// use relative path consistent with other squeeze cards
+import lady from "../../public/squeeze/lady.svg";
+import speaker from "../../public/squeeze/speaker.svg";
 
 interface SqueezeCardFiveProps {
   isExpanded: boolean;
@@ -56,10 +60,12 @@ const SqueezeCardFive = ({ isExpanded, onToggle }: SqueezeCardFiveProps) => {
               transition={{ delay: 0.1 }}
               className="relative size-[60px] shrink-0"
             >
-              <img
+              <Image
                 src={lady}
                 alt="lady icon"
                 className="h-full w-full object-contain"
+                width={60}
+                height={60}
               />
             </motion.div>
 
@@ -95,10 +101,12 @@ const SqueezeCardFive = ({ isExpanded, onToggle }: SqueezeCardFiveProps) => {
             >
               {/* Icon */}
               <div className="relative size-[60px] shrink-0">
-                <img
+                <Image
                   src={speaker}
                   alt="Daily challenges icon"
-                  className="h-full w-full object-contain"
+                  classity="h-full w-full object-contain"
+                  width={60}
+                  height={60}
                 />
               </div>
 

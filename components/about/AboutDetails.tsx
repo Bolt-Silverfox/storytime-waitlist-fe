@@ -1,3 +1,7 @@
+"use client";
+
+import Image from "next/image";
+
 export default function AboutDetails() {
   return (
     <section className="flex flex-col items-center space-y-8 py-6 md:flex-row-reverse md:space-y-0">
@@ -6,10 +10,12 @@ export default function AboutDetails() {
         explore courage, kindness, curiosity, and creativity through imaginative
         and memorable stories.
       </p>
-      <img
+      <Image
         src="/aboutpage/kids-adventure.png"
         alt="Kids adventure"
         className="md:w-2/5 lg:max-h-100 lg:w-1/2"
+        width={600}
+        height={400}
       />
     </section>
   );

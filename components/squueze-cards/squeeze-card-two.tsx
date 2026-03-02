@@ -1,5 +1,8 @@
+"use client";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 const lady = "/squeeze/lady.svg";
 const speaker = "/squeeze/speaker.svg";
 const jane = "/squeeze/jane.svg";
@@ -59,10 +62,12 @@ const SqueezeCardTwo = ({ isExpanded, onToggle }: SqueezeCardTwoProps) => {
               transition={{ delay: 0.1 }}
               className="relative size-[60px] shrink-0"
             >
-              <img
+              <Image
                 src={lady}
                 alt="Lady character"
                 className="h-full w-full object-contain"
+                width={60}
+                height={60}
               />
             </motion.div>
 
@@ -97,10 +102,12 @@ const SqueezeCardTwo = ({ isExpanded, onToggle }: SqueezeCardTwoProps) => {
             >
               {/* Icon */}
               <div className="relative size-[60px] shrink-0">
-                <img
+                <Image
                   src={speaker}
                   alt="Personalized profiles icon"
                   className="h-full w-full object-contain"
+                  width={60}
+                  height={60}
                 />
               </div>
 
@@ -130,10 +137,12 @@ const SqueezeCardTwo = ({ isExpanded, onToggle }: SqueezeCardTwoProps) => {
                     style={{ backgroundColor: profiles[0].bgColor }}
                   />
                   {profiles[0].avatar && (
-                    <img
+                    <Image
                       src={profiles[0].avatar}
                       alt={profiles[0].name}
                       className="relative z-10 h-full w-full rounded-full object-cover"
+                      width={89}
+                      height={89}
                     />
                   )}
                 </div>
@@ -160,10 +169,12 @@ const SqueezeCardTwo = ({ isExpanded, onToggle }: SqueezeCardTwoProps) => {
                     style={{ backgroundColor: profiles[1].bgColor }}
                   />
                   {profiles[1].avatar && (
-                    <img
+                    <Image
                       src={profiles[1].avatar}
                       alt={profiles[1].name}
                       className="relative z-10 h-full w-full rounded-full object-cover"
+                      width={94}
+                      height={94}
                     />
                   )}
                 </div>
@@ -190,10 +201,12 @@ const SqueezeCardTwo = ({ isExpanded, onToggle }: SqueezeCardTwoProps) => {
                     style={{ backgroundColor: profiles[2].bgColor }}
                   />
                   {profiles[2].avatar && (
-                    <img
+                    <Image
                       src={profiles[2].avatar}
                       alt={profiles[2].name}
                       className="relative z-10 h-full w-full rounded-full object-cover"
+                      width={89}
+                      height={89}
                     />
                   )}
                 </div>

@@ -1,4 +1,7 @@
+"use client";
+
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function WhatWeOffer() {
   const features = [
@@ -58,35 +61,45 @@ export default function WhatWeOffer() {
               style={{ background: feature.elipse }}
               className="relative mx-auto mb-4 flex h-[262px] w-[262px] items-center justify-center rounded-full md:mb-4 md:h-[262px] md:w-[262px]"
             >
-              <img
+              <Image
                 src="Vector.png"
                 className="absolute h-3 w-3 md:h-5 md:w-[20px]"
                 style={{ top: "30px", left: "95px" }}
                 aria-hidden="true"
+                width={20}
+                height={20}
               />
-              <img
+              <Image
                 src="Vector.png"
                 className="absolute h-4 w-5 md:h-[25px] md:w-[23px]"
                 style={{ top: "150px", left: "180px" }}
                 aria-hidden="true"
+                width={23}
+                height={25}
               />
-              <img
+              <Image
                 src="Vector.png"
                 className="absolute h-5 w-6 md:h-[24px] md:w-[30px]"
                 style={{ top: "190px", left: "270px" }}
                 aria-hidden="true"
+                width={30}
+                height={24}
               />
-              <img
+              <Image
                 src="Vector.png"
                 className="absolute h-6 w-5 md:h-[24px] md:w-[29px]"
                 style={{ top: "130px", left: "15px" }}
                 aria-hidden="true"
+                width={29}
+                height={24}
               />
               <div className="text-center">
-                <img
+                <Image
                   className="h-[275px] w-[365px] object-contain md:h-[305px] md:w-[392px]"
                   src={feature.icon}
                   alt={feature.title}
+                  width={392}
+                  height={305}
                 />
               </div>
             </div>
@@ -122,35 +135,45 @@ export default function WhatWeOffer() {
               style={{ background: feature.elipse }}
               className="relative mx-auto mb-4 flex h-[262px] w-[262px] items-center justify-center rounded-full md:mb-4 md:h-[262px] md:w-[262px]"
             >
-              <img
+              <Image
                 src="Vector.png"
                 className="absolute h-3 w-3 md:h-5 md:w-[20px]"
                 style={{ top: "30px", left: "95px" }}
                 aria-hidden="true"
+                width={20}
+                height={20}
               />
-              <img
+              <Image
                 src="Vector.png"
                 className="absolute h-4 w-5 md:h-[25px] md:w-[23px]"
                 style={{ top: "150px", left: "180px" }}
                 aria-hidden="true"
+                width={23}
+                height={25}
               />
-              <img
+              <Image
                 src="Vector.png"
                 className="absolute h-5 w-6 md:h-[24px] md:w-[30px]"
                 style={{ top: "190px", left: "270px" }}
                 aria-hidden="true"
+                width={30}
+                height={24}
               />
-              <img
+              <Image
                 src="Vector.png"
                 className="absolute h-6 w-5 md:h-[24px] md:w-[29px]"
                 style={{ top: "130px", left: "15px" }}
                 aria-hidden="true"
+                width={29}
+                height={24}
               />
               <div className="text-center">
-                <img
+                <Image
                   className="h-[275px] w-[365px] object-contain md:h-[305px] md:w-[392px]"
                   src={feature.icon}
                   alt={feature.title}
+                  width={392}
+                  height={305}
                 />
               </div>
             </div>

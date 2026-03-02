@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const footerLinks = [
@@ -28,15 +29,19 @@ const Footer: React.FC = () => {
     <footer className="bg-[#363232]">
       <section className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-y-10 bg-[#363232] py-5 md:px-10 lg:flex-row">
         <Link href="/">
-          <img
+          <Image
             src="/icons/new-logo.svg"
             alt="storytime logo image"
             className="h-[38px] w-[106px] md:hidden"
+            width={106}
+            height={38}
           />
-          <img
+          <Image
             src="/icons/new-logo.svg"
             alt="storytime logo image"
             className="hidden h-12 w-[108px] md:block"
+            width={108}
+            height={48}
           />
         </Link>
         <nav className="flex">
@@ -66,10 +71,12 @@ const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="transition-all duration-300 hover:scale-110 hover:opacity-70"
             >
-              <img
+              <Image
                 src="/icons/facebook.svg"
                 alt="Facebook"
                 className="h-6 w-6"
+                width={24}
+                height={24}
               />
             </a>
           </li>
@@ -80,10 +87,12 @@ const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="transition-all duration-300 hover:scale-110 hover:opacity-70"
             >
-              <img
+              <Image
                 src="/icons/instagram.svg"
                 alt="Instagram"
                 className="h-6 w-6"
+                width={24}
+                height={24}
               />
             </a>
           </li>
@@ -94,7 +103,13 @@ const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="transition-all duration-300 hover:scale-110 hover:opacity-70"
             >
-              <img src="/icons/tiktok.svg" alt="TikTok" className="h-6 w-6" />
+              <Image
+                src="/icons/tiktok.svg"
+                alt="TikTok"
+                className="h-6 w-6"
+                width={24}
+                height={24}
+              />
             </a>
           </li>
           <li>
