@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import DownloadModal from "../DownloadModal";
 import Icon from "./Icon";
@@ -13,6 +14,7 @@ const navLinks = [
 ];
 
 const Header: React.FC = () => {
+  const pathname = usePathname();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
 
@@ -43,7 +45,11 @@ const Header: React.FC = () => {
                   className="hover:text-primary cursor-pointer transition-all duration-200 hover:scale-110 lg:text-xl"
                 >
                   <Link
-                    className="font-abezee [&.active]:text-primary [&.active]:scale-110"
+                    className={`font-abezee transition-colors ${
+                      pathname === link.route
+                        ? "text-primary font-semibold"
+                        : ""
+                    }`}
                     href={link.route}
                   >
                     {link.name}

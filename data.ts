@@ -46,74 +46,6 @@ const privacyPolicyData: {
     },
   ];
 
-const termsAndConditionsData: {
-  heading: string;
-  paragraph: string | string[];
-  index: string;
-}[] = [
-    {
-      heading: "Introduction and Acceptance",
-      paragraph:
-        'These Terms and Conditions ("Terms") form a legally binding agreement between you ("User," "Parent," or "Guardian") and StoryTime4Kids ("Company," "we," "us," or "our") governing your access to and use of our website, mobile application, and digital content services (collectively, the "Service"). By accessing, using, or subscribing to the Service, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree, you must not access or use the Service.',
-      index: "I",
-    },
-    {
-      heading: "The Service and Age Restrictions",
-      paragraph:
-        "StoryTime4Kids provides access to a curated digital library of stories, audio, video, and related educational content designed to support children's literacy and imagination. The Service is intended for use by parents or legal guardians for children under the age of 18. You must be at least 18 years old to create an account, make payments, and accept these Terms on behalf of a child.",
-      index: "II",
-    },
-    {
-      heading: "Subscriptions, Payments, and Free Trials",
-      index: "III",
-      paragraph: [
-        "Subscription Plans: We offer various subscription plans, including monthly and annual options. Plan details and pricing are displayed at the time of purchase.",
-        "Automatic Renewal: All paid subscriptions automatically renew at the applicable rate unless cancelled before the end of the current billing period.",
-        "Billing and Cancellation: Subscription management and cancellations are handled through your App Store or Google Play account.",
-      ],
-    },
-    {
-      heading: "Intellectual Property Rights",
-      paragraph:
-        "All content and materials made available through the Service, including stories, narration, illustrations, graphics, trademarks, and software, are the exclusive property of StoryTime4Kids or its licensors and are protected by applicable intellectual property laws. You are granted a limited, non-exclusive, non-transferable license to access and use the Service for personal, non-commercial purposes only. You may not copy, reproduce, distribute, modify, or publicly display any content without prior written consent.",
-      index: "IV",
-    },
-    {
-      heading: "User Conduct and Account Security",
-      paragraph: [
-        "You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account.",
-        "You agree not to: Use the Service for unlawful or unauthorized purposes.",
-        "You agree not to: Share account access beyond the limits of your subscription plan.",
-        "You agree not to: Attempt to copy, scrape, redistribute, or exploit any part of the Service.",
-      ],
-      index: "V",
-    },
-    {
-      heading: "Suspension and Termination",
-      paragraph:
-        "We reserve the right to suspend or terminate your access to the Service, with or without notice, if you violate these Terms, misuse the Service, or fail to meet payment obligations. You may discontinue use of the Service at any time by cancelling your subscription or deleting your account.",
-      index: "VI",
-    },
-    {
-      heading: "Governing Law and Dispute Resolution",
-      paragraph:
-        "These Terms shall be governed by and construed in accordance with the laws of your Jurisdiction, without regard to conflict of law principles. Any disputes arising out of or relating to these Terms or the Service shall first be attempted to be resolved through good-faith negotiations and, if unresolved, through binding arbitration in accordance with applicable laws.",
-      index: "VII",
-    },
-    {
-      heading: "Changes to These Terms",
-      paragraph:
-        'We may update these Terms from time to time. Any changes will be posted on this page with an updated "Last updated" date. Continued use of the Service after changes become effective constitutes acceptance of the revised Terms.',
-      index: "VIII",
-    },
-    {
-      heading: "Contact Information",
-      paragraph:
-        "If you have questions about these Terms, please contact us at: Email: team@storytimeapp.me",
-      index: "IX",
-    },
-  ];
-
 const howItWorksData = [
   {
     src: "./how-it-works/choose-a-story.png",
@@ -301,7 +233,6 @@ const featuresData = [
 export type { Features };
 export {
   privacyPolicyData,
-  termsAndConditionsData,
   howItWorksData,
   resourcesData,
   featuresData,

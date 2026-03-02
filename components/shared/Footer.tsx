@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const footerLinks = [
   {
@@ -20,6 +23,7 @@ const footerLinks = [
 ];
 
 const Footer: React.FC = () => {
+  const pathname = usePathname();
   return (
     <footer className="bg-[#363232]">
       <section className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-y-10 bg-[#363232] py-5 md:px-10 lg:flex-row">
@@ -43,7 +47,9 @@ const Footer: React.FC = () => {
                 className="text-xl transition duration-300 hover:scale-110"
               >
                 <Link
-                  className="font-abezee hover:text-primary [&.active]:text-primary cursor-pointer text-white transition-all duration-300 [&.active]:scale-110"
+                  className={`font-abezee hover:text-primary cursor-pointer text-white transition-all duration-300 hover:scale-110 ${
+                    pathname === link.route ? "text-primary scale-110" : ""
+                  }`}
                   href={link.route}
                 >
                   {link.name}

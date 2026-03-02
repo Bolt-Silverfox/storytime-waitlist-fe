@@ -76,13 +76,15 @@ export default function FAQClient() {
       {/* LEFT IMAGE — detective at bottom */}
       <img
         src="/detective.png"
-        alt="detective"
+        alt=""
+        aria-hidden="true"
         className="absolute bottom-0 left-0 z-0 hidden h-[350px] w-[350px] object-contain md:block"
       />
 
       <img
         src="/doggie.png"
-        alt="doggie"
+        alt=""
+        aria-hidden="true"
         className="absolute top-[300px] right-0 z-0 hidden h-[250px] w-[250px] object-cover md:block"
       />
       <div className="relative z-10 mt-8 flex flex-1 flex-col items-center px-4 py-10">

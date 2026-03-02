@@ -22,5 +22,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-    "include": ["app", "global.d.ts"]
+    "include": ["app", "components", "lib", "contexts", "constants.ts", "data.ts", "global.d.ts"]
 }

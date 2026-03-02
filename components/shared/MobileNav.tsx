@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Icon from "./Icon";
 import { trackCTAClick } from "../../lib/analytics";
 
@@ -16,6 +17,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
   navLinks,
   onDownloadClick,
 }) => {
+  const pathname = usePathname();
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -63,7 +65,11 @@ const MobileNav: React.FC<MobileNavProps> = ({
             <li key={link.route}>
               <Link
                 href={link.route}
-                className="font-abezee [&.active]:bg-primary/10 [&.active]:text-primary block rounded-lg px-4 py-3 text-lg transition-all hover:bg-gray-50 [&.active]:font-semibold"
+                className={`font-abezee block rounded-lg px-4 py-3 text-lg transition-all hover:bg-gray-50 ${
+                  pathname === link.route
+                    ? "bg-primary/10 text-primary font-semibold"
+                    : ""
+                }`}
                 onClick={onClose}
               >
                 {link.name}

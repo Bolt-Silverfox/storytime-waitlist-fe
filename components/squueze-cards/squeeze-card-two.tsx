@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import lady from "@/../public/squeeze/lady.svg";
-import speaker from "@/../public/squeeze/speaker.svg";
-import jane from "@/../public/squeeze/jane.svg";
-import jacob from "@/../public/squeeze/jacob.svg";
-import tim from "@/../public/squeeze/tim.svg";
+const lady = "/squeeze/lady.svg";
+const speaker = "/squeeze/speaker.svg";
+const jane = "/squeeze/jane.svg";
+const jacob = "/squeeze/jacob.svg";
+const tim = "/squeeze/tim.svg";
 
 interface Profile {
   name: string;
