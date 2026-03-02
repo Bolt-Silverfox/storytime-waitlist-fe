@@ -104,7 +104,7 @@ const SqueezeCardFive = ({ isExpanded, onToggle }: SqueezeCardFiveProps) => {
                 <Image
                   src={speaker}
                   alt="Daily challenges icon"
-                  classity="h-full w-full object-contain"
+                  className="h-full w-full object-contain"
                   width={60}
                   height={60}
                 />
