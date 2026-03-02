@@ -17,7 +17,7 @@ const SqueezeGrow = () => {
       style={{
         backgroundImage: `url(${growBg.src})`,
       }}
-      aria-labelledby="Grow section"
+      aria-label="Grow section"
     >
       {/* Content Container */}
       <div className="mx-auto flex w-full max-w-[1400px] flex-col items-center justify-center gap-6 px-4 py-12 sm:gap-8 sm:px-5 sm:py-16 md:min-h-[800px] md:gap-12 md:py-32">
