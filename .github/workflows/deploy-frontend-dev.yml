@@ -30,7 +30,7 @@ jobs:
           version: 8
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Run lint
         run: pnpm lint
@@ -58,7 +58,7 @@ jobs:
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build frontend
         run: pnpm build
@@ -88,7 +88,7 @@ jobs:
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build frontend
         run: pnpm build
@@ -102,33 +102,35 @@ jobs:
 
       - name: Ensure deployment directory exists
         run: |
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
             "mkdir -p /home/${{ secrets.SERVER_USER }}/storytime/development/waitlist"
 
       - name: Deploy with rsync
         run: |
+          DEPLOY_ITEMS=(".next/" "package.json" "pnpm-lock.yaml" "next.config.mjs" "ecosystem.config.js")
+          [ -d public ] && DEPLOY_ITEMS+=("public/")
           rsync -avz --delete \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='node_modules' \
             --exclude='.env' \
             --exclude='src' \
-            -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
-            .next/ public/ package.json pnpm-lock.yaml next.config.mjs ecosystem.config.js \
+            -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts" \
+            "${DEPLOY_ITEMS[@]}" \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/storytime/development/waitlist/
 
       - name: Create .env on server
         run: |
-          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
             .env \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/storytime/development/waitlist/.env
 
       - name: Install dependencies and restart app
         run: |
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "source ~/.nvm/nvm.sh && cd /home/${{ secrets.SERVER_USER }}/storytime/development/waitlist && pnpm install --prod --no-frozen-lockfile && (npx pm2 restart storytime-waitlist-development --update-env || npx pm2 start ecosystem.config.js --only storytime-waitlist-development) && npx pm2 save"
+            "source ~/.nvm/nvm.sh && cd /home/${{ secrets.SERVER_USER }}/storytime/development/waitlist && pnpm install --prod --frozen-lockfile && (npx pm2 restart storytime-waitlist-development --update-env || npx pm2 start ecosystem.config.js --only storytime-waitlist-development) && npx pm2 save"
 
       - name: Notify deployment status
         if: always()
