@@ -111,15 +111,24 @@ jobs:
           rsync -avz --delete \
             --exclude='.git' \
             --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='.env' \
+            --exclude='src' \
             -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
-            dist/ ecosystem.config.js \
+            .next/ public/ package.json pnpm-lock.yaml next.config.mjs ecosystem.config.js \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/storytime/production/waitlist/
 
-      - name: Restart app with pm2
+      - name: Create .env on server
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "source ~/.nvm/nvm.sh && cd /home/${{ secrets.SERVER_USER }}/storytime/production/waitlist && (npx pm2 restart storytime-waitlist-production --update-env || npx pm2 start ecosystem.config.js --only storytime-waitlist-production) && npx pm2 save"
+            "echo '${{ secrets.ENV_FILE }}' > /home/${{ secrets.SERVER_USER }}/storytime/production/waitlist/.env"
+
+      - name: Install dependencies and restart app
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+            "source ~/.nvm/nvm.sh && cd /home/${{ secrets.SERVER_USER }}/storytime/production/waitlist && pnpm install --prod --no-frozen-lockfile && (npx pm2 restart storytime-waitlist-production --update-env || npx pm2 start ecosystem.config.js --only storytime-waitlist-production) && npx pm2 save"
 
       - name: Notify deployment status
         if: always()
