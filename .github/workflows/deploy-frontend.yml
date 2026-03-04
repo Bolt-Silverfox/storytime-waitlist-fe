@@ -120,9 +120,9 @@ jobs:
 
       - name: Create .env on server
         run: |
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
-            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "echo '${{ secrets.ENV_FILE }}' > /home/${{ secrets.SERVER_USER }}/storytime/production/waitlist/.env"
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+            .env \
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/storytime/production/waitlist/.env
 
       - name: Install dependencies and restart app
         run: |
