@@ -131,7 +131,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "source ~/.nvm/nvm.sh && cd /home/${{ secrets.SERVER_USER }}/storytime/production/waitlist && pnpm install --prod --frozen-lockfile && (npx pm2 restart storytime-waitlist-production --update-env || npx pm2 start ecosystem.config.js --only storytime-waitlist-production) && npx pm2 save"
+            "source ~/.nvm/nvm.sh && cd /home/${{ secrets.SERVER_USER }}/storytime/production/waitlist && pnpm install --prod && (npx pm2 restart storytime-waitlist-production --update-env || npx pm2 start ecosystem.config.js --only storytime-waitlist-production) && npx pm2 save"
 
       - name: Notify deployment status
         if: always()
