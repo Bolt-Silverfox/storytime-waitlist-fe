@@ -55,7 +55,9 @@ jobs:
           version: 9
 
       - name: Create .env file
-        run: echo "${{ secrets.ENV_FILE }}" > .env
+        run: echo "$ENV_FILE_CONTENT" > .env
+        env:
+          ENV_FILE_CONTENT: ${{ secrets.ENV_FILE }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -85,7 +87,9 @@ jobs:
           version: 9
 
       - name: Create .env file
-        run: echo "${{ secrets.ENV_FILE }}" > .env
+        run: echo "$ENV_FILE_CONTENT" > .env
+        env:
+          ENV_FILE_CONTENT: ${{ secrets.ENV_FILE }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -93,45 +97,95 @@ jobs:
       - name: Build frontend
         run: pnpm build
 
+      - name: Prepare standalone deployment
+        run: |
+          cp -r .next/static .next/standalone/.next/static
+          [ -d public ] && cp -r public .next/standalone/public
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
 
       - name: Ensure deployment directory exists
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
-            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "mkdir -p /home/${{ secrets.SERVER_USER }}/storytime/development/waitlist"
+            "$DEPLOY_TARGET" \
+            "mkdir -p /home/$SERVER_USER/storytime/development/waitlist"
+        env:
+          DEPLOY_TARGET: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
 
-      - name: Deploy with rsync
+      - name: Deploy standalone build
         run: |
-          DEPLOY_ITEMS=(".next/" "package.json" "pnpm-lock.yaml" "next.config.mjs" "ecosystem.config.js")
-          [ -d public ] && DEPLOY_ITEMS+=("public/")
           rsync -avz --delete \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='node_modules' \
             --exclude='.env' \
-            --exclude='src' \
             -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts" \
-            "${DEPLOY_ITEMS[@]}" \
-            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/storytime/development/waitlist/
+            .next/standalone/ \
+            ecosystem.config.js \
+            "$DEPLOY_TARGET:/home/$SERVER_USER/storytime/development/waitlist/"
+        env:
+          DEPLOY_TARGET: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+
+      - name: Deploy static assets
+        run: |
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts" \
+            .next/static/ \
+            "$DEPLOY_TARGET:/home/$SERVER_USER/storytime/development/waitlist/.next/static/"
+        env:
+          DEPLOY_TARGET: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+
+      - name: Deploy public assets
+        run: |
+          if [ -d public ]; then
+            rsync -avz --delete \
+              -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts" \
+              public/ \
+              "$DEPLOY_TARGET:/home/$SERVER_USER/storytime/development/waitlist/public/"
+          fi
+        env:
+          DEPLOY_TARGET: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
 
       - name: Create .env on server
         run: |
           scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
             .env \
-            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/storytime/development/waitlist/.env
+            "$DEPLOY_TARGET:/home/$SERVER_USER/storytime/development/waitlist/.env"
+        env:
+          DEPLOY_TARGET: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
 
-      - name: Install dependencies and restart app
+      - name: Deploy nginx config
+        run: |
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
+            nginx.dev.conf \
+            "$DEPLOY_TARGET:/tmp/storytime-waitlist-dev.conf"
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
+            "$DEPLOY_TARGET" \
+            "sudo cp /tmp/storytime-waitlist-dev.conf /etc/nginx/sites-available/storytime-waitlist-dev && \
+             sudo ln -sf /etc/nginx/sites-available/storytime-waitlist-dev /etc/nginx/sites-enabled/ && \
+             sudo nginx -t && sudo systemctl reload nginx"
+        env:
+          DEPLOY_TARGET: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+
+      - name: Restart app
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
-            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "source ~/.nvm/nvm.sh && cd /home/${{ secrets.SERVER_USER }}/storytime/development/waitlist && pnpm install --prod && (npx pm2 restart storytime-waitlist-development --update-env || npx pm2 start ecosystem.config.js --only storytime-waitlist-development) && npx pm2 save"
+            "$DEPLOY_TARGET" \
+            "source ~/.nvm/nvm.sh && cd /home/$SERVER_USER/storytime/development/waitlist && (npx pm2 restart storytime-waitlist-development --update-env || npx pm2 start ecosystem.config.js --only storytime-waitlist-development) && npx pm2 save"
+        env:
+          DEPLOY_TARGET: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
 
       - name: Notify deployment status
         if: always()
