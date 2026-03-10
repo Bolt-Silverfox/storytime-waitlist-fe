@@ -165,19 +165,6 @@ jobs:
           DEPLOY_TARGET: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
           SERVER_USER: ${{ secrets.SERVER_USER }}
 
-      - name: Deploy nginx config
-        run: |
-          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
-            nginx.dev.conf \
-            "$DEPLOY_TARGET:/tmp/storytime-waitlist-dev.conf"
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
-            "$DEPLOY_TARGET" \
-            "sudo cp /tmp/storytime-waitlist-dev.conf /etc/nginx/sites-available/storytime-waitlist-dev && \
-             sudo ln -sf /etc/nginx/sites-available/storytime-waitlist-dev /etc/nginx/sites-enabled/ && \
-             sudo nginx -t && sudo systemctl reload nginx"
-        env:
-          DEPLOY_TARGET: ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
-
       - name: Restart app
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts \
