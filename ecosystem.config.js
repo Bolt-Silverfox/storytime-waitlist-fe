@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "storytime-waitlist-production",
-      script: ".next/standalone/server.js",
+      script: "server.js",
       cwd: "/home/ubuntu/storytime/production/waitlist",
       env: {
         NODE_ENV: "production",
@@ -12,7 +12,7 @@ module.exports = {
     },
     {
       name: "storytime-waitlist-development",
-      script: ".next/standalone/server.js",
+      script: "server.js",
       cwd: "/home/ubuntu/storytime/development/waitlist",
       env: {
         NODE_ENV: "development",
