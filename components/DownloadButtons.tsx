@@ -46,7 +46,7 @@ export default function DownloadButtons({
           </p>
         </div>
       </a>
-      <a
+      {/* <a
         href="https://testflight.apple.com/join/NEfq19wH"
         target="_blank"
         rel="noopener noreferrer"
@@ -76,7 +76,7 @@ export default function DownloadButtons({
             App Store
           </p>
         </div>
-      </a>
+      </a> */}
     </div>
   );
 }
