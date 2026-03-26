@@ -3,29 +3,9 @@
 // After moving directories to the project root, the relative paths changed
 import FaqComponent from "./FaqComponent";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { type SanityFaqCategory, type SanityFaq } from "../lib/sanity";
 
-function FaqSkeleton() {
-  return (
-    <div className="animate-pulse">
-      <div className="h-14 w-full rounded-lg bg-gray-200" />
-    </div>
-  );
-}
-
-function CategorySkeleton() {
-  return (
-    <div className="flex gap-4 overflow-x-auto">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <div
-          key={i}
-          className="h-10 w-32 animate-pulse rounded-full bg-gray-200"
-        />
-      ))}
-    </div>
-  );
-}
 
 interface FAQClientProps {
   initialCategories: SanityFaqCategory[];

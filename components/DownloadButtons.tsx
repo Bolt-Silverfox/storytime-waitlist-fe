@@ -4,7 +4,6 @@ import { trackCTAClick } from "../lib/analytics";
 import Image from "next/image";
 
 const googlePlayIcon = "/squeeze/google.svg";
-const iosIcon = "/squeeze/ios.svg";
 
 export default function DownloadButtons({
   color,
