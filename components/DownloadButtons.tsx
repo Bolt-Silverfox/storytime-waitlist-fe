@@ -4,7 +4,6 @@ import { trackCTAClick } from "../lib/analytics";
 import Image from "next/image";
 
 const googlePlayIcon = "/squeeze/google.svg";
-const iosIcon = "/squeeze/ios.svg";
 
 export default function DownloadButtons({
   color,
@@ -46,7 +45,7 @@ export default function DownloadButtons({
           </p>
         </div>
       </a>
-      <a
+      {/* <a
         href="https://testflight.apple.com/join/NEfq19wH"
         target="_blank"
         rel="noopener noreferrer"
@@ -76,7 +75,7 @@ export default function DownloadButtons({
             App Store
           </p>
         </div>
-      </a>
+      </a> */}
     </div>
   );
 }

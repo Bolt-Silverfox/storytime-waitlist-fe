@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import postimage from "../assets/postImg.png";
-import envelop from "../assets/Envelop.png";
+import postimage from "../assets/postimg.png";
+import envelop from "../assets/envelop.png";
 import { WAITLIST_API } from "../constants";
 
 const contactSchema = z.object({
@@ -64,11 +64,15 @@ const ContactUs: React.FC = () => {
 
       if (!request.ok) {
         throw new Error(
-          response.message || response.error || request.statusText
+          response.message || response.error || request.statusText,
         );
       }
 
-      toast.success(response.data?.message || response.message || "Message sent successfully!");
+      toast.success(
+        response.data?.message ||
+          response.message ||
+          "Message sent successfully!",
+      );
       formRef.current?.reset();
     } catch (err: unknown) {
       const errMessage =
@@ -83,7 +87,7 @@ const ContactUs: React.FC = () => {
     <div className="mt-5 flex w-full flex-col items-center px-4 py-6">
       <div className="relative flex w-full max-w-5xl flex-col items-start justify-center gap-10 lg:flex-row">
         <div className="absolute top-40 left-0 hidden w-[200px] lg:block">
-          <img src={postimage} alt="Mailbox" className="h-auto w-full" />
+          <img src={postimage.src} alt="Mailbox" className="h-auto w-full" />
         </div>
 
         <form
@@ -92,7 +96,10 @@ const ContactUs: React.FC = () => {
           className="z-10 mx-auto flex w-full max-w-md flex-col gap-4"
         >
           <div className="flex flex-col gap-1">
-            <label htmlFor="name" className="px-2 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="px-2 text-sm font-medium text-gray-700"
+            >
               Full Name
             </label>
             <input
@@ -111,7 +118,10 @@ const ContactUs: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="email" className="px-2 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="px-2 text-sm font-medium text-gray-700"
+            >
               Email Address
             </label>
             <input
@@ -130,7 +140,10 @@ const ContactUs: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="message" className="px-2 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="message"
+              className="px-2 text-sm font-medium text-gray-700"
+            >
               Message
             </label>
             <textarea
@@ -143,7 +156,9 @@ const ContactUs: React.FC = () => {
               }`}
             />
             {errors.message && (
-              <span className="px-2 text-sm text-red-500">{errors.message}</span>
+              <span className="px-2 text-sm text-red-500">
+                {errors.message}
+              </span>
             )}
           </div>
 
@@ -157,7 +172,7 @@ const ContactUs: React.FC = () => {
         </form>
 
         <div className="absolute top-0 right-0 hidden w-[280px] lg:block">
-          <img src={envelop} alt="Envelope" className="h-auto w-full" />
+          <img src={envelop.src} alt="Envelope" className="h-auto w-full" />
         </div>
       </div>
     </div>

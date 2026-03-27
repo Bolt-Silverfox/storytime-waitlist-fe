@@ -3,62 +3,26 @@
 // After moving directories to the project root, the relative paths changed
 import FaqComponent from "./FaqComponent";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import {
-  getFaqCategories,
-  getFaqs,
-  type SanityFaqCategory,
-  type SanityFaq,
-} from "../lib/sanity";
+import { useState } from "react";
+import { type SanityFaqCategory, type SanityFaq } from "../lib/sanity";
 
-function FaqSkeleton() {
-  return (
-    <div className="animate-pulse">
-      <div className="h-14 w-full rounded-lg bg-gray-200" />
-    </div>
-  );
+
+interface FAQClientProps {
+  initialCategories: SanityFaqCategory[];
+  initialFaqs: SanityFaq[];
 }
 
-function CategorySkeleton() {
-  return (
-    <div className="flex gap-4 overflow-x-auto">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <div
-          key={i}
-          className="h-10 w-32 animate-pulse rounded-full bg-gray-200"
-        />
-      ))}
-    </div>
-  );
-}
-
-export default function FAQClient() {
+export default function FAQClient({
+  initialCategories,
+  initialFaqs,
+}: FAQClientProps) {
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState<string | null>(null);
-  const [categories, setCategories] = useState<SanityFaqCategory[]>([]);
-  const [faqs, setFaqs] = useState<SanityFaq[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [category, setCategory] = useState<string | null>(
+    initialCategories.length > 0 ? initialCategories[0]._id : null,
+  );
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const [fetchedCategories, fetchedFaqs] = await Promise.all([
-          getFaqCategories(),
-          getFaqs(),
-        ]);
-        setCategories(fetchedCategories);
-        setFaqs(fetchedFaqs);
-        if (fetchedCategories.length > 0) {
-          setCategory(fetchedCategories[0]._id);
-        }
-      } catch (error) {
-        console.error("Error fetching FAQs:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
+  const categories = initialCategories;
+  const faqs = initialFaqs;
 
   const filteredFaqs = faqs.filter((f) => {
     const matchesSearch = f.question
@@ -104,35 +68,22 @@ export default function FAQClient() {
         />
 
         {/* Categories */}
-        {loading ? (
-          <div className="mt-12 w-full max-w-[620px] md:max-w-full lg:flex lg:justify-center">
-            <CategorySkeleton />
-          </div>
-        ) : (
-          <div className="mt-12 w-full overflow-x-auto pb-2">
-            <ul className="font-abezee flex w-max min-w-full items-center justify-start gap-3 px-4 text-[14px] leading-normal text-[#3F1102] md:justify-center md:gap-4 md:text-[15px]">
-              {categories.map((c) => (
-                <li
-                  key={c._id}
-                  onClick={() => setCategory(c._id)}
-                  className={`h-auto shrink-0 cursor-pointer rounded-full px-4 py-2 md:px-[21px] ${category === c._id ? "bg-[#EC4007] text-white" : "border border-[#4F4C4B] text-[#4F4C4B]"} `}
-                >
-                  <span className="whitespace-nowrap">{c.title}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
+        <div className="mt-12 w-full overflow-x-auto pb-2">
+          <ul className="font-abezee flex w-max min-w-full items-center justify-start gap-3 px-4 text-[14px] leading-normal text-[#3F1102] md:justify-center md:gap-4 md:text-[15px]">
+            {categories.map((c) => (
+              <li
+                key={c._id}
+                onClick={() => setCategory(c._id)}
+                className={`h-auto shrink-0 cursor-pointer rounded-full px-4 py-2 md:px-[21px] ${category === c._id ? "bg-[#EC4007] text-white" : "border border-[#4F4C4B] text-[#4F4C4B]"} `}
+              >
+                <span className="whitespace-nowrap">{c.title}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
         {/* FAQs */}
         <div className="mt-[61px] flex w-full max-w-[620px] flex-col gap-5 md:gap-8">
-          {loading ? (
-            <>
-              {[1, 2, 3, 4, 5].map((i) => (
-                <FaqSkeleton key={i} />
-              ))}
-            </>
-          ) : filteredFaqs.length > 0 ? (
+          {filteredFaqs.length > 0 ? (
             filteredFaqs.map((faq) => (
               <FaqComponent
                 key={faq._id}

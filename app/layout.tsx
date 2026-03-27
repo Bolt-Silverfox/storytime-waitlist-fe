@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ClientProviders from "../components/providers/ClientProviders";
+import MetaPixel from "../components/MetaPixel";
 import "../index.css";
 
 export const metadata: Metadata = {
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Storytime",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Storytime - Interactive Stories for Kids",
@@ -42,7 +44,7 @@ export const metadata: Metadata = {
     title: "Storytime | Interactive Stories for Kids",
     description:
       "Join the early access list for Storytime, an interactive storytelling app with animated stories and AI read-along voices for kids.",
-    images: ["/og-image.png"],
+    images: ["/preview-img.jpg"],
   },
   alternates: {
     canonical: "https://storytime.app",
@@ -64,6 +66,9 @@ export default function RootLayout({
       </head>
       <body>
         <ClientProviders>{children}</ClientProviders>
+        <Suspense fallback={null}>
+          <MetaPixel />
+        </Suspense>
       </body>
     </html>
   );
