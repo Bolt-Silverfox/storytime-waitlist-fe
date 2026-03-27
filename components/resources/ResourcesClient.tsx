@@ -32,7 +32,7 @@ const ResourcesClient: React.FC<ResourcesClientProps> = ({ resources }) => {
                 id={resource.id}
                 title={resource.title}
                 imageSrc={resource.imageSrc}
-                excerpt={resource.description[0]}
+                excerpt={resource.description[0] ?? ""}
               />
             ))
           ) : (

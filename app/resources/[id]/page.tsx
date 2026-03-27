@@ -26,7 +26,7 @@ export async function generateMetadata({
 
   return {
     title: `${resource.title} | Resources | Storytime`,
-    description: resource.description[0].substring(0, 160),
+    description: resource.description[0]?.substring(0, 160) ?? "",
   };
 }
 

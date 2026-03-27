@@ -28,7 +28,12 @@ const ResourceSignUp: React.FC = () => {
         body: JSON.stringify(payload),
       });
 
-      const response = await request.json();
+      let response: { message?: string; error?: string } = {};
+      try {
+        response = await request.json();
+      } catch {
+        // non-JSON body
+      }
 
       if (!request.ok) {
         throw new Error(
@@ -61,7 +66,7 @@ const ResourceSignUp: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="mx-auto max-w-[600px] space-y-4">
         <div className="text-left">
-          <label className="font-abezee mb-1.5 block text-sm font-medium text-[#231F1E]">
+          <label htmlFor="parentName" className="font-abezee mb-1.5 block text-sm font-medium text-[#231F1E]">
             Full name
           </label>
           <div className="relative">
@@ -70,6 +75,7 @@ const ResourceSignUp: React.FC = () => {
               size={20}
             />
             <input
+              id="parentName"
               type="text"
               placeholder="Enter your full name"
               required
@@ -81,7 +87,7 @@ const ResourceSignUp: React.FC = () => {
         </div>
 
         <div className="text-left">
-          <label className="font-abezee mb-1.5 block text-sm font-medium text-[#231F1E]">
+          <label htmlFor="email" className="font-abezee mb-1.5 block text-sm font-medium text-[#231F1E]">
             Email address
           </label>
           <div className="relative">
@@ -90,6 +96,7 @@ const ResourceSignUp: React.FC = () => {
               size={20}
             />
             <input
+              id="email"
               type="email"
               placeholder="Enter your email address"
               required
