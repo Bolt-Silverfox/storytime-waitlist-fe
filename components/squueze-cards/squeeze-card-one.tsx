@@ -26,9 +26,9 @@ interface SqueezeCardOneProps {
 const SqueezeCardOne = ({ isExpanded, onToggle }: SqueezeCardOneProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [characters, setCharacters] = useState<VoiceCharacter[]>([
-    { name: "Cosmo", avatar: cosmo, bgColor: "#fbbf24", active: true }, // yellow-400
-    { name: "Fanice", avatar: fanice, bgColor: "#0d9488", active: false }, // teal-600
-    { name: "Nimbus", avatar: nimbus, bgColor: "#d1d5db", active: false }, // gray-300
+    { name: "Cosmo", avatar: cosmo.src, bgColor: "#fbbf24", active: true }, // yellow-400
+    { name: "Fanice", avatar: fanice.src, bgColor: "#0d9488", active: false }, // teal-600
+    { name: "Nimbus", avatar: nimbus.src, bgColor: "#d1d5db", active: false }, // gray-300
   ]);
 
   useEffect(() => {
