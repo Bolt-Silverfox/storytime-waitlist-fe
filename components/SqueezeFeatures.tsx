@@ -2,7 +2,7 @@
 
 import { useState, type Dispatch, type SetStateAction } from "react";
 import Image from "next/image";
-import { featuresData, featureTitles, type Features } from "../../data";
+import { featuresData, featureTitles, type Features } from "../data";
 
 const SqueezeFeaturesSection = () => {
   const [currentlyDisplayed, setCurrentlyDisplayed] = useState(1);
