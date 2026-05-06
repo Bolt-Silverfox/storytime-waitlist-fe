@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import postimage from "../assets/postImg.png";
 import envelop from "../assets/Envelop.png";
+import Image from "next/image";
 import { WAITLIST_API } from "../constants";
 
 const contactSchema = z.object({
@@ -83,7 +84,7 @@ const ContactUs: React.FC = () => {
     <div className="mt-5 flex w-full flex-col items-center px-4 py-6">
       <div className="relative flex w-full max-w-5xl flex-col items-start justify-center gap-10 lg:flex-row">
         <div className="absolute top-40 left-0 hidden w-[200px] lg:block">
-          <img src={postimage} alt="Mailbox" className="h-auto w-full" />
+          <Image src={postimage} alt="Mailbox" className="h-auto w-full" />
         </div>
 
         <form
@@ -157,7 +158,7 @@ const ContactUs: React.FC = () => {
         </form>
 
         <div className="absolute top-0 right-0 hidden w-[280px] lg:block">
-          <img src={envelop} alt="Envelope" className="h-auto w-full" />
+          <Image src={envelop} alt="Envelope" className="h-auto w-full" />
         </div>
       </div>
     </div>
