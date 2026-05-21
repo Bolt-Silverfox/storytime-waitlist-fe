@@ -15,9 +15,18 @@ const ResourceSignUp: React.FC = () => {
     setIsLoading(true);
 
     try {
+      const trimmedName = parentName.trim();
+      const trimmedEmail = email.trim();
+
+      if (!trimmedName || !trimmedEmail) {
+        toast.error("Please provide a valid name and email.");
+        setIsLoading(false);
+        return;
+      }
+
       const payload = {
-        name: parentName,
-        email: email,
+        name: trimmedName,
+        email: trimmedEmail,
       };
 
       const request = await fetch(`${WAITLIST_API}/waitlist/subscribe`, {
@@ -54,7 +63,7 @@ const ResourceSignUp: React.FC = () => {
   };
 
   return (
-    <div className="mt-16 mx-auto overflow-hidden rounded-[32px] bg-[#FCF5F0] pt-[48px] pb-[32px] text-center  max-w-[650px]">
+    <div className="mx-auto mt-16 max-w-[650px] overflow-hidden rounded-[32px] bg-[#FCF5F0] pt-[48px] pb-[32px] text-center">
       <h2 className="font-Qilka mb-2 text-2xl font-bold text-[#231F1E] md:text-3xl">
         Interested in our product?
       </h2>
@@ -66,7 +75,10 @@ const ResourceSignUp: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="mx-auto max-w-[600px] space-y-4">
         <div className="text-left">
-          <label htmlFor="parentName" className="font-abezee mb-1.5 block text-sm font-medium text-[#231F1E]">
+          <label
+            htmlFor="parentName"
+            className="font-abezee mb-1.5 block text-sm font-medium text-[#231F1E]"
+          >
             Full name
           </label>
           <div className="relative">
@@ -87,7 +99,10 @@ const ResourceSignUp: React.FC = () => {
         </div>
 
         <div className="text-left">
-          <label htmlFor="email" className="font-abezee mb-1.5 block text-sm font-medium text-[#231F1E]">
+          <label
+            htmlFor="email"
+            className="font-abezee mb-1.5 block text-sm font-medium text-[#231F1E]"
+          >
             Email address
           </label>
           <div className="relative">

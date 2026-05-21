@@ -12,7 +12,7 @@ export default function MetaPixel() {
   const hasTrackedInitialRender = useRef(false);
 
   useEffect(() => {
-    if (!FB_PIXEL_ID) return;
+    if (!FB_PIXEL_ID || !/^\d+$/.test(FB_PIXEL_ID)) return;
     if (!hasTrackedInitialRender.current) {
       hasTrackedInitialRender.current = true;
       return;
@@ -21,9 +21,9 @@ export default function MetaPixel() {
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "PageView");
     }
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams?.toString()]);
 
-  if (!FB_PIXEL_ID) return null;
+  if (!FB_PIXEL_ID || !/^\d+$/.test(FB_PIXEL_ID)) return null;
 
   return (
     <>

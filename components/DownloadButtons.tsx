@@ -47,7 +47,7 @@ export default function DownloadButtons({
         </div>
       </a>
       <a
-        href="https://testflight.apple.com/join/NEfq19wH"
+        href="https://apps.apple.com/ng/app/storytime-books-quizzes/id6756060805"
         target="_blank"
         rel="noopener noreferrer"
         className={`group relative flex shrink-0 cursor-pointer items-center justify-center gap-3 overflow-clip rounded-[100px] px-5 py-3 transition-colors md:gap-4 md:px-[25px] md:py-[15px] ${
