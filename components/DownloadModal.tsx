@@ -4,7 +4,7 @@ import { type MouseEvent } from "react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 // adjust path after relocating components to root
-import qrCode from "../public/landingpage/qr.svg";
+import qrCode from "../public/landingpage/qr-code.svg";
 import DownloadButtons from "./DownloadButtons";
 
 interface DownloadModalProps {
