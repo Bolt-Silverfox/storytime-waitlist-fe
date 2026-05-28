@@ -30,7 +30,7 @@ const privacyPolicyData: {
   {
     heading: "Third-Party Services",
     paragraph:
-      "If we use external services such as Firebase or analytics tools, they may only access non-personal usage data. They cannot collect names, photos, addresses, or personal details of any child.",
+      "If we use external services such as Firebase or analytics tools (including Meta Pixel), they may process usage events, device/browser signals, and timestamps to help us understand app and marketing performance. We restrict vendors from using children's names, photos, addresses, or other direct personal identifiers for tracking, and parents can contact us to request deletion or opt out where available.",
     index: "V",
   },
   {
