@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { type SanityFaqCategory, type SanityFaq } from "../lib/sanity";
 
-
 interface FAQClientProps {
   initialCategories: SanityFaqCategory[];
   initialFaqs: SanityFaq[];
@@ -71,12 +70,15 @@ export default function FAQClient({
         <div className="mt-12 w-full overflow-x-auto pb-2">
           <ul className="font-abezee flex w-max min-w-full items-center justify-start gap-3 px-4 text-[14px] leading-normal text-[#3F1102] md:justify-center md:gap-4 md:text-[15px]">
             {categories.map((c) => (
-              <li
-                key={c._id}
-                onClick={() => setCategory(c._id)}
-                className={`h-auto shrink-0 cursor-pointer rounded-full px-4 py-2 md:px-[21px] ${category === c._id ? "bg-[#EC4007] text-white" : "border border-[#4F4C4B] text-[#4F4C4B]"} `}
-              >
-                <span className="whitespace-nowrap">{c.title}</span>
+              <li key={c._id} className="h-auto shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setCategory(c._id)}
+                  aria-pressed={category === c._id}
+                  className={`cursor-pointer rounded-full px-4 py-2 md:px-[21px] ${category === c._id ? "bg-[#EC4007] text-white" : "border border-[#4F4C4B] text-[#4F4C4B]"}`}
+                >
+                  <span className="whitespace-nowrap">{c.title}</span>
+                </button>
               </li>
             ))}
           </ul>

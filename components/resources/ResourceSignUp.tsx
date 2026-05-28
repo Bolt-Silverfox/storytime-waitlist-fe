@@ -15,9 +15,17 @@ const ResourceSignUp: React.FC = () => {
     setIsLoading(true);
 
     try {
+      const normalizedName = parentName.trim();
+      const normalizedEmail = email.trim().toLowerCase();
+
+      if (!normalizedName || !normalizedEmail) {
+        toast.error("Please enter a valid name and email.");
+        return;
+      }
+
       const payload = {
-        name: parentName,
-        email: email,
+        name: normalizedName,
+        email: normalizedEmail,
       };
 
       const request = await fetch(`${WAITLIST_API}/waitlist/subscribe`, {
