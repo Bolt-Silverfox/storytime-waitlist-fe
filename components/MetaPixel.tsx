@@ -9,10 +9,12 @@ const FB_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 export default function MetaPixel() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const searchParamsKey = searchParams?.toString() ?? "";
+  const isValidPixelId = !!FB_PIXEL_ID && /^\d+$/.test(FB_PIXEL_ID);
   const hasTrackedInitialRender = useRef(false);
 
   useEffect(() => {
-    if (!FB_PIXEL_ID || !/^\d+$/.test(FB_PIXEL_ID)) return;
+    if (!isValidPixelId) return;
     if (!hasTrackedInitialRender.current) {
       hasTrackedInitialRender.current = true;
       return;
@@ -21,9 +23,9 @@ export default function MetaPixel() {
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "PageView");
     }
-  }, [pathname, searchParams?.toString()]);
+  }, [pathname, searchParamsKey, isValidPixelId]);
 
-  if (!FB_PIXEL_ID || !/^\d+$/.test(FB_PIXEL_ID)) return null;
+  if (!isValidPixelId) return null;
 
   return (
     <>
