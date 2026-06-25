@@ -1,51 +1,3 @@
-const privacyPolicyData: {
-  heading: string;
-  paragraph: string;
-  index: string;
-}[] = [
-  {
-    heading: "Information We Collect",
-    paragraph:
-      "We collect only the information needed to improve your child’s experience in StoryTime. We do not collect personal data from children without parental consent. Information collected may include reading progress, app usage, and interaction patterns.",
-    index: "I",
-  },
-  {
-    heading: "How We Use the Information",
-    paragraph:
-      "We use the collected information to personalize reading content, track achievements, remember story preferences, and make the app more engaging and educational for children.",
-    index: "II",
-  },
-  {
-    heading: "How We Protect Your Data",
-    paragraph:
-      "We use secure storage systems, encrypted data handling, and safe parental login features. We may use general analytics tools (like Meta Pixel) to understand how parents find us, but we never use third-party trackers that collect personal information from children.",
-    index: "III",
-  },
-  {
-    heading: "Parents' Rights",
-    paragraph:
-      "Parents can request to view, update, or delete any information stored about their child at any time. We comply with children safety laws including COPPA and general data protection standards.",
-    index: "IV",
-  },
-  {
-    heading: "Third-Party Services",
-    paragraph:
-      "If we use external services such as Firebase or analytics tools (including Meta Pixel), they may process usage events, device/browser signals, and timestamps to help us understand app and marketing performance. We restrict vendors from using children's names, photos, addresses, or other direct personal identifiers for tracking, and parents can contact us to request deletion or opt out where available.",
-    index: "V",
-  },
-  {
-    heading: "Updates to This Policy",
-    paragraph:
-      "We may update this policy occasionally. Parents will be notified of important changes through the app or email.",
-    index: "VI",
-  },
-  {
-    heading: "Contact US",
-    paragraph: "mail: team@storytimeapp.me",
-    index: "VII",
-  },
-];
-
 const howItWorksData = [
   {
     src:"./how-it-works/choose-a-story.png",
@@ -211,7 +163,6 @@ const featuresData = [
 
 export type { Features };
 export {
-  privacyPolicyData,
   howItWorksData,
   resourcesData,
   featuresData,
