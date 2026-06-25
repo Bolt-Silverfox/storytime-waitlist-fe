@@ -16,7 +16,9 @@ export async function generateMetadata({
   params,
 }: ResourcePageProps): Promise<Metadata> {
   const { id } = await params;
-  const resource = resourcesData.find((r) => r.id === parseInt(id));
+  const resource = /^\d+$/.test(id)
+    ? resourcesData.find((r) => r.id === Number(id))
+    : undefined;
 
   if (!resource) {
     return {
@@ -34,14 +36,16 @@ export default async function ResourceDetailPage({
   params,
 }: ResourcePageProps) {
   const { id } = await params;
-  const resource = resourcesData.find((r) => r.id === parseInt(id));
+  const resource = /^\d+$/.test(id)
+    ? resourcesData.find((r) => r.id === Number(id))
+    : undefined;
 
   if (!resource) {
     notFound();
   }
 
   return (
-    <div className="mx-auto max-w-[1200px] py-16 ">
+    <div className="mx-auto max-w-[1200px] py-16">
       <Link
         href="/resources"
         className="font-abezee text-primary mb-8 flex items-center gap-2 transition-all hover:gap-3"
@@ -75,7 +79,7 @@ export default async function ResourceDetailPage({
             if (isListItem) {
               return (
                 <div key={index} className="flex gap-4">
-                  <span className="font-Qilka text-primary flex-shrink-0 text-xl font-bold">
+                  <span className="font-Qilka text-primary shrink-0 text-xl font-bold">
                     {paragraph.split(".")[0]}.
                   </span>
                   <p className="font-abezee text-lg leading-relaxed text-[#4F4C4B]">

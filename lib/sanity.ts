@@ -149,3 +149,30 @@ export async function getTermsAndConditions(): Promise<
     }
   `);
 }
+
+// Privacy Policy Types and Functions
+export interface SanityPrivacyPolicy {
+  _id: string;
+  heading: string;
+  index: string;
+  contentType: "paragraph" | "list";
+  paragraph: string | null;
+  listItems: string[] | null;
+  order: number;
+}
+
+export async function getPrivacyPolicy(): Promise<
+  SanityPrivacyPolicy[]
+> {
+  return sanityClient.fetch(`
+    *[_type == "privacyPolicy"] | order(order asc) {
+      _id,
+      heading,
+      index,
+      contentType,
+      paragraph,
+      listItems,
+      order
+    }
+  `);
+}

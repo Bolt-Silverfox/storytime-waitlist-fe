@@ -1,28 +1,20 @@
 import type { Metadata } from "next";
-import PageTitle from "../../components/PageTitle";
-import { privacyPolicyData } from "../../data";
+import { getPrivacyPolicy } from "../../lib/sanity";
+import PrivacyPolicyClient from "./PrivacyPolicyClient";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Storytime",
   description: "Read our privacy policy to understand how we handle your data.",
 };
 
-export default function PrivacyPolicyPage() {
-  return (
-    <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 md:gap-y-14 md:px-10">
-      <PageTitle title="Privacy policy" />
-      <ul className="flex flex-1 flex-col gap-y-6">
-        {privacyPolicyData.map((policy: any) => (
-          <li key={policy.index} className="flex flex-col gap-y-2">
-            <h2 className="font-Qilka text-base font-bold">
-              {policy.index}. {policy.heading}
-            </h2>
-            <p className="font-abezee text-sm leading-6 text-[#212121]">
-              {policy.paragraph}
-            </p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+export default async function PrivacyPolicyPage() {
+  let privacyPolicy: Awaited<ReturnType<typeof getPrivacyPolicy>> = [];
+
+  try {
+    privacyPolicy = await getPrivacyPolicy();
+  } catch (error) {
+    console.error("Failed to load privacy policy:", error);
+  }
+
+  return <PrivacyPolicyClient privacyPolicy={privacyPolicy} />;
 }
