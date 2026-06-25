@@ -9,6 +9,20 @@ const debugLog = (...args: any[]) => {
   }
 };
 
+/**
+ * Hash an identifier with SHA-256 (lowercase + trim) for Meta Advanced Matching.
+ * See https://www.facebook.com/business/help/your-pixel-and-advanced-matching
+ */
+async function hashForAdvancedMatching(value: string | undefined) {
+  if (!value) return undefined;
+  const normalized = value.trim().toLowerCase();
+  const data = new TextEncoder().encode(normalized);
+  const buffer = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(buffer))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
 // Track custom events
 export const trackMetaPixelEvent = (
   eventName: string,
@@ -56,11 +70,33 @@ export const trackPurchase = (params?: Record<string, any>) => {
   trackMetaPixelEvent("Purchase", params);
 };
 
-// Standard events for waitlist
-export const trackWaitlistSignup = (email: string, name?: string) => {
+/**
+ * Waitlist signup tracking. Email and name are forwarded to Meta via Advanced
+ * Matching (fbq("init", id, {em, fn})) with SHA-256 hashes so plaintext
+ * identifiers never leave the browser. The CompleteRegistration event itself
+ * carries only non-PII parameters.
+ */
+export const trackWaitlistSignup = async (email: string, name?: string) => {
+  if (
+    typeof window !== "undefined" &&
+    (window as any).fbq &&
+    FB_PIXEL_ID
+  ) {
+    const advancedMatching: Record<string, string> = {};
+    const em = await hashForAdvancedMatching(email);
+    const fn = await hashForAdvancedMatching(name);
+    if (em) advancedMatching.em = em;
+    if (fn) advancedMatching.fn = fn;
+    if (Object.keys(advancedMatching).length > 0) {
+      try {
+        (window as any).fbq("init", FB_PIXEL_ID, advancedMatching);
+      } catch (error) {
+        debugLog("Error setting Advanced Matching:", error);
+      }
+    }
+  }
+
   trackCompleteRegistration({
-    email,
-    ...(name && { name }),
     content_name: "Waitlist Signup",
     status: true,
   });
