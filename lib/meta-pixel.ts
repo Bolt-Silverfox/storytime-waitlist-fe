@@ -83,16 +83,19 @@ export const trackWaitlistSignup = async (email: string, name?: string) => {
     FB_PIXEL_ID
   ) {
     const advancedMatching: Record<string, string> = {};
-    const em = await hashForAdvancedMatching(email);
-    const fn = await hashForAdvancedMatching(name);
-    if (em) advancedMatching.em = em;
-    if (fn) advancedMatching.fn = fn;
-    if (Object.keys(advancedMatching).length > 0) {
-      try {
+    try {
+      const em = await hashForAdvancedMatching(email);
+      const fn = await hashForAdvancedMatching(name);
+      if (em) advancedMatching.em = em;
+      if (fn) advancedMatching.fn = fn;
+      if (Object.keys(advancedMatching).length > 0) {
         (window as any).fbq("init", FB_PIXEL_ID, advancedMatching);
-      } catch (error) {
-        debugLog("Error setting Advanced Matching:", error);
       }
+    } catch (error) {
+      // Advanced Matching is best-effort; the CompleteRegistration event
+      // below must still fire even if hashing fails (e.g. not in a secure
+      // context, or crypto.subtle is unavailable).
+      debugLog("Error setting Advanced Matching:", error);
     }
   }
 
