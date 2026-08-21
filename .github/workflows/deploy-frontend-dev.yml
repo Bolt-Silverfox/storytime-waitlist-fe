@@ -16,6 +16,11 @@ jobs:
     environment: development
 
     steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+        with:
+          egress-policy: audit
+
       - name: Checkout code
         uses: actions/checkout@v6
 
@@ -30,7 +35,7 @@ jobs:
           version: 9
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Run lint
         run: pnpm lint
@@ -41,6 +46,11 @@ jobs:
     environment: development
 
     steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+        with:
+          egress-policy: audit
+
       - name: Checkout code
         uses: actions/checkout@v6
 
@@ -60,7 +70,7 @@ jobs:
           ENV_FILE_CONTENT: ${{ secrets.ENV_FILE }}
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Build frontend
         run: pnpm build
@@ -73,6 +83,11 @@ jobs:
     environment: development
 
     steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+        with:
+          egress-policy: audit
+
       - name: Checkout code
         uses: actions/checkout@v6
 
@@ -92,7 +107,7 @@ jobs:
           ENV_FILE_CONTENT: ${{ secrets.ENV_FILE }}
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Build frontend
         run: pnpm build
