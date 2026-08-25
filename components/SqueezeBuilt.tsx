@@ -8,13 +8,13 @@ import SqueezeCardOne from "./squueze-cards/squeeze-card-one";
 import SqueezeCardThree from "./squueze-cards/squeeze-card-three";
 import SqueezeCardFour from "./squueze-cards/squeeze-card-four";
 import SqueezeCardSix from "./squueze-cards/squeeze-card-six";
-import JoinEarlyModal from "./JoinEarlyModal";
+import DownloadModal from "./DownloadModal";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SqueezeBuilt = () => {
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(0);
-  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window !== "undefined") {
       return window.innerWidth < 768;
@@ -153,14 +153,14 @@ const SqueezeBuilt = () => {
           />
         </div>
         <button
-          onClick={() => setIsJoinModalOpen(true)}
+          onClick={() => setIsDownloadModalOpen(true)}
           className="font-abezee cursor-pointer rounded-[6.25rem] bg-[#EC4007] px-6 py-2 text-lg leading-normal font-normal text-white not-italic transition-all hover:bg-[#d13706] md:px-8 md:py-2.5 md:text-xl md:leading-[2.26325rem]"
         >
-          Join Early Access
+          Download App
         </button>
       </div>
-      {isJoinModalOpen && (
-        <JoinEarlyModal onClose={() => setIsJoinModalOpen(false)} />
+      {isDownloadModalOpen && (
+        <DownloadModal onClose={() => setIsDownloadModalOpen(false)} />
       )}
     </section>
   );

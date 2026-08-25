@@ -7,10 +7,10 @@ import lilaBig from "../public/squeeze/lila-big.png";
 import milaBig from "../public/squeeze/mila-big.png";
 import talesBig from "../public/squeeze/tales-big.png";
 import { useState } from "react";
-import JoinEarlyModal from "./JoinEarlyModal";
+import DownloadModal from "./DownloadModal";
 
 const SqueezeGrow = () => {
-  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   return (
     <section
       className="relative min-h-screen w-full overflow-hidden bg-cover bg-center bg-no-repeat pb-12 sm:pb-24 md:min-h-[800px] md:pb-48"
@@ -75,10 +75,10 @@ const SqueezeGrow = () => {
             And many more stories waiting to be discovered…
           </p>
           <button
-            onClick={() => setIsJoinModalOpen(true)}
+            onClick={() => setIsDownloadModalOpen(true)}
             className="font-abezee w-full max-w-[280px] cursor-pointer rounded-[6.25rem] bg-[#EC4007] px-6 py-2 text-center text-base font-normal text-white not-italic transition-all hover:bg-[#d13706] sm:w-auto sm:px-7 sm:py-2.5 sm:text-lg md:px-8 md:text-xl md:leading-[2.26325rem]"
           >
-            Join Early Access
+            Download App
           </button>
           <div className="mx-auto mt-10 mb-20 flex items-center justify-center gap-4 sm:mb-16 sm:gap-5 md:gap-6">
             <a
@@ -139,8 +139,8 @@ const SqueezeGrow = () => {
           </div>
         </div>
       </div>
-      {isJoinModalOpen && (
-        <JoinEarlyModal onClose={() => setIsJoinModalOpen(false)} />
+      {isDownloadModalOpen && (
+        <DownloadModal onClose={() => setIsDownloadModalOpen(false)} />
       )}
     </section>
   );
