@@ -13,12 +13,10 @@ import heroImage from "../public/squeeze/hero-image.png";
 import mila from "../public/squeeze/mila.png";
 import tales from "../public/squeeze/tales.png";
 import heroBg from "../public/squeeze/her-bg.png";
-import JoinEarlyModal from "./JoinEarlyModal";
 import DownloadModal from "./DownloadModal";
 
 const SqueezeHero = () => {
   // const { setUserInfo, userInfo } = useSqueezeInfo();
-  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
 
   // const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -31,11 +29,6 @@ const SqueezeHero = () => {
   //   setUserInfo(data);
   //   e.currentTarget.reset();
   // };
-
-  const handleJoinClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsJoinModalOpen(true);
-  };
 
   const handleDownloadClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -86,14 +79,8 @@ const SqueezeHero = () => {
           </p>
           <div className="relative z-20 mt-6 flex flex-col gap-4 sm:flex-row md:mt-[2.81rem]">
             <button
-              onClick={handleJoinClick}
-              className="font-abezee cursor-pointer rounded-[6.25rem] bg-[#EC4007] px-6 py-2.5 text-base font-normal text-white not-italic transition-all hover:bg-[#d13706] sm:text-lg md:px-8 md:text-xl"
-            >
-              Join Early Access
-            </button>
-            <button
               onClick={handleDownloadClick}
-              className="font-abezee cursor-pointer rounded-[6.25rem] border border-solid border-[#EC4007] px-6 py-2.5 text-base font-normal text-[#EC4007] not-italic transition-all hover:bg-[#EC4007] hover:text-white sm:text-lg md:px-8 md:text-xl"
+              className="font-abezee cursor-pointer rounded-[6.25rem] bg-[#EC4007] px-6 py-2.5 text-base font-normal text-white not-italic transition-all hover:bg-[#d13706] sm:text-lg md:px-8 md:text-xl"
             >
               Download App
             </button>
@@ -120,9 +107,6 @@ const SqueezeHero = () => {
         width={1200}
         height={400}
       />
-      {isJoinModalOpen && (
-        <JoinEarlyModal onClose={() => setIsJoinModalOpen(false)} />
-      )}
       {isDownloadModalOpen && (
         <DownloadModal onClose={() => setIsDownloadModalOpen(false)} />
       )}

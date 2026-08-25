@@ -2,9 +2,6 @@
 
 import { type MouseEvent } from "react";
 import { Icon } from "@iconify/react";
-import Image from "next/image";
-// adjust path after relocating components to root
-import qrCode from "../public/landingpage/qr-code.svg";
 import DownloadButtons from "./DownloadButtons";
 
 interface DownloadModalProps {
@@ -41,18 +38,8 @@ const DownloadModal = ({ onClose }: DownloadModalProps) => {
             </button>
           </div>
           <p className="font-abezee text-text-light w-full text-sm leading-5 font-normal not-italic md:text-base md:leading-6">
-            Scan the QR code or choose your app store to download Storytime App
+            Choose your app store to download the Storytime App
           </p>
-        </div>
-
-        <div className="relative size-[120px] shrink-0 overflow-clip rounded-lg bg-white md:size-[240px]">
-          <Image
-            src={qrCode}
-            alt="QR Code"
-            className="h-full w-full"
-            width={540}
-            height={540}
-          />
         </div>
 
         <div className="relative h-px w-full shrink-0">

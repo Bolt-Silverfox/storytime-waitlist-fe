@@ -39,7 +39,7 @@ export default function DownloadButtons({
         </div>
         <div className="relative flex shrink-0 flex-col items-start gap-px">
           <p className="font-abezee relative shrink-0 text-xs not-italic">
-            Download on
+            GET IT ON
           </p>
           <p className="font-abezee relative shrink-0 text-base not-italic md:text-xl">
             Google Play
@@ -70,7 +70,7 @@ export default function DownloadButtons({
         </div>
         <div className="relative flex shrink-0 flex-col items-start gap-px">
           <p className="font-abezee relative shrink-0 text-xs not-italic">
-            Download on
+            Download on the
           </p>
           <p className="font-abezee relative shrink-0 text-base not-italic md:text-xl">
             App Store
