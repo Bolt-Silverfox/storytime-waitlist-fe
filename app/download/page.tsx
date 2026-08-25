@@ -16,9 +16,13 @@ const PLAY_STORE_URL =
 export default function DownloadPage() {
   useEffect(() => {
     const ua = navigator.userAgent || "";
+    // Desktop-class Safari on iPadOS reports a macOS-like UA (no "iPad" token),
+    // so it's only distinguishable by touch support. Treat that as iPad.
+    const isIpadOsDesktop =
+      /macintosh/i.test(ua) && navigator.maxTouchPoints > 1;
     if (/android/i.test(ua)) {
       window.location.replace(PLAY_STORE_URL);
-    } else if (/iphone|ipad|ipod/i.test(ua)) {
+    } else if (/iphone|ipad|ipod/i.test(ua) || isIpadOsDesktop) {
       window.location.replace(APP_STORE_URL);
     }
     // Desktop / unknown: no redirect — the store buttons below are shown.
