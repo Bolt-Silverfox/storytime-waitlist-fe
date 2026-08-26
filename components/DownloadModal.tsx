@@ -2,6 +2,8 @@
 
 import { type MouseEvent } from "react";
 import { Icon } from "@iconify/react";
+import Image from "next/image";
+import qrCode from "../public/squeeze/qr-download.svg";
 import DownloadButtons from "./DownloadButtons";
 
 interface DownloadModalProps {
@@ -38,8 +40,19 @@ const DownloadModal = ({ onClose }: DownloadModalProps) => {
             </button>
           </div>
           <p className="font-abezee text-text-light w-full text-sm leading-5 font-normal not-italic md:text-base md:leading-6">
-            Choose your app store to download the Storytime App
+            Scan the QR code or choose your app store to download the Storytime
+            App
           </p>
+        </div>
+
+        <div className="relative size-[120px] shrink-0 overflow-clip rounded-lg bg-white md:size-[240px]">
+          <Image
+            src={qrCode}
+            alt="QR code linking to the Storytime app download page"
+            className="h-full w-full"
+            width={264}
+            height={264}
+          />
         </div>
 
         <div className="relative h-px w-full shrink-0">
