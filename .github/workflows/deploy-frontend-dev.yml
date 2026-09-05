@@ -9,6 +9,9 @@ on:
       - dev # Deploy on merge to dev
   workflow_dispatch: # Allow manual trigger
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     name: Lint
@@ -64,10 +67,15 @@ jobs:
         with:
           version: 9
 
-      - name: Create .env file
-        run: echo "$ENV_FILE_CONTENT" > .env
-        env:
-          ENV_FILE_CONTENT: ${{ secrets.ENV_FILE }}
+      - name: Create synthetic .env (no real secrets in pre-merge CI)
+        run: |
+          cat > .env << 'EOF'
+          NODE_ENV=production
+          NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+          NEXT_PUBLIC_SENTRY_DSN=
+          NEXT_PUBLIC_SENTRY_ENVIRONMENT=ci
+          NEXT_PUBLIC_META_PIXEL_ID=
+          EOF
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
