@@ -1,0 +1,56 @@
+# Build context exclusions for the production image.
+#
+# Deliberately NOT excluded: public/ (33 MB of images the site serves) and
+# anything inside it. There is no public/.well-known today, but rules here are
+# kept path-anchored rather than using a bare `.*`/`**/.*` glob so that adding
+# one later (ACME challenges, apple-app-site-association, assetlinks.json)
+# cannot silently drop it from the image.
+
+# VCS + CI (no CI workflows are needed inside the image)
+.git
+.gitignore
+.githooks
+.github
+
+# Dependencies and build artefacts -- reinstalled/rebuilt inside the image.
+# node_modules in particular MUST NOT be copied in: host binaries (sharp,
+# @img/sharp-*) are the wrong architecture for an arm64 image.
+**/node_modules
+.next
+dist
+dist-ssr
+out
+tsconfig.tsbuildinfo
+.tanstack
+build_output.txt
+
+# Secrets / local environment. NEXT_PUBLIC_* values come from --build-arg;
+# a stray .env in the context would otherwise be picked up by `next build`
+# and baked into the bundle.
+.env
+.env.*
+!.env.example
+
+# Editor / OS noise
+.vscode
+.idea
+.DS_Store
+*.swp
+*.swo
+
+# Agent + tooling local state
+.claude
+.claude-memory.md
+.coderabbit.yaml
+
+# Logs
+logs
+*.log
+
+# Docs and host-side deploy config that the container does not use
+README.md
+nginx.conf
+nginx.dev.conf
+ecosystem.config.js
+Dockerfile
+.dockerignore
