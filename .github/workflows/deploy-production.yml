@@ -131,6 +131,30 @@ jobs:
       environment: ${{ inputs.environment }}
       instance_id: ${{ inputs.instance_id }}
       role_arn: ${{ inputs.role_arn }}
+      # Values come from REPOSITORY variables, not literals in this file.
+      # NEXT_PUBLIC_API_KEY is on the rotation list, so a literal would be one
+      # more place it lives; with a variable, rotating it is a settings change
+      # rather than a PR.
+      #
+      # Repository-scoped, not environment-scoped: a job that calls a reusable
+      # workflow cannot declare `environment:`, so an environment variable would
+      # never resolve here and would silently render empty.
+      #
+      # Not secrets either -- `secrets` is unavailable in a `with:` block. That
+      # matches the input's own PUBLIC VALUES ONLY rule: every value below is
+      # inlined into the client bundle and served to browsers. It is still
+      # echoed in the build log and recorded in the image, so nothing genuinely
+      # secret may be added here.
+      #
+      # An unset variable renders EMPTY. The pipeline's validation rejects the
+      # required value by name rather than shipping a broken bundle; the
+      # optional ones fail quieter (an empty Sentry DSN just disables
+      # reporting), so set them all.
+      build_args: |
+        NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }}
+        NEXT_PUBLIC_SENTRY_DSN=${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
+        NEXT_PUBLIC_SENTRY_ENVIRONMENT=${{ vars.NEXT_PUBLIC_SENTRY_ENVIRONMENT }}
+        NEXT_PUBLIC_META_PIXEL_ID=${{ vars.NEXT_PUBLIC_META_PIXEL_ID }}
 
 # NEXT_PUBLIC_* ARE BUILD-TIME, AND THIS PIPELINE CANNOT SUPPLY THEM. Next.js
 # inlines NEXT_PUBLIC_* into the client bundle when the image is BUILT, so they
