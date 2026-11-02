@@ -12,6 +12,26 @@ updates:
         update-types:
           - 'minor'
           - 'patch'
+        # Keep OTel out of the batch so it cannot drag the group PR.
+        exclude-patterns:
+          - '@opentelemetry/*'
+    ignore:
+      # OpenTelemetry 0.300 / 3.0 are breaking; upgrade them together by hand.
+      # 0.x minors count as "minor" to Dependabot, so block by version range.
+      - dependency-name: '@opentelemetry/api-logs'
+        versions: ['>=0.300.0']
+      - dependency-name: '@opentelemetry/instrumentation'
+        versions: ['>=0.300.0']
+      - dependency-name: '@opentelemetry/sdk-logs'
+        versions: ['>=0.300.0']
+      - dependency-name: '@opentelemetry/resources'
+        versions: ['>=3.0.0']
+      - dependency-name: '@opentelemetry/sdk-metrics'
+        versions: ['>=3.0.0']
+      - dependency-name: '@opentelemetry/sdk-trace-base'
+        versions: ['>=3.0.0']
+      # NOTE: ignore rules also apply to Dependabot SECURITY updates. An advisory
+      # fixed only in an ignored range gets no PR; handle those manually.
 
   - package-ecosystem: 'github-actions'
     directory: '/'
