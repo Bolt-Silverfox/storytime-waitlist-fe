@@ -12,6 +12,27 @@ updates:
         update-types:
           - 'minor'
           - 'patch'
+        exclude-patterns:
+          - '@opentelemetry/api-logs'
+          - '@opentelemetry/instrumentation'
+          - '@opentelemetry/sdk-logs'
+          - '@opentelemetry/resources'
+          - '@opentelemetry/sdk-metrics'
+          - '@opentelemetry/sdk-trace-base'
+    # OpenTelemetry 0.300 / 3.0 are breaking; upgrade them together by hand.
+    ignore:
+      - dependency-name: '@opentelemetry/api-logs'
+        versions: ['>=0.300.0']
+      - dependency-name: '@opentelemetry/instrumentation'
+        versions: ['>=0.300.0']
+      - dependency-name: '@opentelemetry/sdk-logs'
+        versions: ['>=0.300.0']
+      - dependency-name: '@opentelemetry/resources'
+        versions: ['>=3.0.0']
+      - dependency-name: '@opentelemetry/sdk-metrics'
+        versions: ['>=3.0.0']
+      - dependency-name: '@opentelemetry/sdk-trace-base'
+        versions: ['>=3.0.0']
 
   - package-ecosystem: 'github-actions'
     directory: '/'
