@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent, type MouseEvent } from "react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
@@ -145,6 +146,13 @@ const JoinEarlyModal = ({ onClose }: JoinEarlyModalProps) => {
               >
                 {isLoading ? "Loading..." : "Join Early Access"}
               </button>
+            <p className="font-abezee text-center text-xs text-[#4A413F]">
+              See our{" "}
+              <Link href="/privacy-policy" className="text-primary underline">
+                Privacy Policy
+              </Link>{" "}
+              for how we use your details.
+            </p>
             </form>
           </>
         ) : (

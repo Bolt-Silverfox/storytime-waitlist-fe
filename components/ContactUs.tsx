@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -169,6 +170,13 @@ const ContactUs: React.FC = () => {
           >
             {isLoading ? "Sending..." : "Submit"}
           </button>
+        <p className="font-abezee text-center text-xs text-[#4A413F]">
+          See our{" "}
+          <Link href="/privacy-policy" className="text-primary underline">
+            Privacy Policy
+          </Link>{" "}
+          for how we use your details.
+        </p>
         </form>
 
         <div className="absolute top-0 right-0 hidden w-[280px] lg:block">

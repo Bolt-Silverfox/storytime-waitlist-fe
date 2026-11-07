@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
 import SuccessDisplay from "../SuccessDisplay";
 import { Icon } from "@iconify/react";
@@ -182,6 +183,13 @@ const WaitListForm = ({ onClose }: Props) => {
           >
             {isLoading ? "Loading..." : "Join the waitlist"}
           </button>
+        <p className="font-abezee text-center text-xs text-[#4A413F]">
+          See our{" "}
+          <Link href="/privacy-policy" className="text-primary underline">
+            Privacy Policy
+          </Link>{" "}
+          for how we use your details.
+        </p>
         </form>
       ) : (
         <SuccessDisplay onClose={onClose} />
