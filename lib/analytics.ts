@@ -1,6 +1,19 @@
 import * as amplitude from "@amplitude/analytics-browser";
 
-// Initialize Amplitude
+const ANON_ID_KEY = "st_anon_id";
+
+const getAnonymousId = (): string | undefined => {
+  try {
+    const existing = localStorage.getItem(ANON_ID_KEY);
+    if (existing) return existing;
+    const id = crypto.randomUUID();
+    localStorage.setItem(ANON_ID_KEY, id);
+    return id;
+  } catch {
+    return undefined;
+  }
+};
+
 export const initializeAnalytics = () => {
   const apiKey = "e48a8fa48803c43c9e5e3888517e897c";
 
@@ -10,7 +23,8 @@ export const initializeAnalytics = () => {
   }
 
   try {
-    amplitude.init(apiKey, {
+    const anonymousId = getAnonymousId();
+    amplitude.init(apiKey, anonymousId, {
       defaultTracking: {
         sessions: true,
         pageViews: false,
@@ -23,6 +37,7 @@ export const initializeAnalytics = () => {
           ? amplitude.Types.LogLevel.None
           : amplitude.Types.LogLevel.Warn,
     });
+    amplitude.setUserId(anonymousId);
     console.log("Amplitude initialized successfully");
   } catch (error) {
     if (process.env.NODE_ENV === "production") {
@@ -71,22 +86,6 @@ export const setUserProperties = (properties: Record<string, any>) => {
   }
 };
 
-// Identify user by email or ID
-export const identifyUser = (
-  userId: string,
-   
-  userProperties?: Record<string, any>,
-) => {
-  try {
-    amplitude.setUserId(userId);
-    if (userProperties) {
-      setUserProperties(userProperties);
-    }
-  } catch (error) {
-    console.error("Failed to identify user:", error);
-  }
-};
-
 // Waitlist-specific tracking functions
 export const trackWaitlistFormViewed = () => {
   trackEvent("Waitlist Form Viewed", {
@@ -94,18 +93,8 @@ export const trackWaitlistFormViewed = () => {
   });
 };
 
-export const trackWaitlistSignup = (name: string, email: string) => {
-  // Identify the user
-  identifyUser(email, {
-    name,
-    email,
-    signup_date: new Date().toISOString(),
-  });
-
-  // Track the signup event
+export const trackWaitlistSignup = () => {
   trackEvent("Waitlist Signup Completed", {
-    name,
-    email,
     timestamp: new Date().toISOString(),
   });
 };

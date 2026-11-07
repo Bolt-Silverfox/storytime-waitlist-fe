@@ -79,7 +79,7 @@ const WaitListForm = ({ onClose }: Props) => {
       console.log(response);
 
       // Track successful signup
-      trackWaitlistSignup(data.name, data.email);
+      trackWaitlistSignup();
       if (!response.status)
         throw new Error(
           response.message || response.messsage || "Something went wrong",
