@@ -46,7 +46,7 @@ test("homepage title matches og:title", () => {
 test("robots points at the real sitemap and sitemap urls are on the real host", () => {
   assert.equal(robots().sitemap, `${REAL_HOST}/sitemap.xml`);
   for (const entry of sitemap()) {
-    assert.ok(entry.url.startsWith(REAL_HOST));
+    assert.equal(new URL(entry.url).origin, REAL_HOST);
   }
 });
 
