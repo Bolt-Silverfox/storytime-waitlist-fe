@@ -7,7 +7,18 @@ const expireCookie = (name: string, domain?: string) => {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${scope}`;
 };
 
-const clearAmplitudeState = () => {
+const AMP_COOKIE = /^AMP_(?!MKTG|TEST)/;
+
+const readAmplitudeCookies = () =>
+  document.cookie
+    .split(";")
+    .map((part) => {
+      const eq = part.indexOf("=");
+      return { name: part.slice(0, eq).trim(), value: part.slice(eq + 1).trim() };
+    })
+    .filter(({ name }) => AMP_COOKIE.test(name));
+
+const purgeAmplitudeCookies = () => {
   try {
     const labels = location.hostname.split(".");
     const domains: (string | undefined)[] = [undefined];
@@ -25,6 +36,9 @@ const clearAmplitudeState = () => {
   } catch {
     return;
   }
+};
+
+const purgeAmplitudeStorage = () => {
   try {
     const keys: string[] = [];
     for (let i = 0; i < localStorage.length; i++) {
@@ -37,11 +51,51 @@ const clearAmplitudeState = () => {
   }
 };
 
-const getAnonymousId = (): string | undefined => {
+const purgeAmplitudeState = () => {
+  purgeAmplitudeCookies();
+  purgeAmplitudeStorage();
+};
+
+const decodeCookieUserId = (value: string): unknown => {
   try {
-    const existing = localStorage.getItem(ANON_ID_KEY);
-    if (existing) return existing;
-    clearAmplitudeState();
+    return JSON.parse(value).userId;
+  } catch {
+    return JSON.parse(decodeURIComponent(atob(value))).userId;
+  }
+};
+
+const cookieHoldsOtherUser = (anonymousId: string | undefined) => {
+  try {
+    return readAmplitudeCookies().some(({ value }) => {
+      try {
+        const userId = decodeCookieUserId(value);
+        return Boolean(userId) && userId !== anonymousId;
+      } catch {
+        return true;
+      }
+    });
+  } catch {
+    return false;
+  }
+};
+
+const getAnonymousId = (): string | undefined => {
+  let stored: string | null | undefined;
+  try {
+    stored = localStorage.getItem(ANON_ID_KEY);
+  } catch {
+    stored = undefined;
+  }
+  if (stored) {
+    if (cookieHoldsOtherUser(stored)) purgeAmplitudeState();
+    return stored;
+  }
+  if (stored === undefined) {
+    if (cookieHoldsOtherUser(undefined)) purgeAmplitudeState();
+    return undefined;
+  }
+  purgeAmplitudeState();
+  try {
     const id = crypto.randomUUID();
     localStorage.setItem(ANON_ID_KEY, id);
     return id;

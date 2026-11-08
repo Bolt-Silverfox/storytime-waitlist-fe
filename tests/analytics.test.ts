@@ -34,6 +34,7 @@ mock.module("@amplitude/analytics-browser", {
 
 type Cookie = { name: string; value: string; domain: string | null };
 let jar: Cookie[] = [];
+let cookieBroken = false;
 const normalizeDomain = (d: string | null) => (d ? d.replace(/^\./, "") : null);
 
 Object.defineProperty(globalThis, "location", {
@@ -44,6 +45,7 @@ Object.defineProperty(globalThis, "document", {
   configurable: true,
   value: {
     get cookie() {
+      if (cookieBroken) throw new Error("cookies denied");
       return jar.map((c) => `${c.name}=${c.value}`).join("; ");
     },
     set cookie(raw: string) {
@@ -98,6 +100,7 @@ beforeEach(() => {
   calls.length = 0;
   store.clear();
   jar = [];
+  cookieBroken = false;
   storageBroken = false;
 });
 
@@ -210,10 +213,12 @@ test("old cookie is removed whether it was set on the dotted apex, apex or host"
 });
 
 test("a returning browser that already has an id keeps its Amplitude state", () => {
-  store.set("st_anon_id", "11111111-1111-4111-8111-111111111111");
-  jar.push({ name: "AMP_abc123", value: "new-state", domain: ".storytimeapp.me" });
+  const id = "11111111-1111-4111-8111-111111111111";
+  const state = JSON.stringify({ deviceId: "d", userId: id });
+  store.set("st_anon_id", id);
+  jar.push({ name: "AMP_abc123", value: state, domain: ".storytimeapp.me" });
   analytics.initializeAnalytics();
-  assert.ok(document.cookie.includes("AMP_abc123=new-state"));
+  assert.ok(document.cookie.includes(`AMP_abc123=${state}`));
 });
 
 test("signup error event carries a fixed category, never the raw message", () => {
@@ -233,7 +238,7 @@ test("WaitListForm reports signup errors without the message", () => {
   assert.match(form, /trackWaitlistSignupError\(\)/);
 });
 
-test("Meta Pixel automatic advanced matching is switched off before init", () => {
+test("auto-config is switched off before init", () => {
   const pixel = readFileSync(
     new URL("../components/MetaPixel.tsx", import.meta.url),
     "utf8",
@@ -254,6 +259,74 @@ test("privacy notice states facts and does not claim compliance", () => {
   assert.doesNotMatch(text, /We comply/);
   assert.match(text, /IP address/);
   assert.match(text, /attribution/);
-  assert.match(text, /2026-11-08|8 November 2026/);
+  assert.doesNotMatch(text, /8 November|2026/);
+  assert.match(text, /before this change/);
+  assert.match(text, /no longer send it/);
+  assert.match(text, /from our code/);
+  assert.doesNotMatch(text, /that has been stopped/);
   assert.doesNotMatch(text, /phone/i);
+});
+
+const ANON = "22222222-2222-4222-8222-222222222222";
+
+test("an email cookie written after st_anon_id exists is purged before init", () => {
+  store.set("st_anon_id", ANON);
+  jar.push({ name: "AMP_abc123", value: oldAmpValue, domain: ".storytimeapp.me" });
+  analytics.initializeAnalytics();
+  assert.ok(!document.cookie.includes(OLD_EMAIL));
+  assert.ok(!document.cookie.includes("AMP_abc123"));
+  assert.equal(store.get("st_anon_id"), ANON);
+  assert.ok(!everythingSent().includes(OLD_EMAIL));
+});
+
+test("a base64 encoded email cookie is also purged", () => {
+  store.set("st_anon_id", ANON);
+  const encoded = Buffer.from(encodeURIComponent(oldAmpValue)).toString("base64");
+  jar.push({ name: "AMP_abc123", value: encoded, domain: ".storytimeapp.me" });
+  analytics.initializeAnalytics();
+  assert.ok(!document.cookie.includes("AMP_abc123"));
+});
+
+test("an undecodable Amplitude cookie is purged", () => {
+  store.set("st_anon_id", ANON);
+  jar.push({ name: "AMP_abc123", value: "%%%not-json", domain: ".storytimeapp.me" });
+  analytics.initializeAnalytics();
+  assert.ok(!document.cookie.includes("AMP_abc123"));
+});
+
+test("a cookie whose userId is our anonymous id is kept", () => {
+  store.set("st_anon_id", ANON);
+  const own = JSON.stringify({ deviceId: "d", userId: ANON });
+  jar.push({ name: "AMP_abc123", value: own, domain: ".storytimeapp.me" });
+  analytics.initializeAnalytics();
+  assert.ok(document.cookie.includes("AMP_abc123"));
+});
+
+test("a cookie without a userId is kept", () => {
+  store.set("st_anon_id", ANON);
+  jar.push({ name: "AMP_abc123", value: JSON.stringify({ deviceId: "d" }), domain: null });
+  analytics.initializeAnalytics();
+  assert.ok(document.cookie.includes("AMP_abc123"));
+});
+
+test("cookies are purged even when localStorage throws", () => {
+  storageBroken = true;
+  jar.push({ name: "AMP_abc123", value: oldAmpValue, domain: ".storytimeapp.me" });
+  analytics.initializeAnalytics();
+  assert.ok(!document.cookie.includes(OLD_EMAIL));
+});
+
+test("localStorage is purged even when the cookie purge throws", () => {
+  store.set("AMP_abc123", oldAmpValue);
+  cookieBroken = true;
+  assert.doesNotThrow(() => analytics.initializeAnalytics());
+  assert.ok(![...store.keys()].some((k) => k.startsWith("AMP_")));
+});
+
+test("with storage blocked, a cookie without another user is not reset on every load", () => {
+  storageBroken = true;
+  const state = JSON.stringify({ deviceId: "d" });
+  jar.push({ name: "AMP_abc123", value: state, domain: null });
+  analytics.initializeAnalytics();
+  assert.ok(document.cookie.includes(`AMP_abc123=${state}`));
 });

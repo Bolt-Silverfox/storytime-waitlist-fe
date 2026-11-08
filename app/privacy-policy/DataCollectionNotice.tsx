@@ -14,8 +14,8 @@ const sections: { heading: string; body: string[] }[] = [
   {
     heading: "Analytics and advertising tools on this site",
     body: [
-      "Amplitude is used for product analytics. It counts sessions, page views, button clicks and completed sign-ups, identified only by a random identifier generated in your browser. By default Amplitude also collects your IP address and attribution data such as the page that referred you. We do not send your name or email address to Amplitude. People who signed up before 8 November 2026 may have had their email address sent to Amplitude under our earlier setup; that has been stopped.",
-      "Meta Pixel is used for advertising measurement. It records visits to pages of this site, which Meta may associate with your browser and any Meta account you are signed in to. We do not send your name or email address to Meta Pixel.",
+      "Amplitude is used for product analytics. It counts sessions, page views, button clicks and completed sign-ups, identified only by a random identifier generated in your browser. By default Amplitude also collects your IP address and attribution data such as the page that referred you. We do not send your name or email address to Amplitude. People who signed up before this change may have had their email address sent to Amplitude under our earlier setup; we no longer send it.",
+      "Meta Pixel is used for advertising measurement. It records visits to pages of this site, which Meta may associate with your browser and any Meta account you are signed in to. We do not send your name or email address to Meta Pixel from our code.",
       "Contentsquare is used to understand how the site is used. It records session replays and heatmaps of how visitors move through and interact with pages.",
       "Sentry is used to detect errors and measure site performance.",
       "These tools may set cookies or similar identifiers in your browser.",
