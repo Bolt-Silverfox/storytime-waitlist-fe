@@ -369,13 +369,13 @@ test("privacy notice does not claim no data is collected from children", () => {
   assert.match(text, /record visits from anyone who opens it/);
 });
 
-test("error and loading pages report to Sentry, retry with refresh and respect reduced motion", () => {
+test("error and loading pages report to Sentry, retry through the boundary's retry prop and respect reduced motion", () => {
   const read = (f: string) =>
     readFileSync(new URL(`../app/${f}`, import.meta.url), "utf8");
   const error = read("error.tsx");
   assert.match(error, /Sentry\.captureException\(error\)/);
-  assert.match(error, /router\.refresh\(\)/);
-  assert.match(error, /reset\(\)/);
+  assert.match(error, /onClick=\{retry\}/);
+  assert.doesNotMatch(error, /router\.refresh|reset\(\)/);
   assert.match(read("loading.tsx"), /motion-safe:animate-spin/);
 });
 

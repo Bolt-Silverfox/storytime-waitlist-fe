@@ -1,27 +1,19 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import * as Sentry from "@sentry/nextjs";
 import PageTitle from "../components/PageTitle";
 
 export default function ErrorPage({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
+  retry: () => void;
 }) {
-  const router = useRouter();
-
   useEffect(() => {
     Sentry.captureException(error);
   }, [error]);
-
-  const retry = () => {
-    router.refresh();
-    reset();
-  };
 
   return (
     <div className="flex flex-1 flex-col items-center px-4 pb-24">
