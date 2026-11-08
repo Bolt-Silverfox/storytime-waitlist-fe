@@ -121,7 +121,7 @@ test("a trailing slash on NEXT_PUBLIC_SITE_URL does not produce // in urls", () 
   );
   for (const line of out.trim().split("\n")) {
     assert.doesNotMatch(line.replace("https://", ""), /\/\//);
-    assert.ok(line.startsWith("https://x.example"));
+    assert.equal(new URL(line).origin, "https://x.example");
   }
 });
 
