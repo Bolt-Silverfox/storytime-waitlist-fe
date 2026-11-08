@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import postimage from "../assets/postimg.png";
@@ -19,9 +19,16 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
+const subscribeNever = () => () => {};
+
 const ContactUs: React.FC = () => {
   const formRef = React.useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const mounted = useSyncExternalStore(
+    subscribeNever,
+    () => true,
+    () => false,
+  );
   const [errors, setErrors] = useState<{
     name?: string;
     email?: string;
@@ -108,7 +115,7 @@ const ContactUs: React.FC = () => {
               name="name"
               type="text"
               placeholder="Enter your full name"
-              disabled={isLoading}
+              disabled={isLoading || !mounted}
               className={`w-full rounded-full border px-5 py-3 text-sm focus:outline-orange-400 disabled:cursor-not-allowed disabled:opacity-70 ${
                 errors.name ? "border-red-500" : "border-gray-300"
               }`}
@@ -130,7 +137,7 @@ const ContactUs: React.FC = () => {
               name="email"
               type="email"
               placeholder="Enter your email address"
-              disabled={isLoading}
+              disabled={isLoading || !mounted}
               className={`w-full rounded-full border px-5 py-3 text-sm focus:outline-orange-400 disabled:cursor-not-allowed disabled:opacity-70 ${
                 errors.email ? "border-red-500" : "border-gray-300"
               }`}
@@ -151,7 +158,7 @@ const ContactUs: React.FC = () => {
               id="message"
               name="message"
               placeholder="Enter your message here...."
-              disabled={isLoading}
+              disabled={isLoading || !mounted}
               className={`h-36 w-full resize-none rounded-xl border px-5 py-3 text-sm focus:outline-orange-400 disabled:cursor-not-allowed disabled:opacity-70 ${
                 errors.message ? "border-red-500" : "border-gray-300"
               }`}
@@ -165,14 +172,19 @@ const ContactUs: React.FC = () => {
 
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || !mounted}
             className="mx-auto w-full rounded-full bg-[#EC4007] py-3 text-lg text-white transition hover:bg-[#B53305] disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isLoading ? "Sending..." : "Submit"}
           </button>
         <p className="font-abezee text-center text-xs text-[#4A413F]">
           See our{" "}
-          <Link href="/privacy-policy" className="text-primary underline">
+          <Link
+            href="/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline"
+          >
             Privacy Policy
           </Link>{" "}
           for how we use your details.

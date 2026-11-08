@@ -6,7 +6,7 @@ export default function Loading() {
       className="flex flex-1 items-center justify-center py-32"
     >
       <div className="border-primary size-10 motion-safe:animate-spin rounded-full border-4 border-t-transparent" />
-      <span className="sr-only">Loading</span>
+      <span className="font-abezee ml-3 text-[#4A413F]">Loading...</span>
     </div>
   );
 }

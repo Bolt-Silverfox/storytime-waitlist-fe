@@ -18,7 +18,7 @@ export default function ErrorPage({
   return (
     <div className="flex flex-1 flex-col items-center px-4 pb-24">
       <PageTitle title="Something went wrong" />
-      <p className="font-abezee mt-4 max-w-md text-center text-[#4A413F]">
+      <p role="alert" className="font-abezee mt-4 max-w-md text-center text-[#4A413F]">
         We hit a problem loading this page. Please try again.
       </p>
       <button

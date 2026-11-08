@@ -1,6 +1,7 @@
 import { test, mock, beforeEach } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import vm from "node:vm";
 
 const SENTINEL_EMAIL = "sentinel.parent@example.test";
 const SENTINEL_NAME = "Sentinel Parent";
@@ -247,13 +248,22 @@ test("WaitListForm reports signup errors without the message", () => {
 });
 
 test("auto-config is switched off before init", () => {
-  const pixel = readFileSync(
+  const source = readFileSync(
     new URL("../components/MetaPixel.tsx", import.meta.url),
     "utf8",
   );
-  const off = pixel.indexOf("fbq('set', 'autoConfig', false");
-  const init = pixel.indexOf("fbq('init'");
-  assert.ok(off > -1 && init > off);
+  const body = source.match(/__html: `([\s\S]*?)`,/)?.[1];
+  assert.ok(body);
+  const fbqCalls: unknown[][] = [];
+  const context: Record<string, unknown> = {
+    document: {},
+    fbq: (...args: unknown[]) => fbqCalls.push(args),
+  };
+  context.window = context;
+  vm.runInNewContext(body.replace("${FB_PIXEL_ID}", "123").replace("${FB_PIXEL_ID}", "123"), context);
+  const names = fbqCalls.map((c) => c.slice(0, 2).join(":"));
+  assert.deepEqual(fbqCalls[0], ["set", "autoConfig", false, "123"]);
+  assert.ok(names.indexOf("init:123") > 0);
 });
 
 const notice = () =>
@@ -366,6 +376,7 @@ test("privacy notice does not claim no data is collected from children", () => {
   const text = notice();
   assert.doesNotMatch(text, /do not collect any information from children/);
   assert.match(text, /do not knowingly collect personal information from children/);
+  assert.doesNotMatch(text, /do not collect any personal information from children/);
   assert.match(text, /record visits from anyone who opens it/);
 });
 
@@ -383,4 +394,106 @@ test("lib/meta-pixel.ts no longer exists", () => {
   assert.throws(() =>
     readFileSync(new URL("../lib/meta-pixel.ts", import.meta.url)),
   );
+});
+
+test("Amplitude is initialised with page url enrichment off under autocapture", () => {
+  analytics.initializeAnalytics();
+  const init = calls.find((c) => c.fn === "init");
+  const options = init?.args[2] as Record<string, unknown>;
+  assert.ok(!("defaultTracking" in options));
+  assert.deepEqual(options.autocapture, {
+    sessions: true,
+    pageViews: false,
+    formInteractions: false,
+    fileDownloads: false,
+    pageUrlEnrichment: false,
+  });
+});
+
+test("no tracked event carries the page query string", () => {
+  Object.defineProperty(globalThis, "location", {
+    configurable: true,
+    value: {
+      hostname: "waitlist.storytimeapp.me",
+      href: "https://waitlist.storytimeapp.me/contact-us?email=x%40example.test",
+    },
+  });
+  analytics.initializeAnalytics();
+  analytics.trackCTAClick("Download", "MobileNav");
+  analytics.trackWaitlistSignup();
+  const sent = everythingSent();
+  assert.ok(!sent.includes("email=x"));
+  assert.ok(!sent.includes("Page Location"));
+  Object.defineProperty(globalThis, "location", {
+    configurable: true,
+    value: { hostname: "waitlist.storytimeapp.me" },
+  });
+});
+
+test("contact form controls stay disabled until the component has mounted", () => {
+  const form = readFileSync(
+    new URL("../components/ContactUs.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.equal(form.match(/disabled=\{isLoading \|\| !mounted\}/g)?.length, 4);
+  assert.match(form, /\(\) => true,\s*\(\) => false,/);
+});
+
+test("storage works but crypto.randomUUID is missing: a v4 id is still created and kept", () => {
+  const original = Object.getOwnPropertyDescriptor(globalThis, "crypto");
+  Object.defineProperty(globalThis, "crypto", {
+    configurable: true,
+    value: {
+      getRandomValues: (a: Uint8Array) => {
+        for (let i = 0; i < a.length; i++) a[i] = (i * 37 + 11) % 256;
+        return a;
+      },
+    },
+  });
+  try {
+    store.set("AMP_unsent_abc", JSON.stringify([{ user_id: OLD_EMAIL }]));
+    analytics.initializeAnalytics();
+    analytics.initializeAnalytics();
+    const id = store.get("st_anon_id");
+    assert.match(
+      String(id),
+      /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
+    );
+    const ids = calls.filter((c) => c.fn === "init").map((c) => c.args[1]);
+    assert.deepEqual(ids, [id, id]);
+    assert.ok(!JSON.stringify([...store.entries()]).includes(OLD_EMAIL));
+  } finally {
+    if (original) Object.defineProperty(globalThis, "crypto", original);
+  }
+});
+
+test("the privacy link opens in a new tab safely in every form", () => {
+  for (const file of [
+    "components/waitlist/WaitListForm.tsx",
+    "components/JoinEarlyModal.tsx",
+    "components/ContactUs.tsx",
+    "components/resources/ResourceSignUp.tsx",
+  ]) {
+    const source = readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
+    const link = source.match(/<Link[^>]*href="\/privacy-policy"[^>]*>/)?.[0];
+    assert.ok(link, file);
+    assert.match(link, /target="_blank"/, file);
+    assert.match(link, /rel="noopener noreferrer"/, file);
+  }
+});
+
+test("error message is announced and the loading text is visible", () => {
+  const read = (f: string) =>
+    readFileSync(new URL(`../app/${f}`, import.meta.url), "utf8");
+  assert.match(read("error.tsx"), /role="alert"/);
+  assert.doesNotMatch(read("loading.tsx"), /sr-only/);
+  assert.match(read("loading.tsx"), /Loading/);
+});
+
+test("the main CI header no longer describes deploy-production as unmerged", () => {
+  const header = readFileSync(
+    new URL("../.github/workflows/deploy-frontend.yml", import.meta.url),
+    "utf8",
+  );
+  assert.doesNotMatch(header, /not merged yet|open as PR #171/);
 });

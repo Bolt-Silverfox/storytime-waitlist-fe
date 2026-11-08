@@ -185,7 +185,12 @@ const WaitListForm = ({ onClose }: Props) => {
           </button>
         <p className="font-abezee text-center text-xs text-[#4A413F]">
           See our{" "}
-          <Link href="/privacy-policy" className="text-primary underline">
+          <Link
+            href="/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline"
+          >
             Privacy Policy
           </Link>{" "}
           for how we use your details.
