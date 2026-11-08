@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "../lib/site.ts";
+import { resourcesData } from "../data.ts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE_URL;
@@ -49,6 +50,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/waitlist`,
       changeFrequency: "weekly" as const,
       priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/resources`,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    },
+    ...resourcesData.map((resource) => ({
+      url: `${baseUrl}/resources/${resource.id}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    {
+      url: `${baseUrl}/download`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     },
   ];
 

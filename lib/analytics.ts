@@ -2,10 +2,46 @@ import * as amplitude from "@amplitude/analytics-browser";
 
 const ANON_ID_KEY = "st_anon_id";
 
+const expireCookie = (name: string, domain?: string) => {
+  const scope = domain ? `; domain=${domain}` : "";
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${scope}`;
+};
+
+const clearAmplitudeState = () => {
+  try {
+    const labels = location.hostname.split(".");
+    const domains: (string | undefined)[] = [undefined];
+    for (let i = 0; i < labels.length - 1; i++) {
+      const suffix = labels.slice(i).join(".");
+      domains.push(suffix, `.${suffix}`);
+    }
+    const names = document.cookie
+      .split(";")
+      .map((part) => part.split("=")[0].trim())
+      .filter((name) => name.startsWith("AMP_"));
+    for (const name of names) {
+      for (const domain of domains) expireCookie(name, domain);
+    }
+  } catch {
+    return;
+  }
+  try {
+    const keys: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("AMP_")) keys.push(key);
+    }
+    keys.forEach((key) => localStorage.removeItem(key));
+  } catch {
+    return;
+  }
+};
+
 const getAnonymousId = (): string | undefined => {
   try {
     const existing = localStorage.getItem(ANON_ID_KEY);
     if (existing) return existing;
+    clearAmplitudeState();
     const id = crypto.randomUUID();
     localStorage.setItem(ANON_ID_KEY, id);
     return id;
@@ -99,9 +135,9 @@ export const trackWaitlistSignup = () => {
   });
 };
 
-export const trackWaitlistSignupError = (error: string) => {
+export const trackWaitlistSignupError = () => {
   trackEvent("Waitlist Signup Error", {
-    error_message: error,
+    error_category: "signup_failed",
     timestamp: new Date().toISOString(),
   });
 };

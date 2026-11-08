@@ -32,6 +32,43 @@ mock.module("@amplitude/analytics-browser", {
   },
 });
 
+type Cookie = { name: string; value: string; domain: string | null };
+let jar: Cookie[] = [];
+const normalizeDomain = (d: string | null) => (d ? d.replace(/^\./, "") : null);
+
+Object.defineProperty(globalThis, "location", {
+  configurable: true,
+  value: { hostname: "waitlist.storytimeapp.me" },
+});
+Object.defineProperty(globalThis, "document", {
+  configurable: true,
+  value: {
+    get cookie() {
+      return jar.map((c) => `${c.name}=${c.value}`).join("; ");
+    },
+    set cookie(raw: string) {
+      const [pair, ...attrs] = raw.split(";").map((p) => p.trim());
+      const eq = pair.indexOf("=");
+      const name = pair.slice(0, eq);
+      const value = pair.slice(eq + 1);
+      const attr = (k: string) =>
+        attrs.find((a) => a.toLowerCase().startsWith(`${k}=`))?.slice(k.length + 1) ??
+        null;
+      const domain = attr("domain");
+      const expires = attr("expires");
+      const maxAge = attr("max-age");
+      const expired =
+        (expires !== null && new Date(expires).getTime() <= Date.now()) ||
+        (maxAge !== null && Number(maxAge) <= 0);
+      jar = jar.filter(
+        (c) =>
+          !(c.name === name && normalizeDomain(c.domain) === normalizeDomain(domain)),
+      );
+      if (!expired) jar.push({ name, value, domain });
+    },
+  },
+});
+
 const store = new Map<string, string>();
 let storageBroken = false;
 Object.defineProperty(globalThis, "localStorage", {
@@ -45,6 +82,13 @@ Object.defineProperty(globalThis, "localStorage", {
       if (storageBroken) throw new Error("denied");
       store.set(k, v);
     },
+    removeItem: (k: string) => {
+      store.delete(k);
+    },
+    key: (i: number) => [...store.keys()][i] ?? null,
+    get length() {
+      return store.size;
+    },
   },
 });
 
@@ -53,6 +97,7 @@ const analytics = await import("../lib/analytics.ts");
 beforeEach(() => {
   calls.length = 0;
   store.clear();
+  jar = [];
   storageBroken = false;
 });
 
@@ -65,7 +110,7 @@ test("signup flow never sends the email or name to Amplitude", () => {
     SENTINEL_NAME,
     SENTINEL_EMAIL,
   );
-  analytics.trackWaitlistSignupError("failed");
+  (analytics.trackWaitlistSignupError as (...a: unknown[]) => void)("failed");
   analytics.trackCTAClick("Download", "MobileNav");
   const sent = everythingSent();
   assert.ok(!sent.includes(SENTINEL_EMAIL));
@@ -126,4 +171,89 @@ test("privacy notice names every tracker and the contact addresses", () => {
   ]) {
     assert.ok(notice.includes(term), term);
   }
+});
+
+const OLD_EMAIL = "returning.parent@example.test";
+const oldAmpValue = JSON.stringify({
+  deviceId: "old-device-id",
+  userId: OLD_EMAIL,
+  cookieDomain: ".storytimeapp.me",
+});
+
+const seedOldAmplitudeState = () => {
+  jar.push({ name: "AMP_abc123", value: oldAmpValue, domain: ".storytimeapp.me" });
+  jar.push({ name: "AMP_MKTG_abc123", value: "x", domain: ".storytimeapp.me" });
+  jar.push({ name: "unrelated", value: "keep", domain: null });
+  store.set("AMP_abc123", oldAmpValue);
+  store.set("other_key", "keep");
+};
+
+test("first run removes the old Amplitude cookie and storage that hold the email", () => {
+  seedOldAmplitudeState();
+  analytics.initializeAnalytics();
+  assert.ok(!document.cookie.includes(OLD_EMAIL));
+  assert.ok(!document.cookie.includes("AMP_"));
+  assert.ok(!JSON.stringify([...store.entries()]).includes(OLD_EMAIL));
+  assert.ok([...store.keys()].every((k) => !k.startsWith("AMP_")));
+  assert.ok(document.cookie.includes("unrelated=keep"));
+  assert.equal(store.get("other_key"), "keep");
+  assert.ok(!everythingSent().includes(OLD_EMAIL));
+});
+
+test("old cookie is removed whether it was set on the dotted apex, apex or host", () => {
+  for (const domain of [".storytimeapp.me", "storytimeapp.me", "waitlist.storytimeapp.me", null]) {
+    jar = [{ name: "AMP_zzz", value: oldAmpValue, domain }];
+    store.clear();
+    analytics.initializeAnalytics();
+    assert.equal(document.cookie.includes("AMP_zzz"), false, String(domain));
+  }
+});
+
+test("a returning browser that already has an id keeps its Amplitude state", () => {
+  store.set("st_anon_id", "11111111-1111-4111-8111-111111111111");
+  jar.push({ name: "AMP_abc123", value: "new-state", domain: ".storytimeapp.me" });
+  analytics.initializeAnalytics();
+  assert.ok(document.cookie.includes("AMP_abc123=new-state"));
+});
+
+test("signup error event carries a fixed category, never the raw message", () => {
+  (analytics.trackWaitlistSignupError as (...a: unknown[]) => void)(
+    `Email ${SENTINEL_EMAIL} is already registered`,
+  );
+  const sent = everythingSent();
+  assert.ok(!sent.includes(SENTINEL_EMAIL));
+  assert.ok(sent.includes("Waitlist Signup Error"));
+});
+
+test("WaitListForm reports signup errors without the message", () => {
+  const form = readFileSync(
+    new URL("../components/waitlist/WaitListForm.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(form, /trackWaitlistSignupError\(\)/);
+});
+
+test("Meta Pixel automatic advanced matching is switched off before init", () => {
+  const pixel = readFileSync(
+    new URL("../components/MetaPixel.tsx", import.meta.url),
+    "utf8",
+  );
+  const off = pixel.indexOf("fbq('set', 'autoConfig', false");
+  const init = pixel.indexOf("fbq('init'");
+  assert.ok(off > -1 && init > off);
+});
+
+const notice = () =>
+  readFileSync(
+    new URL("../app/privacy-policy/DataCollectionNotice.tsx", import.meta.url),
+    "utf8",
+  );
+
+test("privacy notice states facts and does not claim compliance", () => {
+  const text = notice();
+  assert.doesNotMatch(text, /We comply/);
+  assert.match(text, /IP address/);
+  assert.match(text, /attribution/);
+  assert.match(text, /2026-11-08|8 November 2026/);
+  assert.doesNotMatch(text, /phone/i);
 });

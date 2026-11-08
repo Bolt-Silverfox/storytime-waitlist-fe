@@ -93,7 +93,7 @@ const WaitListForm = ({ onClose }: Props) => {
       console.log("messageerrr", errMessage);
 
       // Track signup error
-      trackWaitlistSignupError(errMessage);
+      trackWaitlistSignupError();
 
       setErrors({ ...errors, general: errMessage });
       toast.error(errMessage);

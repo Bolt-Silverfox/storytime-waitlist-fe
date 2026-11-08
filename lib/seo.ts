@@ -29,7 +29,7 @@ export const rootMetadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: SITE_URL,
+    url: "./",
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
     siteName: "Storytime",
@@ -49,6 +49,6 @@ export const rootMetadata: Metadata = {
     images: [SHARE_IMAGE],
   },
   alternates: {
-    canonical: SITE_URL,
+    canonical: "./",
   },
 };

@@ -60,6 +60,9 @@ jobs:
       - name: Run lint
         run: pnpm lint
 
+      - name: Run tests
+        run: pnpm test
+
   build:
     name: Build
     runs-on: ubuntu-latest
