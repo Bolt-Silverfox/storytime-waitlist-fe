@@ -30,7 +30,7 @@ const sections: { heading: string; body: string[] }[] = [
   {
     heading: "Children's privacy and your rights",
     body: [
-      "We do not collect any information from children on this site. If we later offer features that collect information about children, we will explain it clearly and ask for a parent's or guardian's consent first. If you believe a child has given us personal information, contact us and we will delete it.",
+      "We do not knowingly collect personal information from children. The site is not directed at children, but the tools above record visits from anyone who opens it. If we later offer features that collect information about children, we will explain it clearly and ask for a parent's or guardian's consent first. If you believe a child has given us personal information, contact us and we will delete it.",
       "You can ask us for access to your information, or for it to be corrected or deleted, using the contact details below. You may also complain to your data protection authority, such as the Nigeria Data Protection Commission or your supervisory authority in the EU or UK.",
     ],
   },

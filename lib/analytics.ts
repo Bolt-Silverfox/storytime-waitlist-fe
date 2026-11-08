@@ -94,12 +94,14 @@ const getAnonymousId = (): string | undefined => {
     if (cookieHoldsOtherUser(undefined)) purgeAmplitudeState();
     return undefined;
   }
-  purgeAmplitudeState();
   try {
     const id = crypto.randomUUID();
     localStorage.setItem(ANON_ID_KEY, id);
+    purgeAmplitudeState();
     return id;
   } catch {
+    purgeAmplitudeStorage();
+    if (cookieHoldsOtherUser(undefined)) purgeAmplitudeCookies();
     return undefined;
   }
 };

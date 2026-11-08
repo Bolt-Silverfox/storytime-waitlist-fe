@@ -5,7 +5,7 @@ export default function Loading() {
       aria-live="polite"
       className="flex flex-1 items-center justify-center py-32"
     >
-      <div className="border-primary size-10 animate-spin rounded-full border-4 border-t-transparent" />
+      <div className="border-primary size-10 motion-safe:animate-spin rounded-full border-4 border-t-transparent" />
       <span className="sr-only">Loading</span>
     </div>
   );

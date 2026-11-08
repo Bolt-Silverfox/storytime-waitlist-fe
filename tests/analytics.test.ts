@@ -73,6 +73,7 @@ Object.defineProperty(globalThis, "document", {
 
 const store = new Map<string, string>();
 let storageBroken = false;
+let writeBroken = false;
 Object.defineProperty(globalThis, "localStorage", {
   configurable: true,
   value: {
@@ -81,7 +82,7 @@ Object.defineProperty(globalThis, "localStorage", {
       return store.get(k) ?? null;
     },
     setItem: (k: string, v: string) => {
-      if (storageBroken) throw new Error("denied");
+      if (storageBroken || writeBroken) throw new Error("denied");
       store.set(k, v);
     },
     removeItem: (k: string) => {
@@ -102,6 +103,7 @@ beforeEach(() => {
   jar = [];
   cookieBroken = false;
   storageBroken = false;
+  writeBroken = false;
 });
 
 const everythingSent = () => JSON.stringify(calls);
@@ -227,7 +229,13 @@ test("signup error event carries a fixed category, never the raw message", () =>
   );
   const sent = everythingSent();
   assert.ok(!sent.includes(SENTINEL_EMAIL));
-  assert.ok(sent.includes("Waitlist Signup Error"));
+  const errorEvent = calls.find(
+    (c) => c.fn === "track" && c.args[0] === "Waitlist Signup Error",
+  );
+  assert.equal(
+    (errorEvent?.args[1] as { error_category?: string }).error_category,
+    "signup_failed",
+  );
 });
 
 test("WaitListForm reports signup errors without the message", () => {
@@ -329,4 +337,50 @@ test("with storage blocked, a cookie without another user is not reset on every 
   jar.push({ name: "AMP_abc123", value: state, domain: null });
   analytics.initializeAnalytics();
   assert.ok(document.cookie.includes(`AMP_abc123=${state}`));
+});
+
+test("storage readable but not writable: an anonymous cookie is kept across loads", () => {
+  writeBroken = true;
+  const state = JSON.stringify({ deviceId: "d" });
+  jar.push({ name: "AMP_abc123", value: state, domain: null });
+  analytics.initializeAnalytics();
+  analytics.initializeAnalytics();
+  assert.ok(document.cookie.includes(`AMP_abc123=${state}`));
+});
+
+test("storage readable but not writable: an email cookie is purged", () => {
+  writeBroken = true;
+  jar.push({ name: "AMP_abc123", value: oldAmpValue, domain: ".storytimeapp.me" });
+  analytics.initializeAnalytics();
+  assert.ok(!document.cookie.includes(OLD_EMAIL));
+});
+
+test("storage readable but not writable: an unsent queue holding the email is purged", () => {
+  writeBroken = true;
+  store.set("AMP_unsent_abc123", JSON.stringify([{ user_id: OLD_EMAIL }]));
+  analytics.initializeAnalytics();
+  assert.ok(!JSON.stringify([...store.entries()]).includes(OLD_EMAIL));
+});
+
+test("privacy notice does not claim no data is collected from children", () => {
+  const text = notice();
+  assert.doesNotMatch(text, /do not collect any information from children/);
+  assert.match(text, /do not knowingly collect personal information from children/);
+  assert.match(text, /record visits from anyone who opens it/);
+});
+
+test("error and loading pages report to Sentry, retry with refresh and respect reduced motion", () => {
+  const read = (f: string) =>
+    readFileSync(new URL(`../app/${f}`, import.meta.url), "utf8");
+  const error = read("error.tsx");
+  assert.match(error, /Sentry\.captureException\(error\)/);
+  assert.match(error, /router\.refresh\(\)/);
+  assert.match(error, /reset\(\)/);
+  assert.match(read("loading.tsx"), /motion-safe:animate-spin/);
+});
+
+test("lib/meta-pixel.ts no longer exists", () => {
+  assert.throws(() =>
+    readFileSync(new URL("../lib/meta-pixel.ts", import.meta.url)),
+  );
 });

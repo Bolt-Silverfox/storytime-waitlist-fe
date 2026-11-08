@@ -1,11 +1,12 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { rootMetadata, viewport, DEFAULT_TITLE } from "../lib/seo.ts";
-import { SITE_URL } from "../lib/site.ts";
-import sitemap from "../app/sitemap.ts";
-import robots from "../app/robots.ts";
-import manifest from "../app/manifest.ts";
+delete process.env.NEXT_PUBLIC_SITE_URL;
+const { rootMetadata, viewport, DEFAULT_TITLE } = await import("../lib/seo.ts");
+const { SITE_URL } = await import("../lib/site.ts");
+const { default: sitemap } = await import("../app/sitemap.ts");
+const { default: robots } = await import("../app/robots.ts");
+const { default: manifest } = await import("../app/manifest.ts");
 import { resourcesData } from "../data.ts";
 import { resolveAbsoluteUrlWithPathname } from "next/dist/lib/metadata/resolvers/resolve-url.js";
 import { execFileSync } from "node:child_process";
