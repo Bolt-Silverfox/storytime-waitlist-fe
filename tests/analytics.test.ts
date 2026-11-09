@@ -567,3 +567,36 @@ test("a normal anonymous queue is kept over three loads", () => {
   for (let i = 0; i < 3; i++) analytics.initializeAnalytics();
   assert.equal(store.get("AMP_unsent_key"), queue);
 });
+
+test("a queue holding a Page Location property is purged even without an email", () => {
+  store.set("st_anon_id", ANON);
+  store.set(
+    "AMP_unsent_key",
+    JSON.stringify([
+      {
+        event_type: "e",
+        event_properties: {
+          "[Amplitude] Page Location":
+            "https://waitlist.storytimeapp.me/contact-us?name=Bob+Smith&message=call+me+on+08012345678",
+        },
+      },
+    ]),
+  );
+  analytics.initializeAnalytics();
+  assert.equal(store.has("AMP_unsent_key"), false);
+});
+
+test("an anonymous queue with a non email-shaped @ is kept over three loads with stable ids", () => {
+  store.set("st_anon_id", ANON);
+  const queue = JSON.stringify([
+    {
+      event_type: "Page Viewed",
+      event_properties: { page_path: "/resources/a%40b", page_title: "Q @ A | Storytime" },
+    },
+  ]);
+  store.set("AMP_unsent_key", queue);
+  for (let i = 0; i < 3; i++) analytics.initializeAnalytics();
+  assert.equal(store.get("AMP_unsent_key"), queue);
+  const ids = calls.filter((c) => c.fn === "init").map((c) => c.args[1]);
+  assert.deepEqual(ids, [ANON, ANON, ANON]);
+});

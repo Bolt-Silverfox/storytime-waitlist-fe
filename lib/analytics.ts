@@ -56,6 +56,9 @@ const purgeAmplitudeState = () => {
   purgeAmplitudeStorage();
 };
 
+const EMAIL_SHAPED = /[^\s"@%]+(@|%40)[^\s"@%]+\.[a-z]{2,}/i;
+const PAGE_LOCATION_KEY = "[Amplitude] Page Location";
+
 const unsentQueueHoldsOtherUser = (anonymousId: string) => {
   try {
     for (let i = 0; i < localStorage.length; i++) {
@@ -63,7 +66,7 @@ const unsentQueueHoldsOtherUser = (anonymousId: string) => {
       if (!key?.startsWith("AMP_unsent_")) continue;
       try {
         const raw = localStorage.getItem(key) ?? "[]";
-        if (/@|%40/.test(raw)) return true;
+        if (EMAIL_SHAPED.test(raw) || raw.includes(PAGE_LOCATION_KEY)) return true;
         const events: unknown = JSON.parse(raw);
         if (!Array.isArray(events)) return true;
         const foreign = events.some((event) => {
