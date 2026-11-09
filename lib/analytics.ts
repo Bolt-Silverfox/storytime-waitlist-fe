@@ -1,6 +1,149 @@
 import * as amplitude from "@amplitude/analytics-browser";
 
-// Initialize Amplitude
+const ANON_ID_KEY = "st_anon_id";
+
+const expireCookie = (name: string, domain?: string) => {
+  const scope = domain ? `; domain=${domain}` : "";
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${scope}`;
+};
+
+const AMP_COOKIE = /^AMP_(?!MKTG|TEST)/;
+
+const readAmplitudeCookies = () =>
+  document.cookie
+    .split(";")
+    .map((part) => {
+      const eq = part.indexOf("=");
+      return { name: part.slice(0, eq).trim(), value: part.slice(eq + 1).trim() };
+    })
+    .filter(({ name }) => AMP_COOKIE.test(name));
+
+const purgeAmplitudeCookies = () => {
+  try {
+    const labels = location.hostname.split(".");
+    const domains: (string | undefined)[] = [undefined];
+    for (let i = 0; i < labels.length - 1; i++) {
+      const suffix = labels.slice(i).join(".");
+      domains.push(suffix, `.${suffix}`);
+    }
+    const names = document.cookie
+      .split(";")
+      .map((part) => part.split("=")[0].trim())
+      .filter((name) => name.startsWith("AMP_"));
+    for (const name of names) {
+      for (const domain of domains) expireCookie(name, domain);
+    }
+  } catch {
+    return;
+  }
+};
+
+const purgeAmplitudeStorage = () => {
+  try {
+    const keys: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("AMP_")) keys.push(key);
+    }
+    keys.forEach((key) => localStorage.removeItem(key));
+  } catch {
+    return;
+  }
+};
+
+const purgeAmplitudeState = () => {
+  purgeAmplitudeCookies();
+  purgeAmplitudeStorage();
+};
+
+const EMAIL_SHAPED = /[^\s"@%]+(@|%40)[^\s"@%]+\.[a-z]{2,}/i;
+const PAGE_LOCATION_KEY = "[Amplitude] Page Location";
+
+const unsentQueueHoldsOtherUser = (anonymousId: string) => {
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key?.startsWith("AMP_unsent_")) continue;
+      try {
+        const raw = localStorage.getItem(key) ?? "[]";
+        if (EMAIL_SHAPED.test(raw) || raw.includes(PAGE_LOCATION_KEY)) return true;
+        const events: unknown = JSON.parse(raw);
+        if (!Array.isArray(events)) return true;
+        const foreign = events.some((event) => {
+          const userId = (event as { user_id?: unknown } | null)?.user_id;
+          return Boolean(userId) && userId !== anonymousId;
+        });
+        if (foreign) return true;
+      } catch {
+        return true;
+      }
+    }
+    return false;
+  } catch {
+    return false;
+  }
+};
+
+const decodeCookieUserId = (value: string): unknown => {
+  try {
+    return JSON.parse(value).userId;
+  } catch {
+    return JSON.parse(decodeURIComponent(atob(value))).userId;
+  }
+};
+
+const cookieHoldsOtherUser = (anonymousId: string | undefined) => {
+  try {
+    return readAmplitudeCookies().some(({ value }) => {
+      try {
+        const userId = decodeCookieUserId(value);
+        return Boolean(userId) && userId !== anonymousId;
+      } catch {
+        return true;
+      }
+    });
+  } catch {
+    return false;
+  }
+};
+
+const createAnonymousId = (): string => {
+  if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+};
+
+const getAnonymousId = (): string | undefined => {
+  let stored: string | null | undefined;
+  try {
+    stored = localStorage.getItem(ANON_ID_KEY);
+  } catch {
+    stored = undefined;
+  }
+  if (stored) {
+    if (cookieHoldsOtherUser(stored)) purgeAmplitudeState();
+    else if (unsentQueueHoldsOtherUser(stored)) purgeAmplitudeStorage();
+    return stored;
+  }
+  if (stored === undefined) {
+    if (cookieHoldsOtherUser(undefined)) purgeAmplitudeState();
+    return undefined;
+  }
+  try {
+    const id = createAnonymousId();
+    localStorage.setItem(ANON_ID_KEY, id);
+    purgeAmplitudeState();
+    return id;
+  } catch {
+    purgeAmplitudeStorage();
+    if (cookieHoldsOtherUser(undefined)) purgeAmplitudeCookies();
+    return undefined;
+  }
+};
+
 export const initializeAnalytics = () => {
   const apiKey = "e48a8fa48803c43c9e5e3888517e897c";
 
@@ -10,19 +153,24 @@ export const initializeAnalytics = () => {
   }
 
   try {
-    amplitude.init(apiKey, {
-      defaultTracking: {
+    const anonymousId = getAnonymousId();
+    amplitude.init(apiKey, anonymousId, {
+      autocapture: {
         sessions: true,
         pageViews: false,
         formInteractions: false,
         fileDownloads: false,
+        pageUrlEnrichment: false,
+        attribution: false,
       },
+      fetchRemoteConfig: false,
       // Reduce logging in development to avoid spam from adblockers
       logLevel:
         process.env.NODE_ENV === "development"
           ? amplitude.Types.LogLevel.None
           : amplitude.Types.LogLevel.Warn,
     });
+    amplitude.setUserId(anonymousId);
     console.log("Amplitude initialized successfully");
   } catch (error) {
     if (process.env.NODE_ENV === "production") {
@@ -71,22 +219,6 @@ export const setUserProperties = (properties: Record<string, any>) => {
   }
 };
 
-// Identify user by email or ID
-export const identifyUser = (
-  userId: string,
-   
-  userProperties?: Record<string, any>,
-) => {
-  try {
-    amplitude.setUserId(userId);
-    if (userProperties) {
-      setUserProperties(userProperties);
-    }
-  } catch (error) {
-    console.error("Failed to identify user:", error);
-  }
-};
-
 // Waitlist-specific tracking functions
 export const trackWaitlistFormViewed = () => {
   trackEvent("Waitlist Form Viewed", {
@@ -94,25 +226,15 @@ export const trackWaitlistFormViewed = () => {
   });
 };
 
-export const trackWaitlistSignup = (name: string, email: string) => {
-  // Identify the user
-  identifyUser(email, {
-    name,
-    email,
-    signup_date: new Date().toISOString(),
-  });
-
-  // Track the signup event
+export const trackWaitlistSignup = () => {
   trackEvent("Waitlist Signup Completed", {
-    name,
-    email,
     timestamp: new Date().toISOString(),
   });
 };
 
-export const trackWaitlistSignupError = (error: string) => {
+export const trackWaitlistSignupError = () => {
   trackEvent("Waitlist Signup Error", {
-    error_message: error,
+    error_category: "signup_failed",
     timestamp: new Date().toISOString(),
   });
 };

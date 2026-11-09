@@ -9,13 +9,9 @@
 # that would mirror the build output over a live deployment path if
 # `SERVER_HOST` were ever repointed at the current box.
 #
-# Production deploys are to be made by `deploy-production.yml`, a manual
-# (`workflow_dispatch`) caller of the shared storytime-devops pipeline. That
-# file is not merged yet — it is open as PR #171 — and it also needs a
-# Dockerfile on `main`, build-arg support in the shared pipeline (devops PR
-# #20) and a copy on the default branch (`dev`) before `workflow_dispatch` will
-# register it. So `main` has no automated production deploy path in the
-# interim; the running container is unaffected.
+# Production deploys are made by `deploy-production.yml`, a manual
+# (`workflow_dispatch`) caller of the shared storytime-devops pipeline; it is
+# not triggered by this workflow.
 name: CI Frontend (main)
 
 on:
@@ -59,6 +55,9 @@ jobs:
 
       - name: Run lint
         run: pnpm lint
+
+      - name: Run tests
+        run: pnpm test
 
   build:
     name: Build

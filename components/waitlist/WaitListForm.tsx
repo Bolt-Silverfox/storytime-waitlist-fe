@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
 import SuccessDisplay from "../SuccessDisplay";
 import { Icon } from "@iconify/react";
@@ -78,7 +79,7 @@ const WaitListForm = ({ onClose }: Props) => {
       console.log(response);
 
       // Track successful signup
-      trackWaitlistSignup(data.name, data.email);
+      trackWaitlistSignup();
       if (!response.status)
         throw new Error(
           response.message || response.messsage || "Something went wrong",
@@ -92,7 +93,7 @@ const WaitListForm = ({ onClose }: Props) => {
       console.log("messageerrr", errMessage);
 
       // Track signup error
-      trackWaitlistSignupError(errMessage);
+      trackWaitlistSignupError();
 
       setErrors({ ...errors, general: errMessage });
       toast.error(errMessage);
@@ -104,7 +105,7 @@ const WaitListForm = ({ onClose }: Props) => {
   return (
     <section
       onClick={onClose}
-      className="fixed inset-0 z-50 flex flex-col justify-center bg-[#221D1DB2]/70 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex flex-col justify-center-safe overflow-y-auto bg-[#221D1DB2]/70 backdrop-blur-xs"
     >
       {!isSignupSuccessful ? (
         <form
@@ -182,6 +183,18 @@ const WaitListForm = ({ onClose }: Props) => {
           >
             {isLoading ? "Loading..." : "Join the waitlist"}
           </button>
+        <p className="font-abezee text-center text-xs text-[#4A413F]">
+          See our{" "}
+          <Link
+            href="/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline"
+          >
+            Privacy Policy
+          </Link>{" "}
+          for how we use your details.
+        </p>
         </form>
       ) : (
         <SuccessDisplay onClose={onClose} />
