@@ -276,7 +276,7 @@ test("privacy notice states facts and does not claim compliance", () => {
   const text = notice();
   assert.doesNotMatch(text, /We comply/);
   assert.match(text, /IP address/);
-  assert.match(text, /attribution/);
+  assert.doesNotMatch(text, /attribution|referred/i);
   assert.doesNotMatch(text, /8 November|2026/);
   assert.match(text, /before this change/);
   assert.match(text, /no longer send it/);
@@ -399,7 +399,7 @@ test("lib/meta-pixel.ts no longer exists", () => {
   );
 });
 
-test("Amplitude is initialised with page url enrichment off under autocapture", () => {
+test("Amplitude is initialised with url enrichment and attribution off and no remote config", () => {
   analytics.initializeAnalytics();
   const init = calls.find((c) => c.fn === "init");
   const options = init?.args[2] as Record<string, unknown>;
@@ -410,7 +410,9 @@ test("Amplitude is initialised with page url enrichment off under autocapture", 
     formInteractions: false,
     fileDownloads: false,
     pageUrlEnrichment: false,
+    attribution: false,
   });
+  assert.equal(options.fetchRemoteConfig, false);
 });
 
 test("with a query in location, init config disables url enrichment and our events carry no query", () => {
@@ -428,6 +430,8 @@ test("with a query in location, init config disables url enrichment and our even
   const autocapture = (init?.args[2] as { autocapture: Record<string, unknown> })
     .autocapture;
   assert.equal(autocapture.pageUrlEnrichment, false);
+  assert.equal(autocapture.attribution, false);
+  assert.equal((init?.args[2] as { fetchRemoteConfig?: boolean }).fetchRemoteConfig, false);
   const sent = everythingSent();
   assert.ok(!sent.includes("email=x"));
   assert.ok(!sent.includes("Page Location"));
@@ -539,4 +543,27 @@ test("the waitlist overlay scrolls and centres safely on short viewports", () =>
     "utf8",
   );
   assert.match(form, /fixed inset-0[^"]*justify-center-safe[^"]*overflow-y-auto|fixed inset-0[^"]*overflow-y-auto[^"]*justify-center-safe/);
+});
+
+test("a queued event without user_id but containing an email-shaped value is purged", () => {
+  for (const leak of ["bob@example.test", "bob%40example.test"]) {
+    store.clear();
+    store.set("st_anon_id", ANON);
+    store.set(
+      "AMP_unsent_key",
+      JSON.stringify([{ event_type: "e", event_properties: { loc: `/c?email=${leak}` } }]),
+    );
+    analytics.initializeAnalytics();
+    assert.equal(store.has("AMP_unsent_key"), false, leak);
+  }
+});
+
+test("a normal anonymous queue is kept over three loads", () => {
+  store.set("st_anon_id", ANON);
+  const queue = JSON.stringify([
+    { event_type: "CTA Clicked", event_properties: { cta_name: "Download" } },
+  ]);
+  store.set("AMP_unsent_key", queue);
+  for (let i = 0; i < 3; i++) analytics.initializeAnalytics();
+  assert.equal(store.get("AMP_unsent_key"), queue);
 });

@@ -62,7 +62,9 @@ const unsentQueueHoldsOtherUser = (anonymousId: string) => {
       const key = localStorage.key(i);
       if (!key?.startsWith("AMP_unsent_")) continue;
       try {
-        const events: unknown = JSON.parse(localStorage.getItem(key) ?? "[]");
+        const raw = localStorage.getItem(key) ?? "[]";
+        if (/@|%40/.test(raw)) return true;
+        const events: unknown = JSON.parse(raw);
         if (!Array.isArray(events)) return true;
         const foreign = events.some((event) => {
           const userId = (event as { user_id?: unknown } | null)?.user_id;
@@ -156,7 +158,9 @@ export const initializeAnalytics = () => {
         formInteractions: false,
         fileDownloads: false,
         pageUrlEnrichment: false,
+        attribution: false,
       },
+      fetchRemoteConfig: false,
       // Reduce logging in development to avoid spam from adblockers
       logLevel:
         process.env.NODE_ENV === "development"
