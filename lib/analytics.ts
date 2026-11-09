@@ -56,6 +56,29 @@ const purgeAmplitudeState = () => {
   purgeAmplitudeStorage();
 };
 
+const unsentQueueHoldsOtherUser = (anonymousId: string) => {
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key?.startsWith("AMP_unsent_")) continue;
+      try {
+        const events: unknown = JSON.parse(localStorage.getItem(key) ?? "[]");
+        if (!Array.isArray(events)) return true;
+        const foreign = events.some((event) => {
+          const userId = (event as { user_id?: unknown } | null)?.user_id;
+          return Boolean(userId) && userId !== anonymousId;
+        });
+        if (foreign) return true;
+      } catch {
+        return true;
+      }
+    }
+    return false;
+  } catch {
+    return false;
+  }
+};
+
 const decodeCookieUserId = (value: string): unknown => {
   try {
     return JSON.parse(value).userId;
@@ -97,6 +120,7 @@ const getAnonymousId = (): string | undefined => {
   }
   if (stored) {
     if (cookieHoldsOtherUser(stored)) purgeAmplitudeState();
+    else if (unsentQueueHoldsOtherUser(stored)) purgeAmplitudeStorage();
     return stored;
   }
   if (stored === undefined) {

@@ -377,6 +377,9 @@ test("privacy notice does not claim no data is collected from children", () => {
   assert.doesNotMatch(text, /do not collect any information from children/);
   assert.match(text, /do not knowingly collect personal information from children/);
   assert.doesNotMatch(text, /do not collect any personal information from children/);
+  assert.doesNotMatch(text, /does not receive the page address/);
+  assert.match(text, /receives the path of each page you visit/);
+  assert.match(text, /session replays can capture what you type unless/i);
   assert.match(text, /record visits from anyone who opens it/);
 });
 
@@ -410,7 +413,7 @@ test("Amplitude is initialised with page url enrichment off under autocapture", 
   });
 });
 
-test("no tracked event carries the page query string", () => {
+test("with a query in location, init config disables url enrichment and our events carry no query", () => {
   Object.defineProperty(globalThis, "location", {
     configurable: true,
     value: {
@@ -421,6 +424,10 @@ test("no tracked event carries the page query string", () => {
   analytics.initializeAnalytics();
   analytics.trackCTAClick("Download", "MobileNav");
   analytics.trackWaitlistSignup();
+  const init = calls.find((c) => c.fn === "init");
+  const autocapture = (init?.args[2] as { autocapture: Record<string, unknown> })
+    .autocapture;
+  assert.equal(autocapture.pageUrlEnrichment, false);
   const sent = everythingSent();
   assert.ok(!sent.includes("email=x"));
   assert.ok(!sent.includes("Page Location"));
@@ -496,4 +503,40 @@ test("the main CI header no longer describes deploy-production as unmerged", () 
     "utf8",
   );
   assert.doesNotMatch(header, /not merged yet|open as PR #171/);
+});
+
+const queueOf = (...userIds: (string | undefined)[]) =>
+  JSON.stringify(userIds.map((user_id) => ({ event_type: "e", user_id })));
+
+test("a queued event holding another user id is purged before init", () => {
+  store.set("st_anon_id", ANON);
+  store.set("AMP_unsent_key", queueOf(OLD_EMAIL, ANON));
+  analytics.initializeAnalytics();
+  assert.ok(!JSON.stringify([...store.entries()]).includes(OLD_EMAIL));
+  assert.equal(store.get("st_anon_id"), ANON);
+});
+
+test("an unparsable queue is purged", () => {
+  store.set("st_anon_id", ANON);
+  store.set("AMP_unsent_key", "{not json");
+  analytics.initializeAnalytics();
+  assert.equal(store.has("AMP_unsent_key"), false);
+});
+
+test("a queue holding only the stored id is kept across three loads", () => {
+  store.set("st_anon_id", ANON);
+  const queue = queueOf(ANON, undefined);
+  store.set("AMP_unsent_key", queue);
+  for (let i = 0; i < 3; i++) analytics.initializeAnalytics();
+  assert.equal(store.get("AMP_unsent_key"), queue);
+  const ids = calls.filter((c) => c.fn === "init").map((c) => c.args[1]);
+  assert.deepEqual(ids, [ANON, ANON, ANON]);
+});
+
+test("the waitlist overlay scrolls and centres safely on short viewports", () => {
+  const form = readFileSync(
+    new URL("../components/waitlist/WaitListForm.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(form, /fixed inset-0[^"]*justify-center-safe[^"]*overflow-y-auto|fixed inset-0[^"]*overflow-y-auto[^"]*justify-center-safe/);
 });

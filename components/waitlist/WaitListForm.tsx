@@ -105,7 +105,7 @@ const WaitListForm = ({ onClose }: Props) => {
   return (
     <section
       onClick={onClose}
-      className="fixed inset-0 z-50 flex flex-col justify-center bg-[#221D1DB2]/70 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex flex-col justify-center-safe overflow-y-auto bg-[#221D1DB2]/70 backdrop-blur-xs"
     >
       {!isSignupSuccessful ? (
         <form

@@ -177,18 +177,18 @@ const ContactUs: React.FC = () => {
           >
             {isLoading ? "Sending..." : "Submit"}
           </button>
-        <p className="font-abezee text-center text-xs text-[#4A413F]">
-          See our{" "}
-          <Link
-            href="/privacy-policy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary underline"
-          >
-            Privacy Policy
-          </Link>{" "}
-          for how we use your details.
-        </p>
+          <p className="font-abezee text-center text-xs text-[#4A413F]">
+            See our{" "}
+            <Link
+              href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline"
+            >
+              Privacy Policy
+            </Link>{" "}
+            for how we use your details.
+          </p>
         </form>
 
         <div className="absolute top-0 right-0 hidden w-[280px] lg:block">
