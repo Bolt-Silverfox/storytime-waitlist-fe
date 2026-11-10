@@ -1,6 +1,6 @@
 import { test, mock, beforeEach, afterEach } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, existsSync, mkdtempSync, writeFileSync } from "node:fs";
+import { readFileSync, existsSync, mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
@@ -104,7 +104,7 @@ mock.module("../lib/navigation.ts", {
 process.env.NEXT_PUBLIC_META_PIXEL_ID = "123456789";
 
 const { act, createElement } = React;
-const { createRoot } = await import("react-dom/client");
+const { createRoot, hydrateRoot } = await import("react-dom/client");
 const { renderToString } = await import("react-dom/server");
 const consent = await import("../lib/consent.ts");
 const analytics = await import("../lib/analytics.ts");
@@ -694,6 +694,27 @@ test("a returning visitor who accepted gets Amplitude started once and no extra 
   assert.equal(amplitudeCalls.filter((c) => c.fn === "track").length, 0);
 });
 
+test("a returning visitor who accepted records one page view through hydration, not two", async () => {
+  plantConsent("granted");
+  const PageViews = () => {
+    React.useEffect(() => {
+      analytics.trackPageView(route.pathname, "About");
+    }, []);
+    return null;
+  };
+  const Page = () => createElement(React.Fragment, null, createElement(PageViews), createElement(App));
+  const container = win.document.createElement("div");
+  win.document.body.appendChild(container);
+  container.innerHTML = renderToString(createElement(Page));
+  let root!: ReturnType<typeof hydrateRoot>;
+  await act(async () => {
+    root = hydrateRoot(container, createElement(Page));
+  });
+  mounted.push({ container, unmount: () => act(async () => root.unmount()) });
+  assert.equal(isOpen(), false);
+  assert.equal(amplitudeCalls.filter((c) => c.fn === "track").length, 1);
+});
+
 test("Accept records exactly one page view", async () => {
   await mount(createElement(App));
   await click(button("Accept"));
@@ -764,11 +785,12 @@ test("the banner keeps Reject and Accept outside the scrolling text and stays co
   assert.ok(!root.querySelector("[class*=overflow-y-auto]")!.contains(button("Reject")));
 });
 
-const headingClasses = async () => {
+const headingMarkup = async () => {
   plantConsent("denied");
   await mount(createElement(App));
   await act(async () => consent.openConsentPreferences());
-  return win.document.getElementById("consent-title")!.className;
+  const heading = win.document.getElementById("consent-title")!;
+  return { headingClasses: heading.className, scrollerClasses: heading.parentElement!.className };
 };
 
 const builtCss = async (classes: string) => {
@@ -795,22 +817,27 @@ const findChrome = () =>
   ].find((bin) => bin && existsSync(bin));
 
 test("the heading's compiled CSS never forces the outline style to none", async () => {
-  const css = await builtCss(await headingClasses());
+  const css = await builtCss((await headingMarkup()).headingClasses);
   assert.doesNotMatch(css, /--tw-outline-style:\s*none/);
 });
 
 test("the heading draws a 2px #7a07ec outline for keyboard users and none otherwise, as computed by Chrome", async (t) => {
   const chrome = findChrome();
   if (!chrome) return t.skip("no Chrome binary found (set CHROME_BIN)");
-  const classes = await headingClasses();
-  const css = await builtCss(classes);
+  const { headingClasses, scrollerClasses } = await headingMarkup();
+  const css = await builtCss(`${headingClasses} ${scrollerClasses}`);
   const dir = mkdtempSync(path.join(tmpdir(), "ring-"));
+  t.after(() => rmSync(dir, { recursive: true, force: true }));
   const page = path.join(dir, "page.html");
   writeFileSync(
     page,
-    `<!doctype html><title></title><style>${css}</style><h2 id="h" tabindex="-1" class="${classes}">x</h2><script>
-const h=document.getElementById("h");const r={};
-for(const ring of ["true","false"]){h.dataset.ring=ring;const c=getComputedStyle(h);r[ring]={style:c.outlineStyle,width:c.outlineWidth,color:c.outlineColor,offset:c.outlineOffset}}
+    `<!doctype html><title></title><style>${css}</style><div style="width:400px"><div id="s" class="${scrollerClasses}"><h2 id="h" tabindex="-1" class="${headingClasses}">Your cookie choice</h2><p>text</p></div></div><script>
+const h=document.getElementById("h");const s=document.getElementById("s");const r={};
+for(const ring of ["true","false"]){h.dataset.ring=ring;const c=getComputedStyle(h);
+const grow=(parseFloat(c.outlineOffset)||0)+(parseFloat(c.outlineWidth)||0);
+const b=h.getBoundingClientRect();const k=s.getBoundingClientRect();
+r[ring]={style:c.outlineStyle,width:c.outlineWidth,color:c.outlineColor,offset:c.outlineOffset,
+clipped:b.left-grow<k.left||b.right+grow>k.right||b.top-grow<k.top||b.bottom+grow>k.bottom}}
 document.title=JSON.stringify(r);</script>`,
   );
   const out = execFileSync(
@@ -819,12 +846,10 @@ document.title=JSON.stringify(r);</script>`,
     { encoding: "utf8", timeout: 60000 },
   );
   const result = JSON.parse(/<title>(.*?)<\/title>/s.exec(out)![1]);
-  assert.deepEqual(result.true, {
-    style: "solid",
-    width: "2px",
-    color: "rgb(122, 7, 236)",
-    offset: "2px",
-  });
+  assert.equal(result.true.style, "solid");
+  assert.equal(result.true.width, "2px");
+  assert.equal(result.true.color, "rgb(122, 7, 236)");
+  assert.equal(result.true.clipped, false, "the ring must stay inside the scroller's clip rect");
   assert.ok(
     result.false.style === "none" ||
       result.false.width === "0px" ||

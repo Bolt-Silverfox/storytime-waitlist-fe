@@ -101,7 +101,7 @@ export default function ConsentBanner() {
             id="consent-title"
             ref={headingRef}
             tabIndex={-1}
-            className="font-Qilka text-base font-bold outline-0 data-[ring=true]:outline-2 data-[ring=true]:outline-offset-2 data-[ring=true]:outline-[#7a07ec]"
+            className="font-Qilka text-base font-bold outline-0 data-[ring=true]:outline-2 data-[ring=true]:-outline-offset-2 data-[ring=true]:outline-[#7a07ec]"
           >
             Your cookie choice
           </h2>
