@@ -1,4 +1,5 @@
 import * as amplitude from "@amplitude/analytics-browser";
+import { getConsent } from "./consent.ts";
 
 const ANON_ID_KEY = "st_anon_id";
 
@@ -144,7 +145,24 @@ const getAnonymousId = (): string | undefined => {
   }
 };
 
+const consentGiven = () => getConsent() === "granted";
+
+const attempt = (action: () => void) => {
+  try {
+    action();
+  } catch {
+    return;
+  }
+};
+
+export const disableAnalytics = () => {
+  attempt(() => amplitude.setOptOut(true));
+  purgeAmplitudeState();
+  attempt(() => localStorage.removeItem(ANON_ID_KEY));
+};
+
 export const initializeAnalytics = () => {
+  if (!consentGiven()) return;
   const apiKey = "e48a8fa48803c43c9e5e3888517e897c";
 
   if (!apiKey) {
@@ -185,6 +203,7 @@ export const trackEvent = (
    
   eventProperties?: Record<string, any>,
 ) => {
+  if (!consentGiven()) return;
   try {
     amplitude.track(eventName, eventProperties);
   } catch (error) {
@@ -194,6 +213,7 @@ export const trackEvent = (
 
 // Track page views
 export const trackPageView = (pagePath: string, pageTitle?: string) => {
+  if (!consentGiven()) return;
   try {
     amplitude.track("Page Viewed", {
       page_path: pagePath,
@@ -208,6 +228,7 @@ export const trackPageView = (pagePath: string, pageTitle?: string) => {
 // Set user properties
  
 export const setUserProperties = (properties: Record<string, any>) => {
+  if (!consentGiven()) return;
   try {
     const identifyEvent = new amplitude.Identify();
     Object.entries(properties).forEach(([key, value]) => {

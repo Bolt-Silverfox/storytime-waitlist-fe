@@ -3,6 +3,8 @@ import { Suspense } from "react";
 import ClientProviders from "../components/providers/ClientProviders";
 import { rootMetadata, viewport } from "../lib/seo.ts";
 import MetaPixel from "../components/MetaPixel";
+import ContentsquareTag from "../components/ContentsquareTag";
+import ConsentBanner from "../components/consent/ConsentBanner";
 import "../index.css";
 
 export const metadata: Metadata = rootMetadata;
@@ -15,17 +17,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <script
-          src="https://t.contentsquare.net/uxa/3c5a706e6e6fd.js"
-          async
-        ></script>
-      </head>
       <body>
         <ClientProviders>{children}</ClientProviders>
         <Suspense fallback={null}>
           <MetaPixel />
         </Suspense>
+        <ContentsquareTag />
+        <ConsentBanner />
       </body>
     </html>
   );

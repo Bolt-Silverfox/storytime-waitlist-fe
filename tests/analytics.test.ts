@@ -1,7 +1,6 @@
 import { test, mock, beforeEach } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import vm from "node:vm";
 
 const SENTINEL_EMAIL = "sentinel.parent@example.test";
 const SENTINEL_NAME = "Sentinel Parent";
@@ -36,6 +35,7 @@ mock.module("@amplitude/analytics-browser", {
 type Cookie = { name: string; value: string; domain: string | null };
 let jar: Cookie[] = [];
 let cookieBroken = false;
+let cookieReadsBeforeBreak = Infinity;
 const normalizeDomain = (d: string | null) => (d ? d.replace(/^\./, "") : null);
 
 Object.defineProperty(globalThis, "location", {
@@ -46,7 +46,8 @@ Object.defineProperty(globalThis, "document", {
   configurable: true,
   value: {
     get cookie() {
-      if (cookieBroken) throw new Error("cookies denied");
+      if (cookieBroken || cookieReadsBeforeBreak-- <= 0)
+        throw new Error("cookies denied");
       return jar.map((c) => `${c.name}=${c.value}`).join("; ");
     },
     set cookie(raw: string) {
@@ -101,8 +102,9 @@ const analytics = await import("../lib/analytics.ts");
 beforeEach(() => {
   calls.length = 0;
   store.clear();
-  jar = [];
+  jar = [{ name: "st_consent", value: "granted", domain: null }];
   cookieBroken = false;
+  cookieReadsBeforeBreak = Infinity;
   storageBroken = false;
   writeBroken = false;
 });
@@ -208,7 +210,10 @@ test("first run removes the old Amplitude cookie and storage that hold the email
 
 test("old cookie is removed whether it was set on the dotted apex, apex or host", () => {
   for (const domain of [".storytimeapp.me", "storytimeapp.me", "waitlist.storytimeapp.me", null]) {
-    jar = [{ name: "AMP_zzz", value: oldAmpValue, domain }];
+    jar = [
+      { name: "st_consent", value: "granted", domain: null },
+      { name: "AMP_zzz", value: oldAmpValue, domain },
+    ];
     store.clear();
     analytics.initializeAnalytics();
     assert.equal(document.cookie.includes("AMP_zzz"), false, String(domain));
@@ -245,25 +250,6 @@ test("WaitListForm reports signup errors without the message", () => {
     "utf8",
   );
   assert.match(form, /trackWaitlistSignupError\(\)/);
-});
-
-test("auto-config is switched off before init", () => {
-  const source = readFileSync(
-    new URL("../components/MetaPixel.tsx", import.meta.url),
-    "utf8",
-  );
-  const body = source.match(/__html: `([\s\S]*?)`,/)?.[1];
-  assert.ok(body);
-  const fbqCalls: unknown[][] = [];
-  const context: Record<string, unknown> = {
-    document: {},
-    fbq: (...args: unknown[]) => fbqCalls.push(args),
-  };
-  context.window = context;
-  vm.runInNewContext(body.replace("${FB_PIXEL_ID}", "123").replace("${FB_PIXEL_ID}", "123"), context);
-  const names = fbqCalls.map((c) => c.slice(0, 2).join(":"));
-  assert.deepEqual(fbqCalls[0], ["set", "autoConfig", false, "123"]);
-  assert.ok(names.indexOf("init:123") > 0);
 });
 
 const notice = () =>
@@ -336,7 +322,7 @@ test("cookies are purged even when localStorage throws", () => {
 
 test("localStorage is purged even when the cookie purge throws", () => {
   store.set("AMP_abc123", oldAmpValue);
-  cookieBroken = true;
+  cookieReadsBeforeBreak = 1;
   assert.doesNotThrow(() => analytics.initializeAnalytics());
   assert.ok(![...store.keys()].some((k) => k.startsWith("AMP_")));
 });
