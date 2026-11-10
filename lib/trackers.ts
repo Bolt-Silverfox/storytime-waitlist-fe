@@ -1,9 +1,12 @@
-import { disableAnalytics } from "./analytics.ts";
+import { disableAnalytics, isAnalyticsStarted } from "./analytics.ts";
 import { getConsent } from "./consent.ts";
+import { reloadPage } from "./navigation.ts";
 
 const META_PIXEL_SCRIPT = "https://connect.facebook.net/en_US/fbevents.js";
 const CONTENTSQUARE_SCRIPT = "https://t.contentsquare.net/uxa/3c5a706e6e6fd.js";
 const CONTENTSQUARE_SCRIPT_ID = "contentsquare-tag";
+const CONTENTSQUARE_LOCAL_KEYS = ["csAnalysisEventsPersisted", "_cs_optout"];
+const CONTENTSQUARE_SESSION_KEYS = ["_cs_ex", "_cs_cvars"];
 const TRACKER_COOKIE = /^(_fbp|_fbc|_cs_.*)$/;
 
 type Fbq = {
@@ -75,7 +78,47 @@ const purgeTrackerCookies = () => {
   }
 };
 
+const optOutOfContentsquare = () => {
+  try {
+    (window as unknown as { _uxa?: { push: (...args: unknown[]) => void } })._uxa?.push([
+      "optout",
+    ]);
+  } catch {
+    return;
+  }
+};
+
+const clearContentsquareStorage = () => {
+  for (const key of CONTENTSQUARE_LOCAL_KEYS) {
+    try {
+      localStorage.removeItem(key);
+    } catch {
+      continue;
+    }
+  }
+  for (const key of CONTENTSQUARE_SESSION_KEYS) {
+    try {
+      sessionStorage.removeItem(key);
+    } catch {
+      continue;
+    }
+  }
+};
+
 export const withdrawTrackers = () => {
+  optOutOfContentsquare();
   disableAnalytics();
   purgeTrackerCookies();
+  clearContentsquareStorage();
+};
+
+const trackersLoaded = () =>
+  Boolean((window as unknown as { fbq?: unknown }).fbq) ||
+  Boolean(document.getElementById(CONTENTSQUARE_SCRIPT_ID)) ||
+  isAnalyticsStarted();
+
+export const enforceDenied = () => {
+  const wasRunning = trackersLoaded();
+  withdrawTrackers();
+  if (wasRunning) reloadPage();
 };

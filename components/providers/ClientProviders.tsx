@@ -31,7 +31,11 @@ export default function ClientProviders({
     <SqueezeProvider>
       <div className="flex min-h-screen w-full flex-col">
         <Header />
-        <main className="flex-1 overflow-x-hidden">{children}</main>
+        <main
+          id="main-content"
+          tabIndex={-1}
+          className="flex-1 overflow-x-hidden focus:outline-none"
+        >{children}</main>
         <BackToTopButton />
         <Footer />
       </div>

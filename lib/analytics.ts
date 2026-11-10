@@ -155,7 +155,12 @@ const attempt = (action: () => void) => {
   }
 };
 
+let started = false;
+
+export const isAnalyticsStarted = () => started;
+
 export const disableAnalytics = () => {
+  started = false;
   attempt(() => amplitude.setOptOut(true));
   purgeAmplitudeState();
   attempt(() => localStorage.removeItem(ANON_ID_KEY));
@@ -189,6 +194,7 @@ export const initializeAnalytics = () => {
           : amplitude.Types.LogLevel.Warn,
     });
     amplitude.setUserId(anonymousId);
+    started = true;
     console.log("Amplitude initialized successfully");
   } catch (error) {
     if (process.env.NODE_ENV === "production") {

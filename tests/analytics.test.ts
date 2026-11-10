@@ -366,7 +366,7 @@ test("privacy notice does not claim no data is collected from children", () => {
   assert.doesNotMatch(text, /does not receive the page address/);
   assert.match(text, /receives the path of each page you visit/);
   assert.match(text, /session replays can capture what you type unless/i);
-  assert.match(text, /record visits from anyone who opens it/);
+  assert.match(text, /if the visitor accepts, the analytics tools above record their visit/);
 });
 
 test("error and loading pages report to Sentry, retry through the boundary's retry prop and respect reduced motion", () => {
