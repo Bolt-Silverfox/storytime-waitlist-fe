@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useConsent } from "./useConsent";
-import { initializeAnalytics, trackPageView } from "../../lib/analytics";
+import { startAnalyticsOnce, trackPageView } from "../../lib/analytics";
 import { setConsent, subscribeConsentPreferences } from "../../lib/consent";
 import { enforceDenied } from "../../lib/trackers";
 
 const choiceButtonClass =
-  "bg-dark min-w-32 cursor-pointer rounded-full px-6 py-3 font-abezee text-base text-white transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a07ec]";
+  "bg-dark min-w-32 cursor-pointer rounded-full px-6 py-2 font-abezee md:py-3 text-base text-white transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a07ec]";
 
 export default function ConsentBanner() {
   const consent = useConsent();
@@ -17,10 +17,27 @@ export default function ConsentBanner() {
   const [reopened, setReopened] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const returnFocusTo = useRef<HTMLElement | null>(null);
+  const keyboardInUse = useRef(false);
 
   useEffect(() => {
     if (consent === "denied") enforceDenied();
+    if (consent === "granted") startAnalyticsOnce();
   }, [consent]);
+
+  useEffect(() => {
+    const onKey = () => {
+      keyboardInUse.current = true;
+    };
+    const onPointer = () => {
+      keyboardInUse.current = false;
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", onPointer);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", onPointer);
+    };
+  }, []);
 
   useEffect(
     () =>
@@ -34,7 +51,10 @@ export default function ConsentBanner() {
   const visible = consent === "unset" || (reopened && consent !== "pending");
 
   useEffect(() => {
-    if (visible) headingRef.current?.focus();
+    const heading = headingRef.current;
+    if (!visible || !heading) return;
+    heading.dataset.ring = String(keyboardInUse.current);
+    heading.focus();
   }, [visible]);
 
   const close = () => {
@@ -48,8 +68,8 @@ export default function ConsentBanner() {
   const accept = () => {
     const alreadyGranted = consent === "granted";
     setConsent("granted");
+    startAnalyticsOnce();
     if (!alreadyGranted) {
-      initializeAnalytics();
       if (pathname) trackPageView(pathname, document.title);
     }
     close();
@@ -71,15 +91,15 @@ export default function ConsentBanner() {
       onKeyDown={(event) => {
         if (event.key === "Escape" && consent !== "unset") close();
       }}
-      className="text-text-dark fixed inset-x-0 bottom-0 z-40 max-h-[70vh] overflow-y-auto border-t-2 border-black/10 bg-white p-4 shadow-[0_-4px_16px_rgba(0,0,0,0.12)] md:p-6"
+      className="text-text-dark fixed inset-x-0 bottom-0 z-40 flex max-h-[40vh] flex-col border-t-2 border-black/10 bg-white p-3 shadow-[0_-4px_16px_rgba(0,0,0,0.12)] md:p-6"
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-col gap-y-2">
+      <div className="mx-auto flex min-h-0 w-full max-w-7xl flex-col gap-3 md:gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex min-h-0 flex-col gap-y-2 overflow-y-auto">
           <h2
             id="consent-title"
             ref={headingRef}
             tabIndex={-1}
-            className="font-Qilka text-base font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a07ec]"
+            className="font-Qilka text-base font-bold outline-none data-[ring=true]:outline-2 data-[ring=true]:outline-offset-2 data-[ring=true]:outline-[#7a07ec]"
           >
             Your cookie choice
           </h2>

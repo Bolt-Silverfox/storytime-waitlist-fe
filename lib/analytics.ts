@@ -160,8 +160,8 @@ let started = false;
 export const isAnalyticsStarted = () => started;
 
 export const disableAnalytics = () => {
+  if (started) attempt(() => amplitude.setOptOut(true));
   started = false;
-  attempt(() => amplitude.setOptOut(true));
   purgeAmplitudeState();
   attempt(() => localStorage.removeItem(ANON_ID_KEY));
 };
@@ -194,6 +194,7 @@ export const initializeAnalytics = () => {
           : amplitude.Types.LogLevel.Warn,
     });
     amplitude.setUserId(anonymousId);
+    amplitude.setOptOut(false);
     started = true;
     console.log("Amplitude initialized successfully");
   } catch (error) {
@@ -201,6 +202,10 @@ export const initializeAnalytics = () => {
       console.error("Failed to initialize Amplitude:", error);
     }
   }
+};
+
+export const startAnalyticsOnce = () => {
+  if (!started) initializeAnalytics();
 };
 
 // Track custom events

@@ -26,11 +26,42 @@ for (const [key, value] of Object.entries({
 
 const events: string[] = [];
 const amplitudeCalls: { fn: string; args: unknown[] }[] = [];
+const sdk = {
+  initialized: false,
+  optOut: false,
+  persistedOptOut: false,
+  queue: [] as (() => void)[],
+};
+const resetSdk = () => {
+  sdk.initialized = false;
+  sdk.optOut = false;
+  sdk.persistedOptOut = false;
+  sdk.queue = [];
+};
+const simulatePageLoad = () => {
+  sdk.initialized = false;
+  sdk.queue = [];
+  sdk.optOut = sdk.persistedOptOut;
+};
 const amplitudeFn =
   (fn: string) =>
   (...args: unknown[]) => {
-    if (fn === "setOptOut") events.push("amplitude-optout");
     amplitudeCalls.push({ fn, args });
+    if (fn === "init") {
+      sdk.initialized = true;
+      sdk.optOut = sdk.persistedOptOut;
+      sdk.queue.splice(0).forEach((run) => run());
+    }
+    if (fn === "setOptOut") {
+      const value = args[0] as boolean;
+      if (value) events.push("amplitude-optout");
+      const apply = () => {
+        sdk.optOut = value;
+        sdk.persistedOptOut = value;
+      };
+      if (sdk.initialized) apply();
+      else sdk.queue.push(apply);
+    }
   };
 class FakeIdentify {
   set() {
@@ -82,12 +113,14 @@ const { useConsent } = await import("../components/consent/useConsent.ts");
 const nativeCookie = Object.getOwnPropertyDescriptor(win.Document.prototype, "cookie")!;
 const cookieWrites: string[] = [];
 let cookiesBlocked = false;
+let cookiesThrow = false;
 Object.defineProperty(win.document, "cookie", {
   configurable: true,
   get() {
     return cookiesBlocked ? "" : nativeCookie.get!.call(this);
   },
   set(value: string) {
+    if (cookiesThrow) throw new Error("cookies denied");
     cookieWrites.push(value);
     if (/expires=Thu, 01 Jan 1970/i.test(value)) events.push("cookie-purge");
     if (!cookiesBlocked) nativeCookie.set!.call(this, value);
@@ -142,12 +175,14 @@ beforeEach(() => {
   amplitudeCalls.length = 0;
   cookieWrites.length = 0;
   cookiesBlocked = false;
+  cookiesThrow = false;
   route.pathname = "/about";
 });
 
 afterEach(async () => {
   for (const handle of mounted.splice(0)) await handle.unmount();
   cookiesBlocked = false;
+  cookiesThrow = false;
   consent.setConsent("denied");
   clearCookies();
   win.localStorage.clear();
@@ -155,6 +190,7 @@ afterEach(async () => {
   win.document.head.querySelectorAll("script").forEach((s) => s.remove());
   win.document.body.querySelectorAll("[data-test]").forEach((s) => s.remove());
   analytics.disableAnalytics();
+  resetSdk();
   events.length = 0;
   for (const key of ["fbq", "_fbq", "_uxa"]) delete win[key];
 });
@@ -368,8 +404,23 @@ test("on a first visit the banner appears with focus on its heading, and nothing
   assert.deepEqual(scripts(), []);
   assert.equal(win.fbq, undefined);
   assert.deepEqual(sentToAmplitude(), []);
-  assert.doesNotMatch(win.document.getElementById("consent-title")!.className, /outline-none/);
-  assert.match(win.document.getElementById("consent-title")!.className, /focus-visible:outline/);
+  assert.equal(win.document.getElementById("consent-title")!.dataset.ring, "false");
+});
+
+test("the heading shows a focus ring only when the keyboard was in use", async () => {
+  plantConsent("denied");
+  await mount(createElement(App));
+  await act(async () => win.dispatchEvent(new win.KeyboardEvent("keydown", { key: "Tab" })));
+  await act(async () => consent.openConsentPreferences());
+  const heading = win.document.getElementById("consent-title")!;
+  assert.equal(heading.dataset.ring, "true");
+  assert.match(heading.className, /data-\[ring=true\]:outline-2/);
+  await act(async () =>
+    dialog()!.dispatchEvent(new win.KeyboardEvent("keydown", { key: "Escape", bubbles: true })),
+  );
+  await act(async () => win.dispatchEvent(new win.Event("pointerdown")));
+  await act(async () => consent.openConsentPreferences());
+  assert.equal(win.document.getElementById("consent-title")!.dataset.ring, "false");
 });
 
 test("Accept and Reject are styled identically and the banner stays under modal overlays", async () => {
@@ -481,6 +532,8 @@ test("Reopening from the footer shows the banner, Escape closes it and focus ret
 test("Accepting again while already accepted does not start Amplitude a second time", async () => {
   plantConsent("granted");
   await mount(createElement(App));
+  assert.equal(amplitudeCalls.filter((c) => c.fn === "init").length, 1);
+  amplitudeCalls.length = 0;
   await act(async () => consent.openConsentPreferences());
   await click(button("Accept"));
   assert.equal(amplitudeCalls.filter((c) => c.fn === "init").length, 0);
@@ -505,6 +558,7 @@ test("a rejection made in another tab stops this tab when it regains focus", asy
   plantConsent("granted");
   await mount(createElement(App));
   events.length = 0;
+  amplitudeCalls.length = 0;
   nativeCookie.set!.call(win.document, "st_consent=denied; path=/");
   runAllAnalytics();
   assert.deepEqual(sentToAmplitude(), []);
@@ -560,4 +614,78 @@ test("the privacy notice describes consent, retention of the choice, withdrawal 
   assert.match(text, /Sentry always receives them/);
   assert.match(text, /JavaScript errors/);
   assert.doesNotMatch(text, /the tools above record visits from anyone/);
+});
+
+test("rejecting before Amplitude started, then accepting, leaves Amplitude on now and on the next load", () => {
+  consent.setConsent("denied");
+  trackers.enforceDenied();
+  consent.setConsent("granted");
+  analytics.initializeAnalytics();
+  assert.equal(sdk.optOut, false);
+  simulatePageLoad();
+  analytics.initializeAnalytics();
+  assert.equal(sdk.optOut, false);
+});
+
+test("accepting with no earlier rejection leaves Amplitude on", () => {
+  consent.setConsent("granted");
+  analytics.initializeAnalytics();
+  assert.equal(sdk.optOut, false);
+});
+
+test("rejecting after Amplitude started opts it out", () => {
+  consent.setConsent("granted");
+  analytics.initializeAnalytics();
+  consent.setConsent("denied");
+  trackers.enforceDenied();
+  assert.equal(sdk.optOut, true);
+});
+
+test("a tab that was waiting for a choice starts every tracker once when another tab accepts", async () => {
+  await mount(createElement(App));
+  assert.ok(dialog());
+  plantConsent("granted");
+  await act(async () => win.dispatchEvent(new win.Event("focus")));
+  assert.equal(dialog(), null);
+  assert.equal(amplitudeCalls.filter((c) => c.fn === "init").length, 1);
+  assert.deepEqual(scripts().sort(), [CS_SRC, FBQ_SRC].sort());
+});
+
+test("a returning visitor who accepted gets Amplitude started exactly once", async () => {
+  plantConsent("granted");
+  await mount(createElement(App));
+  assert.equal(amplitudeCalls.filter((c) => c.fn === "init").length, 1);
+});
+
+test("a choice made in another tab is picked up when this tab becomes visible, without a focus event", async () => {
+  await mount(createElement(App));
+  plantConsent("granted");
+  await act(async () => win.document.dispatchEvent(new win.Event("visibilitychange")));
+  assert.equal(dialog(), null);
+  assert.deepEqual(scripts().sort(), [CS_SRC, FBQ_SRC].sort());
+});
+
+test("Escape does not dismiss the banner while no choice has been made", async () => {
+  await mount(createElement(App));
+  await act(async () =>
+    dialog()!.dispatchEvent(new win.KeyboardEvent("keydown", { key: "Escape", bubbles: true })),
+  );
+  assert.ok(dialog());
+  assert.equal(consent.getConsent(), null);
+  assert.equal(win.document.activeElement, win.document.getElementById("consent-title"));
+});
+
+test("a cookie write that throws still records the choice for this page", () => {
+  cookiesThrow = true;
+  assert.doesNotThrow(() => consent.setConsent("denied"));
+  assert.equal(consent.getConsent(), "denied");
+});
+
+test("the banner keeps Reject and Accept outside the scrolling text and stays compact", async () => {
+  await mount(createElement(App));
+  const root = dialog()!;
+  assert.match(root.className, /max-h-\[40vh\]/);
+  const buttons = button("Reject").parentElement!;
+  assert.match(buttons.className, /shrink-0/);
+  assert.ok(!root.querySelector("[class*=overflow-y-auto]")!.contains(button("Reject")));
 });

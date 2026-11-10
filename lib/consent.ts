@@ -27,8 +27,12 @@ export const getConsent = (): ConsentChoice | null => {
 
 export const setConsent = (choice: ConsentChoice) => {
   const secure = location.protocol === "https:" ? "; Secure" : "";
-  document.cookie = `${COOKIE_NAME}=${choice}; Max-Age=${MAX_AGE_SECONDS}; Path=/; SameSite=Lax${secure}`;
-  fallbackChoice = readCookie(COOKIE_NAME) === choice ? null : choice;
+  try {
+    document.cookie = `${COOKIE_NAME}=${choice}; Max-Age=${MAX_AGE_SECONDS}; Path=/; SameSite=Lax${secure}`;
+    fallbackChoice = readCookie(COOKIE_NAME) === choice ? null : choice;
+  } catch {
+    fallbackChoice = choice;
+  }
   window.dispatchEvent(new Event(CHANGE_EVENT));
 };
 
