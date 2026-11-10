@@ -3,7 +3,7 @@
 import { Toaster } from "sonner";
 import { SqueezeProvider } from "../../contexts/SqueezeContext";
 import { useEffect } from "react";
-import { trackPageView, initializeAnalytics } from "../../lib/analytics";
+import { trackPageView, startAnalyticsOnce } from "../../lib/analytics";
 import Header from "../../components/shared/Header";
 import Footer from "../../components/shared/Footer";
 import BackToTopButton from "../../components/BackToTopButton";
@@ -17,7 +17,7 @@ export default function ClientProviders({
   const pathname = usePathname();
 
   useEffect(() => {
-    initializeAnalytics();
+    startAnalyticsOnce();
   }, []);
 
   useEffect(() => {
@@ -31,7 +31,11 @@ export default function ClientProviders({
     <SqueezeProvider>
       <div className="flex min-h-screen w-full flex-col">
         <Header />
-        <main className="flex-1 overflow-x-hidden">{children}</main>
+        <main
+          id="main-content"
+          tabIndex={-1}
+          className="flex-1 overflow-x-hidden focus:outline-none"
+        >{children}</main>
         <BackToTopButton />
         <Footer />
       </div>

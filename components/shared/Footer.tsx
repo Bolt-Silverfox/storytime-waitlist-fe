@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { openConsentPreferences } from "../../lib/consent";
 
 const footerLinks = [
   {
@@ -61,6 +62,15 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
             ))}
+            <li className="text-xl transition duration-300 hover:scale-110">
+              <button
+                type="button"
+                className="font-abezee hover:text-primary cursor-pointer text-white transition-all duration-300 hover:scale-110"
+                onClick={openConsentPreferences}
+              >
+                Cookie settings
+              </button>
+            </li>
           </ul>
         </nav>
         <ul className="flex flex-row items-center gap-x-4">

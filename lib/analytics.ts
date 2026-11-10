@@ -1,4 +1,5 @@
 import * as amplitude from "@amplitude/analytics-browser";
+import { getConsent } from "./consent.ts";
 
 const ANON_ID_KEY = "st_anon_id";
 
@@ -144,7 +145,29 @@ const getAnonymousId = (): string | undefined => {
   }
 };
 
+const consentGiven = () => getConsent() === "granted";
+
+const attempt = (action: () => void) => {
+  try {
+    action();
+  } catch {
+    return;
+  }
+};
+
+let started = false;
+
+export const isAnalyticsStarted = () => started;
+
+export const disableAnalytics = () => {
+  if (started) attempt(() => amplitude.setOptOut(true));
+  started = false;
+  purgeAmplitudeState();
+  attempt(() => localStorage.removeItem(ANON_ID_KEY));
+};
+
 export const initializeAnalytics = () => {
+  if (!consentGiven()) return;
   const apiKey = "e48a8fa48803c43c9e5e3888517e897c";
 
   if (!apiKey) {
@@ -171,6 +194,8 @@ export const initializeAnalytics = () => {
           : amplitude.Types.LogLevel.Warn,
     });
     amplitude.setUserId(anonymousId);
+    amplitude.setOptOut(false);
+    started = true;
     console.log("Amplitude initialized successfully");
   } catch (error) {
     if (process.env.NODE_ENV === "production") {
@@ -179,12 +204,17 @@ export const initializeAnalytics = () => {
   }
 };
 
+export const startAnalyticsOnce = () => {
+  if (!started) initializeAnalytics();
+};
+
 // Track custom events
 export const trackEvent = (
   eventName: string,
    
   eventProperties?: Record<string, any>,
 ) => {
+  if (!consentGiven()) return;
   try {
     amplitude.track(eventName, eventProperties);
   } catch (error) {
@@ -194,6 +224,7 @@ export const trackEvent = (
 
 // Track page views
 export const trackPageView = (pagePath: string, pageTitle?: string) => {
+  if (!consentGiven()) return;
   try {
     amplitude.track("Page Viewed", {
       page_path: pagePath,
@@ -208,6 +239,7 @@ export const trackPageView = (pagePath: string, pageTitle?: string) => {
 // Set user properties
  
 export const setUserProperties = (properties: Record<string, any>) => {
+  if (!consentGiven()) return;
   try {
     const identifyEvent = new amplitude.Identify();
     Object.entries(properties).forEach(([key, value]) => {
