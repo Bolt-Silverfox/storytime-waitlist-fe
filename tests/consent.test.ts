@@ -1,6 +1,10 @@
 import { test, mock, beforeEach, afterEach } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync, mkdtempSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { createRequire } from "node:module";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { JSDOM } from "jsdom";
 
 const dom = new JSDOM(
@@ -110,6 +114,21 @@ const { default: MetaPixel } = await import("../components/MetaPixel.tsx");
 const { default: ContentsquareTag } = await import("../components/ContentsquareTag.tsx");
 const { useConsent } = await import("../components/consent/useConsent.ts");
 
+const listenerLog: string[] = [];
+for (const target of [win, win.document] as unknown as EventTarget[]) {
+  const add = target.addEventListener.bind(target);
+  const remove = target.removeEventListener.bind(target);
+  const label = target === (win as unknown as EventTarget) ? "window" : "document";
+  target.addEventListener = ((type: string, ...rest: [never]) => {
+    listenerLog.push(`+${label}:${type}`);
+    return add(type, ...rest);
+  }) as never;
+  target.removeEventListener = ((type: string, ...rest: [never]) => {
+    listenerLog.push(`-${label}:${type}`);
+    return remove(type, ...rest);
+  }) as never;
+}
+
 const nativeCookie = Object.getOwnPropertyDescriptor(win.Document.prototype, "cookie")!;
 const cookieWrites: string[] = [];
 let cookiesBlocked = false;
@@ -210,6 +229,8 @@ const scripts = () =>
 const button = (label: string) =>
   [...win.document.querySelectorAll("button")].find((b) => b.textContent?.trim() === label) as HTMLButtonElement;
 const click = (el: HTMLElement) => act(async () => el.click());
+const isOpen = () => win.document.querySelector('[role="dialog"]') !== null;
+const activeId = () => win.document.activeElement?.id ?? "";
 const dialog = () => win.document.querySelector('[role="dialog"]') as HTMLElement | null;
 const FBQ_SRC = "https://connect.facebook.net/en_US/fbevents.js";
 const CS_SRC = "https://t.contentsquare.net/uxa/3c5a706e6e6fd.js";
@@ -400,7 +421,7 @@ test("useConsent is pending on the server and resolves after mount", async () =>
 test("on a first visit the banner appears with focus on its heading, and nothing tracks", async () => {
   await mount(createElement(App));
   assert.ok(dialog());
-  assert.equal(win.document.activeElement, win.document.getElementById("consent-title"));
+  assert.equal(activeId(), "consent-title");
   assert.deepEqual(scripts(), []);
   assert.equal(win.fbq, undefined);
   assert.deepEqual(sentToAmplitude(), []);
@@ -444,7 +465,7 @@ test("Accept stores the choice, starts every tracker, records this page view and
   await mount(createElement(App));
   await click(button("Accept"));
   assert.equal(consent.getConsent(), "granted");
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
   assert.equal(amplitudeCalls.filter((c) => c.fn === "init").length, 1);
   const pageView = amplitudeCalls.find((c) => c.fn === "track");
   assert.deepEqual(
@@ -452,7 +473,7 @@ test("Accept stores the choice, starts every tracker, records this page view and
     ["Page Viewed", "/about"],
   );
   assert.deepEqual(scripts().sort(), [CS_SRC, FBQ_SRC].sort());
-  assert.equal(win.document.activeElement, win.document.getElementById("main-content"));
+  assert.equal(activeId(), "main-content");
 });
 
 test("Reject on a first visit stores the choice, loads nothing, clears earlier identifiers and does not reload", async () => {
@@ -463,27 +484,27 @@ test("Reject on a first visit stores the choice, loads nothing, clears earlier i
   await mount(createElement(App));
   await click(button("Reject"));
   assert.equal(consent.getConsent(), "denied");
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
   assert.deepEqual(scripts(), []);
   assert.deepEqual(sentToAmplitude(), []);
   assert.deepEqual(cookieNames().sort(), ["st_consent"]);
   assert.equal(win.localStorage.getItem("st_anon_id"), null);
   assert.ok(!events.includes("reload"));
-  assert.equal(win.document.activeElement, win.document.getElementById("main-content"));
+  assert.equal(activeId(), "main-content");
 });
 
 test("a returning visitor who rejected has leftover tracker cookies cleared on load", async () => {
   plantConsent("denied");
   plantCookie("_fbp");
   await mount(createElement(App));
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
   assert.deepEqual(cookieNames(), ["st_consent"]);
 });
 
 test("a returning visitor who accepted gets trackers without a banner", async () => {
   plantConsent("granted");
   await mount(createElement(App));
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
   assert.deepEqual(scripts().sort(), [CS_SRC, FBQ_SRC].sort());
 });
 
@@ -497,6 +518,7 @@ test("Reject after accepting stops everything and reloads, in that order", async
   };
   const opener = win.document.createElement("button");
   opener.setAttribute("data-test", "");
+  opener.id = "opener";
   win.document.body.appendChild(opener);
   opener.focus();
   await act(async () => consent.openConsentPreferences());
@@ -516,16 +538,17 @@ test("Reopening from the footer shows the banner, Escape closes it and focus ret
   await mount(createElement(App));
   const opener = win.document.createElement("button");
   opener.setAttribute("data-test", "");
+  opener.id = "opener";
   win.document.body.appendChild(opener);
   opener.focus();
   await act(async () => consent.openConsentPreferences());
   assert.ok(dialog());
-  assert.equal(win.document.activeElement, win.document.getElementById("consent-title"));
+  assert.equal(activeId(), "consent-title");
   await act(async () =>
     dialog()!.dispatchEvent(new win.KeyboardEvent("keydown", { key: "Escape", bubbles: true })),
   );
-  assert.equal(dialog(), null);
-  assert.equal(win.document.activeElement, opener);
+  assert.equal(isOpen(), false);
+  assert.equal(activeId(), "opener");
   assert.equal(consent.getConsent(), "denied");
 });
 
@@ -538,7 +561,7 @@ test("Accepting again while already accepted does not start Amplitude a second t
   await click(button("Accept"));
   assert.equal(amplitudeCalls.filter((c) => c.fn === "init").length, 0);
   assert.equal(amplitudeCalls.filter((c) => c.fn === "track").length, 0);
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
 });
 
 test("with cookies blocked, Accept and Reject still close the banner and are honoured for the page", async () => {
@@ -546,11 +569,11 @@ test("with cookies blocked, Accept and Reject still close the banner and are hon
   await mount(createElement(App));
   assert.ok(dialog());
   await click(button("Reject"));
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
   assert.deepEqual(scripts(), []);
   await act(async () => consent.openConsentPreferences());
   await click(button("Accept"));
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
   assert.deepEqual(scripts().sort(), [CS_SRC, FBQ_SRC].sort());
 });
 
@@ -599,7 +622,7 @@ test("the footer reopens the choice through the real control", async () => {
   const { default: Footer } = await import("../components/shared/Footer.tsx");
   plantConsent("denied");
   await mount(createElement(Footer), createElement(ConsentBanner));
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
   await click(button("Cookie settings"));
   assert.ok(dialog());
 });
@@ -646,22 +669,73 @@ test("a tab that was waiting for a choice starts every tracker once when another
   assert.ok(dialog());
   plantConsent("granted");
   await act(async () => win.dispatchEvent(new win.Event("focus")));
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
   assert.equal(amplitudeCalls.filter((c) => c.fn === "init").length, 1);
   assert.deepEqual(scripts().sort(), [CS_SRC, FBQ_SRC].sort());
 });
 
-test("a returning visitor who accepted gets Amplitude started exactly once", async () => {
+test("a tab that picks up another tab's accept records one page view for the page it is on", async () => {
+  await mount(createElement(App));
+  plantConsent("granted");
+  await act(async () => win.dispatchEvent(new win.Event("focus")));
+  await act(async () => win.dispatchEvent(new win.Event("focus")));
+  const views = amplitudeCalls.filter((c) => c.fn === "track");
+  assert.equal(views.length, 1);
+  assert.deepEqual(
+    [views[0].args[0], (views[0].args[1] as { page_path: string }).page_path],
+    ["Page Viewed", "/about"],
+  );
+});
+
+test("a returning visitor who accepted gets Amplitude started once and no extra page view from the banner", async () => {
   plantConsent("granted");
   await mount(createElement(App));
   assert.equal(amplitudeCalls.filter((c) => c.fn === "init").length, 1);
+  assert.equal(amplitudeCalls.filter((c) => c.fn === "track").length, 0);
 });
+
+test("Accept records exactly one page view", async () => {
+  await mount(createElement(App));
+  await click(button("Accept"));
+  assert.equal(amplitudeCalls.filter((c) => c.fn === "track").length, 1);
+});
+
+test("rejecting before Amplitude started never sends an opt-out to the SDK", () => {
+  consent.setConsent("denied");
+  trackers.enforceDenied();
+  assert.equal(amplitudeCalls.filter((c) => c.fn === "setOptOut").length, 0);
+});
+
+test("accepting clears an opt-out the SDK already stored from an earlier visit", () => {
+  sdk.persistedOptOut = true;
+  consent.setConsent("granted");
+  analytics.initializeAnalytics();
+  assert.equal(sdk.optOut, false);
+});
+
+test("the banner removes every listener it adds when it unmounts", async () => {
+  listenerLog.length = 0;
+  const view = await mount(createElement(App));
+  await view.unmount();
+  mounted.splice(mounted.indexOf(view as never), 1);
+  const net = new Map<string, number>();
+  for (const entry of listenerLog) {
+    const key = entry.slice(1);
+    net.set(key, (net.get(key) ?? 0) + (entry[0] === "+" ? 1 : -1));
+  }
+  const leaked = [...net].filter(([key, n]) => n > 0 && /keydown|pointerdown|focus|visibilitychange|consent/.test(key));
+  assert.deepEqual(leaked, []);
+  for (const key of ["window:keydown", "window:pointerdown", "window:focus", "document:visibilitychange"]) {
+    assert.ok(net.has(key), `${key} was registered`);
+  }
+});
+
 
 test("a choice made in another tab is picked up when this tab becomes visible, without a focus event", async () => {
   await mount(createElement(App));
   plantConsent("granted");
   await act(async () => win.document.dispatchEvent(new win.Event("visibilitychange")));
-  assert.equal(dialog(), null);
+  assert.equal(isOpen(), false);
   assert.deepEqual(scripts().sort(), [CS_SRC, FBQ_SRC].sort());
 });
 
@@ -672,7 +746,7 @@ test("Escape does not dismiss the banner while no choice has been made", async (
   );
   assert.ok(dialog());
   assert.equal(consent.getConsent(), null);
-  assert.equal(win.document.activeElement, win.document.getElementById("consent-title"));
+  assert.equal(activeId(), "consent-title");
 });
 
 test("a cookie write that throws still records the choice for this page", () => {
@@ -688,4 +762,73 @@ test("the banner keeps Reject and Accept outside the scrolling text and stays co
   const buttons = button("Reject").parentElement!;
   assert.match(buttons.className, /shrink-0/);
   assert.ok(!root.querySelector("[class*=overflow-y-auto]")!.contains(button("Reject")));
+});
+
+const headingClasses = async () => {
+  plantConsent("denied");
+  await mount(createElement(App));
+  await act(async () => consent.openConsentPreferences());
+  return win.document.getElementById("consent-title")!.className;
+};
+
+const builtCss = async (classes: string) => {
+  const require = createRequire(import.meta.url);
+  const { compile } = await import("tailwindcss");
+  const compiler = await compile('@import "tailwindcss";', {
+    base: process.cwd(),
+    loadStylesheet: async (id: string, base: string) => {
+      const file = id === "tailwindcss" ? require.resolve("tailwindcss/index.css") : path.resolve(base, id);
+      return { path: file, base: path.dirname(file), content: readFileSync(file, "utf8") };
+    },
+  });
+  return compiler.build(classes.split(/\s+/).filter(Boolean));
+};
+
+const findChrome = () =>
+  [
+    process.env.CHROME_BIN,
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/usr/bin/google-chrome",
+    "/usr/bin/google-chrome-stable",
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
+  ].find((bin) => bin && existsSync(bin));
+
+test("the heading's compiled CSS never forces the outline style to none", async () => {
+  const css = await builtCss(await headingClasses());
+  assert.doesNotMatch(css, /--tw-outline-style:\s*none/);
+});
+
+test("the heading draws a 2px #7a07ec outline for keyboard users and none otherwise, as computed by Chrome", async (t) => {
+  const chrome = findChrome();
+  if (!chrome) return t.skip("no Chrome binary found (set CHROME_BIN)");
+  const classes = await headingClasses();
+  const css = await builtCss(classes);
+  const dir = mkdtempSync(path.join(tmpdir(), "ring-"));
+  const page = path.join(dir, "page.html");
+  writeFileSync(
+    page,
+    `<!doctype html><title></title><style>${css}</style><h2 id="h" tabindex="-1" class="${classes}">x</h2><script>
+const h=document.getElementById("h");const r={};
+for(const ring of ["true","false"]){h.dataset.ring=ring;const c=getComputedStyle(h);r[ring]={style:c.outlineStyle,width:c.outlineWidth,color:c.outlineColor,offset:c.outlineOffset}}
+document.title=JSON.stringify(r);</script>`,
+  );
+  const out = execFileSync(
+    chrome,
+    ["--headless=new", "--disable-gpu", "--no-sandbox", `--user-data-dir=${path.join(dir, "profile")}`, "--dump-dom", `file://${page}`],
+    { encoding: "utf8", timeout: 60000 },
+  );
+  const result = JSON.parse(/<title>(.*?)<\/title>/s.exec(out)![1]);
+  assert.deepEqual(result.true, {
+    style: "solid",
+    width: "2px",
+    color: "rgb(122, 7, 236)",
+    offset: "2px",
+  });
+  assert.ok(
+    result.false.style === "none" ||
+      result.false.width === "0px" ||
+      result.false.color === "rgba(0, 0, 0, 0)",
+    JSON.stringify(result.false),
+  );
 });

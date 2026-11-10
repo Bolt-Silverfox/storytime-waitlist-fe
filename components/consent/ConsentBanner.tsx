@@ -18,11 +18,18 @@ export default function ConsentBanner() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const returnFocusTo = useRef<HTMLElement | null>(null);
   const keyboardInUse = useRef(false);
+  const previousConsent = useRef(consent);
 
   useEffect(() => {
+    const before = previousConsent.current;
+    previousConsent.current = consent;
     if (consent === "denied") enforceDenied();
-    if (consent === "granted") startAnalyticsOnce();
-  }, [consent]);
+    if (consent !== "granted") return;
+    startAnalyticsOnce();
+    if (before === "unset" || before === "denied") {
+      trackPageView(pathname, document.title);
+    }
+  }, [consent, pathname]);
 
   useEffect(() => {
     const onKey = () => {
@@ -66,12 +73,7 @@ export default function ConsentBanner() {
   };
 
   const accept = () => {
-    const alreadyGranted = consent === "granted";
     setConsent("granted");
-    startAnalyticsOnce();
-    if (!alreadyGranted) {
-      if (pathname) trackPageView(pathname, document.title);
-    }
     close();
   };
 
@@ -99,7 +101,7 @@ export default function ConsentBanner() {
             id="consent-title"
             ref={headingRef}
             tabIndex={-1}
-            className="font-Qilka text-base font-bold outline-none data-[ring=true]:outline-2 data-[ring=true]:outline-offset-2 data-[ring=true]:outline-[#7a07ec]"
+            className="font-Qilka text-base font-bold outline-0 data-[ring=true]:outline-2 data-[ring=true]:outline-offset-2 data-[ring=true]:outline-[#7a07ec]"
           >
             Your cookie choice
           </h2>
