@@ -151,12 +151,15 @@ test("every signup form links to the privacy policy", () => {
   }
 });
 
-const runWithSiteUrl = (siteUrl: string, code: string) =>
+const runWithEnv = (env: Record<string, string>, code: string) =>
   execFileSync(process.execPath, ["--input-type=module", "-e", code], {
-    env: { ...process.env, NEXT_PUBLIC_SITE_URL: siteUrl },
+    env: { ...process.env, ...env },
     cwd: new URL("..", import.meta.url),
     encoding: "utf8",
   }).trim();
+
+const runWithSiteUrl = (siteUrl: string, code: string) =>
+  runWithEnv({ NEXT_PUBLIC_SITE_URL: siteUrl }, code);
 
 test("a path in NEXT_PUBLIC_SITE_URL is reduced to the origin", () => {
   const out = runWithSiteUrl(
@@ -180,10 +183,10 @@ test("production robots allow crawling and advertise the sitemap", () => {
   assert.ok(robots().sitemap);
 });
 
-test("a non-production host is closed to crawlers and has no sitemap", () => {
+test("a deployment flagged NEXT_PUBLIC_NOINDEX is closed to crawlers and has no sitemap", () => {
   const out = JSON.parse(
-    runWithSiteUrl(
-      "https://staging.example",
+    runWithEnv(
+      { NEXT_PUBLIC_SITE_URL: "https://staging.example", NEXT_PUBLIC_NOINDEX: "true" },
       'import r from "./app/robots.ts"; import { rootMetadata } from "./lib/seo.ts"; console.log(JSON.stringify({ r: r(), robots: rootMetadata.robots }))',
     ),
   );
@@ -217,4 +220,16 @@ test("a scheme-less or non-http NEXT_PUBLIC_SITE_URL falls back to the real host
     );
     assert.equal(out, REAL_HOST, value);
   }
+});
+
+test("a production deployment on another custom origin stays indexable", () => {
+  const out = JSON.parse(
+    runWithSiteUrl(
+      "https://www.storytimeapp.me",
+      'import r from "./app/robots.ts"; import { rootMetadata } from "./lib/seo.ts"; console.log(JSON.stringify({ r: r(), robots: rootMetadata.robots ?? null }))',
+    ),
+  );
+  assert.equal(out.r.rules.allow, "/");
+  assert.ok(out.r.sitemap);
+  assert.equal(out.robots, null);
 });
