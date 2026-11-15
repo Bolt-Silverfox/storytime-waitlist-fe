@@ -3,7 +3,10 @@ export const DEFAULT_SITE_URL = "https://waitlist.storytimeapp.me";
 const resolveSiteUrl = (override: string | undefined) => {
   if (!override) return DEFAULT_SITE_URL;
   try {
-    return new URL(override).origin;
+    const url = new URL(override);
+    return url.protocol === "http:" || url.protocol === "https:"
+      ? url.origin
+      : DEFAULT_SITE_URL;
   } catch {
     return DEFAULT_SITE_URL;
   }

@@ -208,3 +208,13 @@ test("resource metadata sets the open graph and twitter title to the article", (
   assert.equal((meta.openGraph as { siteName?: string }).siteName, "Storytime");
   assert.equal(meta.twitter?.title, "Bedtime tips | Resources | Storytime");
 });
+
+test("a scheme-less or non-http NEXT_PUBLIC_SITE_URL falls back to the real host", () => {
+  for (const value of ["localhost:3000", "ftp://x.example", "javascript:alert(1)"]) {
+    const out = runWithSiteUrl(
+      value,
+      'import { SITE_URL } from "./lib/site.ts"; import "./lib/seo.ts"; console.log(SITE_URL)',
+    );
+    assert.equal(out, REAL_HOST, value);
+  }
+});
