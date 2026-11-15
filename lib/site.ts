@@ -14,4 +14,4 @@ const resolveSiteUrl = (override: string | undefined) => {
 
 export const SITE_URL = resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
 
-export const IS_PRODUCTION_SITE = SITE_URL === DEFAULT_SITE_URL;
+export const IS_PRODUCTION_SITE = process.env.NEXT_PUBLIC_NOINDEX !== "true";
