@@ -1,5 +1,14 @@
-const DEFAULT_SITE_URL = "https://waitlist.storytimeapp.me";
+export const DEFAULT_SITE_URL = "https://waitlist.storytimeapp.me";
 
-export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL
-).replace(/\/+$/, "");
+const resolveSiteUrl = (override: string | undefined) => {
+  if (!override) return DEFAULT_SITE_URL;
+  try {
+    return new URL(override).origin;
+  } catch {
+    return DEFAULT_SITE_URL;
+  }
+};
+
+export const SITE_URL = resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+
+export const IS_PRODUCTION_SITE = SITE_URL === DEFAULT_SITE_URL;

@@ -1,5 +1,8 @@
 import Link from "next/link";
 import PageTitle from "../components/PageTitle";
+import { notFoundMetadata } from "../lib/seo.ts";
+
+export const metadata = notFoundMetadata;
 
 export default function NotFound() {
   return (

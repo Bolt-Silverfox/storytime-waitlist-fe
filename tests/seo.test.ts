@@ -2,7 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 delete process.env.NEXT_PUBLIC_SITE_URL;
-const { rootMetadata, viewport, DEFAULT_TITLE } = await import("../lib/seo.ts");
+const { rootMetadata, viewport, DEFAULT_TITLE, notFoundMetadata, resourceMetadata } =
+  await import("../lib/seo.ts");
 const { SITE_URL } = await import("../lib/site.ts");
 const { default: sitemap } = await import("../app/sitemap.ts");
 const { default: robots } = await import("../app/robots.ts");
@@ -148,4 +149,62 @@ test("every signup form links to the privacy policy", () => {
     const source = readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
     assert.match(source, /href="\/privacy-policy"/, file);
   }
+});
+
+const runWithSiteUrl = (siteUrl: string, code: string) =>
+  execFileSync(process.execPath, ["--input-type=module", "-e", code], {
+    env: { ...process.env, NEXT_PUBLIC_SITE_URL: siteUrl },
+    cwd: new URL("..", import.meta.url),
+    encoding: "utf8",
+  }).trim();
+
+test("a path in NEXT_PUBLIC_SITE_URL is reduced to the origin", () => {
+  const out = runWithSiteUrl(
+    "https://x.example/staging/app/",
+    'import { SITE_URL } from "./lib/site.ts"; console.log(SITE_URL)',
+  );
+  assert.equal(out, "https://x.example");
+});
+
+test("an invalid NEXT_PUBLIC_SITE_URL falls back to the real host", () => {
+  const out = runWithSiteUrl(
+    "not a url",
+    'import { SITE_URL } from "./lib/site.ts"; console.log(SITE_URL)',
+  );
+  assert.equal(out, REAL_HOST);
+});
+
+test("production robots allow crawling and advertise the sitemap", () => {
+  const rules = robots().rules as { allow?: string; disallow?: string[] };
+  assert.equal(rules.allow, "/");
+  assert.ok(robots().sitemap);
+});
+
+test("a non-production host is closed to crawlers and has no sitemap", () => {
+  const out = JSON.parse(
+    runWithSiteUrl(
+      "https://staging.example",
+      'import r from "./app/robots.ts"; import { rootMetadata } from "./lib/seo.ts"; console.log(JSON.stringify({ r: r(), robots: rootMetadata.robots }))',
+    ),
+  );
+  assert.equal(out.r.rules.disallow, "/");
+  assert.equal(out.r.sitemap, undefined);
+  assert.equal(out.robots.index, false);
+});
+
+test("production root metadata does not set noindex", () => {
+  assert.equal(rootMetadata.robots, undefined);
+});
+
+test("the 404 page has its own title", () => {
+  assert.ok(notFoundMetadata.title);
+  assert.notEqual(notFoundMetadata.title, DEFAULT_TITLE);
+});
+
+test("resource metadata sets the open graph and twitter title to the article", () => {
+  const meta = resourceMetadata("Bedtime tips", "Sleep well");
+  assert.equal(meta.openGraph?.title, "Bedtime tips | Resources | Storytime");
+  assert.equal(meta.openGraph?.description, "Sleep well");
+  assert.equal((meta.openGraph as { siteName?: string }).siteName, "Storytime");
+  assert.equal(meta.twitter?.title, "Bedtime tips | Resources | Storytime");
 });

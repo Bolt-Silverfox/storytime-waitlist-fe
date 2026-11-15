@@ -151,8 +151,40 @@ jobs:
           echo "::error::Dispatched from '$DISPATCH_REF'. Production deploys must be dispatched from the main BRANCH (refs/heads/main): the deploy role's trust policy pins the OIDC sub claim to that exact ref, and main is what the production image is built from. A tag named main does not qualify. Re-run with Branch set to main."
           exit 1
 
+  test:
+    name: Tests must pass
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Require a Sentry DSN
+        env:
+          SENTRY_DSN: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
+        run: |
+          if [ -z "$SENTRY_DSN" ]; then
+            echo "::error::Repository variable NEXT_PUBLIC_SENTRY_DSN is empty; an empty value overrides the committed default and disables error reporting."
+            exit 1
+          fi
+
   deploy:
-    needs: guard-ref
+    needs: [guard-ref, test]
     # PINNED to an immutable commit, not `@main`. The trust policy on the
     # deploy role matches `job_workflow_ref` exactly, so this SHA and the
     # `github_deploy_workflow_ref` variable in storytime-devops

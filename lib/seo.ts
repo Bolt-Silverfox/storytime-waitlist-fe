@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { SITE_URL } from "./site.ts";
+import { IS_PRODUCTION_SITE, SITE_URL } from "./site.ts";
 
 export const DEFAULT_TITLE = "Storytime | Interactive Stories for Kids";
 const DEFAULT_DESCRIPTION =
@@ -51,4 +51,22 @@ export const rootMetadata: Metadata = {
   alternates: {
     canonical: "./",
   },
+  ...(IS_PRODUCTION_SITE ? {} : { robots: { index: false, follow: false } }),
+};
+
+export const notFoundMetadata: Metadata = {
+  title: "Page not found | Storytime",
+};
+
+export const resourceMetadata = (
+  title: string,
+  description: string,
+): Metadata => {
+  const fullTitle = `${title} | Resources | Storytime`;
+  return {
+    title: fullTitle,
+    description,
+    openGraph: { ...rootMetadata.openGraph, title: fullTitle, description },
+    twitter: { ...rootMetadata.twitter, title: fullTitle, description },
+  };
 };

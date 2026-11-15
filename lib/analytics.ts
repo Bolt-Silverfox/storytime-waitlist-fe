@@ -58,6 +58,7 @@ const purgeAmplitudeState = () => {
 
 const EMAIL_SHAPED = /[^\s"@%]+(@|%40)[^\s"@%]+\.[a-z]{2,}/i;
 const PAGE_LOCATION_KEY = "[Amplitude] Page Location";
+const LEGACY_ERROR_MESSAGE_KEY = '"error_message"';
 
 const unsentQueueHoldsOtherUser = (anonymousId: string) => {
   try {
@@ -66,7 +67,12 @@ const unsentQueueHoldsOtherUser = (anonymousId: string) => {
       if (!key?.startsWith("AMP_unsent_")) continue;
       try {
         const raw = localStorage.getItem(key) ?? "[]";
-        if (EMAIL_SHAPED.test(raw) || raw.includes(PAGE_LOCATION_KEY)) return true;
+        if (
+          EMAIL_SHAPED.test(raw) ||
+          raw.includes(PAGE_LOCATION_KEY) ||
+          raw.includes(LEGACY_ERROR_MESSAGE_KEY)
+        )
+          return true;
         const events: unknown = JSON.parse(raw);
         if (!Array.isArray(events)) return true;
         const foreign = events.some((event) => {

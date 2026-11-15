@@ -282,7 +282,7 @@ test("privacy notice states facts and does not claim compliance", () => {
   assert.match(text, /no longer send it/);
   assert.match(text, /from our code/);
   assert.doesNotMatch(text, /that has been stopped/);
-  assert.doesNotMatch(text, /phone/i);
+  assert.match(text, /phone number/i);
 });
 
 const ANON = "22222222-2222-4222-8222-222222222222";
@@ -599,4 +599,19 @@ test("an anonymous queue with a non email-shaped @ is kept over three loads with
   assert.equal(store.get("AMP_unsent_key"), queue);
   const ids = calls.filter((c) => c.fn === "init").map((c) => c.args[1]);
   assert.deepEqual(ids, [ANON, ANON, ANON]);
+});
+
+test("a legacy queue holding a raw signup error message is purged before init", () => {
+  store.set("st_anon_id", ANON);
+  store.set(
+    "AMP_unsent_key",
+    JSON.stringify([
+      {
+        event_type: "Waitlist Signup Error",
+        event_properties: { error_message: `${SENTINEL_NAME} 08012345678 failed` },
+      },
+    ]),
+  );
+  analytics.initializeAnalytics();
+  assert.equal(store.has("AMP_unsent_key"), false);
 });
