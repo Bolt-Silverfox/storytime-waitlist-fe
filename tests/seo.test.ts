@@ -183,14 +183,15 @@ test("production robots allow crawling and advertise the sitemap", () => {
   assert.ok(robots().sitemap);
 });
 
-test("a deployment flagged NEXT_PUBLIC_NOINDEX is closed to crawlers and has no sitemap", () => {
+test("a deployment flagged NEXT_PUBLIC_NOINDEX stays crawlable so noindex is readable, and has no sitemap", () => {
   const out = JSON.parse(
     runWithEnv(
       { NEXT_PUBLIC_SITE_URL: "https://staging.example", NEXT_PUBLIC_NOINDEX: "true" },
       'import r from "./app/robots.ts"; import { rootMetadata } from "./lib/seo.ts"; console.log(JSON.stringify({ r: r(), robots: rootMetadata.robots }))',
     ),
   );
-  assert.equal(out.r.rules.disallow, "/");
+  assert.equal(out.r.rules.allow, "/");
+  assert.equal(out.r.rules.disallow, undefined);
   assert.equal(out.r.sitemap, undefined);
   assert.equal(out.robots.index, false);
 });
