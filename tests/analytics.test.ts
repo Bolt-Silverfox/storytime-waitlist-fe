@@ -415,6 +415,14 @@ test("Amplitude is initialised with url enrichment and attribution off and no re
   assert.equal(options.fetchRemoteConfig, false);
 });
 
+test("init passes the anonymous id as deviceId so a deviceId URL parameter cannot set it", () => {
+  analytics.initializeAnalytics();
+  const init = calls.find((c) => c.fn === "init");
+  const options = init?.args[2] as { deviceId?: string };
+  assert.ok(init?.args[1]);
+  assert.equal(options.deviceId, init?.args[1]);
+});
+
 test("with a query in location, init config disables url enrichment and our events carry no query", () => {
   Object.defineProperty(globalThis, "location", {
     configurable: true,

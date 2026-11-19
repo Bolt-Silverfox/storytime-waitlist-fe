@@ -161,6 +161,7 @@ export const initializeAnalytics = () => {
   try {
     const anonymousId = getAnonymousId();
     amplitude.init(apiKey, anonymousId, {
+      deviceId: anonymousId,
       autocapture: {
         sessions: true,
         pageViews: false,

@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 delete process.env.NEXT_PUBLIC_SITE_URL;
+delete process.env.NEXT_PUBLIC_NOINDEX;
 const { rootMetadata, viewport, DEFAULT_TITLE, notFoundMetadata, resourceMetadata } =
   await import("../lib/seo.ts");
 const { SITE_URL } = await import("../lib/site.ts");
