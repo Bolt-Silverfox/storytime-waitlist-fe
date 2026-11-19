@@ -155,6 +155,15 @@ test("falls back to Amplitude's anonymous id when storage is unavailable", () =>
   assert.ok(userIds.every((id) => id === undefined));
 });
 
+test("init still gets a generated deviceId when storage is unavailable", () => {
+  storageBroken = true;
+  analytics.initializeAnalytics();
+  const init = calls.find((c) => c.fn === "init");
+  const options = init?.args[2] as { deviceId?: string };
+  assert.match(String(options.deviceId), /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
+  assert.equal(init?.args[1], undefined);
+});
+
 test("WaitListForm does not hand the email to analytics", () => {
   const form = readFileSync(
     new URL("../components/waitlist/WaitListForm.tsx", import.meta.url),
