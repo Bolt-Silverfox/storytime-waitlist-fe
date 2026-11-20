@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import * as Sentry from "@sentry/nextjs";
 import PageTitle from "../components/PageTitle";
 
@@ -11,13 +11,19 @@ export default function ErrorPage({
   error: Error & { digest?: string };
   retry: () => void;
 }) {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, []);
+
   useEffect(() => {
     Sentry.captureException(error);
   }, [error]);
 
   return (
     <div className="flex flex-1 flex-col items-center px-4 pb-24">
-      <PageTitle title="Something went wrong" />
+      <PageTitle title="Something went wrong" headingRef={headingRef} />
       <p role="alert" className="font-abezee mt-4 max-w-md text-center text-[#4A413F]">
         We hit a problem loading this page. Please try again.
       </p>

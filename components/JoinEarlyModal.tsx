@@ -87,7 +87,7 @@ const JoinEarlyModal = ({ onClose }: JoinEarlyModalProps) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-center gap-6 rounded-[24px] bg-white px-4 py-6 md:max-w-[528px] md:rounded-[32px] md:px-6 md:py-10"
+        className="relative flex max-h-[calc(100dvh-2rem)] w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-start gap-6 overflow-y-auto rounded-[24px] bg-white px-4 py-6 md:max-w-[528px] md:rounded-[32px] md:px-6 md:py-10"
       >
         {!isSuccess ? (
           <>
