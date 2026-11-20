@@ -1,5 +1,6 @@
 import type { SanityPrivacyPolicy } from "../../lib/sanity";
 import PageTitle from "../../components/PageTitle";
+import DataCollectionNotice from "./DataCollectionNotice";
 
 type Props = {
   privacyPolicy: SanityPrivacyPolicy[];
@@ -15,6 +16,7 @@ export default function PrivacyPolicyClient({ privacyPolicy }: Props) {
     return (
       <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 pb-12 md:gap-y-14 md:px-10">
         <PageTitle title="Privacy policy" />
+        <DataCollectionNotice />
         <p className="font-abezee text-sm leading-6 text-[#212121]">
           Our privacy policy is not available right now. Please check back in a
           moment or contact us if you need immediate assistance.
@@ -26,6 +28,7 @@ export default function PrivacyPolicyClient({ privacyPolicy }: Props) {
   return (
     <div className="mx-auto flex max-w-[837px] flex-1 flex-col gap-y-7 px-5 md:gap-y-14 md:px-10">
       <PageTitle title="Privacy policy" />
+      <DataCollectionNotice />
       <ul className="flex flex-1 flex-col gap-y-6">
         {privacyPolicy.map((policy) => (
           <li key={policy._id} className="flex flex-col gap-y-2">

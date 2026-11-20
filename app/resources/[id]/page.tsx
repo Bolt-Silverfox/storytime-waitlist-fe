@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { resourcesData } from "../../../data";
+import { resourceMetadata } from "../../../lib/seo.ts";
 import ResourceSignUp from "../../../components/resources/ResourceSignUp";
 
 interface ResourcePageProps {
@@ -26,10 +27,10 @@ export async function generateMetadata({
     };
   }
 
-  return {
-    title: `${resource.title} | Resources | Storytime`,
-    description: resource.description[0]?.substring(0, 160) ?? "",
-  };
+  return resourceMetadata(
+    resource.title,
+    resource.description[0]?.substring(0, 160) ?? "",
+  );
 }
 
 export default async function ResourceDetailPage({

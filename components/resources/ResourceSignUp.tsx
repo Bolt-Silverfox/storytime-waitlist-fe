@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { useState } from "react";
 import { User, Mail } from "lucide-react";
 import { toast } from "sonner";
@@ -122,6 +123,18 @@ const ResourceSignUp: React.FC = () => {
         >
           {isLoading ? "Loading..." : "Get to know us"}
         </button>
+      <p className="font-abezee text-center text-xs text-[#4A413F]">
+        See our{" "}
+        <Link
+          href="/privacy-policy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline"
+        >
+          Privacy Policy
+        </Link>{" "}
+        for how we use your details.
+      </p>
       </form>
     </div>
   );

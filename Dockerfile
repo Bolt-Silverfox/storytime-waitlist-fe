@@ -72,7 +72,7 @@ COPY . .
 #                                default DSN, only override to retarget Sentry.
 #   NEXT_PUBLIC_SENTRY_ENVIRONMENT instrumentation-client.ts:14 -- defaults to
 #                                NODE_ENV ("production" here).
-#   NEXT_PUBLIC_META_PIXEL_ID    components/MetaPixel.tsx:7, lib/meta-pixel.ts:3
+#   NEXT_PUBLIC_META_PIXEL_ID    components/MetaPixel.tsx:7
 #                                -- unset means the pixel simply does not load.
 
 # Declared as ARG with NO matching `ENV FOO=${FOO}` line, deliberately.

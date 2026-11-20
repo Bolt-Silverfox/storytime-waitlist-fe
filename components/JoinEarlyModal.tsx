@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent, type MouseEvent } from "react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
@@ -86,7 +87,7 @@ const JoinEarlyModal = ({ onClose }: JoinEarlyModalProps) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-center gap-6 rounded-[24px] bg-white px-4 py-6 md:max-w-[528px] md:rounded-[32px] md:px-6 md:py-10"
+        className="relative flex max-h-[calc(100dvh-2rem)] w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-start gap-6 overflow-y-auto rounded-[24px] bg-white px-4 py-6 md:max-w-[528px] md:rounded-[32px] md:px-6 md:py-10"
       >
         {!isSuccess ? (
           <>
@@ -145,6 +146,18 @@ const JoinEarlyModal = ({ onClose }: JoinEarlyModalProps) => {
               >
                 {isLoading ? "Loading..." : "Join Early Access"}
               </button>
+            <p className="font-abezee text-center text-xs text-[#4A413F]">
+              See our{" "}
+              <Link
+                href="/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline"
+              >
+                Privacy Policy
+              </Link>{" "}
+              for how we use your details.
+            </p>
             </form>
           </>
         ) : (
